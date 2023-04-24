@@ -8,7 +8,8 @@ export interface ErrorResponse {
 
 let instanceUrl : string|undefined = '';
 let instanceStorageUrl : string|undefined = '';
-const globalUrl = process.env.REACT_APP_API_GLOBAL_URL;
+const globalUrlENV = process.env.REACT_APP_API_GLOBAL_URL;
+let globalUrl = globalUrlENV?.replaceAll('\'', '');
 
 export const Api = {
     // utils
@@ -117,6 +118,8 @@ export const Api = {
     },
 
     async register(data: IRegisterForm) {
+        console.log('globalUrl: ' + globalUrl);
+        
         return axios.post<IRegisterResponse>(
             `${globalUrl}/v2/auth/registration`,
             data

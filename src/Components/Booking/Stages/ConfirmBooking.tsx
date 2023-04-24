@@ -72,7 +72,7 @@ export const ConfirmBooking: React.FC = () => {
           game_id: game.id,
           room_id: room.id,
           guest_quantity: count,
-          time,
+          time: `${date} ${time}`,
         },
         comment: credentials.comment,
         bonus: summary.bonus_discount,
