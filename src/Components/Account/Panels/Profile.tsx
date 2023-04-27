@@ -83,7 +83,9 @@ export const Profile: React.FC = () => {
             return Promise.all([
               history.data,
               ...history.data.map((order) => {
-                order.location = cities.data.find((c) => order.location_id);
+                console.log(order)
+                console.log(cities)
+                order.location = cities.data.find((c) =>c.id == +order.location_id);
                 const ids = JSON.parse(order.games_id) as Array<number>;
                 return Promise.all([
                   ...ids.map((gameId) =>

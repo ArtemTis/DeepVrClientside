@@ -13,6 +13,7 @@
     gap: 10px;
 
     width: 100%;
+    min-height: 45px;
     height: 64px;
 
     font-family: 'Open Sans';
@@ -315,7 +316,7 @@ select:-webkit-autofill:focus {
     transition: ease-in-out opacity 0.2s;
     cursor: pointer;
     top: 0;
-    z-index: 15;
+    z-index: 11;
 }
 
 .horisontal-scroll-btn:hover {
