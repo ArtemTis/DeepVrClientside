@@ -2,12 +2,14 @@ import { PhoneInput } from '../../../Common/FormFields/PhoneField'
 import { PassField } from '../../../Common/FormFields/PassField'
 import { useForm } from 'react-hook-form';
 import { ILoginForm } from '../../../../Utils/types';
+import { NextButton } from '../../../Common/Markup/NextButton';
 
 const LoginTel = () => {
 
     const {
         control,
-        formState: { errors },
+        getValues,
+        formState: { errors, isValid },
     } = useForm<ILoginForm>({
         mode: "onTouched",
     });
@@ -28,6 +30,9 @@ const LoginTel = () => {
                 autocomplete="current-password"
                 unregister
             />
+            <NextButton isActive={isValid}>
+                Войти
+            </NextButton>
         </>
     )
 }

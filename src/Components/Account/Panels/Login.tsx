@@ -196,9 +196,9 @@ export const Login = () => {
 
           <LoadWrapper isLoading={isLoading} height={1} />
         </form>
-        <NextButton onClick={onLoginClick} isActive={isValid}>
+        {/* <NextButton onClick={onLoginClick} isActive={isValid}>
           Войти
-        </NextButton>
+        </NextButton> */}
         <div className="login-description">
           У меня еще нет аккаунта, хочу{" "}
           <Link to={`../${REGISTER_PATH}`} className="login-description-link">зарегистрироваться.</Link>

@@ -2,6 +2,7 @@ import { EmailField } from '../../../Common/FormFields/EmailField';
 import { PassField } from '../../../Common/FormFields/PassField';
 import { useForm } from 'react-hook-form';
 import { ILoginForm } from '../../../../Utils/types';
+import { NextButton } from '../../../Common/Markup/NextButton';
 
 const LoginEmail = () => {
 
@@ -12,8 +13,7 @@ const LoginEmail = () => {
     } = useForm<ILoginForm>({
         mode: "onTouched",
     });
-
-
+    
 
     return (
         <>
@@ -31,6 +31,9 @@ const LoginEmail = () => {
                 autocomplete="current-password"
                 unregister
             />
+            <NextButton isActive={isValid}>
+                Войти
+            </NextButton>
         </>
     )
 }

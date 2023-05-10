@@ -41,7 +41,7 @@ export const FooterMenu: React.FC = () => {
         <FooterMenuButton
           icon={accountIcon}
           text="Аккаунт"
-          linkTo={`${ACCOUNT_PATH}/${LOGIN_PATH}/${SINGIN_TEL_PATH}`}
+          linkTo={`${ACCOUNT_PATH}`}
         />
       </Col>
     </Row>

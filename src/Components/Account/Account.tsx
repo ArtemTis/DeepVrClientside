@@ -3,7 +3,7 @@ import { useAppSelector } from "../../Utils/redux/store";
 import { getIsAuthorised } from "../../Utils/redux/authSlice";
 import { Profile } from "./Panels/Profile";
 
-import { Outlet} from "react-router";
+import { Navigate, Outlet} from "react-router";
 
 import "./AccountStyles.css";
 
@@ -14,10 +14,8 @@ export const Account: React.FC = () => {
     <DefaultLayout>
       {
         isAuthorised
-          ?
-          <Profile />
-          :
-          <Outlet />
+          ? <Profile />
+          : <Outlet/>
       }
     </DefaultLayout>
   )

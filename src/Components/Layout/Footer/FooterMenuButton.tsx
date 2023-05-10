@@ -13,25 +13,13 @@ export const FooterMenuButton: React.FC<FooterMenuButtonProps> = ({
   linkTo,
 }) => {
 
-  const match = useMatch({
-    path: linkTo,
-    end: linkTo.length === 1
-  })
-
-  let location = useLocation();
-  let flagActive: boolean = false;
-  // const checkPath = () => {
-  //   if (location.pathname.includes('account')) !flagActive
-  //   return flagActive;
-  // }
-
   return (
-    <NavLink to={linkTo}>
+    <NavLink to={linkTo} >
       {({ isActive }) => (
         <>
           <img src={icon} alt={text} />
           <div className="footer-menu-text">{text}</div>
-          {(isActive || flagActive) && <div className="footer-menu-selected-link" />}
+          {(isActive ) && <div className="footer-menu-selected-link" />}
         </>
       )}
     </NavLink>

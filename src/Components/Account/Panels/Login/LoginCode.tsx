@@ -5,6 +5,7 @@ import { FormField } from '../../../Common/FormFields/FormField';
 import passIcon from "../../../../Assets/passIcon.svg";
 import { useState } from 'react';
 import { Api } from '../../../../Utils/api';
+import { NextButton } from '../../../Common/Markup/NextButton';
 
 const LoginCode = () => {
 
@@ -21,25 +22,28 @@ const LoginCode = () => {
     const [reqError, setReqError] = useState<string>();
 
 
-    if (codeState === 'send') {
-        Api.loginSendCode({ phone: getValues().phone ?? "" })
-            .then((res) => {
-                if (Api.checkStatus(res)) {
-                    console.log(res);
-                    if (res.data.error) {
-                        setReqError(res.data.error_text);
-                    } else {
-                        setCodeState('auth');
+    const sendCode = () => {
+        if (codeState === 'send') {
+            Api.loginSendCode({ phone: getValues().phone ?? "" })
+                .then((res) => {
+                    if (Api.checkStatus(res)) {
+                        console.log(res);
+                        if (res.data.error) {
+                            setReqError(res.data.error_text);
+                        } else {
+                            setCodeState('auth');
+                        }
                     }
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                if (err.response.status >= 500)
-                    setReqError("Ошибка сервера, попробуйте позже");
-            })
-            .finally(() => setIsLoading(false));
+                })
+                .catch((err) => {
+                    console.log(err);
+                    if (err.response.status >= 500)
+                        setReqError("Ошибка сервера, попробуйте позже");
+                })
+                .finally(() => setIsLoading(false));
+        }
     }
+
 
     return (
         <>
@@ -62,6 +66,9 @@ const LoginCode = () => {
                     placeholder='Код авторизации'
                 />)
             }
+            <NextButton isActive={isValid} onClick={() => sendCode()}>
+                Войти
+            </NextButton>
         </>
     )
 }
