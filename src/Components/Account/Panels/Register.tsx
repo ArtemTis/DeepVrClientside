@@ -16,12 +16,10 @@ import userIcon from "../../../Assets/user-icon-liliac.svg";
 import "../AccountStyles.css";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 import { EmailField } from "../../Common/FormFields/EmailField";
+import { Link, useNavigate } from "react-router-dom";
+import {SINGIN_TEL_PATH, LOGIN_PATH} from "../../../Utils/routeConstants";
 
-interface Props {
-  onLoginClick: () => void;
-}
-
-export const Register: React.FC<Props> = ({ onLoginClick }) => {
+export const Register = () => {
   const {
     control,
     getValues,
@@ -35,6 +33,8 @@ export const Register: React.FC<Props> = ({ onLoginClick }) => {
       email: "",
     },
   });
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -125,9 +125,8 @@ export const Register: React.FC<Props> = ({ onLoginClick }) => {
         </NextButton>
         <div className="login-description">
           У меня уже есть аккаунт.{" "}
-          <span className="login-description-link" onClick={onLoginClick}>
-            Войти.
-          </span>
+          <label  onClick={() => navigate(-1)} className="login-description-link">Войти.</label>
+          
         </div>
         <LoadWrapper isLoading={isLoading} height={1} />
       </ColLg>

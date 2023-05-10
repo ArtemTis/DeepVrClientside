@@ -11,6 +11,8 @@ import {
   ACHIVEMENTS_PATH,
   BOOKING_PATH,
   HOME_PATH,
+  LOGIN_PATH,
+  SINGIN_TEL_PATH,
 } from "../../../Utils/routeConstants";
 
 export const FooterMenu: React.FC = () => {
@@ -39,7 +41,7 @@ export const FooterMenu: React.FC = () => {
         <FooterMenuButton
           icon={accountIcon}
           text="Аккаунт"
-          linkTo={ACCOUNT_PATH}
+          linkTo={`${ACCOUNT_PATH}/${LOGIN_PATH}/${SINGIN_TEL_PATH}`}
         />
       </Col>
     </Row>

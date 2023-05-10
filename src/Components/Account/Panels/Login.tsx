@@ -17,12 +17,11 @@ import { ILoginForm } from "../../../Utils/types";
 import "../AccountStyles.css";
 
 import passIcon from "../../../Assets/passIcon.svg";
+import { Outlet, useLocation } from "react-router";
+import { Link } from "react-router-dom";
+import { REGISTER_PATH } from "../../../Utils/routeConstants";
 
-interface Props {
-  onRegisterClick: () => void;
-}
-
-export const Login: React.FC<Props> = ({ onRegisterClick }) => {
+export const Login = () => {
   const {
     control,
     getValues,
@@ -32,12 +31,17 @@ export const Login: React.FC<Props> = ({ onRegisterClick }) => {
   });
 
   const dispatch = useAppDispatch();
+  
+  //get last route name for change active tab
+  let location = useLocation();
+  let prevPath = location.pathname.split('/').splice(-1)[0];
+  
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [reqError, setReqError] = useState<string>();
-  const [loginVariant, setLoginVariant] = useState<"phone" | "email" | "code">(
-    "phone"
+  const [loginVariant, setLoginVariant] = useState<"tel" | "email" | "code">(
+    "tel"
   );
 
   const onLoginClick = () => {
@@ -89,17 +93,17 @@ export const Login: React.FC<Props> = ({ onRegisterClick }) => {
     }
   };
 
-  const changeVariant = (variant: "phone" | "email" | "code") => {
+  const changeVariant = (variant: "tel" | "email" | "code") => {
     setReqError(undefined);
-    if (loginVariant !== variant) setLoginVariant(variant);
+    if (loginVariant !== variant) setLoginVariant(variant)
   };
 
   const [codeState, setCodeState] = useState<"send" | "auth">("send");
 
   useEffect(() => {
-    changeVariant("phone");
+    changeVariant("tel");
     setCodeState("send");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -112,38 +116,44 @@ export const Login: React.FC<Props> = ({ onRegisterClick }) => {
               Войти с помощью:
             </Col>
             <Col span={8}>
-              <div
-                className={`login-variant${
-                  loginVariant === "phone" ? " login-variant-selected" : ""
-                }`}
-                onClick={() => changeVariant("phone")}
+              <Link
+                to={"tel"}
+                className={`login-variant${prevPath === "tel" ? " login-variant-selected" : ""
+                  }`}
+                onClick={() => changeVariant("tel")}
               >
                 Номер телефона
-              </div>
+              </Link>
             </Col>
             <Col span={8}>
-              <div
-                className={`login-variant${
-                  loginVariant === "email" ? " login-variant-selected" : ""
-                }`}
+              <Link
+                to={"email"}
+                className={`login-variant${prevPath === "email" ? " login-variant-selected" : ""
+                  }`}
                 onClick={() => changeVariant("email")}
               >
                 E-Mail
-              </div>
+              </Link>
             </Col>
             <Col span={8}>
-              <div
-                className={`login-variant${
-                  loginVariant === "code" ? " login-variant-selected" : ""
-                }`}
+              <Link
+                to={"code"}
+                className={`login-variant${prevPath === "code" ? " login-variant-selected" : ""
+                  }`}
                 onClick={() => changeVariant("code")}
               >
                 Код на номер телефона
-              </div>
+              </Link>
             </Col>
           </Row>
+
+
+
           <FormError errorMsg={reqError} />
-          {loginVariant === "email" ? (
+
+
+
+          {/* {loginVariant === "email" ? (
             <EmailField
               control={control}
               error={errors.email}
@@ -180,7 +190,10 @@ export const Login: React.FC<Props> = ({ onRegisterClick }) => {
               error={errors.code}
               placeholder='Код авторизации'
             />
-          )}
+          )} */}
+
+          <Outlet />
+
           <LoadWrapper isLoading={isLoading} height={1} />
         </form>
         <NextButton onClick={onLoginClick} isActive={isValid}>
@@ -188,9 +201,7 @@ export const Login: React.FC<Props> = ({ onRegisterClick }) => {
         </NextButton>
         <div className="login-description">
           У меня еще нет аккаунта, хочу{" "}
-          <span className="login-description-link" onClick={onRegisterClick}>
-            зарегистрироваться.
-          </span>
+          <Link to={`../${REGISTER_PATH}`} className="login-description-link">зарегистрироваться.</Link>
         </div>
       </ColLg>
     </Row>

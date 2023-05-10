@@ -13,9 +13,10 @@ const LoginEmail = () => {
         mode: "onTouched",
     });
 
-    
+
+
     return (
-        <div>
+        <>
             <EmailField
                 control={control}
                 error={errors.email}
@@ -30,7 +31,7 @@ const LoginEmail = () => {
                 autocomplete="current-password"
                 unregister
             />
-        </div>
+        </>
     )
 }
 

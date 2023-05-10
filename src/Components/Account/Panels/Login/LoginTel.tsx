@@ -13,7 +13,7 @@ const LoginTel = () => {
     });
 
     return (
-        <div>
+        <>
             <PhoneInput
                 control={control}
                 error={errors.phone}
@@ -28,7 +28,7 @@ const LoginTel = () => {
                 autocomplete="current-password"
                 unregister
             />
-        </div>
+        </>
     )
 }
 

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useMatch } from "react-router-dom";
 import "../../../App.css";
 
 interface FooterMenuButtonProps {
@@ -12,13 +12,26 @@ export const FooterMenuButton: React.FC<FooterMenuButtonProps> = ({
   text,
   linkTo,
 }) => {
+
+  const match = useMatch({
+    path: linkTo,
+    end: linkTo.length === 1
+  })
+
+  let location = useLocation();
+  let flagActive: boolean = false;
+  // const checkPath = () => {
+  //   if (location.pathname.includes('account')) !flagActive
+  //   return flagActive;
+  // }
+
   return (
     <NavLink to={linkTo}>
       {({ isActive }) => (
         <>
           <img src={icon} alt={text} />
           <div className="footer-menu-text">{text}</div>
-          {isActive && <div className="footer-menu-selected-link" />}
+          {(isActive || flagActive) && <div className="footer-menu-selected-link" />}
         </>
       )}
     </NavLink>
