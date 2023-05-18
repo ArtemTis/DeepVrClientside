@@ -17,7 +17,7 @@ import { BackButton } from "../Components/BackButton";
 import { NextButton } from "../../Common/Markup/NextButton";
 import { IBookingCredentials, ISummaryResponse } from "../../../Utils/types";
 import { Api } from "../../../Utils/api";
-import { getToken, getUser } from "../../../Utils/redux/authSlice";
+import { selectToken, selectUser } from "../../../Utils/redux/auth/selectors";
 import { LoadIcon } from "../../Common/Markup/LoadIcon";
 import { FormError } from "../../Common/FormFields/FormError";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
@@ -33,8 +33,8 @@ import { curencyFormat } from "../../../Utils/format";
 export const ConfirmBooking: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const token = useAppSelector(getToken);
-  const user = useAppSelector(getUser);
+  const token = useAppSelector(selectToken);
+  const user = useAppSelector(selectUser);
   const room = useAppSelector(getRoom);
   const game = useAppSelector(getGame);
   const count = useAppSelector(getPlayersCount);

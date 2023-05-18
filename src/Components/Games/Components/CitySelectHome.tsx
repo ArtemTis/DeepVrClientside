@@ -2,10 +2,10 @@ import { Row } from "antd";
 import { useState } from "react";
 import { Api } from "../../../Utils/api";
 import {
-  getSelectedCity,
-  getToken,
-  setSelectedCity,
-} from "../../../Utils/redux/authSlice";
+  selectSelectedCity,
+  selectToken
+} from "../../../Utils/redux/auth/selectors";
+import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { ICity } from "../../../Utils/types";
 import { ColLg } from "../../Common/Markup/ColLg";
@@ -15,12 +15,12 @@ import { SelectCityList } from "../../Common/Markup/SelectCityList";
 import "../GamesStyles.css";
 
 export const CitySelectHome: React.FC = () => {
-  const selectedCityProfile = useAppSelector(getSelectedCity) as ICity;
+  const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;
   const [selected, setSelected] = useState<ICity | undefined>(
     selectedCityProfile
   );
   const dispatch = useAppDispatch();
-  const token = useAppSelector(getToken);
+  const token = useAppSelector(selectToken);
 
   const onSelect = (city: ICity | undefined) => {
     setSelected(city);

@@ -12,17 +12,15 @@ import {
   increaseStep,
   setCity,
 } from "../../../Utils/redux/bookingSlice";
-import {
-  getSelectedCity,
-  setSelectedCity,
-} from "../../../Utils/redux/authSlice";
+import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
+import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
 import "../BookingStyles.css";
 
 export const CitySelect: React.FC = () => {
   const [cities, setCities] = useState<Array<ICity>>();
-  const selectedCityProfile = useAppSelector(getSelectedCity) as ICity;
+  const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;
   const selectedCity =
     (useAppSelector(getCity) as ICity) ?? selectedCityProfile;
   const [selected, setSelected] = useState<ICity>();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Api } from "../../../Utils/api";
-import { setSelectedCity } from "../../../Utils/redux/authSlice";
+import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 import { useAppDispatch } from "../../../Utils/redux/store";
 import { ICity } from "../../../Utils/types";
 import { LoadWrapper } from "./LoadWrapper";

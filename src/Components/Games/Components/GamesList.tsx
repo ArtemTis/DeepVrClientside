@@ -4,10 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { IGame } from "../../../Utils/types";
 import { Api } from "../../../Utils/api";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
-import {
-  getSelectedCity,
-  setSelectedCity,
-} from "../../../Utils/redux/authSlice";
+import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
+import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 import { GameCard } from "../../Common/Markup/GameCard";
 import { GameModal } from "./GameModal";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
@@ -21,7 +19,7 @@ import arrowRight from "../../../Assets/arrow-right.svg";
 export const GamesList: React.FC = () => {
   const [games, setGames] = useState<Array<IGame>>();
   const [gamesFiltered, setGamesFiltered] = useState<Array<IGame>>();
-  const city = useAppSelector(getSelectedCity);
+  const city = useAppSelector(selectSelectedCity);
   const [modalState, setModalState] = useState<IGame | undefined>();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 

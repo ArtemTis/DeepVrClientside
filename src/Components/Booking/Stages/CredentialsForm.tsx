@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import { PromoModal } from "../Components/PromoModal";
 import { useForm } from "react-hook-form";
-import { getIsAuthorised, getUser } from "../../../Utils/redux/authSlice";
+import { selectIsAuthorised, selectUser } from "../../../Utils/redux/auth/selectors";
 import { NavLink } from "react-router-dom";
 import { ACCOUNT_PATH } from "../../../Utils/routeConstants";
 import { ColLg } from "../../Common/Markup/ColLg";
@@ -33,8 +33,8 @@ export const CredentialsForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
 
-  const isAuthorised = useAppSelector(getIsAuthorised);
-  const user = useAppSelector(getUser);
+  const isAuthorised = useAppSelector(selectIsAuthorised);
+  const user = useAppSelector(selectUser);
 
   const credentials = useAppSelector(getCredentials);
 

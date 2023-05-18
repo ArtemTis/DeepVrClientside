@@ -3,6 +3,8 @@ import { PassField } from '../../../Common/FormFields/PassField';
 import { useForm } from 'react-hook-form';
 import { ILoginForm } from '../../../../Utils/types';
 import { NextButton } from '../../../Common/Markup/NextButton';
+import { singIn } from '../../../../Utils/redux/auth/asyncActions';
+import { useAppDispatch } from '../../../../Utils/redux/store';
 
 const LoginEmail = () => {
 
@@ -13,7 +15,8 @@ const LoginEmail = () => {
     } = useForm<ILoginForm>({
         mode: "onTouched",
     });
-    
+
+    const dispatch = useAppDispatch();
 
     return (
         <>
@@ -31,7 +34,7 @@ const LoginEmail = () => {
                 autocomplete="current-password"
                 unregister
             />
-            <NextButton isActive={isValid}>
+            <NextButton isActive={isValid} onClick={() => dispatch(singIn(getValues()))}>
                 Войти
             </NextButton>
         </>

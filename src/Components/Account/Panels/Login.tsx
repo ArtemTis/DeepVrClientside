@@ -2,8 +2,7 @@ import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Api } from "../../../Utils/api";
-import { setToken, setUser } from "../../../Utils/redux/authSlice";
-import { useAppDispatch } from "../../../Utils/redux/store";
+import { RootState, useAppDispatch } from "../../../Utils/redux/store";
 import { ColLg } from "../../Common/Markup/ColLg";
 import { FormError } from "../../Common/FormFields/FormError";
 import { NextButton } from "../../Common/Markup/NextButton";
@@ -20,6 +19,7 @@ import passIcon from "../../../Assets/passIcon.svg";
 import { Outlet, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { REGISTER_PATH } from "../../../Utils/routeConstants";
+import { useSelector } from "react-redux";
 
 export const Login = () => {
   const {
@@ -31,6 +31,7 @@ export const Login = () => {
   });
 
   const dispatch = useAppDispatch();
+  const textError = useSelector((state: RootState) => state.authReducer.textError)
   
   //get last route name for change active tab
   let location = useLocation();
@@ -44,54 +45,54 @@ export const Login = () => {
     "tel"
   );
 
-  const onLoginClick = () => {
-    setReqError("");
-    setIsLoading(true);
-    if (loginVariant !== "code" || codeState === 'auth') {
-      Api.login(getValues())
-        .then((res) => {
-          console.log(res);
-          if (Api.checkStatus(res)) {
-            if (!!res.data && !res.data.error) {
-              dispatch(setToken(res.data.token));
-              dispatch(setUser(res.data.user));
-            } else {
-              setReqError(
-                (res.data.error_text as string) ?? "Ошибка авторизации"
-              );
-            }
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          if (!!err.data?.error) {
-            setReqError(err.data.error_text);
-          } else if (err.response.status >= 500)
-            setReqError("Ошибка сервера, попробуйте позже");
-        })
-        .finally(() => setIsLoading(false));
-    } else {
-      if (codeState === 'send') {
-        Api.loginSendCode({ phone: getValues().phone ?? "" })
-          .then((res) => {
-            if (Api.checkStatus(res)) {
-              console.log(res);
-              if (res.data.error) {
-                setReqError(res.data.error_text);
-              } else {
-                setCodeState('auth');
-              }
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            if (err.response.status >= 500)
-              setReqError("Ошибка сервера, попробуйте позже");
-          })
-          .finally(() => setIsLoading(false));
-      }
-    }
-  };
+  // const onLoginClick = () => {
+  //   setReqError("");
+  //   setIsLoading(true);
+  //   if (loginVariant !== "code" || codeState === 'auth') {
+  //     Api.login(getValues())
+  //       .then((res) => {
+  //         console.log(res);
+  //         if (Api.checkStatus(res)) {
+  //           if (!!res.data && !res.data.error) {
+  //             dispatch(setToken(res.data.token));
+  //             dispatch(setUser(res.data.user));
+  //           } else {
+  //             setReqError(
+  //               (res.data.error_text as string) ?? "Ошибка авторизации"
+  //             );
+  //           }
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         if (!!err.data?.error) {
+  //           setReqError(err.data.error_text);
+  //         } else if (err.response.status >= 500)
+  //           setReqError("Ошибка сервера, попробуйте позже");
+  //       })
+  //       .finally(() => setIsLoading(false));
+  //   } else {
+  //     if (codeState === 'send') {
+  //       Api.loginSendCode({ phone: getValues().phone ?? "" })
+  //         .then((res) => {
+  //           if (Api.checkStatus(res)) {
+  //             console.log(res);
+  //             if (res.data.error) {
+  //               setReqError(res.data.error_text);
+  //             } else {
+  //               setCodeState('auth');
+  //             }
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           if (err.response.status >= 500)
+  //             setReqError("Ошибка сервера, попробуйте позже");
+  //         })
+  //         .finally(() => setIsLoading(false));
+  //     }
+  //   }
+  // };
 
   const changeVariant = (variant: "tel" | "email" | "code") => {
     setReqError(undefined);
@@ -149,7 +150,7 @@ export const Login = () => {
 
 
 
-          <FormError errorMsg={reqError} />
+          <FormError errorMsg={textError} />
 
 
 

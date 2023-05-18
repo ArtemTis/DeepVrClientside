@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router";
-import { getIsAuthorised } from "../redux/authSlice";
+import { selectIsAuthorised } from "../redux/auth/selectors";
 import { useAppSelector } from "../redux/store";
 import { LOGIN_PATH } from "../routeConstants";
 
@@ -9,7 +9,7 @@ interface AuthGuardProps {
 }
 
 export const AuthGuard: React.FC<AuthGuardProps> = ({element}) => {
-    const isAuthorised = useAppSelector(getIsAuthorised);
+    const isAuthorised = useAppSelector(selectIsAuthorised);
 
     return isAuthorised ? element : <Navigate to={LOGIN_PATH} replace/>
 

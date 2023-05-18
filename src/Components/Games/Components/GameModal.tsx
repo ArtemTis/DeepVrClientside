@@ -16,7 +16,7 @@ import {
   setRoom,
   setStep,
 } from "../../../Utils/redux/bookingSlice";
-import { getSelectedCity } from "../../../Utils/redux/authSlice";
+import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
 import { BOOKING_PATH } from "../../../Utils/routeConstants";
@@ -35,7 +35,7 @@ interface Props {
 
 export const GameModal: React.FC<Props> = ({ game, isOpen, onClose }) => {
   const dispatch = useAppDispatch();
-  const city = useAppSelector(getSelectedCity);
+  const city = useAppSelector(selectSelectedCity);
   const [useRedirect, setUseRedirect] = useState(false);
 
   const bookGame = () => {

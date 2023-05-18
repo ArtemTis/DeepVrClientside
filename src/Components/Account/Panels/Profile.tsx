@@ -4,13 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import {
-  getSelectedCity,
-  getToken,
-  getUser,
+  selectSelectedCity,
+  selectToken,
+  selectUser
+} from "../../../Utils/redux/auth/selectors";
+import {
   setSelectedCity,
   setToken,
   setUser,
-} from "../../../Utils/redux/authSlice";
+} from '../../../Utils/redux/auth/slice'
 import { Api } from "../../../Utils/api";
 import { BonusCard } from "../Compontents/BonusCrad";
 import { HorizontalScrollArea } from "../../Common/Markup/HorizontalScrollArea";
@@ -42,10 +44,10 @@ export const Profile: React.FC = () => {
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [isLoadingCity, setIsLoadingCity] = useState(false);
 
-  const citySelected = useAppSelector(getSelectedCity);
+  const citySelected = useAppSelector(selectSelectedCity);
 
-  const token = useAppSelector(getToken);
-  const user = useAppSelector(getUser);
+  const token = useAppSelector(selectToken);
+  const user = useAppSelector(selectUser);
 
   const dispatch = useAppDispatch();
 
@@ -85,7 +87,7 @@ export const Profile: React.FC = () => {
               ...history.data.map((order) => {
                 console.log(order)
                 console.log(cities)
-                order.location = cities.data.find((c) =>c.id == +order.location_id);
+                order.location = cities.data.find((c) => c.id == +order.location_id);
                 const ids = JSON.parse(order.games_id) as Array<number>;
                 return Promise.all([
                   ...ids.map((gameId) =>
