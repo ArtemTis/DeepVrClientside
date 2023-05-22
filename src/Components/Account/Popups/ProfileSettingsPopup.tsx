@@ -1,6 +1,7 @@
 import { PopupLayout } from "./PopupLayout";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
-import { getToken, getUser, setUser } from "../../../Utils/redux/authSlice";
+import { selectToken, selectUser } from "../../../Utils/redux/auth/selectors";
+import { setUser } from "../../../Utils/redux/auth/slice";
 import { useForm } from "react-hook-form";
 import { FormField } from "../../Common/FormFields/FormField";
 import { IChangePassForm, IEditProfileForm } from "../../../Utils/types";
@@ -22,7 +23,7 @@ interface Props {
 }
 
 export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
-  const user = useAppSelector(getUser);
+  const user = useAppSelector(selectUser);
   const {
     control: controlEdit,
     getValues: getValuesEdit,
@@ -44,7 +45,7 @@ export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
     mode: "onTouched",
   });
 
-  const token = useAppSelector(getToken);
+  const token = useAppSelector(selectToken);
   const dispatch = useAppDispatch();
 
   const values = getValuesEdit();

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ICity } from "../../../Utils/types";
 import { NextButton } from "../../Common/Markup/NextButton";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
-import { getToken, setSelectedCity } from "../../../Utils/redux/authSlice";
+import { selectToken } from "../../../Utils/redux/auth/selectors";
+import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 
 import "../AccountStyles.css";
 import { Api } from "../../../Utils/api";
@@ -21,7 +22,7 @@ export const CitySelectPopup: React.FC<Props> = ({
   const [selected, setSelected] = useState<ICity | undefined>(preselected);
   const dispatch = useAppDispatch();
 
-  const token = useAppSelector(getToken);
+  const token = useAppSelector(selectToken);
 
   const onSubmit = () => {
     if (!!selected) {

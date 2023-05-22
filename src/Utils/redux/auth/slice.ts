@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { ICity, IUser } from "../../types";
-import { singIn } from "./asyncActions";
+import { singIn, singInCode } from "./asyncActions";
 
 interface AuthState {
     token: string;
@@ -8,11 +8,13 @@ interface AuthState {
     selectedCity?: ICity;
     textError?: string;
     reqStatus: string;
+    codeStatus: 'send' | 'auth';
 }
 
 const initialState: AuthState = {
     token: '',
-    reqStatus: ''
+    reqStatus: '',
+    codeStatus: 'send'
 };
 
 const bookingSlice = createSlice({
@@ -36,19 +38,24 @@ const bookingSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        builder.addCase(singInCode.pending, (state, action) => {
+            state.codeStatus = 'auth';
+        })
+        builder.addCase(singIn.fulfilled, (state, action) => {
+            state.user = action.payload.user;
+        })
         builder.addMatcher(
-            isAnyOf(singIn.pending ),
+            isAnyOf(singIn.pending, singInCode.pending),
             (state, action) => {
                 state.reqStatus = 'loading';
                 state.textError = '';
             }
         )
         builder.addMatcher(
-            (action) => action.type.endsWith('/fulfilled'),
+            isAnyOf(singIn.fulfilled, singInCode.fulfilled),
             (state, action) => {
                 state.reqStatus = 'resolve';
                 state.token = action.payload.token;
-                state.user = action.payload.user;
             }
         )
         builder.addMatcher(

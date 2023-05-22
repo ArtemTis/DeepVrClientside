@@ -3,8 +3,6 @@ import { PassField } from '../../../Common/FormFields/PassField'
 import { useForm } from 'react-hook-form';
 import { ILoginForm } from '../../../../Utils/types';
 import { NextButton } from '../../../Common/Markup/NextButton';
-import { useState } from 'react';
-import { Api } from '../../../../Utils/api';
 import { useAppDispatch } from '../../../../Utils/redux/store';
 import { singIn } from '../../../../Utils/redux/auth/asyncActions';
 

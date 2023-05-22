@@ -31,3 +31,8 @@ export const selectTextErrors = createDraftSafeSelector(
     [(state: RootState) => state.authReducer.textError],
     (textError) => textError
 )
+
+export const selectCodeStatus = createDraftSafeSelector(
+    [(state: RootState) => state.authReducer.codeStatus],
+    (codeStatus) => codeStatus
+)

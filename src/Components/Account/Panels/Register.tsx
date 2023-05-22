@@ -2,7 +2,7 @@ import { Row } from "antd";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Api } from "../../../Utils/api";
-import { setToken, setUser } from "../../../Utils/redux/authSlice";
+import { setToken, setUser } from "../../../Utils/redux/auth/slice";
 import { useAppDispatch } from "../../../Utils/redux/store";
 import { ColLg } from "../../Common/Markup/ColLg";
 import { FormError } from "../../Common/FormFields/FormError";
