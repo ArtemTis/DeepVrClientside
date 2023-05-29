@@ -30,80 +30,24 @@ export const Login = () => {
     mode: "onTouched",
   });
 
-  const dispatch = useAppDispatch();
-  const textError = useSelector((state: RootState) => state.authReducer.textError)
+  const textError = useSelector((state: RootState) => state.authReducer.textError);
+  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === 'loading');
   
   //get last route name for change active tab
   let location = useLocation();
   let prevPath = location.pathname.split('/').splice(-1)[0];
-  
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [reqError, setReqError] = useState<string>();
   const [loginVariant, setLoginVariant] = useState<"tel" | "email" | "code">(
     "tel"
   );
 
-  // const onLoginClick = () => {
-  //   setReqError("");
-  //   setIsLoading(true);
-  //   if (loginVariant !== "code" || codeState === 'auth') {
-  //     Api.login(getValues())
-  //       .then((res) => {
-  //         console.log(res);
-  //         if (Api.checkStatus(res)) {
-  //           if (!!res.data && !res.data.error) {
-  //             dispatch(setToken(res.data.token));
-  //             dispatch(setUser(res.data.user));
-  //           } else {
-  //             setReqError(
-  //               (res.data.error_text as string) ?? "Ошибка авторизации"
-  //             );
-  //           }
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         if (!!err.data?.error) {
-  //           setReqError(err.data.error_text);
-  //         } else if (err.response.status >= 500)
-  //           setReqError("Ошибка сервера, попробуйте позже");
-  //       })
-  //       .finally(() => setIsLoading(false));
-  //   } else {
-  //     if (codeState === 'send') {
-  //       Api.loginSendCode({ phone: getValues().phone ?? "" })
-  //         .then((res) => {
-  //           if (Api.checkStatus(res)) {
-  //             console.log(res);
-  //             if (res.data.error) {
-  //               setReqError(res.data.error_text);
-  //             } else {
-  //               setCodeState('auth');
-  //             }
-  //           }
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           if (err.response.status >= 500)
-  //             setReqError("Ошибка сервера, попробуйте позже");
-  //         })
-  //         .finally(() => setIsLoading(false));
-  //     }
-  //   }
-  // };
-
   const changeVariant = (variant: "tel" | "email" | "code") => {
-    setReqError(undefined);
     if (loginVariant !== variant) setLoginVariant(variant)
   };
 
-  const [codeState, setCodeState] = useState<"send" | "auth">("send");
 
   useEffect(() => {
     changeVariant("tel");
-    setCodeState("send");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -149,57 +93,13 @@ export const Login = () => {
           </Row>
 
 
-
           <FormError errorMsg={textError} />
 
-
-
-          {/* {loginVariant === "email" ? (
-            <EmailField
-              control={control}
-              error={errors.email}
-              autocomplete="email"
-              required
-              unregister
-            />
-          ) : (
-            <PhoneInput
-              control={control}
-              error={errors.phone}
-              autocomplete="username"
-              unregister
-              required
-            />
-          )}
-          {loginVariant !== "code" && (
-            <PassField
-              control={control}
-              name="password"
-              error={errors.password}
-              autocomplete="current-password"
-              unregister
-            />
-          )}
-          {loginVariant === "code" && codeState === "auth" && (
-            <FormField
-              type="text"
-              name="code"
-              control={control}
-              icon={passIcon}
-              required="Введите код авторизации"
-              unregister
-              error={errors.code}
-              placeholder='Код авторизации'
-            />
-          )} */}
 
           <Outlet />
 
           <LoadWrapper isLoading={isLoading} height={1} />
         </form>
-        {/* <NextButton onClick={onLoginClick} isActive={isValid}>
-          Войти
-        </NextButton> */}
         <div className="login-description">
           У меня еще нет аккаунта, хочу{" "}
           <Link to={`../${REGISTER_PATH}`} className="login-description-link">зарегистрироваться.</Link>

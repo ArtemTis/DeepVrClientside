@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { ICity, IUser } from "../../types";
-import { singIn, singInCode } from "./asyncActions";
+import { register, singIn, singInCode } from "./asyncActions";
 
 interface AuthState {
     token: string;
@@ -44,15 +44,18 @@ const bookingSlice = createSlice({
         builder.addCase(singIn.fulfilled, (state, action) => {
             state.user = action.payload.user;
         })
+        builder.addCase(register.fulfilled, (state, action) => {
+            state.user = action.payload.user;
+        })
         builder.addMatcher(
-            isAnyOf(singIn.pending, singInCode.pending),
+            isAnyOf(singIn.pending, singInCode.pending, register.pending),
             (state, action) => {
                 state.reqStatus = 'loading';
                 state.textError = '';
             }
         )
         builder.addMatcher(
-            isAnyOf(singIn.fulfilled, singInCode.fulfilled),
+            isAnyOf(singIn.fulfilled, singInCode.fulfilled, register.fulfilled),
             (state, action) => {
                 state.reqStatus = 'resolve';
                 state.token = action.payload.token;

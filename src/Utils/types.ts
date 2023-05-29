@@ -182,6 +182,7 @@ export interface IRegisterResponse {
   error: number,
   error_text: string,
   token: string,
+  user: IUser
 };
 
 export interface ILoginByCodeResponse {

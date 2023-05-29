@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ILoginForm } from "../../types";
+import { ILoginForm, IRegisterForm } from "../../types";
 import { RootState } from "../store";
 import { selectToken } from "./selectors";
 import { Api } from "../../api";
@@ -12,7 +12,7 @@ export const singIn = createAsyncThunk(
         const token = selectToken(state);
         try {
             const res = await Api.login(getValues);
-            
+
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -37,4 +37,20 @@ export const singInCode = createAsyncThunk(
             return rejectWithValue('Неизвестная ошибка');
         }
     }
+)
+
+export const register = createAsyncThunk(
+    'authSlice/register',
+   async function(getValues: IRegisterForm, { rejectWithValue }){
+    try {
+        const res = await Api.register(getValues);
+
+        return res.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return rejectWithValue(error.response?.data.error_text ?? "Ошибка регистрации");
+        }
+        return rejectWithValue('Неизвестная ошибка');
+    }
+   }
 )

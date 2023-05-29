@@ -1,9 +1,6 @@
 import { Row } from "antd";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Api } from "../../../Utils/api";
-import { setToken, setUser } from "../../../Utils/redux/auth/slice";
-import { useAppDispatch } from "../../../Utils/redux/store";
+import { RootState, useAppDispatch } from "../../../Utils/redux/store";
 import { ColLg } from "../../Common/Markup/ColLg";
 import { FormError } from "../../Common/FormFields/FormError";
 import { FormField } from "../../Common/FormFields/FormField";
@@ -17,7 +14,8 @@ import "../AccountStyles.css";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 import { EmailField } from "../../Common/FormFields/EmailField";
 import { Link, useNavigate } from "react-router-dom";
-import {SINGIN_TEL_PATH, LOGIN_PATH} from "../../../Utils/routeConstants";
+import { register } from "../../../Utils/redux/auth/asyncActions";
+import { useSelector } from "react-redux";
 
 export const Register = () => {
   const {
@@ -37,48 +35,15 @@ export const Register = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+  const textError = useSelector((state: RootState) => state.authReducer.textError);
+  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === 'loading')
 
-  const [reqError, setReqError] = useState<string>();
-
-  const [error, setError] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const onRegisterClick = () => {
-    setReqError("");
-    console.log("register, fields:", getValues());
-
-    setIsLoading(true);
-    Api.register(getValues())
-      .then((res) => {
-        console.log(res);
-        if (Api.checkStatus(res)) {
-          if (!res.data.error) {
-            // dispatch
-            dispatch(setToken(res.data.token));
-            Api.getUserByToken({ token: res.data.token })
-            .then(res => {
-              if (Api.checkStatus(res)) {
-                dispatch(setUser(res.data));
-              }
-            });
-          } else {
-            setError(res.data.error_text);
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Ошибка сервера, попробуйте позже");
-      })
-      .finally(() => setIsLoading(false));
-  };
 
   return (
     <Row justify="center">
       <ColLg className="login-container">
         <div className="login-title">Регистрация</div>
         <form className="login-form">
-          <FormError errorMsg={reqError} />
           <FormField
             control={control}
             icon={userIcon}
@@ -119,8 +84,8 @@ export const Register = () => {
             autocomplete="new-password"
           />
         </form>
-        <FormError errorMsg={error} />
-        <NextButton onClick={onRegisterClick} isActive={isValid}>
+        <FormError errorMsg={textError} />
+        <NextButton onClick={()=>dispatch(register(getValues()))} isActive={isValid}>
           Зарегистрироваться
         </NextButton>
         <div className="login-description">

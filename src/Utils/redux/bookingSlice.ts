@@ -129,3 +129,6 @@ export const {
   setIsFinished
 } = bookingSlice.actions;
 export default bookingSlice.reducer;
+
+
+//https://codesandbox.io/s/multi-step-form-with-router-and-validation-ff17k?file=/src/App.js
