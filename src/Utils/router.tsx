@@ -7,7 +7,16 @@ import { Games } from "../Components/Games/Games";
 import {
   ACCOUNT_PATH,
   ACHIVEMENTS_PATH,
+  BOOKING_CITY_PATH,
+  BOOKING_CONFIRM_PATH,
+  BOOKING_CREDITIALS_PATH,
+  BOOKING_DATE_PATH,
+  BOOKING_DONE_PATH,
+  BOOKING_GAME_PATH,
   BOOKING_PATH,
+  BOOKING_PLAYERS_PATH,
+  BOOKING_TIME_PATH,
+  BOOKING_TYPEGAME_PATH,
   HOME_PATH,
   LOGIN_PATH,
   PROFILE_PATH,
@@ -23,12 +32,32 @@ import LoginTel from "../Components/Account/Panels/Login/LoginTel";
 import { Login } from "../Components/Account/Panels/Login";
 import { Profile } from "../Components/Account/Panels/Profile";
 import { AuthGuard } from "./guards/AuthGuard";
+import { CitySelect } from "../Components/Booking/Stages/CitySelect.";
+import { GameSelect } from "../Components/Booking/Stages/GameSelect";
+import { PlayersCountSelect } from "../Components/Booking/Stages/PlayersCountSelect";
+import { DateSelect } from "../Components/Booking/Stages/DateSelect";
+import { TimeSelect } from "../Components/Booking/Stages/TimeSelect";
+import { CredentialsForm } from "../Components/Booking/Stages/CredentialsForm";
+import { ConfirmBooking } from "../Components/Booking/Stages/ConfirmBooking";
+import { Done } from "../Components/Booking/Stages/Done";
+import TypeGameSelect from "../Components/Booking/Stages/TypeGameSelect";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path={HOME_PATH} element={<Games />} />
-      <Route path={BOOKING_PATH} element={<Booking />} />
+      <Route path={BOOKING_PATH} element={<Booking />} >
+        {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
+        <Route path={BOOKING_CITY_PATH} element={<CitySelect />} />
+        <Route path={BOOKING_TYPEGAME_PATH} element={<TypeGameSelect/> } />
+        <Route path={BOOKING_GAME_PATH} element={<GameSelect />} />
+        <Route path={BOOKING_PLAYERS_PATH} element={<PlayersCountSelect />} />
+        <Route path={BOOKING_DATE_PATH} element={<DateSelect />} />
+        <Route path={BOOKING_TIME_PATH} element={<TimeSelect />} />
+        <Route path={BOOKING_CREDITIALS_PATH} element={<CredentialsForm />} />
+        <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
+        <Route path={BOOKING_DONE_PATH} element={<Done />} />
+      </Route>
       <Route path={ACHIVEMENTS_PATH} element={<Achievements />} />
       <Route path={ACCOUNT_PATH} element={<Account />}>
         <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} />

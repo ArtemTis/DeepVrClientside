@@ -18,6 +18,7 @@ import { TimeSelect } from "./Stages/TimeSelect";
 
 import "./BookingStyles.css";
 import { useEffect } from "react";
+import { Outlet } from "react-router";
 
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(getCurrentStep);
@@ -61,7 +62,10 @@ export const Booking: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="booking-wrapper">
-        <CurrentPanel />
+        {/* <CurrentPanel /> */}
+
+        <Outlet/>
+
       </div>
     </DefaultLayout>
   );

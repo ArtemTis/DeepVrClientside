@@ -20,7 +20,9 @@ export const Api = {
     },
     async getAllCities() {
         return axios.get<Array<ICity>>(
-            `${globalUrl}/v2/instances/list`
+            `${globalUrl}/v2/instances/list`, {
+                timeout: 8000
+            }
         );
     },
 
@@ -42,61 +44,95 @@ export const Api = {
     async getUserByToken(data: ITokenDTO) {
         return axios.post<IUser>(
             `${globalUrl}/v2/auth/loginByRememberedToken`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
 
     async getGameInfo(instancePrefix: string, id: number) {
         const url = globalUrl?.replace('https://', '');
         return axios.get<IGame>(
-            `https://${instancePrefix}${instancePrefix? '.' : ''}${url}/game/${id}`
+            `https://${instancePrefix}${instancePrefix? '.' : ''}${url}/game/${id}`, {
+                timeout: 8000
+            }
         );
     },
 
     // home
     async getAllGames() {
         return axios.get<Array<IGame>>(
-            `${instanceUrl}/games`
+            `${instanceUrl}/games`, {
+                timeout: 8000
+            }
+        );
+    },
+
+    async getGamesTypes() {
+        return axios.get<Array<IGame>>(
+            `${instanceUrl}/games/types`, {
+                timeout: 8000
+            }
         );
     },
     
     // booking
     async getAllRooms() {
         return axios.get<Array<IRoom>>(
-            `${instanceUrl}/rooms`
+            `${instanceUrl}/rooms`, {
+                timeout: 8000
+            }
         );
     },
 
     async getGamesOfRoom(roomId: number) {
         return axios.get<IGetGamesResponse>(
-            `${instanceUrl}/room/${roomId}`
+            `${instanceUrl}/room/${roomId}`, {
+                timeout: 8000
+            }
         );
     },
 
     async getTimesOfDay(date: Date) {
         return axios.get<IGetWorktimeResponse>(
-            `${instanceUrl}/v2/worktime?date=${date.toISOString().substring(0, 10)}`
+            `${instanceUrl}/v2/worktime?date=${date.toISOString().substring(0, 10)}`, {
+                timeout: 8000
+            }
         );
     },
     
     async getSummary(data : IGetSummaryRequestData){
         return axios.post<ISummaryResponse>(
             `${instanceUrl}/v2/orders/precalculate`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
 
     async validatePromo(data: IValidatePromoRequestData) {
         return axios.post<IValidatePromo>(
             `${instanceUrl}/v2/promo/accept-discount`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
 
     async createBooing(data: IBookingFields) {
         return axios.post(
             `${instanceUrl}/v2/booking/user`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
     // end booking
@@ -105,14 +141,22 @@ export const Api = {
     async login(data: ILoginForm) {
         return axios.post<ILoginResponse>(
             `${globalUrl}/v2/auth/login`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
 
     async loginSendCode(data: {phone : string}) {
         return axios.post<ILoginByCodeResponse>(
             `${globalUrl}/v2/auth/send-auth-code`,
-            data,
+            data,{
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
 
@@ -121,7 +165,11 @@ export const Api = {
         
         return axios.post<IRegisterResponse>(
             `${globalUrl}/v2/auth/registration`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
 
@@ -146,7 +194,11 @@ export const Api = {
     async logout(data: ITokenDTO) {
         return axios.post<any>(
             `${globalUrl}/v2/auth/logout`, 
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     },
 
@@ -164,21 +216,33 @@ export const Api = {
     async setUserCity(data : {token: string, city: string}) {
         return axios.post<any>(
             `${globalUrl}/v2/profile/set-city`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         )
     },
 
     async editProfile(data: IEditProfileReq) {
         return axios.post<IUser>(
             `${globalUrl}/v2/profile/edit-info`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         )
     },
 
     async changePass(data: IChangePassForm) {
         return axios.post<any>(
             `${globalUrl}/v2/profile/edit-password`,
-            data
+            data, {
+                headers:{
+                    timeout: 8000
+                }
+            }
         );
     }
 }
