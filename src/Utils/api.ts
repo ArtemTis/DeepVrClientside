@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IUser, IValidatePromo, IValidatePromoRequestData } from "./types"
+import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, ITypeGame, IUser, IValidatePromo, IValidatePromoRequestData } from "./types"
 
 export interface ErrorResponse {
     error: number,
@@ -71,7 +71,7 @@ export const Api = {
     },
 
     async getGamesTypes() {
-        return axios.get<Array<IGame>>(
+        return axios.get<Array<ITypeGame>>(
             `${instanceUrl}/games/types`, {
                 timeout: 8000
             }

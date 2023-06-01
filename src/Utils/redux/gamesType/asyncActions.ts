@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 
-export const register = createAsyncThunk(
-    'authSlice/register',
+export const gamesTypes = createAsyncThunk(
+    'booling/gamesTypes',
    async function(_, { rejectWithValue }){
     try {
         const res = await Api.getGamesTypes();

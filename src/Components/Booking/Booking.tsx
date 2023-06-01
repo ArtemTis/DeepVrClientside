@@ -1,9 +1,8 @@
 import {
-  clearState,
-  getCurrentStep,
-  getIsFinished,
+  // clearState,
   setStep,
-} from "../../Utils/redux/bookingSlice";
+} from "../../Utils/redux/booking/slice";
+import { selectCurrentStep, selectIsFinished } from "../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../Utils/redux/store";
 import { DefaultLayout } from "../Layout/DefaultLayout";
 import { CitySelect } from "./Stages/CitySelect.";
@@ -13,23 +12,23 @@ import { DateSelect } from "./Stages/DateSelect";
 import { Done } from "./Stages/Done";
 import { GameSelect } from "./Stages/GameSelect";
 import { PlayersCountSelect } from "./Stages/PlayersCountSelect";
-import { RoomSelect } from "./Stages/RoomSelect";
 import { TimeSelect } from "./Stages/TimeSelect";
 
 import "./BookingStyles.css";
 import { useEffect } from "react";
 import { Outlet } from "react-router";
+import TypeGameSelect from "./Stages/TypeGameSelect";
 
 export const Booking: React.FC = () => {
-  const currentStep = useAppSelector(getCurrentStep);
-  const isFinished = useAppSelector(getIsFinished);
+  const currentStep = useAppSelector(selectCurrentStep);
+  const isFinished = useAppSelector(selectIsFinished);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     return function checkState() {
       if (isFinished) {
         dispatch(setStep(0));
-        dispatch(clearState());
+        // dispatch(clearState());
       }
     };
   }, [dispatch, isFinished]);
@@ -39,7 +38,7 @@ export const Booking: React.FC = () => {
       case 0:
         return <CitySelect />;
       case 1:
-        return <RoomSelect />;
+        return <TypeGameSelect />;
       case 2:
         return <GameSelect />;
       case 3:

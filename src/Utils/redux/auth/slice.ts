@@ -2,18 +2,23 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { ICity, IUser } from "../../types";
 import { register, singIn, singInCode } from "./asyncActions";
 
+enum reqStatus {
+    pending,
+    fulfield,
+    rejected
+}
 interface AuthState {
     token: string;
     user?: IUser;
     selectedCity?: ICity;
     textError?: string;
-    reqStatus: string;
+    reqStatus: reqStatus;
     codeStatus: 'send' | 'auth';
 }
 
 const initialState: AuthState = {
     token: '',
-    reqStatus: '',
+    reqStatus: reqStatus.pending,
     codeStatus: 'send'
 };
 
@@ -50,21 +55,21 @@ const bookingSlice = createSlice({
         builder.addMatcher(
             isAnyOf(singIn.pending, singInCode.pending, register.pending),
             (state, action) => {
-                state.reqStatus = 'loading';
+                state.reqStatus = reqStatus.pending;
                 state.textError = '';
             }
         )
         builder.addMatcher(
             isAnyOf(singIn.fulfilled, singInCode.fulfilled, register.fulfilled),
             (state, action) => {
-                state.reqStatus = 'resolve';
+                state.reqStatus = reqStatus.fulfield;
                 state.token = action.payload.token;
             }
         )
         builder.addMatcher(
             (action) => action.type.endsWith('/rejected'),
             (state, action) => {
-                state.reqStatus = 'rejected';
+                state.reqStatus = reqStatus.rejected;
                 state.textError = action.error.message;
             }
         )

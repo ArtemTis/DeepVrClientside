@@ -1,52 +1,61 @@
-export type IChildren  = 
-    | React.ReactElement
-    | Array<React.ReactElement>
-    | React.ReactFragment
-    | Array<React.ReactFragment>
-    | string
-    | boolean
-    | null
-    | undefined;
+export type IChildren =
+  | React.ReactElement
+  | Array<React.ReactElement>
+  | React.ReactFragment
+  | Array<React.ReactFragment>
+  | string
+  | boolean
+  | null
+  | undefined;
 
 export interface IUser {
-    avatar: string;
-    category_loyalty_id: number|null;
-    created_at: string;
-    email: string;
-    email_verified_at: string|null;
-    id: number;
-    name: string;
-    phone: string;
-    role_id: number;
-    settings: any;
-    temp_password: string|null;
-    updated_at: string;
-    error?: number;
-    error_text?: string;
+  avatar: string;
+  category_loyalty_id: number | null;
+  created_at: string;
+  email: string;
+  email_verified_at: string | null;
+  id: number;
+  name: string;
+  phone: string;
+  role_id: number;
+  settings: any;
+  temp_password: string | null;
+  updated_at: string;
+  error?: number;
+  error_text?: string;
 }
 
 export interface ICity {
-    id: number,
-    name: string,
-    city: string,
-    owner_id: number,
-    created_at: string,
-    updated_at: string,
-    code: string,
-    pivot: {
-      user_id: number,
-      instance_id: number
-    }
+  id: number,
+  name: string,
+  city: string,
+  owner_id: number,
+  created_at: string,
+  updated_at: string,
+  code: string,
+  pivot: {
+    user_id: number,
+    instance_id: number
+  }
 }
 
 export interface IRoom {
-  id: number, 
+  id: number,
   title: string,
   guest_max: number,
   pivot?: {
     game_id: number,
     room_id: number,
   }
+}
+
+export interface IGameType {
+  id: number,
+  title: string,
+  guest_max: number,
+  guest_min: number,
+  time_duration: number,
+  need_all_room: number,
 }
 
 export interface IGame {
@@ -73,11 +82,11 @@ export interface IGame {
     room_id: number,
     game_id: number
   }
-  rooms?: Array<IRoom>
+  rooms?: Array<IRoom>,
 }
 
 export interface IGetGamesResponse {
-  id: number, 
+  id: number,
   title: string,
   guest_max: number,
   games: Array<IGame>,
@@ -96,8 +105,8 @@ export interface IBookingCredentials {
 }
 
 export interface IGetWorktimeResponse {
-  start_at: string, 
-  end_at: string, 
+  start_at: string,
+  end_at: string,
   interval: string,
   glasses: string
 }
@@ -133,25 +142,25 @@ export interface ILoginForm {
 }
 
 export interface ILoginResponse {
-  error: number|string;
+  error: number | string;
   error_text: string;
   token: string;
   user: IUser;
 }
 
 export interface IValidatePromoRequestData {
-    token: string,
-    promo_code: string,
-    price: number,
-    game: number
+  token: string,
+  promo_code: string,
+  price: number,
+  game: number
 }
 
 export interface IGetSummaryRequestData {
-    game_id: number,
-    guest_count: number,
-    user_id?: number,
-    use_bonus?: boolean,
-    promocode?: string
+  game_id: number,
+  guest_count: number,
+  user_id?: number,
+  use_bonus?: boolean,
+  promocode?: string
 }
 
 export interface IBookingFields {
@@ -201,7 +210,7 @@ export interface IGetBonusesInfoResponse {
   quantity_expired: number,
   next_expired_date: string,
   loyalty_category: {
-    amount_discount_max: number, 
+    amount_discount_max: number,
     amount_min: number,
     cashback: number,
     entry_condition: number,

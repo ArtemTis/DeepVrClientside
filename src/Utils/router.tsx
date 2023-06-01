@@ -48,8 +48,9 @@ export const router = createBrowserRouter(
       <Route path={HOME_PATH} element={<Games />} />
       <Route path={BOOKING_PATH} element={<Booking />} >
         {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
+        <Route index element={<Navigate to={BOOKING_CITY_PATH} />} />
         <Route path={BOOKING_CITY_PATH} element={<CitySelect />} />
-        <Route path={BOOKING_TYPEGAME_PATH} element={<TypeGameSelect/> } />
+        <Route path={BOOKING_TYPEGAME_PATH} element={<TypeGameSelect />} />
         <Route path={BOOKING_GAME_PATH} element={<GameSelect />} />
         <Route path={BOOKING_PLAYERS_PATH} element={<PlayersCountSelect />} />
         <Route path={BOOKING_DATE_PATH} element={<DateSelect />} />
