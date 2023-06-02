@@ -3,7 +3,7 @@ import { Api } from "../../api";
 import axios from "axios";
 
 export const gamesTypes = createAsyncThunk(
-    'booling/gamesTypes',
+    'gamesTypes/gamesTypes',
    async function(_, { rejectWithValue }){
     try {
         const res = await Api.getGamesTypes();

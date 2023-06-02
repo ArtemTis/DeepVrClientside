@@ -31,7 +31,7 @@ const gamesType = createSlice({
                 state.requestStatus = ReqStatus.fulfield;
             }
         )
-        builder.addCase(gamesTypes.pending,
+        builder.addCase(gamesTypes.rejected,
             (state) => {
                 state.requestStatus = ReqStatus.rejected;
             }

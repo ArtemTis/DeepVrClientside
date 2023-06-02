@@ -2,7 +2,15 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import { IBookingCredentials, ICity, IGame, IGameType } from "../../types";
 import { gamesTypes } from "../gamesType/asyncActions";
+import { getAvalibleTime, getDate } from "./asyncActions";
 
+
+enum ReqStatus {
+    never,
+    pending,
+    fulfield,
+    rejected
+}
 interface BookingState {
     currentStep: number;
     city?: ICity;
@@ -10,17 +18,22 @@ interface BookingState {
     game?: IGame;
     playersCount?: number;
     date?: string;
-    time?: string;
+    selectedTime?: string;
+    avalibleTime?: {
+        start_at: string,
+        interval: string,
+        end_at: string
+    };
     credentials?: IBookingCredentials;
     isFinished: boolean;
     textError?: string;
-    reqStatus: string;
+    reqStatus?: ReqStatus;
 }
 
 const initialState: BookingState = {
     currentStep: 0,
     isFinished: false,
-    reqStatus: '',
+    reqStatus: ReqStatus.never,
 };
 
 const bookingSlice = createSlice({
@@ -54,7 +67,7 @@ const bookingSlice = createSlice({
             state.date = action.payload;
         },
         setTime(state, action) {
-            state.time = action.payload;
+            state.selectedTime = action.payload;
         },
 
         setCredentials(state, action) {
@@ -66,22 +79,40 @@ const bookingSlice = createSlice({
             if (state.currentStep < 0) state.currentStep = 0;
         },
 
-        // clearState(state) {
-        //     return {
-        //         currentStep: state.currentStep,
-        //         isFinished: false,
-        //         credentials: {
-        //             name: state.credentials?.name ?? '',
-        //             phone: state.credentials?.phone ?? '',
-        //             licenseAgree: false,
-        //         },
-        //     };
-        // },
+        clearState(state) {
+            return {
+                currentStep: state.currentStep,
+                isFinished: false,
+                credentials: {
+                    name: state.credentials?.name ?? '',
+                    phone: state.credentials?.phone ?? '',
+                    licenseAgree: false,
+                },
+            };
+        },
 
         setIsFinished(state, action) {
             state.isFinished = action.payload;
         }
     },
+    extraReducers: (builder) => {
+        builder.addCase(getAvalibleTime.pending,
+            (state) => {
+                state.reqStatus = ReqStatus.pending;
+            }
+        )
+        builder.addCase(getAvalibleTime.fulfilled,
+            (state, action) => {
+                state.avalibleTime = action.payload;
+                state.reqStatus = ReqStatus.fulfield;
+            }
+        )
+        builder.addCase(getAvalibleTime.rejected,
+            (state) => {
+                state.reqStatus = ReqStatus.rejected;
+            }
+        )
+    }
 
 });
 
@@ -95,7 +126,7 @@ export const {
     setTime,
     setPlayersCount,
     setCredentials,
-    // clearState,
+    clearState,
     decreaseStep,
     setStep,
     setIsFinished

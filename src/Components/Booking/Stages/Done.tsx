@@ -3,7 +3,7 @@ import { FixedPanel } from "../Components/FixedPanel";
 import { NextButton } from "../../Common/Markup/NextButton";
 import { Title } from "../Components/Title";
 import { useAppDispatch } from "../../../Utils/redux/store";
-import { setIsFinished } from "../../../Utils/redux/bookingSlice";
+import { setIsFinished } from "../../../Utils/redux/booking/slice";
 import { HOME_PATH } from "../../../Utils/routeConstants";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";

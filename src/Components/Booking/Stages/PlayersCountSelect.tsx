@@ -2,15 +2,13 @@ import { Col, Row } from "antd";
 import { useRef, useState } from "react";
 import {
   decreaseStep,
-  getGame,
-  getPlayersCount,
-  getRoom,
   increaseStep,
   setPlayersCount,
-} from "../../../Utils/redux/bookingSlice";
+} from "../../../Utils/redux/booking/slice";
+import { selectGame, selectPlayersCount, selectTypeGame } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
-import { IGame, IRoom } from "../../../Utils/types";
+import { IGame, IGameType, IRoom } from "../../../Utils/types";
 
 import "../BookingStyles.css";
 
@@ -18,8 +16,8 @@ import vrGlasses from "../../../Assets/Очки 3.png";
 
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();
-  const game = useAppSelector(getGame) as IGame;
-  const room = useAppSelector(getRoom) as IRoom;
+  const game = useAppSelector(selectGame) as IGame;
+  const room = useAppSelector(selectTypeGame) as IGameType;
 
   const min = game.guest_min ?? 1;
   const max = game.guest_max
@@ -29,7 +27,7 @@ export const PlayersCountSelect: React.FC = () => {
     : room.guest_max;
 
   const [count, setCount] = useState<string | number | undefined>(
-    useAppSelector(getPlayersCount) ?? game?.guest_min ?? 1
+    useAppSelector(selectPlayersCount) ?? game?.guest_min ?? 1
   );
 
   const inputRef = useRef<HTMLInputElement>(null);

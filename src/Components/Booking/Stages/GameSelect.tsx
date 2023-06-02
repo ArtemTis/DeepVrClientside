@@ -2,53 +2,42 @@ import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import { Api } from "../../../Utils/api";
 import {
+  selectGame,
+  selectTypeGame,
+} from "../../../Utils/redux/booking/selectors";
+import {
   decreaseStep,
-  getGame,
-  getRoom,
   increaseStep,
-  setGame,
-} from "../../../Utils/redux/bookingSlice";
-import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
+  setGame
+} from "../../../Utils/redux/booking/slice";
+import { RootState, useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { IGame } from "../../../Utils/types";
 import { GameCard } from "../../Common/Markup/GameCard";
 import { StageLayout } from "./StageLayout";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
 import "../BookingStyles.css";
+import { gamesTypes } from "../../../Utils/redux/gamesType/asyncActions";
+import { selectGamesByType } from "../../../Utils/redux/games/selectors";
+import { useDispatch } from "react-redux";
+
+enum ReqStatus {
+  pending,
+  fulfield,
+  rejected
+}
 
 export const GameSelect: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const room = useAppSelector(getRoom);
-  const selectedGame = useAppSelector(getGame);
 
-  const [games, setGames] = useState<Array<IGame>>();
+  const dispatch = useDispatch();
+
+  const selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, 9));
+
+  const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
 
   const [selected, setSelected] = useState<IGame | undefined>(
-    useAppSelector(getGame) as IGame
+    useAppSelector(selectGame) as IGame
   );
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setSelected(undefined);
-    Api.getGamesOfRoom(room?.id as number)
-      .then((res) => {
-        if (res.status >= 200 && res.status < 300) {
-          setGames(res.data.games);
-          if (selectedGame) {
-            if (!res.data.games.find((game) => game.id === selectedGame.id)) {
-              dispatch(setGame(undefined));
-            } else {
-              setSelected(selectedGame);
-            }
-          }
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [room?.id]);
 
   const onCardClick = (game: IGame) => {
     setSelected(game);
@@ -73,8 +62,8 @@ export const GameSelect: React.FC = () => {
     >
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
-          {games &&
-            games.map((game) => (
+          {selectedGame &&
+            selectedGame.map((game) => (
               <GameCard
                 game={game}
                 isSelected={selected?.id === game.id}

@@ -3,11 +3,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import authReducer from "./auth/slice";
 import bookingReducer from "./booking/slice";
 import gamesType from "./gamesType/slice";
+import allGames from "./games/slice";
 
 const rootReducer = combineReducers({
     bookingReducer,
     authReducer,
-    gamesType
+    gamesType,
+    allGames
 });
 
 export const setupStore = () => configureStore({

@@ -2,14 +2,15 @@ import { Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import {
   decreaseStep,
-  getCredentials,
-  getDate,
-  getGame,
-  getPlayersCount,
-  getRoom,
-  getTime,
   increaseStep,
-} from "../../../Utils/redux/bookingSlice";
+} from "../../../Utils/redux/booking/slice";
+import { selectCredentials,
+  selectDate,
+  selectGame,
+  selectPlayersCount,
+  selectTypeGame,
+  selectTime
+} from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { Title } from "../Components/Title";
 import { FixedPanel } from "../Components/FixedPanel";
@@ -35,15 +36,15 @@ export const ConfirmBooking: React.FC = () => {
 
   const token = useAppSelector(selectToken);
   const user = useAppSelector(selectUser);
-  const room = useAppSelector(getRoom);
-  const game = useAppSelector(getGame);
-  const count = useAppSelector(getPlayersCount);
-  const date = useAppSelector(getDate)?.substring(0, 10);
-  const time = useAppSelector(getTime)?.substring(0, 5);
-  const credentials = useAppSelector(getCredentials);
+  const room = useAppSelector(selectTypeGame);
+  const game = useAppSelector(selectGame);
+  const count = useAppSelector(selectPlayersCount);
+  const date = useAppSelector(selectDate)?.substring(0, 10);
+  const time = useAppSelector(selectTime)?.substring(0, 5);
+  const credentials = useAppSelector(selectCredentials);
 
   const { promo, useDiscount } = useAppSelector(
-    getCredentials
+    selectCredentials
   ) as IBookingCredentials;
 
   const [summary, setSummary] = useState<ISummaryResponse>();
@@ -64,7 +65,7 @@ export const ConfirmBooking: React.FC = () => {
       typeof count === "number"
     ) {
       setIsPostingForm(true);
-      Api.createBooing({
+      Api.createBooking({
         name: credentials.name,
         date,
         phone: credentials.phone,

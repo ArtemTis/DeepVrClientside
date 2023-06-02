@@ -40,7 +40,7 @@ import { TimeSelect } from "../Components/Booking/Stages/TimeSelect";
 import { CredentialsForm } from "../Components/Booking/Stages/CredentialsForm";
 import { ConfirmBooking } from "../Components/Booking/Stages/ConfirmBooking";
 import { Done } from "../Components/Booking/Stages/Done";
-import TypeGameSelect from "../Components/Booking/Stages/TypeGameSelect";
+import TypeGameSelect from "../Components/Booking/Stages/GamesTypeSelect";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

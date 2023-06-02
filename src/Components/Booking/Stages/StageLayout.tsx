@@ -1,5 +1,5 @@
 import { Col } from "antd";
-import { getCurrentStep } from "../../../Utils/redux/bookingSlice";
+import { selectCurrentStep } from "../../../Utils/redux/booking/selectors";
 import { useAppSelector } from "../../../Utils/redux/store";
 import { BackButton } from "../Components/BackButton";
 import { FixedPanel } from "../Components/FixedPanel";
@@ -24,7 +24,7 @@ export const StageLayout: React.FC<Props> = ({
   onBackClick,
   isNextBtnActive,
 }) => {
-  const currentStep = useAppSelector(getCurrentStep);
+  const currentStep = useAppSelector(selectCurrentStep);
   return (
     <>
       <StepDisplay selected={currentStep} />

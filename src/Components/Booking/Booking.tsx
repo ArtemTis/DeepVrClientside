@@ -1,5 +1,5 @@
 import {
-  // clearState,
+  clearState,
   setStep,
 } from "../../Utils/redux/booking/slice";
 import { selectCurrentStep, selectIsFinished } from "../../Utils/redux/booking/selectors";
@@ -17,7 +17,7 @@ import { TimeSelect } from "./Stages/TimeSelect";
 import "./BookingStyles.css";
 import { useEffect } from "react";
 import { Outlet } from "react-router";
-import TypeGameSelect from "./Stages/TypeGameSelect";
+import TypeGameSelect from "./Stages/GamesTypeSelect";
 
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);
@@ -28,7 +28,7 @@ export const Booking: React.FC = () => {
     return function checkState() {
       if (isFinished) {
         dispatch(setStep(0));
-        // dispatch(clearState());
+        dispatch(clearState());
       }
     };
   }, [dispatch, isFinished]);

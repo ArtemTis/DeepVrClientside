@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Row } from "antd";
 import {
   decreaseStep,
-  getCredentials,
   increaseStep,
   setCredentials,
-} from "../../../Utils/redux/bookingSlice";
+} from "../../../Utils/redux/booking/slice";
+import { selectCredentials } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import { PromoModal } from "../Components/PromoModal";
@@ -36,7 +36,7 @@ export const CredentialsForm: React.FC = () => {
   const isAuthorised = useAppSelector(selectIsAuthorised);
   const user = useAppSelector(selectUser);
 
-  const credentials = useAppSelector(getCredentials);
+  const credentials = useAppSelector(selectCredentials);
 
   const {
     register,

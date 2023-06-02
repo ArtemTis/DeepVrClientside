@@ -12,10 +12,10 @@ import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import {
   clearState,
   setCity,
+  setTypeGame,
   setGame,
-  setRoom,
   setStep,
-} from "../../../Utils/redux/bookingSlice";
+} from "../../../Utils/redux/booking/slice";
 import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
@@ -43,7 +43,7 @@ export const GameModal: React.FC<Props> = ({ game, isOpen, onClose }) => {
       const room = game.rooms?.[0];
       dispatch(clearState());
       dispatch(setCity(city));
-      dispatch(setRoom(room));
+      dispatch(setTypeGame(room));
       dispatch(setGame(game));
       dispatch(setStep(3)); // players count select
       setUseRedirect(true);

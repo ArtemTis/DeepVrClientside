@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
 import {
   decreaseStep,
-  getDate,
   increaseStep,
   setDate,
-} from "../../../Utils/redux/bookingSlice";
+} from "../../../Utils/redux/booking/slice";
+import { selectDate } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import ru from "date-fns/locale/ru";
@@ -21,7 +21,7 @@ export const DateSelect: React.FC = () => {
   const maxDate = new Date();
   maxDate.setMonth(maxDate.getMonth() + 1);
 
-  const preselectedDate = useAppSelector(getDate);
+  const preselectedDate = useAppSelector(selectDate);
   const [selected, setSelected] = useState<Date | undefined>(
     preselectedDate ? new Date(preselectedDate) : undefined
   );
@@ -98,13 +98,12 @@ const CustomDay: React.FC<CustomDayProps> = ({
   const isUnselectable = date < minDate || date > maxDate;
   return (
     <div
-      className={`datepicker-customDay${
-        isUnselectable
+      className={`datepicker-customDay${isUnselectable
           ? " datepicker-customDay-unselectable"
           : isSelected
-          ? " datepicker-customDay-selected"
-          : ""
-      }`}
+            ? " datepicker-customDay-selected"
+            : ""
+        }`}
     >
       <div className="datepicker-customDay-day">{dayOfMonth}</div>
       <div className="datepicker-customDay-places">36 мест</div>

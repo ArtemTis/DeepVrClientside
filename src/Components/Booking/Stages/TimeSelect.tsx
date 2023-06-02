@@ -2,11 +2,10 @@ import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import {
   decreaseStep,
-  getDate,
-  getTime,
   increaseStep,
   setTime,
-} from "../../../Utils/redux/bookingSlice";
+} from "../../../Utils/redux/booking/slice";
+import { selectDate, selectTime } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import { Api } from "../../../Utils/api";
@@ -17,10 +16,10 @@ import "../BookingStyles.css";
 
 export const TimeSelect: React.FC = () => {
   const dispatch = useAppDispatch();
-  const dateString = useAppSelector(getDate) as string;
+  const dateString = useAppSelector(selectDate) as string;
 
-  const preselectedDate = useAppSelector(getDate);
-  const preselectedTime = useAppSelector(getTime);
+  const preselectedDate = useAppSelector(selectDate);
+  const preselectedTime = useAppSelector(selectTime);
   const [selected, setSelected] = useState<Date | undefined>(
     preselectedDate && preselectedTime
       ? new Date(`${preselectedDate.slice(0, 10)} ${preselectedTime}`)
@@ -42,12 +41,10 @@ export const TimeSelect: React.FC = () => {
           console.log(res);
           const dates: Array<Date> = [];
 
-          const start = `${date.toISOString().substring(0, 10)} ${
-            res.data.start_at
-          }`;
-          const end = `${date.toISOString().substring(0, 10)} ${
-            res.data.end_at
-          }`;
+          const start = `${date.toISOString().substring(0, 10)} ${res.data.start_at
+            }`;
+          const end = `${date.toISOString().substring(0, 10)} ${res.data.end_at
+            }`;
           const dateNow = new Date();
           const startDate = new Date(start);
           const endDate = new Date(end);

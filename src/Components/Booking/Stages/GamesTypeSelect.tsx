@@ -4,18 +4,24 @@ import { LoadWrapper } from '../../Common/Markup/LoadWrapper'
 import { Col, Row } from 'antd'
 import TypeGameCard from '../Components/TypeGameCard'
 import { IGameType } from '../../../Utils/types'
-import { useAppDispatch, useAppSelector } from '../../../Utils/redux/store'
+import { RootState, useAppDispatch, useAppSelector } from '../../../Utils/redux/store'
 import { selectGameTypes } from '../../../Utils/redux/gamesType/selectors'
 import { decreaseStep, increaseStep, setTypeGame } from '../../../Utils/redux/booking/slice'
 
-const TypeGameSelect = () => {
+enum ReqStatus {
+  pending,
+  fulfield,
+  rejected
+}
+
+const GamesTypeSelect = () => {
 
   const dispatch = useAppDispatch();
 
-  const typeGames = useAppSelector(selectGameTypes);
+  const gameTypes = useAppSelector(selectGameTypes);
   const [selected, setSelected] = useState<IGameType>();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
 
   const onCardClick = (room: IGameType) => {
     setSelected(room);
@@ -39,12 +45,12 @@ const TypeGameSelect = () => {
     >
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
-          {typeGames &&
-            typeGames.map((typeGame) => (
-              <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8} key={typeGame.id}>
+          {gameTypes &&
+            gameTypes.map((gameType) => (
+              <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8} key={gameType.id}>
                 <TypeGameCard
-                  room={typeGame}
-                  isSelected={selected?.id === typeGame.id}
+                  gameType={gameType}
+                  isSelected={selected?.id === gameType.id}
                   onClick={onCardClick}
                 />
               </Col>
@@ -55,4 +61,4 @@ const TypeGameSelect = () => {
   )
 }
 
-export default TypeGameSelect
+export default GamesTypeSelect
