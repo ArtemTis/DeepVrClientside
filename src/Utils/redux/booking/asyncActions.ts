@@ -4,19 +4,20 @@ import axios from "axios";
 import { IBookingFields, IGetSummaryRequestData } from "../../types";
 import { RootState } from "../store";
 import { selectToken } from "../auth/selectors";
-import { selectDate } from "./selectors";
+import { selectDate, selectGameId, selectPlayersCount } from "./selectors";
 
 export const getDate = createAsyncThunk(
     'bookingSlice/getDate',
-    async function (_, { rejectWithValue,getState }) {
-        try {
-            const state = getState() as RootState;
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
 
-            const token = selectToken(state);
-            const gameId = selectDate(state);
-            const guestCount = selectDate(state);
-            const res = await Api.getDate(gameId, guestCount, token);
-            
+        const token = selectToken(state);
+        const gameId = selectGameId(state);
+        const playersCount = selectPlayersCount(state);
+
+        try {
+            const res = await Api.getDate(gameId, playersCount, token);
+
             return res;
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -29,17 +30,17 @@ export const getDate = createAsyncThunk(
 
 export const getAvalibleTime = createAsyncThunk(
     'bookingSlice/getAvalibleTime',
-    async function (_, { rejectWithValue,getState }) {
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+
+        const token = selectToken(state);
+        const gameId = selectGameId(state);
+        const playersCount = selectPlayersCount(state);
+        const date = selectDate(state);
         try {
             // const res = await Api.getTimesOfDay(date);
-            const state = getState() as RootState;
+            const res = await Api.getAvalibleTime(gameId, playersCount, token, date ?? '');
 
-            const token = selectToken(state);
-            const gameId = selectDate(state);
-            const guestCount = selectDate(state);
-            const date = selectDate(state);
-            const res = await Api.getAvalibleTime(gameId, guestCount, token, date);
-            
             return res;
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -71,6 +72,22 @@ export const summary = createAsyncThunk(
     async function (values: IGetSummaryRequestData, { rejectWithValue }) {
         try {
             const res = await Api.getSummary(values);
+
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
+            }
+            return rejectWithValue('Неизвестная ошибка');
+        }
+    }
+)
+
+export const allCities = createAsyncThunk(
+    'bookingSlice/summary',
+    async function (_, { rejectWithValue }) {
+        try {
+            const res = await Api.getAllCities();
 
             return res.data;
         } catch (error) {

@@ -14,16 +14,13 @@ enum ReqStatus {
 interface BookingState {
     currentStep: number;
     city?: ICity;
+    allCities?: ICity[];
     typeGame?: IGameType;
     game?: IGame;
     playersCount?: number;
     date?: string;
     selectedTime?: string;
-    avalibleTime?: {
-        start_at: string,
-        interval: string,
-        end_at: string
-    };
+    avalibleTime?: string[];
     credentials?: IBookingCredentials;
     isFinished: boolean;
     textError?: string;

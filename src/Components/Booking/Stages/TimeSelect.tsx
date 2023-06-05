@@ -5,80 +5,45 @@ import {
   increaseStep,
   setTime,
 } from "../../../Utils/redux/booking/slice";
-import { selectDate, selectTime } from "../../../Utils/redux/booking/selectors";
-import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
+import { selectAvalibleTime, selectDate, selectSelectedTime } from "../../../Utils/redux/booking/selectors";
+import { RootState, useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import { Api } from "../../../Utils/api";
 import { TimeCard } from "../Components/TimeCard";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
 import "../BookingStyles.css";
+import { useSelector } from "react-redux";
+
+enum ReqStatus {
+  pending,
+  fulfield,
+  rejected
+}
 
 export const TimeSelect: React.FC = () => {
   const dispatch = useAppDispatch();
-  const dateString = useAppSelector(selectDate) as string;
 
   const preselectedDate = useAppSelector(selectDate);
-  const preselectedTime = useAppSelector(selectTime);
-  const [selected, setSelected] = useState<Date | undefined>(
+  const preselectedTime = useAppSelector(selectSelectedTime);
+  const [selected, setSelected] = useState<string | undefined>(
     preselectedDate && preselectedTime
-      ? new Date(`${preselectedDate.slice(0, 10)} ${preselectedTime}`)
+      ? `${preselectedDate.slice(0, 10)} ${preselectedTime}`
       : undefined
   );
 
-  const [times, setTimes] = useState<Array<Date> | undefined>();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const times = useAppSelector(selectAvalibleTime)
 
-  useEffect(() => {
-    setIsLoading(true);
-    const tempPreselect = selected;
-    setSelected(undefined);
-    const date = new Date(dateString);
-    Api.getTimesOfDay(date)
-      .then((res) => {
-        if (Api.checkStatus(res)) {
-          console.log(res);
-          const dates: Array<Date> = [];
+  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending); 
 
-          const start = `${date.toISOString().substring(0, 10)} ${res.data.start_at
-            }`;
-          const end = `${date.toISOString().substring(0, 10)} ${res.data.end_at
-            }`;
-          const dateNow = new Date();
-          const startDate = new Date(start);
-          const endDate = new Date(end);
-
-          const tempDate = new Date(startDate);
-          if (tempDate > dateNow) dates.push(new Date(tempDate));
-
-          let minutesIncrement = Number.parseInt(res.data.interval);
-          while (minutesIncrement && tempDate < endDate) {
-            tempDate.setMinutes(tempDate.getMinutes() + minutesIncrement);
-            if (tempDate < endDate && tempDate > dateNow)
-              dates.push(new Date(tempDate));
-          }
-
-          setTimes(dates);
-          if (
-            !dates.find(
-              (d) =>
-                d.toLocaleTimeString() === tempPreselect?.toLocaleTimeString()
-            )
-          ) {
-            dispatch(setTime(undefined));
-          } else {
-            setSelected(tempPreselect);
-          }
-        }
-      })
-      .finally(() => setIsLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateString]);
+  useEffect(()=>{
+    dispatch(setTime)
+  },[preselectedDate, preselectedTime])
 
   const onNextClick = () => {
     if (!!selected) {
-      dispatch(setTime(selected.toLocaleTimeString()));
+      dispatch(setTime(selected));
       dispatch(increaseStep());
     }
   };
@@ -86,7 +51,7 @@ export const TimeSelect: React.FC = () => {
     dispatch(decreaseStep());
   };
 
-  const onTimeClick = (time: Date) => {
+  const onTimeClick = (time: string) => {
     setSelected(time);
   };
 
@@ -108,12 +73,12 @@ export const TimeSelect: React.FC = () => {
                 lg={6}
                 xl={4}
                 xxl={4}
-                key={time.toISOString()}
+                key={time}
               >
                 <TimeCard
                   time={time}
                   isSelected={
-                    time.toLocaleTimeString() === selected?.toLocaleTimeString()
+                    time === selected
                   }
                   onClick={onTimeClick}
                 />

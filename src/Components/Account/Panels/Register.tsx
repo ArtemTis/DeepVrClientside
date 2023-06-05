@@ -17,6 +17,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../../Utils/redux/auth/asyncActions";
 import { useSelector } from "react-redux";
 
+enum ReqStatus {
+  pending,
+  fulfield,
+  rejected
+}
+
 export const Register = () => {
   const {
     control,
@@ -36,7 +42,7 @@ export const Register = () => {
 
   const dispatch = useAppDispatch();
   const textError = useSelector((state: RootState) => state.authReducer.textError);
-  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === 'loading')
+  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending)
 
 
   return (

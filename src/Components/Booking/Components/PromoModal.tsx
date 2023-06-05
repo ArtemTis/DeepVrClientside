@@ -7,7 +7,7 @@ import { TextInputNonForm } from "../../Common/FormFields/TextInputNonForm";
 import { ISummaryResponse } from "../../../Utils/types";
 import { useAppSelector } from "../../../Utils/redux/store";
 import { selectToken, selectUser } from "../../../Utils/redux/auth/selectors";
-import { getGame, getPlayersCount } from "../../../Utils/redux/bookingSlice";
+import { selectGame, selectPlayersCount } from "../../../Utils/redux/booking/selectors";
 import { Api } from "../../../Utils/api";
 
 import closeIcon from "../../../Assets/closeIcon.svg";
@@ -30,8 +30,8 @@ export const PromoModal: React.FC<Props> = ({
 
   const user = useAppSelector(selectUser);
   const token = useAppSelector(selectToken);
-  const game = useAppSelector(getGame);
-  const count = useAppSelector(getPlayersCount);
+  const game = useAppSelector(selectGame);
+  const count = useAppSelector(selectPlayersCount);
 
   const [summary, setSummary] = useState<ISummaryResponse>();
   const [error, setError] = useState<string>();

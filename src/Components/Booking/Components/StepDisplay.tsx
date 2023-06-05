@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import { Fragment } from "react";
 import { useMediaQuery } from "react-responsive";
 import dash from "../../../Assets/Line 1.svg";
-import { getMaxStep, setStep } from "../../../Utils/redux/bookingSlice";
+import { setStep } from "../../../Utils/redux/booking/slice";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import "../BookingStyles.css";
 

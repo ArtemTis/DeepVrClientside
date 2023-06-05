@@ -104,7 +104,7 @@ export const Api = {
     },
 
     async getDate(gameId: number, guestCount: number, token: string) {
-        return new Promise((resolve) =>
+        return new Promise<Object[]>((resolve) =>
             setTimeout(() => {
                 resolve([{ date: '04.06.23', freePlace: 44 },
                 { date: '05.06.23', freePlace: 3 },
@@ -115,8 +115,8 @@ export const Api = {
         )
     },
 
-    async getAvalibleTime(gameId: number, guestCount: number, token: string, date: string) {
-        return new Promise((resolve) =>
+    async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
+        return new Promise<string[]>((resolve) =>
             setTimeout(() => {
                 resolve(['10:00', '11:00', '12:00', '13:00', '22:00'])
             }, 500)

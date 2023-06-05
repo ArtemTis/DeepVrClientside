@@ -9,7 +9,7 @@ import { selectCredentials,
   selectGame,
   selectPlayersCount,
   selectTypeGame,
-  selectTime
+  selectSelectedTime
 } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { Title } from "../Components/Title";
@@ -40,7 +40,7 @@ export const ConfirmBooking: React.FC = () => {
   const game = useAppSelector(selectGame);
   const count = useAppSelector(selectPlayersCount);
   const date = useAppSelector(selectDate)?.substring(0, 10);
-  const time = useAppSelector(selectTime)?.substring(0, 5);
+  const time = useAppSelector(selectSelectedTime)?.substring(0, 5);
   const credentials = useAppSelector(selectCredentials);
 
   const { promo, useDiscount } = useAppSelector(

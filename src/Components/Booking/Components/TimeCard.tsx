@@ -4,9 +4,9 @@ import timeIcon from "../../../Assets/time.svg";
 import timeIconAlt from "../../../Assets/time-dark.svg";
 
 interface Props {
-  time: Date;
+  time: string;
   isSelected?: boolean;
-  onClick: (time: Date) => void;
+  onClick: (time: string) => void;
 }
 
 export const TimeCard: React.FC<Props> = ({ time, isSelected, onClick }) => {
@@ -26,7 +26,7 @@ export const TimeCard: React.FC<Props> = ({ time, isSelected, onClick }) => {
           className="time-card-img"
         />
         <h2 className="room-card-title">
-          {time.toLocaleTimeString().substring(0, 5)}{" "}
+          {time}{" "}
         </h2>
       </div>
     </div>

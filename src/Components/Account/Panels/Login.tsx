@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 import { REGISTER_PATH } from "../../../Utils/routeConstants";
 import { useSelector } from "react-redux";
 
-enum reqStatus {
+enum ReqStatus {
   pending,
   fulfield,
   rejected
@@ -37,7 +37,7 @@ export const Login = () => {
   });
 
   const textError = useSelector((state: RootState) => state.authReducer.textError);
-  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === reqStatus.pending);
+  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending);
   
   //get last route name for change active tab
   let location = useLocation();
