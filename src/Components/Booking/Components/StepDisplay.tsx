@@ -55,14 +55,14 @@ export const StepDisplay: React.FC<Props> = ({ selected }) => {
 
 const Circle = ({ num, selected }: { num: number; selected: number }) => {
   const dispatch = useAppDispatch();
-  const maxStep = useAppSelector(getMaxStep);
+  // const maxStep = useAppSelector(getMaxStep);
+  const maxStep = 5;
 
   const clickable = num !== selected && num <= maxStep;
   return (
     <div
-      className={`step-circle${
-        num === selected ? "" : " step-circle-unselected"
-      } ${clickable ? "step-circle-clickable" : "step-circle-not-clickable"}`}
+      className={`step-circle${num === selected ? "" : " step-circle-unselected"
+        } ${clickable ? "step-circle-clickable" : "step-circle-not-clickable"}`}
       onClick={clickable ? () => dispatch(setStep(num)) : undefined}
     >
       <div className="step-circle-text">{num}</div>
