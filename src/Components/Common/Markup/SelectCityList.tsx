@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Api } from "../../../Utils/api";
-import { setSelectedCity } from "../../../Utils/redux/auth/slice";
-import { useAppDispatch } from "../../../Utils/redux/store";
+import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { ICity } from "../../../Utils/types";
 import { LoadWrapper } from "./LoadWrapper";
 
 import "../CommonStyles.css";
+import { allCities } from "../../../Utils/redux/profile/asyncActions";
+import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
+import { ReqStatus } from "../../../Utils/enums";
+
 
 interface Props {
   selected: ICity | undefined;
@@ -13,43 +16,25 @@ interface Props {
 }
 
 export const SelectCityList: React.FC<Props> = ({ selected, onSelect }) => {
-  const [cities, setCities] = useState<Array<ICity>>();
   const dispatch = useAppDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const selectedCity = useAppSelector(selectSelectedCity);
+  const cityList = useAppSelector(state => state.profileReducer.allCities);
+  const loadingStatus = useAppSelector(state => state.profileReducer.reqStatus === ReqStatus.pending);
 
   useEffect(() => {
-    setIsLoading(true);
-    const tempSelected = selected;
-    onSelect(undefined);
-    Api.getAllCities()
-      .then((res) => {
-        if (Api.checkStatus(res)) {
-          setCities(res.data);
-          if (!res.data.find((c) => c.id === tempSelected?.id)) {
-            dispatch(setSelectedCity(undefined));
-          } else {
-            onSelect(tempSelected);
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => setIsLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(allCities());
   }, []);
 
   return (
-    <LoadWrapper isLoading={isLoading} height={1}>
+    <LoadWrapper isLoading={loadingStatus} height={1}>
       <div className="city-select-wrapper">
-        {!!cities ? (
-          cities.map((c) => {
+        {!!cityList ? (
+          cityList.map((c) => {
             return (
               <div
-                className={`city-select-row${
-                  c.id === selected?.id ? " city-select-row-selected" : ""
-                }`}
+                className={`city-select-row${c.id === selected?.id ? " city-select-row-selected" : ""
+                  }`}
                 key={c.code}
                 onClick={() => onSelect(c)}
               >

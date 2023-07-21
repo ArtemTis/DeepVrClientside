@@ -41,15 +41,16 @@ export const selectIsFinished = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.isFinished],
     (isFinished) => isFinished
 )
-export const selectAllCities = createDraftSafeSelector(
-    [(state: RootState) => state.bookingReducer.allCities],
-    (allCities) => allCities
-)
 export const selectGameId = createDraftSafeSelector(
     [selectGame],
     (game) => game?.id ?? -1
 )
 export const selectReqStatus = createDraftSafeSelector(
-    [(state: RootState) => state.authReducer.reqStatus],
+    [(state: RootState) => state.bookingReducer.reqStatus],
     (reqStatus) => reqStatus
+)
+
+export const selectTextError = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.textError],
+    (textError) => textError
 )

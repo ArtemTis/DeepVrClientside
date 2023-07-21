@@ -4,7 +4,8 @@ import {
   decreaseStep,
   increaseStep,
 } from "../../../Utils/redux/booking/slice";
-import { selectCredentials,
+import {
+  selectCredentials,
   selectDate,
   selectGame,
   selectPlayersCount,
@@ -30,6 +31,9 @@ import gameIcon from "../../../Assets/console.svg";
 import dateIcon from "../../../Assets/calendar.svg";
 import timeIcon from "../../../Assets/time.svg";
 import { curencyFormat } from "../../../Utils/format";
+import { createBooking } from "../../../Utils/redux/booking/asyncActions";
+import { ReqStatus } from "../../../Utils/enums";
+import { getSummary } from "../../../Utils/redux/summary/asyncActions";
 
 export const ConfirmBooking: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,8 +53,9 @@ export const ConfirmBooking: React.FC = () => {
 
   const [summary, setSummary] = useState<ISummaryResponse>();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | undefined>();
+  const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
+  const errorText = useAppSelector(state => state.bookingReducer.textError)
+  // const summary = useAppSelector(state => state.bookingReducer.)
 
   const [isPostingForm, setIsPostingForm] = useState(false);
 
@@ -65,7 +70,8 @@ export const ConfirmBooking: React.FC = () => {
       typeof count === "number"
     ) {
       setIsPostingForm(true);
-      Api.createBooking({
+
+      dispatch(createBooking({
         name: credentials.name,
         date,
         phone: credentials.phone,
@@ -80,19 +86,7 @@ export const ConfirmBooking: React.FC = () => {
         certificates: [],
         promo_code: credentials.promo ?? "",
         token,
-      })
-        .then((res) => {
-          console.log(res);
-          if (Api.checkStatus(res)) {
-            dispatch(increaseStep());
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-
-          setError("Ошибка сервера, попробуйте позже");
-        })
-        .finally(() => setIsPostingForm(false));
+      }))
     }
   };
   const onBackClick = () => {
@@ -100,21 +94,14 @@ export const ConfirmBooking: React.FC = () => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    Api.getSummary({
+
+    dispatch(getSummary({
       game_id: game?.id ?? -1,
       guest_count: count ?? -1,
       user_id: user?.id,
       promocode: promo ?? "",
       use_bonus: useDiscount,
-    })
-      .then((res) => {
-        if (res.status >= 200 && res.status < 300) {
-          setSummary(res.data);
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
+    }))
   }, [game, count, user, promo, useDiscount]);
 
   return (
@@ -194,13 +181,13 @@ export const ConfirmBooking: React.FC = () => {
                 {time}
               </Col>
 
-              <FormError errorMsg={error} />
+              <FormError errorMsg={errorText} />
             </Row>
             <Col span={24} className="summary-bg">
               <div className="summary-row">
                 <span>Стоимость заказа:</span>
                 <span className="summary-row-price">
-                  {isLoading ? (
+                  {loadingStatus ? (
                     <LoadIcon />
                   ) : (
                     <>{summary && curencyFormat.format(summary.price)}</>
@@ -211,7 +198,7 @@ export const ConfirmBooking: React.FC = () => {
                 <div className="summary-row">
                   <span>Промокод:</span>
                   <span className="summary-row-price">
-                    {isLoading ? (
+                    {loadingStatus ? (
                       <LoadIcon />
                     ) : (
                       <>{curencyFormat.format(summary.promo_discount)}</>
@@ -223,7 +210,7 @@ export const ConfirmBooking: React.FC = () => {
                 <div className="summary-row">
                   <span>Бонусы:</span>
                   <span className="summary-row-price">
-                    {isLoading ? (
+                    {loadingStatus ? (
                       <LoadIcon />
                     ) : (
                       <>{curencyFormat.format(summary.bonus_discount)}</>
@@ -235,7 +222,7 @@ export const ConfirmBooking: React.FC = () => {
               <div className="summary-total">
                 <span>Итого:</span>
                 <span className="summary-total-price">
-                  {isLoading ? (
+                  {loadingStatus ? (
                     <LoadIcon />
                   ) : (
                     <>{summary && curencyFormat.format(summary.total)}</>

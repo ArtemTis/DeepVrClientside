@@ -11,19 +11,15 @@ import {
   increaseStep,
   setCity,
 } from "../../../Utils/redux/booking/slice";
-import {selectAllCities, selectCity} from "../../../Utils/redux/booking/selectors";
+import { selectCity} from "../../../Utils/redux/booking/selectors";
 import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
 import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
 import "../BookingStyles.css";
 import { useSelector } from "react-redux";
-
-enum ReqStatus {
-  pending,
-  fulfield,
-  rejected
-}
+import { ReqStatus } from "../../../Utils/enums";
+import { selectAllCities } from "../../../Utils/redux/profile/selectors";
 
 export const CitySelect: React.FC = () => {
   const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;

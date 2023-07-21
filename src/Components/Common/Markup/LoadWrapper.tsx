@@ -3,6 +3,7 @@ import { IChildren } from "../../../Utils/types";
 import loadIcon from "../../../Assets/load.svg";
 
 import "../CommonStyles.css";
+import { ReqStatus } from "../../../Utils/enums";
 
 interface Props {
   children?: IChildren;

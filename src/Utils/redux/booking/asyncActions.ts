@@ -67,34 +67,4 @@ export const createBooking = createAsyncThunk(
     }
 )
 
-export const summary = createAsyncThunk(
-    'bookingSlice/summary',
-    async function (values: IGetSummaryRequestData, { rejectWithValue }) {
-        try {
-            const res = await Api.getSummary(values);
 
-            return res.data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
-            }
-            return rejectWithValue('Неизвестная ошибка');
-        }
-    }
-)
-
-export const allCities = createAsyncThunk(
-    'bookingSlice/summary',
-    async function (_, { rejectWithValue }) {
-        try {
-            const res = await Api.getAllCities();
-
-            return res.data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
-            }
-            return rejectWithValue('Неизвестная ошибка');
-        }
-    }
-)

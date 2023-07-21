@@ -14,12 +14,8 @@ import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
 import "../BookingStyles.css";
 import { useSelector } from "react-redux";
+import { ReqStatus } from "../../../Utils/enums";
 
-enum ReqStatus {
-  pending,
-  fulfield,
-  rejected
-}
 
 export const TimeSelect: React.FC = () => {
   const dispatch = useAppDispatch();

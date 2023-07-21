@@ -1,20 +1,13 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { Api } from "../../api";
-import { IBookingCredentials, ICity, IGame, IGameType } from "../../types";
+import { IBookingCredentials, ICity, IGame, IGameType, ISummaryResponse } from "../../types";
 import { gamesTypes } from "../gamesType/asyncActions";
-import { getAvalibleTime, getDate } from "./asyncActions";
+import { getAvalibleTime } from "./asyncActions";
+import { ReqStatus } from "../../enums";
 
-
-enum ReqStatus {
-    never,
-    pending,
-    fulfield,
-    rejected
-}
 interface BookingState {
     currentStep: number;
     city?: ICity;
-    allCities?: ICity[];
     typeGame?: IGameType;
     game?: IGame;
     playersCount?: number;
