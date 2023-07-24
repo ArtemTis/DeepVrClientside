@@ -175,7 +175,7 @@ export interface IBookingFields {
   booking: {
     time: string,
     guest_quantity: number,
-    room_id: number,
+    typeGame_id: number,
     game_id: number
   }
 }
@@ -257,4 +257,9 @@ export interface IEditProfileReq {
   name?: string,
   email?: string,
   phone?: string,
+}
+
+export interface IDate {
+  date: string,
+  freePlace: number
 }

@@ -17,12 +17,14 @@ interface ProfileState {
     // avalibleTime?: string[];
     // credentials?: IBookingCredentials;
     // isFinished: boolean;
+    instancePrefix: string;
     textError?: string;
     reqStatus?: ReqStatus;
 }
 
 const initialState: ProfileState = {
     reqStatus: ReqStatus.never,
+    instancePrefix: '',
     allCities: [],
 };
 

@@ -6,13 +6,17 @@ import gamesType from "./gamesType/slice";
 import allGames from "./games/slice";
 import profileReducer from "./profile/slice";
 import summaryReducer from "./summary/slice";
+import dateReducer from "./date/slice";
+import timeReducer from "./avalibleTime/slice";
 
 const rootReducer = combineReducers({
+    profileReducer,
     bookingReducer,
     authReducer,
-    gamesType,
     allGames,
-    profileReducer,
+    gamesType,
+    dateReducer,
+    timeReducer,
     summaryReducer
 });
 

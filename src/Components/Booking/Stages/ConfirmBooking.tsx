@@ -9,8 +9,7 @@ import {
   selectDate,
   selectGame,
   selectPlayersCount,
-  selectTypeGame,
-  selectSelectedTime
+  selectSelectedTime,
 } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { Title } from "../Components/Title";
@@ -34,13 +33,14 @@ import { curencyFormat } from "../../../Utils/format";
 import { createBooking } from "../../../Utils/redux/booking/asyncActions";
 import { ReqStatus } from "../../../Utils/enums";
 import { getSummary } from "../../../Utils/redux/summary/asyncActions";
+import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
 
 export const ConfirmBooking: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const token = useAppSelector(selectToken);
   const user = useAppSelector(selectUser);
-  const room = useAppSelector(selectTypeGame);
+  const typeGame = useAppSelector(state => state.bookingReducer.typeGame);
   const game = useAppSelector(selectGame);
   const count = useAppSelector(selectPlayersCount);
   const date = useAppSelector(selectDate)?.substring(0, 10);
@@ -51,11 +51,10 @@ export const ConfirmBooking: React.FC = () => {
     selectCredentials
   ) as IBookingCredentials;
 
-  const [summary, setSummary] = useState<ISummaryResponse>();
 
   const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
-  const errorText = useAppSelector(state => state.bookingReducer.textError)
-  // const summary = useAppSelector(state => state.bookingReducer.)
+  const errorText = useAppSelector(state => state.bookingReducer.textError);
+  const summary = useAppSelector(state => state.summaryReducer.summary);
 
   const [isPostingForm, setIsPostingForm] = useState(false);
 
@@ -64,7 +63,7 @@ export const ConfirmBooking: React.FC = () => {
       !!summary &&
       !!credentials &&
       !!game &&
-      !!room &&
+      !!typeGame &&
       !!date &&
       !!time &&
       typeof count === "number"
@@ -77,7 +76,7 @@ export const ConfirmBooking: React.FC = () => {
         phone: credentials.phone,
         booking: {
           game_id: game.id,
-          room_id: room.id,
+          typeGame_id: typeGame.id,
           guest_quantity: count,
           time: `${date} ${time}`,
         },
@@ -122,7 +121,7 @@ export const ConfirmBooking: React.FC = () => {
                 Зал:
               </Col>
               <Col className="summary-params-table-cell" span={18}>
-                {room?.title}
+                {typeGame?.title}
               </Col>
 
               <Col

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IGetSummaryRequestData } from "../../types";
+import { IGetSummaryRequestData, IValidatePromoRequestData } from "../../types";
 import { Api } from "../../api";
 import axios from "axios";
 
@@ -18,3 +18,20 @@ export const getSummary = createAsyncThunk(
         }
     }
 )
+
+export const postValidatePromo = createAsyncThunk(
+    'summarySlice/validatePromo',
+    async function (values: IValidatePromoRequestData, { rejectWithValue }) {
+        try {
+            const res = await Api.validatePromo(values);
+
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
+            }
+            return rejectWithValue('Неизвестная ошибка');
+        }
+    }
+)
+

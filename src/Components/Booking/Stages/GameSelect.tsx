@@ -2,8 +2,7 @@ import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import { Api } from "../../../Utils/api";
 import {
-  selectGame,
-  selectTypeGame,
+  selectGame
 } from "../../../Utils/redux/booking/selectors";
 import {
   decreaseStep,

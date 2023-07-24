@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { Api } from "../../api";
-import { IBookingCredentials, ICity, IGame, IGameType, ISummaryResponse } from "../../types";
+import { IBookingCredentials, ICity, IGame, IGameType, ISummaryResponse, IValidatePromo } from "../../types";
 import { ReqStatus } from "../../enums";
 import { getSummary } from "./asyncActions";
 
@@ -8,10 +8,14 @@ interface SummaryState {
     textError?: string;
     reqStatus?: ReqStatus;
     summary?: ISummaryResponse;
+    promo?: IValidatePromo;
+    promoTextError?: string
+    promoReqStatus: ReqStatus;
 }
 
 const initialState: SummaryState = {
     reqStatus: ReqStatus.never,
+    promoReqStatus: ReqStatus.never
 };
 
 const summarySlice = createSlice({

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData } from "./types"
+import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate } from "./types"
 
 export interface ErrorResponse {
     error: number,
@@ -104,7 +104,7 @@ export const Api = {
     },
 
     async getDate(gameId: number, guestCount: number, token: string) {
-        return new Promise<Object[]>((resolve) =>
+        return new Promise<IDate[]>((resolve) =>
             setTimeout(() => {
                 resolve([{ date: '04.06.23', freePlace: 44 },
                 { date: '05.06.23', freePlace: 3 },

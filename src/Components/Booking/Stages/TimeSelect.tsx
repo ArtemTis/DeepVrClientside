@@ -5,7 +5,6 @@ import {
   increaseStep,
   setTime,
 } from "../../../Utils/redux/booking/slice";
-import { selectAvalibleTime, selectDate, selectSelectedTime } from "../../../Utils/redux/booking/selectors";
 import { RootState, useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import { Api } from "../../../Utils/api";
@@ -15,6 +14,9 @@ import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 import "../BookingStyles.css";
 import { useSelector } from "react-redux";
 import { ReqStatus } from "../../../Utils/enums";
+import { selectDate } from "../../../Utils/redux/date/selectors";
+import { selectAvalibleTime } from "../../../Utils/redux/avalibleTime/selectors";
+import { selectSelectedTime } from "../../../Utils/redux/booking/selectors";
 
 
 export const TimeSelect: React.FC = () => {

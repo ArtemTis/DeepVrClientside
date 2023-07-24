@@ -2,8 +2,8 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import { IBookingCredentials, ICity, IGame, IGameType, ISummaryResponse } from "../../types";
 import { gamesTypes } from "../gamesType/asyncActions";
-import { getAvalibleTime } from "./asyncActions";
 import { ReqStatus } from "../../enums";
+import { createBooking } from "./asyncActions";
 
 interface BookingState {
     currentStep: number;
@@ -86,18 +86,18 @@ const bookingSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getAvalibleTime.pending,
+        builder.addCase(createBooking.pending,
             (state) => {
                 state.reqStatus = ReqStatus.pending;
             }
         )
-        builder.addCase(getAvalibleTime.fulfilled,
+        builder.addCase(createBooking.fulfilled,
             (state, action) => {
-                state.avalibleTime = action.payload;
+
                 state.reqStatus = ReqStatus.fulfield;
             }
         )
-        builder.addCase(getAvalibleTime.rejected,
+        builder.addCase(createBooking.rejected,
             (state) => {
                 state.reqStatus = ReqStatus.rejected;
             }

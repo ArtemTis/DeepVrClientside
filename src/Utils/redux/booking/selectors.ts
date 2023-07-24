@@ -9,9 +9,9 @@ export const selectCity = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.city],
     (city) => city
 )
-export const selectTypeGame = createDraftSafeSelector(
-    [(state: RootState) => state.bookingReducer.typeGame],
-    (typeGame) => typeGame
+export const selectDate = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.date],
+    (date) => date
 )
 export const selectGame = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.game],
@@ -21,17 +21,9 @@ export const selectPlayersCount = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.playersCount],
     (playersCount) => playersCount ?? -1
 )
-export const selectDate = createDraftSafeSelector(
-    [(state: RootState) => state.bookingReducer.date],
-    (date) => date
-)
 export const selectSelectedTime = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.selectedTime],
     (selectedTime) => selectedTime
-)
-export const selectAvalibleTime = createDraftSafeSelector(
-    [(state: RootState) => state.bookingReducer.avalibleTime],
-    (avalibleTime) => avalibleTime ?? []
 )
 export const selectCredentials = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.credentials],

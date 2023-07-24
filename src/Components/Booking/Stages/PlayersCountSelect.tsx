@@ -5,7 +5,7 @@ import {
   increaseStep,
   setPlayersCount,
 } from "../../../Utils/redux/booking/slice";
-import { selectGame, selectPlayersCount, selectTypeGame } from "../../../Utils/redux/booking/selectors";
+import { selectGame, selectPlayersCount } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import { IGame, IGameType, IRoom } from "../../../Utils/types";
@@ -13,18 +13,19 @@ import { IGame, IGameType, IRoom } from "../../../Utils/types";
 import "../BookingStyles.css";
 
 import vrGlasses from "../../../Assets/Очки 3.png";
+import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
 
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();
   const game = useAppSelector(selectGame) as IGame;
-  const room = useAppSelector(selectTypeGame) as IGameType;
+  const typeGame = useAppSelector(selectGameTypes)[0] as IGameType;
 
   const min = game.guest_min ?? 1;
   const max = game.guest_max
-    ? game.guest_max < room.guest_max
+    ? game.guest_max < typeGame.guest_max
       ? game.guest_max
-      : room.guest_max
-    : room.guest_max;
+      : typeGame.guest_max
+    : typeGame.guest_max;
 
   const [count, setCount] = useState<string | number | undefined>(
     useAppSelector(selectPlayersCount) ?? game?.guest_min ?? 1

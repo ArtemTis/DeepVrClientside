@@ -6,12 +6,12 @@ import {
   increaseStep,
   setDate,
 } from "../../../Utils/redux/booking/slice";
-import { selectDate } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import ru from "date-fns/locale/ru";
 
 import "../BookingStyles.css";
+import { selectDate } from "../../../Utils/redux/date/selectors";
 
 export const DateSelect: React.FC = () => {
   const dispatch = useAppDispatch();

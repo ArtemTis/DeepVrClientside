@@ -52,11 +52,11 @@ export const router = createBrowserRouter(
         <Route path={BOOKING_CITY_PATH} element={<CitySelect />} />
         <Route path={BOOKING_TYPEGAME_PATH} element={<TypeGameSelect />} />
         <Route path={BOOKING_GAME_PATH} element={<GameSelect />} />
-        <Route path={BOOKING_PLAYERS_PATH} element={<PlayersCountSelect />} />
+             <Route path={BOOKING_PLAYERS_PATH} element={<PlayersCountSelect />} />
         <Route path={BOOKING_DATE_PATH} element={<DateSelect />} />
         <Route path={BOOKING_TIME_PATH} element={<TimeSelect />} />
         <Route path={BOOKING_CREDITIALS_PATH} element={<CredentialsForm />} />
-        <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
+              <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
         <Route path={BOOKING_DONE_PATH} element={<Done />} />
       </Route>
       <Route path={ACHIVEMENTS_PATH} element={<Achievements />} />

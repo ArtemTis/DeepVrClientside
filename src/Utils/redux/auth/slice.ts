@@ -22,7 +22,7 @@ const initialState: AuthState = {
     codeStatus: 'send'
 };
 
-const bookingSlice = createSlice({
+const authSlice = createSlice({
     name: 'authSlice',
     initialState,
     reducers: {
@@ -76,5 +76,5 @@ const bookingSlice = createSlice({
     }
 });
 
-export const { setToken, setUser, setSelectedCity, setErrorText, setReqStatus } = bookingSlice.actions;
-export default bookingSlice.reducer;
+export const { setToken, setUser, setSelectedCity, setErrorText, setReqStatus } = authSlice.actions;
+export default authSlice.reducer;
