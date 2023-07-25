@@ -5,7 +5,7 @@ import { gamesTypes } from "../gamesType/asyncActions";
 import { ReqStatus } from "../../enums";
 import { createBooking } from "./asyncActions";
 
-interface BookingState {
+export interface BookingState {
     currentStep: number;
     city?: ICity;
     typeGame?: IGameType;

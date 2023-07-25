@@ -11,7 +11,7 @@ import { StageLayout } from "./StageLayout";
 import ru from "date-fns/locale/ru";
 
 import "../BookingStyles.css";
-import { selectDate } from "../../../Utils/redux/date/selectors";
+import { selectDate } from "../../../Utils/redux/booking/selectors";
 
 export const DateSelect: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Api } from "../../../Utils/api";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { ICity } from "../../../Utils/types";
 import { LoadWrapper } from "./LoadWrapper";

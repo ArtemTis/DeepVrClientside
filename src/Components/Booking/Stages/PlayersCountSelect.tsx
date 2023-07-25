@@ -20,6 +20,7 @@ export const PlayersCountSelect: React.FC = () => {
   const game = useAppSelector(selectGame) as IGame;
   const typeGame = useAppSelector(selectGameTypes)[0] as IGameType;
 
+
   const min = game.guest_min ?? 1;
   const max = game.guest_max
     ? game.guest_max < typeGame.guest_max

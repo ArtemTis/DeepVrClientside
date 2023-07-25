@@ -14,9 +14,8 @@ import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 import "../BookingStyles.css";
 import { useSelector } from "react-redux";
 import { ReqStatus } from "../../../Utils/enums";
-import { selectDate } from "../../../Utils/redux/date/selectors";
 import { selectAvalibleTime } from "../../../Utils/redux/avalibleTime/selectors";
-import { selectSelectedTime } from "../../../Utils/redux/booking/selectors";
+import { selectDate, selectSelectedTime } from "../../../Utils/redux/booking/selectors";
 
 
 export const TimeSelect: React.FC = () => {

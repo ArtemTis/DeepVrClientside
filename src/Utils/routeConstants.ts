@@ -12,7 +12,7 @@ export const SINGIN_EMAIL_PATH = 'email'
 export const SINGIN_CODE_PATH = 'code'
 
 //booking routing
-export const BOOKING_CITY_PATH = 'select-city'
+export const BOOKING_ADDRESS_PATH = 'address'
 export const BOOKING_TYPEGAME_PATH = 'type-game'
 export const BOOKING_GAME_PATH = 'game'
 export const BOOKING_PLAYERS_PATH = 'players'
