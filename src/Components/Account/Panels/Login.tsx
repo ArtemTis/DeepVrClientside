@@ -36,7 +36,7 @@ export const Login = () => {
     mode: "onTouched",
   });
 
-  const textError = useSelector((state: RootState) => state.authReducer.textError) === 'Rejected' ? 'Ошибка!': '';
+  const textError = useSelector((state: RootState) => state.authReducer.textError) === 'Rejected' ? 'Ошибка авторизации': '';
   const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending);
   
   //get last route name for change active tab

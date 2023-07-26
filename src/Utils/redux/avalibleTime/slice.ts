@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ReqStatus } from "../../enums";
 import { getAvalibleTime } from "./asyncActions";
+import { IAvalibleTime } from "../../types";
 
 interface TimeState {
-    avalibleTime?: string[];
+    avalibleTime?: IAvalibleTime[];
     textError?: string;
     reqStatus?: ReqStatus;
 }

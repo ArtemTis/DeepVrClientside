@@ -1,13 +1,20 @@
 import { BookingState } from "../../../Utils/redux/booking/slice";
 import { BOOKING_CONFIRM_PATH, BOOKING_CREDITIALS_PATH, BOOKING_DATE_PATH, BOOKING_GAME_PATH, BOOKING_PLAYERS_PATH, BOOKING_TIME_PATH, BOOKING_TYPEGAME_PATH } from "../../../Utils/routeConstants";
 import { IBookingFields } from "../../../Utils/types";
+import { ConfirmBooking } from "./ConfirmBooking";
+import { CredentialsForm } from "./CredentialsForm";
+import { DateSelect } from "./DateSelect";
+import { GameSelect } from "./GameSelect";
+import GamesTypeSelect from "./GamesTypeSelect";
+import { PlayersCountSelect } from "./PlayersCountSelect";
+import { TimeSelect } from "./TimeSelect";
 
 // const CurrentPanel = () => {
 //   switch (currentStep) {
 //     case 0:
 //       return <CitySelect />;
 //     case 1:
-//       return <TypeGameSelect />;
+      // return <TypeGameSelect />;
 //     case 2:
 //       return <GameSelect />;
 //     case 3:
@@ -28,37 +35,37 @@ import { IBookingFields } from "../../../Utils/types";
 // };
 
 interface IStep {
-  path: string;
+  component: JSX.Element;
   isFinished: (booking: BookingState) => boolean;
 }
 
 export const Config: IStep[] = [
   {
-    path: BOOKING_TYPEGAME_PATH,
+    component: <GamesTypeSelect />,
     isFinished: (booking) => booking.typeGame !== null,
   },
   {
-    path: BOOKING_GAME_PATH,
+    component: <GameSelect />,
     isFinished: (booking) => booking.game !== null,
   },
   {
-    path: BOOKING_PLAYERS_PATH,
+    component: <PlayersCountSelect />,
     isFinished: (booking) => booking.playersCount !== null,
   },
   {
-    path: BOOKING_DATE_PATH,
+    component: <DateSelect />,
     isFinished: (booking) => booking.date !== null,
   },
   {
-    path: BOOKING_TIME_PATH,
+    component: <TimeSelect />,
     isFinished: (booking) => booking.avalibleTime !== null,
   },
   {
-    path: BOOKING_CREDITIALS_PATH,
+    component: <CredentialsForm />,
     isFinished: (booking) => booking.credentials !== null,
   },
   {
-    path: BOOKING_CONFIRM_PATH,
+    component: <ConfirmBooking />,
     isFinished: (booking) => booking.isFinished !== null,
   },
 ]

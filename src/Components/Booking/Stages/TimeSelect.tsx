@@ -29,8 +29,11 @@ export const TimeSelect: React.FC = () => {
       : undefined
   );
 
-
-  const times = useAppSelector(selectAvalibleTime)
+  
+  const date = useAppSelector(selectDate);
+  const times = useAppSelector(selectAvalibleTime);
+  const timeIndex = times.findIndex(field => field.date === date);
+  const avalibleTime = times[timeIndex].hours
 
   const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending); 
 
@@ -61,8 +64,8 @@ export const TimeSelect: React.FC = () => {
     >
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
-          {times &&
-            times.map((time) => (
+          {avalibleTime &&
+            avalibleTime.map((time) => (
               <Col
                 xs={12}
                 sm={8}

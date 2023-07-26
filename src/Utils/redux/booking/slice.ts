@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import { IBookingCredentials, ICity, IGame, IGameType, ISummaryResponse } from "../../types";
 import { gamesTypes } from "../gamesType/asyncActions";
@@ -34,7 +34,7 @@ const bookingSlice = createSlice({
             state.currentStep++;
         },
 
-        setStep(state, action) {
+        setStep(state, action : PayloadAction<number>) {
             state.currentStep = action.payload;
         },
 

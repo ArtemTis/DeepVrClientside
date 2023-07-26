@@ -18,17 +18,19 @@ import { TimeSelect } from "./Stages/TimeSelect";
 
 import "./BookingStyles.css";
 import { useCallback, useEffect } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import TypeGameSelect from "./Stages/GamesTypeSelect";
 import { Button } from "antd";
 import { Config } from "./Stages/Config";
 import { Link } from "react-router-dom";
 import { BOOKING_PATH } from "../../Utils/routeConstants";
+import { LoaderGipno } from "../Stepper/loader-components";
 
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);
   const isFinished = useAppSelector(selectIsFinished);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     return function checkState() {
@@ -41,29 +43,43 @@ export const Booking: React.FC = () => {
 
 
   console.log(currentStep);
-  
+
+
+  const nextStep = () => {
+    navigate(`${currentStep + 1}`)
+  }
 
   const booking = useAppSelector(state => state.bookingReducer);
 
-  const isFinish = useCallback(()=> {
-    
+  const isFinish = useCallback(() => {
+
     return Config[currentStep].isFinished(booking)
-  },[booking])
+  }, [booking])
 
   return (
     <DefaultLayout>
       <div className="booking-wrapper">
         {/* <CurrentPanel /> */}
 
+
+
+        <LoaderGipno innerText={"stepper"} labelPosition={"left"} type={"circle"} 
+          fontSize={20} value={currentStep} maxValue={6} width={100}
+          height={8} colorStops={[{ color: '#30A5D1', percent: 100 },]} 
+        />
+
+
+
+
         <Outlet />
 
 
         {
           currentStep > 0 &&
-          <Button onClick={()=> dispatch(decreaseStep())}>Назад</Button>
+          <Button onClick={() => navigate(`${currentStep - 1}`)}>Назад</Button>
         }
-        <Link to={`${BOOKING_PATH}/${Config[currentStep].path}`}  onClick={()=> dispatch(increaseStep())}>Далее</Link>
-        {/* disabled={!isFinish()} */}
+        <Button disabled={!isFinish()} onClick={() => nextStep()}>Далее</Button>
+
       </div>
     </DefaultLayout>
   );

@@ -37,12 +37,14 @@ const GamesTypeSelect = () => {
     dispatch(decreaseStep());
   };
   return (
-    <StageLayout
-      title="Выберите Тип Игры"
-      onNextClick={onNextClick}
-      onBackClick={onBackClick}
-      isNextBtnActive={!!selected}
-    >
+    // <StageLayout
+    //   title="Выберите Тип Игры"
+    //   onNextClick={onNextClick}
+    //   onBackClick={onBackClick}
+    //   isNextBtnActive={!!selected}
+    // >
+    <>
+      <h1>Выберите Тип Игры</h1>
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
           {gameTypes &&
@@ -57,7 +59,8 @@ const GamesTypeSelect = () => {
             ))}
         </Row>
       </LoadWrapper>
-    </StageLayout>
+    </>
+    // </StageLayout>
   )
 }
 

@@ -7,7 +7,7 @@ import { Api } from "../../api";
 
 
 export const getAvalibleTime = createAsyncThunk(
-    'bookingSlice/getAvalibleTime',
+    'getAvalibleTime',
     async function (_, { rejectWithValue, getState }) {
         const state = getState() as RootState;
 
@@ -18,7 +18,7 @@ export const getAvalibleTime = createAsyncThunk(
         try {
             const res = await Api.getAvalibleTime(gameId, playersCount, token, date ?? '');
 
-            return res;
+            return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.error_text ?? "Ошибка выбора времени");

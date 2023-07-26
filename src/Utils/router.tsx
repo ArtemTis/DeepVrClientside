@@ -43,6 +43,8 @@ import { Done } from "../Components/Booking/Stages/Done";
 import TypeGameSelect from "../Components/Booking/Stages/GamesTypeSelect";
 import BookingStepLayout from "../Components/Booking/Components/BookingStep";
 import BookingStep from "../Components/Booking/Components/BookingStep";
+import { Config } from "../Components/Booking/Stages/Config";
+
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,11 +53,11 @@ export const router = createBrowserRouter(
       <Route path={BOOKING_PATH} element={<Booking />} >
         {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
 
-        {/* <Route index element={<Navigate to={}/>} /> */}
-        {/* <Route path={`${BOOKING_PATH}/:step`} element={<BookingStep/>} /> */}
+        <Route index element={<BookingStep/>} />
+        <Route path={`${BOOKING_PATH}/:step`} element={<BookingStep/>} />
     
         {/* <Route index element={<Navigate to={BOOKING_ADDRESS_PATH} />} /> */}
-        <Route path={BOOKING_ADDRESS_PATH} element={<CitySelect />} />
+        {/* <Route path={BOOKING_ADDRESS_PATH} element={<CitySelect />} />
         <Route path={BOOKING_TYPEGAME_PATH} element={<TypeGameSelect />} />
         <Route path={BOOKING_GAME_PATH} element={<GameSelect />} />
              <Route path={BOOKING_PLAYERS_PATH} element={<PlayersCountSelect />} />
@@ -63,7 +65,7 @@ export const router = createBrowserRouter(
         <Route path={BOOKING_TIME_PATH} element={<TimeSelect />} />
         <Route path={BOOKING_CREDITIALS_PATH} element={<CredentialsForm />} />
               <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
-        <Route path={BOOKING_DONE_PATH} element={<Done />} />
+        <Route path={BOOKING_DONE_PATH} element={<Done />} /> */}
       </Route>
       <Route path={ACHIVEMENTS_PATH} element={<Achievements />} />
       <Route path={ACCOUNT_PATH} element={<Account />}>

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate } from "./types"
+import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate, IAvalibleTime } from "./types"
 
 export interface ErrorResponse {
     error: number,
@@ -20,7 +20,7 @@ export const Api = {
     },
     async getAllCities() {
         return axios.get<Array<ICity>>(
-            `${globalUrl}/v2/instances/list`, {
+            `${globalUrl}/v3/instances/list`, {
             timeout: 8000
         }
         );
@@ -43,7 +43,7 @@ export const Api = {
 
     async getUserByToken(data: ITokenDTO) {
         return axios.post<IUser>(
-            `${globalUrl}/v2/auth/loginByRememberedToken`,
+            `${globalUrl}/v3/auth/loginByRememberedToken`,
             data, {
             headers: {
                 timeout: 8000
@@ -64,7 +64,7 @@ export const Api = {
     // home
     async getAllGames() {
         return axios.get<Array<IGame>>(
-            `${instanceUrl}/games`, {
+            `${instanceUrl}/games/all`, {
             timeout: 8000
         }
         );
@@ -72,7 +72,7 @@ export const Api = {
 
     async getGamesTypes() {
         return axios.get<Array<IGameType>>(
-            `${instanceUrl}/games/types`, {
+            `${instanceUrl}/v3/games/types`, {
             timeout: 8000
         }
         );
@@ -97,7 +97,7 @@ export const Api = {
 
     async getTimesOfDay(date: Date) {
         return axios.get<IGetWorktimeResponse>(
-            `${instanceUrl}/v2/worktime?date=${date.toISOString().substring(0, 10)}`, {
+            `${instanceUrl}/v3/worktime?date=${date.toISOString().substring(0, 10)}`, {
             timeout: 8000
         }
         );
@@ -115,18 +115,25 @@ export const Api = {
         )
     },
 
+    // async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
+    //     return new Promise<string[]>((resolve) =>
+    //         setTimeout(() => {
+    //             resolve(['10:00', '11:00', '12:00', '13:00', '22:00'])
+    //         }, 500)
+    //     )
+    // },
+
     async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
-        return new Promise<string[]>((resolve) =>
-            setTimeout(() => {
-                resolve(['10:00', '11:00', '12:00', '13:00', '22:00'])
-            }, 500)
-        )
+        return axios.get<IAvalibleTime[]>(
+            `${instanceUrl}/v3/booking/available?game_id=${gameId}`, {
+            timeout: 8000
+        }
+        );
     },
-    
     
     async getSummary(data: IGetSummaryRequestData) {
         return axios.post<ISummaryResponse>(
-            `${instanceUrl}/v2/orders/precalculate`,
+            `${instanceUrl}/v3/orders/precalculate`,
             data, {
             headers: {
                 timeout: 8000
@@ -137,7 +144,7 @@ export const Api = {
 
     async validatePromo(data: IValidatePromoRequestData) {
         return axios.post<IValidatePromo>(
-            `${instanceUrl}/v2/promo/accept-discount`,
+            `${instanceUrl}/v3/promo/accept-discount`,
             data, {
             headers: {
                 timeout: 8000
@@ -148,7 +155,7 @@ export const Api = {
 
     async createBooking(data: IBookingFields) {
         return axios.post(
-            `${instanceUrl}/v2/booking/user`,
+            `${instanceUrl}/v3/booking/user`,
             data, {
             headers: {
                 timeout: 8000
@@ -161,7 +168,7 @@ export const Api = {
     // account
     async login(data: ILoginForm) {
         return axios.post<ILoginResponse>(
-            `${globalUrl}/v2/auth/login`,
+            `${globalUrl}/v3/auth/login`,
             data, {
             headers: {
                 timeout: 8000
@@ -172,7 +179,7 @@ export const Api = {
 
     async loginSendCode(data: { phone: string }) {
         return axios.post<ILoginByCodeResponse>(
-            `${globalUrl}/v2/auth/send-auth-code`,
+            `${globalUrl}/v3/auth/send-auth-code`,
             data, {
             headers: {
                 timeout: 8000
@@ -185,7 +192,7 @@ export const Api = {
         console.log('globalUrl: ' + globalUrl);
 
         return axios.post<IRegisterResponse>(
-            `${globalUrl}/v2/auth/registration`,
+            `${globalUrl}/v3/auth/registration`,
             data, {
             headers: {
                 timeout: 8000
@@ -196,7 +203,7 @@ export const Api = {
 
     async getBonusesInfo(data: ITokenDTO) {
         return axios.get<IGetBonusesInfoResponse>(
-            `${globalUrl}/v2/bonus/get`,
+            `${globalUrl}/v3/bonus/get`,
             {
                 headers: {
                     ...data
@@ -208,13 +215,13 @@ export const Api = {
 
     async getHistory(userId: number) {
         return axios.get<Array<IOrderHistoryItem>>(
-            `${globalUrl}/v2/orders/history/${userId}`
+            `${globalUrl}/v3/orders/history/${userId}`
         );
     },
 
     async logout(data: ITokenDTO) {
         return axios.post<any>(
-            `${globalUrl}/v2/auth/logout`,
+            `${globalUrl}/v3/auth/logout`,
             data, {
             headers: {
                 timeout: 8000
@@ -225,7 +232,7 @@ export const Api = {
 
     async getUserCity(token: string) {
         return axios.get<IGetUserCityResponse>(
-            `${globalUrl}/v2/profile/get-city`,
+            `${globalUrl}/v3/profile/get-city`,
             {
                 headers: {
                     token
@@ -236,7 +243,7 @@ export const Api = {
 
     async setUserCity(data: { token: string, city: string }) {
         return axios.post<any>(
-            `${globalUrl}/v2/profile/set-city`,
+            `${globalUrl}/v3/profile/set-city`,
             data, {
             headers: {
                 timeout: 8000
@@ -247,7 +254,7 @@ export const Api = {
 
     async editProfile(data: IEditProfileReq) {
         return axios.post<IUser>(
-            `${globalUrl}/v2/profile/edit-info`,
+            `${globalUrl}/v3/profile/edit-info`,
             data, {
             headers: {
                 timeout: 8000
@@ -258,7 +265,7 @@ export const Api = {
 
     async changePass(data: IChangePassForm) {
         return axios.post<any>(
-            `${globalUrl}/v2/profile/edit-password`,
+            `${globalUrl}/v3/profile/edit-password`,
             data, {
             headers: {
                 timeout: 8000

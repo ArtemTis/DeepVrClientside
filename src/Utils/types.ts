@@ -58,6 +58,11 @@ export interface IGameType {
   need_all_room: number,
 }
 
+export interface IAvalibleTime {
+  date: string,
+  hours: []
+}
+
 export interface IGame {
   id: number,
   title: string,
