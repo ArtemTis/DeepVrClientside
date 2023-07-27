@@ -14,11 +14,12 @@ import "../BookingStyles.css";
 
 import vrGlasses from "../../../Assets/Очки 3.png";
 import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
+import { Title } from "../Components/Title";
 
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();
-  const game = useAppSelector(selectGame) ;
-  const typeGame = useAppSelector(selectGameTypes)[0] ;
+  const game = useAppSelector(selectGame);
+  const typeGame = useAppSelector(selectGameTypes)[0];
 
 
   const min = game?.guest_min ?? 1;
@@ -73,12 +74,8 @@ export const PlayersCountSelect: React.FC = () => {
     !!count && (count as number) >= min && (count as number) <= max;
 
   return (
-    <StageLayout
-      title="Выберите количество игроков"
-      onNextClick={onNextClick}
-      onBackClick={onBackClick}
-      isNextBtnActive={isActive}
-    >
+    <>
+
       <Row justify="center" gutter={[20, 20]}>
         <Col
           xs={24}
@@ -112,6 +109,6 @@ export const PlayersCountSelect: React.FC = () => {
           </div>
         </Col>
       </Row>
-    </StageLayout>
+    </>
   );
 };

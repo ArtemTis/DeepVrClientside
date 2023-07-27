@@ -10,10 +10,9 @@ const BookingStep = () => {
 
   const { step } = useParams() ?? 1;
   const currentStep = useAppSelector(selectCurrentStep);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const safetyStep = useMemo(() => +(step ?? 0), [step])
+  const safetyStep = useMemo(() => +(step ?? 1), [step])
 
   useEffect(() => {
     dispatch(setStep(safetyStep))

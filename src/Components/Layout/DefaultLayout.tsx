@@ -9,6 +9,7 @@ import {
 } from "@radix-ui/react-scroll-area";
 
 import "../../App.css";
+import styled from "styled-components";
 
 interface Props {
   children?: React.ReactNode;
@@ -16,7 +17,7 @@ interface Props {
 
 export const DefaultLayout: React.FC<Props> = ({ children }) => {
   return (
-    <Layout className="app-bg">
+    <StyledLayout className="app-bg">
       <Content className="app-main">
         <ScrollRoot type="auto" className="ScrollAreaRoot">
           <Viewport className="ScrollAreaViewport">
@@ -27,9 +28,31 @@ export const DefaultLayout: React.FC<Props> = ({ children }) => {
           </Scrollbar>
         </ScrollRoot>
       </Content>
-      <Footer className="app-footer">
+      <StyledFooter>
         <FooterMenu />
-      </Footer>
-    </Layout>
+      </StyledFooter>
+    </StyledLayout>
   );
 };
+
+
+const StyledLayout = styled(Layout)`
+  background: var(--gradient, radial-gradient(373.43% 111.74% at 50.13% -0.00%, #6455C0 0%, #322A76 22.64%, #0F1934 44.84%, #080C22 80.48%));
+
+  color: #FFF;
+  min-height: 100vh;
+  height: calc(100vh - 72px);
+  position: relative;
+  padding-bottom: 72px;
+`
+
+const StyledFooter = styled(Footer)`
+  background: rgba(89, 83, 165, 1) !important;
+  color: #FFF;
+  position: fixed;
+  bottom: 0;
+  height: var(--footer-height);
+  width: 100%;
+  padding: 0;
+  border-top: #444656 solid 1px;
+`

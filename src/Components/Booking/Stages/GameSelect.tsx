@@ -19,6 +19,7 @@ import "../BookingStyles.css";
 import { gamesTypes } from "../../../Utils/redux/gamesType/asyncActions";
 import { selectGamesByType } from "../../../Utils/redux/games/selectors";
 import { useDispatch } from "react-redux";
+import { Title } from "../Components/Title";
 
 enum ReqStatus {
   pending,
@@ -53,12 +54,7 @@ export const GameSelect: React.FC = () => {
   };
 
   return (
-    <StageLayout
-      title="Выберите VR игру"
-      onNextClick={onNextClick}
-      onBackClick={onBackClick}
-      isNextBtnActive={!!selected}
-    >
+    <>
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
           {selectedGame &&
@@ -72,6 +68,6 @@ export const GameSelect: React.FC = () => {
             ))}
         </Row>
       </LoadWrapper>
-    </StageLayout>
+    </>
   );
 };

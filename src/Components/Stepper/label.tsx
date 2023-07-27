@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components';
 import { LabelPosition } from './loader-components';
 
 export const Label = styled.div<{width: number | string; fontSize: number; labelPosition: LabelPosition}>`
-  max-width: ${({ width }) => (width === 'expand' ? '100%' : width + 'px')};
+  /* max-width: ${({ width }) => (width === 'expand' ? '100%' : width + 'px')}; */
   line-height: ${({ fontSize }) => fontSize}px;
   font-size: ${props => props.fontSize}px;
   font-weight: 400;

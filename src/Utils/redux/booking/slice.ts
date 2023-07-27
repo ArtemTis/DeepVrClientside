@@ -21,7 +21,7 @@ export interface BookingState {
 }
 
 const initialState: BookingState = {
-    currentStep: 0,
+    currentStep: 1,
     isFinished: false,
     reqStatus: ReqStatus.never,
 };

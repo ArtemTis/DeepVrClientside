@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 
-export const games = createAsyncThunk(
+export const getAllGames = createAsyncThunk(
     'games',
     async function (_, { rejectWithValue }) {
         try {

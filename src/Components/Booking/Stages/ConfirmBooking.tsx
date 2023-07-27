@@ -106,7 +106,6 @@ export const ConfirmBooking: React.FC = () => {
   return (
     <>
       <div className="booking-viewport">
-        <Title fontSize={46}>Бронирование</Title>
         <Row justify="center">
           <Col xs={24} sm={20} md={14} lg={12} xl={10} xxl={8}>
             <Row

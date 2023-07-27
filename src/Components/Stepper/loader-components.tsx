@@ -16,7 +16,7 @@ export interface LoaderProps {
   height: number;
   innerText: CircleInnerType;
   maxValue?: number;
-  label?: string;
+  label?: string | JSX.Element;
   type?: LoaderType;
   labelPosition?: LabelPosition;
   colorStops?: {color: string, percent: number}[];

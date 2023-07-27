@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { ReqStatus } from "../../../Utils/enums";
 import { selectAvalibleTime } from "../../../Utils/redux/avalibleTime/selectors";
 import { selectDate, selectSelectedTime } from "../../../Utils/redux/booking/selectors";
+import { Title } from "../Components/Title";
 
 
 export const TimeSelect: React.FC = () => {
@@ -29,17 +30,17 @@ export const TimeSelect: React.FC = () => {
       : undefined
   );
 
-  
+
   const date = useAppSelector(selectDate);
   const times = useAppSelector(selectAvalibleTime);
   const timeIndex = times.findIndex(field => field.date === date);
   const avalibleTime = times[timeIndex].hours
 
-  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending); 
+  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(setTime)
-  },[preselectedDate, preselectedTime])
+  }, [preselectedDate, preselectedTime])
 
   const onNextClick = () => {
     if (!!selected) {
@@ -56,36 +57,32 @@ export const TimeSelect: React.FC = () => {
   };
 
   return (
-    <StageLayout
-      title="Выберите подходящее время"
-      onNextClick={onNextClick}
-      onBackClick={onBackClick}
-      isNextBtnActive={!!selected}
-    >
-      <LoadWrapper isLoading={isLoading}>
-        <Row justify="start" gutter={[20, 20]}>
-          {avalibleTime &&
-            avalibleTime.map((time) => (
-              <Col
-                xs={12}
-                sm={8}
-                md={6}
-                lg={6}
-                xl={4}
-                xxl={4}
-                key={time}
-              >
-                <TimeCard
-                  time={time}
-                  isSelected={
-                    time === selected
-                  }
-                  onClick={onTimeClick}
-                />
-              </Col>
-            ))}
-        </Row>
-      </LoadWrapper>
-    </StageLayout>
-  );
+      <>
+
+        <LoadWrapper isLoading={isLoading}>
+          <Row justify="start" gutter={[20, 20]}>
+            {avalibleTime &&
+              avalibleTime.map((time) => (
+                <Col
+                  xs={12}
+                  sm={8}
+                  md={6}
+                  lg={6}
+                  xl={4}
+                  xxl={4}
+                  key={time}
+                >
+                  <TimeCard
+                    time={time}
+                    isSelected={
+                      time === selected
+                    }
+                    onClick={onTimeClick}
+                  />
+                </Col>
+              ))}
+          </Row>
+        </LoadWrapper>
+      </>
+      );
 };

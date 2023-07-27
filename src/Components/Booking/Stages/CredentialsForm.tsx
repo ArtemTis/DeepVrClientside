@@ -25,6 +25,7 @@ import "../../Common/CommonStyles.css";
 import infoIcon from "../../../Assets/infoIcon.svg";
 import userIcon from "../../../Assets/user-icon-liliac.svg";
 import arrowRight from "../../../Assets/arrow-right.svg";
+import { Title } from "../Components/Title";
 
 const agreementHref = "/";
 const bonusesInfoHref = "/";
@@ -81,12 +82,8 @@ export const CredentialsForm: React.FC = () => {
   };
 
   return (
-    <StageLayout
-      title="Напишите ваши контакты"
-      onNextClick={onNextClick}
-      onBackClick={onBackClick}
-      isNextBtnActive={isValid}
-    >
+    <>
+      
       <Row justify="center" gutter={[20, 20]}>
         <ColLg>
           <form className="credentials-container">
@@ -197,6 +194,6 @@ export const CredentialsForm: React.FC = () => {
           </form>
         </ColLg>
       </Row>
-    </StageLayout>
+    </>
   );
 };

@@ -12,6 +12,7 @@ import ru from "date-fns/locale/ru";
 
 import "../BookingStyles.css";
 import { selectDate } from "../../../Utils/redux/booking/selectors";
+import { Title } from "../Components/Title";
 
 export const DateSelect: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -43,12 +44,8 @@ export const DateSelect: React.FC = () => {
   registerLocale("ru", ru);
 
   return (
-    <StageLayout
-      title="Выберите удобный день"
-      onNextClick={onNextClick}
-      onBackClick={onBackClick}
-      isNextBtnActive={!!selected}
-    >
+    <>
+
       <Row justify="center">
         <Col xs={24} sm={20} md={14} lg={12} xl={10} xxl={8}>
           <ReactDatePicker
@@ -72,7 +69,7 @@ export const DateSelect: React.FC = () => {
           />
         </Col>
       </Row>
-    </StageLayout>
+    </>
   );
 };
 

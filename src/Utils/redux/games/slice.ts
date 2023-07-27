@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { IGame } from "../../types";
-import { games } from "./asyncActions";
+import { getAllGames } from "./asyncActions";
 import { ReqStatus } from "../../enums";
 
 
@@ -15,18 +15,18 @@ const allGames = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(games.pending,
+        builder.addCase(getAllGames.pending,
             (state) => {
                 state.requestStatus = ReqStatus.pending;
             }
         )
-        builder.addCase(games.fulfilled,
+        builder.addCase(getAllGames.fulfilled,
             (state, action) => {
                 allGamesAdapter.setAll(state, action.payload);
                 state.requestStatus = ReqStatus.fulfield;
             }
         )
-        builder.addCase(games.rejected,
+        builder.addCase(getAllGames.rejected,
             (state) => {
                 state.requestStatus = ReqStatus.rejected;
             }

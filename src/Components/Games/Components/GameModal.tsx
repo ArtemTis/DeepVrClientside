@@ -123,7 +123,7 @@ export const GameModal: React.FC<Props> = ({ game, isOpen, onClose }) => {
                 <div className="game-modal-image-wrapper">
                   {game.logo && (
                     <img
-                      src={Api.getImageUrl(game.logo) as string}
+                      src={game.logo}
                       alt={game.title}
                       className="game-modal-image"
                     />

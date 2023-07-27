@@ -37,35 +37,48 @@ import { TimeSelect } from "./TimeSelect";
 interface IStep {
   component: JSX.Element;
   isFinished: (booking: BookingState) => boolean;
+  title: string;
 }
 
 export const Config: IStep[] = [
   {
+    component: <></>,
+    isFinished: (booking) => false,
+    title: ''
+  },
+  {
     component: <GamesTypeSelect />,
     isFinished: (booking) => booking.typeGame !== null,
+    title: 'Выберите Тип Игры'
   },
   {
     component: <GameSelect />,
     isFinished: (booking) => booking.game !== null,
+    title: 'Выберите VR игру'
   },
   {
     component: <PlayersCountSelect />,
     isFinished: (booking) => booking.playersCount !== null,
+    title: 'Выберите количество игроков'
   },
   {
     component: <DateSelect />,
     isFinished: (booking) => booking.date !== null,
+    title: 'Выберите удобный день'
   },
   {
     component: <TimeSelect />,
     isFinished: (booking) => booking.avalibleTime !== null,
+    title: 'Выберите подходящее время'
   },
   {
     component: <CredentialsForm />,
     isFinished: (booking) => booking.credentials !== null,
+    title: 'Напишите ваши контакты'
   },
   {
     component: <ConfirmBooking />,
     isFinished: (booking) => booking.isFinished !== null,
+    title: 'Бронирование'
   },
 ]

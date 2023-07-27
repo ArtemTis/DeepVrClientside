@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StageLayout } from './StageLayout'
 import { LoadWrapper } from '../../Common/Markup/LoadWrapper'
 import { Col, Row } from 'antd'
@@ -7,6 +7,7 @@ import { IGameType } from '../../../Utils/types'
 import { RootState, useAppDispatch, useAppSelector } from '../../../Utils/redux/store'
 import { selectGameTypes } from '../../../Utils/redux/gamesType/selectors'
 import { decreaseStep, increaseStep, setTypeGame } from '../../../Utils/redux/booking/slice'
+import { gamesTypes } from '../../../Utils/redux/gamesType/asyncActions'
 
 enum ReqStatus {
   pending,
@@ -23,6 +24,10 @@ const GamesTypeSelect = () => {
 
   const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
 
+  useEffect(() => {
+    dispatch(gamesTypes())
+  },[])
+
   const onCardClick = (room: IGameType) => {
     setSelected(room);
   };
@@ -36,15 +41,9 @@ const GamesTypeSelect = () => {
   const onBackClick = () => {
     dispatch(decreaseStep());
   };
+
   return (
-    // <StageLayout
-    //   title="Выберите Тип Игры"
-    //   onNextClick={onNextClick}
-    //   onBackClick={onBackClick}
-    //   isNextBtnActive={!!selected}
-    // >
     <>
-      <h1>Выберите Тип Игры</h1>
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
           {gameTypes &&
@@ -60,7 +59,6 @@ const GamesTypeSelect = () => {
         </Row>
       </LoadWrapper>
     </>
-    // </StageLayout>
   )
 }
 

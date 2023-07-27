@@ -15,9 +15,12 @@ import "../GamesStyles.css";
 import searchIcon from "../../../Assets/magnifier.svg";
 import crossWhite from "../../../Assets/crossWhite.svg";
 import arrowRight from "../../../Assets/arrow-right.svg";
+import { getAllGames } from "../../../Utils/redux/games/asyncActions";
+import { selectGames } from "../../../Utils/redux/games/selectors";
+import { ReqStatus } from "../../../Utils/enums";
 
 export const GamesList: React.FC = () => {
-  const [games, setGames] = useState<Array<IGame>>();
+  // const [games, setGames] = useState<Array<IGameResponse>>();
   const [gamesFiltered, setGamesFiltered] = useState<Array<IGame>>();
   const city = useAppSelector(selectSelectedCity);
   const [modalState, setModalState] = useState<IGame | undefined>();
@@ -25,27 +28,20 @@ export const GamesList: React.FC = () => {
 
   const [searchString, setSearchString] = useState<string>();
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+
+  const isLoading = useAppSelector(state => state.allGames.requestStatus) === ReqStatus.pending;
 
   const searchRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
     Api.setInstanceUrl(city?.code);
-    Api.getAllGames()
-      .then((res) => {
-        if (res.status >= 200 && res.status < 300) {
-          setGames(res.data);
-          setGamesFiltered(res.data);
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setIsLoading(false);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    dispatch(getAllGames());
   }, []);
+
+  const games = useAppSelector(selectGames);
 
   useEffect(() => {
     const substrings = searchString?.toLocaleLowerCase().split(" ");
@@ -100,6 +96,7 @@ export const GamesList: React.FC = () => {
   const resetCity = () => {
     dispatch(setSelectedCity(undefined));
   };
+  
 
   return (
     <div className="home-wrapper">
@@ -155,7 +152,7 @@ export const GamesList: React.FC = () => {
                 game={game}
                 isSelected={false}
                 key={game.id}
-                onClick={openModal}
+                onClick={() => openModal(game)}
               />
             ))}
         </Row>
