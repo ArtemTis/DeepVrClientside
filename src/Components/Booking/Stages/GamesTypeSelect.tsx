@@ -8,12 +8,7 @@ import { RootState, useAppDispatch, useAppSelector } from '../../../Utils/redux/
 import { selectGameTypes } from '../../../Utils/redux/gamesType/selectors'
 import { decreaseStep, increaseStep, setTypeGame } from '../../../Utils/redux/booking/slice'
 import { gamesTypes } from '../../../Utils/redux/gamesType/asyncActions'
-
-enum ReqStatus {
-  pending,
-  fulfield,
-  rejected
-}
+import { ReqStatus } from '../../../Utils/enums'
 
 const GamesTypeSelect = () => {
 
@@ -25,21 +20,15 @@ const GamesTypeSelect = () => {
   const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
 
   useEffect(() => {
-    dispatch(gamesTypes())
+    dispatch(gamesTypes());
   },[])
+  
+  useEffect(() => {
+    dispatch(setTypeGame(selected));
+  },[selected])
 
   const onCardClick = (room: IGameType) => {
     setSelected(room);
-  };
-
-  const onNextClick = () => {
-    if (!!selected) {
-      dispatch(setTypeGame(selected));
-      dispatch(increaseStep());
-    }
-  };
-  const onBackClick = () => {
-    dispatch(decreaseStep());
   };
 
   return (

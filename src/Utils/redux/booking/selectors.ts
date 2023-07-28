@@ -19,7 +19,7 @@ export const selectGame = createDraftSafeSelector(
 )
 export const selectPlayersCount = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.playersCount],
-    (playersCount) => playersCount ?? -1
+    (playersCount) => playersCount ?? 0
 )
 export const selectSelectedTime = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.selectedTime],

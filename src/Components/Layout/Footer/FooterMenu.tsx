@@ -14,36 +14,35 @@ import {
   LOGIN_PATH,
   SINGIN_TEL_PATH,
 } from "../../../Utils/routeConstants";
+import styled from "styled-components";
 
 export const FooterMenu: React.FC = () => {
   return (
-    <Row justify="center" className="footer-menu-wrapper">
-      <Col
-        xs={24}
-        sm={18}
-        md={14}
-        lg={12}
-        xl={10}
-        xxl={8}
-        className="footer-menu"
-      >
-        <FooterMenuButton icon={gamesIcon} text="Игры" linkTo={HOME_PATH} />
-        <FooterMenuButton
-          icon={bookingIcon}
-          text="Бронирование"
-          linkTo={BOOKING_PATH}
-        />
-        <FooterMenuButton
-          icon={achivementsIcon}
-          text="Достижения"
-          linkTo={ACHIVEMENTS_PATH}
-        />
-        <FooterMenuButton
-          icon={accountIcon}
-          text="Аккаунт"
-          linkTo={`${ACCOUNT_PATH}`}
-        />
-      </Col>
-    </Row>
+    <StyledWrrapper>
+
+      <FooterMenuButton icon={gamesIcon} text="Игры" linkTo={HOME_PATH} />
+      <FooterMenuButton
+        icon={bookingIcon}
+        text="Бронирование"
+        linkTo={BOOKING_PATH}
+      />
+      <FooterMenuButton
+        icon={achivementsIcon}
+        text="Достижения"
+        linkTo={ACHIVEMENTS_PATH}
+      />
+      <FooterMenuButton
+        icon={accountIcon}
+        text="Аккаунт"
+        linkTo={`${ACCOUNT_PATH}`}
+      />
+
+    </StyledWrrapper>
   );
 };
+
+
+const StyledWrrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+`

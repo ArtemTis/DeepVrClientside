@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   decreaseStep,
   increaseStep,
@@ -7,43 +7,35 @@ import {
 } from "../../../Utils/redux/booking/slice";
 import { selectGame, selectPlayersCount } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
-import { StageLayout } from "./StageLayout";
-import { IGame, IGameType, IRoom } from "../../../Utils/types";
 
 import "../BookingStyles.css";
 
 import vrGlasses from "../../../Assets/Очки 3.png";
 import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
-import { Title } from "../Components/Title";
 
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();
   const game = useAppSelector(selectGame);
-  const typeGame = useAppSelector(selectGameTypes)[0];
+  const gameSelected = useAppSelector(state => state.bookingReducer.game);
 
+  console.log(gameSelected);
 
   const min = game?.guest_min ?? 1;
-  const max = game?.guest_max
-    ? game.guest_max < typeGame.guest_max
-      ? game.guest_max
-      : typeGame.guest_max
-    : typeGame.guest_max;
+  const max = game?.guest_max ?? 1;
 
   const [count, setCount] = useState<string | number | undefined>(
     useAppSelector(selectPlayersCount) ?? game?.guest_min ?? 1
   );
 
+  console.log(count);
+  
+
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onNextClick = () => {
-    if (!!count) {
-      dispatch(setPlayersCount(count as number));
-      dispatch(increaseStep());
-    }
-  };
-  const onBackClick = () => {
-    dispatch(decreaseStep());
-  };
+  
+  useEffect(() => {
+    dispatch(setPlayersCount(count as number));
+  },[count])
 
   const onChange = () => {
     setCount(inputRef.current?.value);
@@ -73,9 +65,9 @@ export const PlayersCountSelect: React.FC = () => {
   const isActive =
     !!count && (count as number) >= min && (count as number) <= max;
 
+
   return (
     <>
-
       <Row justify="center" gutter={[20, 20]}>
         <Col
           xs={24}

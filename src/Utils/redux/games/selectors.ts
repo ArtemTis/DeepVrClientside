@@ -7,6 +7,6 @@ const baseSelectors = allGamesAdapter.getSelectors((state: RootState) => state.a
 export const selectGames = baseSelectors.selectAll;
 export const selectGamesByType = createDraftSafeSelector(
     [selectGames,
-        (state: RootState, gamesTypeId: number) => gamesTypeId],
+        (state: RootState, gamesTypeId: number | undefined) => gamesTypeId],
     (games, gamesTypeId) => games.filter(game => game.game_type_id === gamesTypeId)
 )

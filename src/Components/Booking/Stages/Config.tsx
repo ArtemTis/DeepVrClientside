@@ -48,37 +48,37 @@ export const Config: IStep[] = [
   },
   {
     component: <GamesTypeSelect />,
-    isFinished: (booking) => booking.typeGame !== null,
+    isFinished: (booking) => booking.typeGame !== undefined,
     title: 'Выберите Тип Игры'
   },
   {
     component: <GameSelect />,
-    isFinished: (booking) => booking.game !== null,
+    isFinished: (booking) => booking.game !== undefined,
     title: 'Выберите VR игру'
   },
   {
     component: <PlayersCountSelect />,
-    isFinished: (booking) => booking.playersCount !== null,
+    isFinished: (booking) => booking.playersCount !== undefined &&  booking.playersCount !== 0,
     title: 'Выберите количество игроков'
   },
   {
     component: <DateSelect />,
-    isFinished: (booking) => booking.date !== null,
+    isFinished: (booking) => booking.date !== undefined,
     title: 'Выберите удобный день'
   },
   {
     component: <TimeSelect />,
-    isFinished: (booking) => booking.avalibleTime !== null,
+    isFinished: (booking) => booking.avalibleTime !== undefined,
     title: 'Выберите подходящее время'
   },
   {
     component: <CredentialsForm />,
-    isFinished: (booking) => booking.credentials !== null,
+    isFinished: (booking) => booking.credentials !== undefined,
     title: 'Напишите ваши контакты'
   },
-  {
-    component: <ConfirmBooking />,
-    isFinished: (booking) => booking.isFinished !== null,
-    title: 'Бронирование'
-  },
+  // {
+  //   component: <ConfirmBooking />,
+  //   isFinished: (booking) => booking.isFinished !== null,
+  //   title: 'Бронирование'
+  // },
 ]

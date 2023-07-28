@@ -31,7 +31,12 @@ export const GameSelect: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, 9));
+  const selectedTypeId = useAppSelector((state: RootState) => state.bookingReducer.typeGame)?.id;
+  let selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
+
+
+  console.log(selectedTypeId);
+  
 
   const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
 
@@ -43,15 +48,11 @@ export const GameSelect: React.FC = () => {
     setSelected(game);
   };
 
-  const onNextClick = () => {
-    if (!!selected) {
-      dispatch(setGame(selected));
-      dispatch(increaseStep());
-    }
-  };
-  const onBackClick = () => {
-    dispatch(decreaseStep());
-  };
+  useEffect(() => {
+    dispatch(setGame(selected));
+  },[selected])
+
+
 
   return (
     <>

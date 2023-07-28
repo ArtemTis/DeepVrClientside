@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
 import {
   decreaseStep,
@@ -7,12 +7,10 @@ import {
   setDate,
 } from "../../../Utils/redux/booking/slice";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
-import { StageLayout } from "./StageLayout";
 import ru from "date-fns/locale/ru";
 
 import "../BookingStyles.css";
 import { selectDate } from "../../../Utils/redux/booking/selectors";
-import { Title } from "../Components/Title";
 
 export const DateSelect: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,16 +25,13 @@ export const DateSelect: React.FC = () => {
     preselectedDate ? new Date(preselectedDate) : undefined
   );
 
-  const onNextClick = () => {
+  useEffect(() => {
     if (!!selected) {
       selected.setMinutes(-selected.getTimezoneOffset());
       dispatch(setDate(selected.toISOString()));
-      dispatch(increaseStep());
     }
-  };
-  const onBackClick = () => {
-    dispatch(decreaseStep());
-  };
+  }, [selected])
+  
 
   const onChangeDate = (d: Date) => {
     setSelected(d);
@@ -45,7 +40,6 @@ export const DateSelect: React.FC = () => {
 
   return (
     <>
-
       <Row justify="center">
         <Col xs={24} sm={20} md={14} lg={12} xl={10} xxl={8}>
           <ReactDatePicker

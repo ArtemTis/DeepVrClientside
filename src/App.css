@@ -112,7 +112,7 @@
 }
 
 /* .app-footer  */
-:where(.css-dev-only-do-not-override-1i9hnpv).ant-layout .ant-layout-footer,
+/* :where(.css-dev-only-do-not-override-1i9hnpv).ant-layout .ant-layout-footer,
 :where(.css-1i9hnpv).ant-layout .ant-layout-footer {
   background-color: var(--bg-main-color);
   color: #FFF;
@@ -122,7 +122,7 @@
   width: 100%;
   padding: 0;
   border-top: #444656 solid 1px;
-}
+} */
 
 :where(.css-dev-only-do-not-override-1i9hnpv).ant-layout .ant-layout-content, 
 :where(.css-1i9hnpv).ant-layout .ant-layout-content{
@@ -131,25 +131,20 @@
 
 /* ------------ */
 
-.app-bg {
+/* .app-bg {
   color: #FFF;
   background-color: var(--bg-main-color);
   min-height: 100vh;
   height: calc(100vh - var(--footer-height));
   position: relative;
   padding-bottom: var(--footer-height);
-}
+} */
 
-.footer-menu-wrapper{
-  height: 100%;
-}
-.footer-menu {
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 20px;
+
+.full-height-wrapper{
+  padding-bottom: 120px;
+  min-height: calc(100vh - var(--footer-height));
+  height: auto;
 }
 
 .footer-menu-selected-link {
@@ -168,10 +163,6 @@
   height: 19px;
 }
 
-.full-height-wrapper {
-  min-height: calc(100vh - var(--footer-height));
-  height: auto;
-}
 
 /* modal style override */
 .antd-modal-content, 
