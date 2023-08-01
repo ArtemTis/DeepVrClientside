@@ -16,6 +16,11 @@ import searchIcon from "../../../Assets/magnifier.svg";
 import crossWhite from "../../../Assets/crossWhite.svg";
 import arrowRight from "../../../Assets/arrow-right.svg";
 
+import 'stories-react/dist/index.css';
+import Stories from "../../../feature/stories-feature/presentation/Stories";
+import storiesData from "../../../feature/stories-feature/data/stories";
+import thumbnailsData from "../../../feature/stories-feature/data/thumbnails";
+
 export const GamesList: React.FC = () => {
   const [games, setGames] = useState<Array<IGame>>();
   const [gamesFiltered, setGamesFiltered] = useState<Array<IGame>>();
@@ -160,6 +165,7 @@ export const GamesList: React.FC = () => {
             ))}
         </Row>
       </LoadWrapper>
+      <Stories stories={storiesData} thumbnails={thumbnailsData}/>
     </div>
   );
 };

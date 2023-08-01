@@ -13,6 +13,9 @@ import { NextButton } from "../../Common/Markup/NextButton";
 import { SelectCityList } from "../../Common/Markup/SelectCityList";
 
 import "../GamesStyles.css";
+import Stories from "../../../feature/stories-feature/presentation/Stories";
+import storiesData from "../../../feature/stories-feature/data/stories";
+import thumbnailsData from "../../../feature/stories-feature/data/thumbnails";
 
 export const CitySelectHome: React.FC = () => {
   const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;
@@ -36,6 +39,7 @@ export const CitySelectHome: React.FC = () => {
   };
 
   return (
+    <>
     <Row justify="center">
       <ColLg className="home-city-select-container ">
         <div className="home-title">Чтобы посмотреть игры, выберите город</div>
@@ -45,5 +49,8 @@ export const CitySelectHome: React.FC = () => {
         </NextButton>
       </ColLg>
     </Row>
+    
+    <Stories stories={storiesData} thumbnails={thumbnailsData}/>
+    </>
   );
 };
