@@ -9,6 +9,7 @@ import { selectGameTypes } from '../../../Utils/redux/gamesType/selectors'
 import { decreaseStep, increaseStep, setTypeGame } from '../../../Utils/redux/booking/slice'
 import { gamesTypes } from '../../../Utils/redux/gamesType/asyncActions'
 import { ReqStatus } from '../../../Utils/enums'
+import styled from 'styled-components'
 
 const GamesTypeSelect = () => {
 
@@ -34,7 +35,8 @@ const GamesTypeSelect = () => {
   return (
     <>
       <LoadWrapper isLoading={isLoading}>
-        <Row justify="start" gutter={[20, 20]}>
+        {/* <Row justify="start" gutter={[20, 20]}> */}
+        <TypeGameWrapper>
           {gameTypes &&
             gameTypes.map((gameType) => (
               <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8} key={gameType.id}>
@@ -45,10 +47,17 @@ const GamesTypeSelect = () => {
                 />
               </Col>
             ))}
-        </Row>
+        </TypeGameWrapper>
       </LoadWrapper>
     </>
   )
 }
 
 export default GamesTypeSelect
+
+const TypeGameWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+`

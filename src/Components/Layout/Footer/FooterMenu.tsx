@@ -20,20 +20,25 @@ export const FooterMenu: React.FC = () => {
   return (
     <StyledWrrapper>
 
-      <FooterMenuButton icon={gamesIcon} text="Игры" linkTo={HOME_PATH} />
+      <FooterMenuButton
+        icon={gamesIcon}
+        text="Games"
+        linkTo={HOME_PATH}
+      />
+
       <FooterMenuButton
         icon={bookingIcon}
-        text="Бронирование"
+        text="Booking"
         linkTo={BOOKING_PATH}
       />
       <FooterMenuButton
         icon={achivementsIcon}
-        text="Достижения"
+        text="Progress"
         linkTo={ACHIVEMENTS_PATH}
       />
       <FooterMenuButton
         icon={accountIcon}
-        text="Аккаунт"
+        text="Account"
         linkTo={`${ACCOUNT_PATH}`}
       />
 

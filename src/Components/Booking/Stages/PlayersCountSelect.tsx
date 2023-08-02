@@ -16,9 +16,6 @@ import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();
   const game = useAppSelector(selectGame);
-  const gameSelected = useAppSelector(state => state.bookingReducer.game);
-
-  console.log(gameSelected);
 
   const min = game?.guest_min ?? 1;
   const max = game?.guest_max ?? 1;

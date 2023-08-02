@@ -21,7 +21,7 @@ export const DefaultLayout: React.FC<Props> = ({ children }) => {
       <Content>
         <ScrollRoot type="auto" className="ScrollAreaRoot">
           <Viewport className="ScrollAreaViewport">
-            <StyledContent className="full-height-wrapper">{children}</StyledContent>
+            <div className="full-height-wrapper">{children}</div>
           </Viewport>
           <Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
             <Thumb className="ScrollAreaThumb" />
@@ -51,17 +51,17 @@ const StyledLayout = styled(Layout)`
 `
 
 const StyledFooter = styled(Footer)`
-  border-radius: 40px;
-  background: #313063 !important;
-  box-shadow: 0px 20px 40px 0px #51508B;
+  border-radius: 20px;
+  background: #454385 !important;
+  box-shadow: 0px 8px 24px 0px rgba(70, 68, 136, 0.30);
   z-index: 10;
 
   color: #FFF;
   position: fixed;
   bottom: 30px;
-  width: 50vw;
-  left: 25vw;
-  padding: 15px 0px !important;
+  width: 30vw;
+  left: 35vw;
+  padding: 15px 10px !important;
 
   .footer-menu{
     display: flex;
@@ -69,8 +69,4 @@ const StyledFooter = styled(Footer)`
     justify-content: space-between;
 
   }
-`
-
-const StyledContent = styled.div`
-  /* max-width: 500px; */
 `

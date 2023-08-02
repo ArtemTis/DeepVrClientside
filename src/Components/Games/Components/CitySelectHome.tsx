@@ -1,4 +1,4 @@
-import { Row } from "antd";
+import { Col, Row } from "antd";
 import { useState } from "react";
 import { Api } from "../../../Utils/api";
 import {
@@ -13,6 +13,7 @@ import { NextButton } from "../../Common/Markup/NextButton";
 import { SelectCityList } from "../../Common/Markup/SelectCityList";
 
 import "../GamesStyles.css";
+import styled from "styled-components";
 
 export const CitySelectHome: React.FC = () => {
   const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;
@@ -40,10 +41,16 @@ export const CitySelectHome: React.FC = () => {
       <ColLg className="home-city-select-container ">
         <div className="home-title">Чтобы посмотреть игры, выберите город</div>
         <SelectCityList selected={selected} onSelect={onSelect} />
-        <NextButton onClick={confirmm} isActive={!!selected}>
-          Подтвердить
-        </NextButton>
+        <StyledWrapper>
+          <NextButton onClick={confirmm} isActive={!!selected}>
+            Подтвердить
+          </NextButton>
+        </StyledWrapper>
       </ColLg>
     </Row>
   );
 };
+
+const StyledWrapper = styled.div`
+  margin: 0 auto;
+`

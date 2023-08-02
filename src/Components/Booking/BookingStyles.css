@@ -1,7 +1,4 @@
-@font-face {
-    font-family: 'Open Sans';
-    src: url(../../Assets/fonts/OpenSans-VariableFont_wdth\,wght.ttf);
-}
+
 @import url('https://fonts.cdnfonts.com/css/bebas-neue');
 
 .booking-wrapper {
@@ -10,6 +7,12 @@
     position: relative;
     max-width: 100%;
     width: 100%;
+    /* margin: 0 100px; */
+    padding: 0 5vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .fixed-panel {
@@ -39,15 +42,14 @@
     width: 100%;
     text-align: center;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    padding: 24px;
 }
 .booking-header {
-    font-family: 'Bebas Neue';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 26px;
     line-height: 120%;
 
     margin: 0;
@@ -63,7 +65,6 @@
     width: 100%;
     height: 64px;
 
-    font-family: 'Open Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -130,7 +131,7 @@
     justify-content: flex-start;
     align-items: flex-end;
 
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 28px;
@@ -193,7 +194,7 @@
     justify-content: center;
     align-items: center;
     color: #FFF;
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 22px;
@@ -228,7 +229,8 @@
 }
 
 .room-card-wrapper {
-    height: 166px;
+    height: 180px;
+    width: 28vw;
     padding: 2px;
 }
 .room-card-bg {
@@ -241,10 +243,11 @@
 }
 
 .room-card-title {
-    font-family: 'Gilroy-Regular';
+    color: #FFF;
+    font-family: 'SF Pro Display';
+    font-size: 26px;
     font-style: normal;
     font-weight: 600;
-    font-size: 24px;
     line-height: 40px;
     margin: 0;
     padding: 0;
@@ -253,12 +256,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
 }
 
 .room-card-description-item {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -269,6 +271,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+
+    margin-right: 16px;
 }
 
 .count-select-bg {
@@ -311,7 +315,7 @@
     height: 100%;
     background-color: #1F2032;
     
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -341,7 +345,7 @@
     outline: none;
     text-align: center;
 
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -354,7 +358,7 @@
 
 /* datepicker overrides */ 
 .react-datepicker__header {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -506,7 +510,7 @@
     height: min-content;
 }
 .datepicker-customDay-places {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-size: 8px;
     font-weight: 600;
     letter-spacing: -0.30px;
@@ -548,7 +552,7 @@
     color: #050411;
 }
 .time-card-title {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -573,7 +577,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -607,7 +611,7 @@
 }
 
 .credentials-need-login {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -637,7 +641,7 @@
     gap: 16px
 }
 .modal-promo-title {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
@@ -647,7 +651,7 @@
 }
 .modal-promo-description {
     width: 100%;
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
@@ -665,7 +669,7 @@
 
 .modal-promo-err-block {
     width: 100%;
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -682,7 +686,6 @@
     width: 100%;
     height: 64px;
     color: #FFF;
-    font-family: 'Open Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -712,7 +715,7 @@
     justify-content: flex-start;
     align-items: center;
     
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -740,7 +743,7 @@
     justify-content: space-between;
     align-items: center;
     
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -759,7 +762,7 @@
     justify-content: space-between;
     align-items: center;
 
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -781,7 +784,7 @@
 }
 
 .done-text {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

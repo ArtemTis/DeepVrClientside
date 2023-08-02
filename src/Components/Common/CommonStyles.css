@@ -1,7 +1,4 @@
-@font-face {
-    font-family: 'Open Sans';
-    src: url(../../Assets/fonts/OpenSans-VariableFont_wdth\,wght.ttf);
-}
+
 
 @import url('https://fonts.cdnfonts.com/css/bebas-neue');
 
@@ -12,22 +9,23 @@
     align-items: center;
     gap: 10px;
 
-    width: 100%;
+    width: 20vw;
     min-height: 60px;
-    height: 64px;
+    height: 60px;
+    padding: 16px 32px;
 
-    font-family: 'Open Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;
     color: #FFFFFF;
 
-    background: linear-gradient(90deg, #36C0E7 6.68%, #4B51EA 84.84%, #4B51EA 87.36%);
     box-shadow: 0px 15px 60px rgba(66, 130, 233, 0.45);
-    border-radius: 15px;
     cursor: pointer;
     border: none;
+
+    border-radius: 30px;
+    background: var(--linear, linear-gradient(163deg, #952EF1 0%, #17C5E7 100%));
 }
 
 .next-btn-inactive {
@@ -36,7 +34,7 @@
 }
 
 .form-field {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -64,7 +62,7 @@
     border: none;
     height: 100%;
     color: #FFF !important;
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -104,7 +102,7 @@ select:-webkit-autofill:focus {
 
 .form-error {
     width: 100%;
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -125,7 +123,7 @@ select:-webkit-autofill:focus {
     align-items: center;
     gap: 12px;
 
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -196,7 +194,7 @@ select:-webkit-autofill:focus {
     height: 100%;
     background: linear-gradient(180deg, rgba(46, 54, 141, 0) 0%, #2E368D 100%);
 
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -223,7 +221,7 @@ select:-webkit-autofill:focus {
 }
 
 .city-select-row {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -240,7 +238,7 @@ select:-webkit-autofill:focus {
 }
 
 .city-select-no-available {
-    font-family: 'Gilroy-Regular';
+    font-family: 'SF Pro Display';
     font-style: italic;
     font-weight: 400;
     font-size: 14px;
