@@ -1,0 +1,30 @@
+@media screen and (max-width: 500px) {
+
+    .prev-next button:first-child {
+        left: 0;
+    }
+
+    .prev-next button:last-child {
+        right: 0;
+    }
+
+    .stories-wrapper {
+        width: 90vh;
+        height: 100%;
+        margin: 30px 0;
+    }
+
+    .video-close {
+        top: 10px;
+        right: 37px;
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    .photo-close {
+        top: 10px;
+        right: 10px;
+        font-size: 18px;
+        font-weight: 400;
+    }
+}

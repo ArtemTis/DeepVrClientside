@@ -2,6 +2,7 @@ import Stories from "stories-react";
 import IStories from "../data/storiesDto";
 
 import "./style.css"
+import "./media.css"
 
 import { ReactComponent as Prev } from "../data/icons/prev.svg";
 import { ReactComponent as Next } from "../data/icons/next.svg";
@@ -10,16 +11,19 @@ import { useRef, useState } from "react";
 interface Props {
     stories: IStories[],
     handleCloseClick: () => void,
-    handleModalNext: () => void,
-    handleModalPrev: () => void,
-    group_index: number
+    handleModalNext: (index: number, len: number) => void,
+    handleModalPrev: (index: number, len: number) => void,
+    group_index: number,
+    curIndex: number,
+    setCurrentIndex: (index: number) => void,
 }
 
-const ViewStory: React.FC<Props> = ({ stories, handleCloseClick, handleModalNext, handleModalPrev, group_index }) => {
+const Story: React.FC<Props> = ({ stories, handleCloseClick, handleModalNext, handleModalPrev, group_index, curIndex, setCurrentIndex }) => {
 
     const [startX, setStartX] = useState(0);
     const mouseRef = useRef<HTMLDivElement | null>(null);
-
+    let currentIndexStory = curIndex;
+    let videoClassName = "";
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         setStartX(e.clientX);
@@ -30,30 +34,44 @@ const ViewStory: React.FC<Props> = ({ stories, handleCloseClick, handleModalNext
         const deltaX = endX - startX;
 
         if (deltaX > 50) {
-            handleModalPrev();
+            handleModalPrev(currentIndexStory, stories.length);
         } else if (deltaX < -50) {
-            handleModalNext();
+            handleModalNext(currentIndexStory, stories.length);
         }
     };
+
+    const setCurrentIndexStory = (index: number) => {
+        currentIndexStory = index;
+        setCurrentIndex(currentIndexStory);
+    }
+
+    if(stories[currentIndexStory].type === 'video') {
+        videoClassName = "video-close";
+    }
+    else {
+        videoClassName = "photo-close";
+    }
 
     return (
         <>
             <div className="stories-container" ref={mouseRef} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
-                <div className="close-icon" onClick={handleCloseClick}>
-                    &#x2716;
+                <div className={`close-icon ${videoClassName}`} onClick={handleCloseClick}>
+                    &#x2715;
                 </div>
                 <div className="stories-wrapper">
                     <Stories height="100%"
                         width="100%"
                         key={group_index}
                         stories={stories}
-                        onAllStoriesEnd={handleModalNext}
+                        onAllStoriesEnd={() => handleModalNext(-1, stories.length)}
+                        onStoryChange={(currentIndex: number) => setCurrentIndexStory(currentIndex)}
+                        currentIndex={curIndex}
                     />
                     <div className="prev-next">
-                        <button onClick={handleModalPrev}>
+                        <button onClick={() => handleModalPrev(currentIndexStory, stories.length)}>
                             <Prev />
                         </button>
-                        <button onClick={handleModalNext}>
+                        <button onClick={() => handleModalNext(currentIndexStory, stories.length)}>
                             <Next />
                         </button>
                     </div>
@@ -63,4 +81,4 @@ const ViewStory: React.FC<Props> = ({ stories, handleCloseClick, handleModalNext
     )
 }
 
-export default ViewStory;
+export default Story;

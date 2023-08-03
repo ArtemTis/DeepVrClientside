@@ -32,7 +32,7 @@ const storiesData: IStories[] = [
   {
     id: 3,
     type: 'image',
-    url: 'https://i.pinimg.com/736x/2b/c3/d0/2bc3d08475db53a178d505341a04a5a2.jpg',
+    url: 'https://img2.akspic.ru/attachments/originals/5/0/0/8/88005-gorodskoj_pejzazh-gorodskoj_rajon-bruklinskij_most-otrazhenie-metropoliya-2560x1600.jpg',
     duration: 3000,
     stories_group_id: 2,
   },

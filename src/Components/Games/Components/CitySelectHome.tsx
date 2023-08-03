@@ -14,8 +14,6 @@ import { SelectCityList } from "../../Common/Markup/SelectCityList";
 
 import "../GamesStyles.css";
 import Stories from "../../../feature/stories-feature/presentation/Stories";
-import storiesData from "../../../feature/stories-feature/data/stories";
-import thumbnailsData from "../../../feature/stories-feature/data/thumbnails";
 
 export const CitySelectHome: React.FC = () => {
   const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;
@@ -50,7 +48,7 @@ export const CitySelectHome: React.FC = () => {
       </ColLg>
     </Row>
     
-    <Stories stories={storiesData} thumbnails={thumbnailsData}/>
+    <Stories/>
     </>
   );
 };

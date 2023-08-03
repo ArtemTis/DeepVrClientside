@@ -3,7 +3,7 @@ import IThumbnail from "./thumbnailDto";
 const thumbnailsData: IThumbnail[] = [
     {
         id: 1,
-        title: "1Tittle within thumbnail",
+        title: "",
         content: "https://decisivereflex.files.wordpress.com/2011/02/dsc_1683-b_w.jpg"
     },
     {
