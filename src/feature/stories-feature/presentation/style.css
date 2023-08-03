@@ -19,3 +19,44 @@
     font-size: 24px;
     color: white;
 }
+
+.stories-wrapper {
+    position: relative;
+    cursor: pointer;
+    height: 700px;
+    width: 400px;
+}
+
+.prev-next {
+    position: absolute;
+    top: calc(50% - 40px / 2);
+    left: 5px;
+    right: 5px;
+}
+
+.prev-next button {
+    position: absolute;
+    background: #494848;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    cursor: pointer;
+    border-color: transparent;
+}
+
+.stories-wrapper:hover .prev-next button,
+.prev-next:hover button {
+    background: #908d8d;
+}
+
+.prev-next button:first-child {
+    left: -50px;
+}
+
+.prev-next button:last-child {
+    right: -50px;
+}

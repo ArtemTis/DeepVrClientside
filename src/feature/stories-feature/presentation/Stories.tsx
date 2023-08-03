@@ -27,6 +27,16 @@ const Stories: React.FC<Props> = ({ stories, thumbnails }) => {
         }
     };
 
+    const handleModalPrev = () => {
+        console.log(activeThumbnailIndex)
+        if (activeThumbnailIndex === 1) {
+            handleModalClose();
+        }
+        else {
+            setActiveThumbnailIndex(activeThumbnailIndex - 1);
+        }
+    };
+
     const handleModalClose = () => {
         setActiveThumbnailIndex(-1);
     }
@@ -42,12 +52,16 @@ const Stories: React.FC<Props> = ({ stories, thumbnails }) => {
                 />
             ))}
 
+
             {activeThumbnailIndex !== -1 && (
-                <ViewStory stories={stories.filter((store) => store.stories_group_id === activeThumbnailIndex)}
-                    handleCloseClick={handleModalClose}
-                    handleModalNext={handleModalNext}
-                    group_index={activeThumbnailIndex}
-                />
+                <>
+                    <ViewStory stories={stories.filter((store) => store.stories_group_id === activeThumbnailIndex)}
+                        handleCloseClick={handleModalClose}
+                        handleModalNext={handleModalNext}
+                        handleModalPrev={handleModalPrev}
+                        group_index={activeThumbnailIndex}
+                    />
+                </>
             )}
         </div>
     )
