@@ -332,9 +332,6 @@
     -webkit-appearance: none;
     margin: 0;
 }
-.count-select-input[type=number] {
-    -moz-appearance: textfield;
-}
 
 
 .count-select-input-row-btn {

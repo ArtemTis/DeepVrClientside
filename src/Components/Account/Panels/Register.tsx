@@ -16,12 +16,8 @@ import { EmailField } from "../../Common/FormFields/EmailField";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../../Utils/redux/auth/asyncActions";
 import { useSelector } from "react-redux";
+import { ReqStatus } from "../../../Utils/enums";
 
-enum ReqStatus {
-  pending,
-  fulfield,
-  rejected
-}
 
 export const Register = () => {
   const {

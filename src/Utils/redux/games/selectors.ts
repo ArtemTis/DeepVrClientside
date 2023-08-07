@@ -10,3 +10,8 @@ export const selectGamesByType = createDraftSafeSelector(
         (state: RootState, gamesTypeId: number | undefined) => gamesTypeId],
     (games, gamesTypeId) => games.filter(game => game.game_type_id === gamesTypeId)
 )
+
+export const selectGamesByTypeId = createDraftSafeSelector(
+    [(state: RootState) => state.allGames.gameByType],
+    (gameByType) => gameByType
+)

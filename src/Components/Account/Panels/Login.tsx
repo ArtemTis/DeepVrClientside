@@ -20,6 +20,7 @@ import { Outlet, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { REGISTER_PATH } from "../../../Utils/routeConstants";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 
 enum ReqStatus {
   pending,
@@ -36,9 +37,10 @@ export const Login = () => {
     mode: "onTouched",
   });
 
-  const textError = useSelector((state: RootState) => state.authReducer.textError) === 'Rejected' ? 'Ошибка авторизации': '';
+  const textError = useSelector((state: RootState) => state.authReducer.textError) === 'Rejected' ? 'Ошибка авторизации' : '';
+
   const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending);
-  
+
   //get last route name for change active tab
   let location = useLocation();
   let prevPath = location.pathname.split('/').splice(-1)[0];
@@ -59,12 +61,12 @@ export const Login = () => {
 
   return (
     <Row justify="center">
-      <ColLg className="login-container">
+      <LoginContainer>
         <div className="login-title">Вход</div>
         <form className="login-form">
           <Row justify="center" gutter={[10, 10]}>
             <Col span={24} className="login-variants-header">
-              Войти с помощью:
+              Данные для входа
             </Col>
             <Col span={8}>
               <Link
@@ -110,7 +112,20 @@ export const Login = () => {
           У меня еще нет аккаунта, хочу{" "}
           <Link to={`../${REGISTER_PATH}`} className="login-description-link">зарегистрироваться.</Link>
         </div>
-      </ColLg>
+      </LoginContainer>
     </Row>
   );
 };
+
+
+const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* next-btn-inactive */
+  button{
+    margin: 20px 0;
+  }
+`

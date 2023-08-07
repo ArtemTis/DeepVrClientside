@@ -1,12 +1,8 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { ICity, IUser } from "../../types";
 import { register, singIn, singInCode } from "./asyncActions";
+import { ReqStatus } from "../../enums";
 
-enum ReqStatus {
-    pending,
-    fulfield,
-    rejected
-}
 interface AuthState {
     token: string;
     user?: IUser;
@@ -18,7 +14,7 @@ interface AuthState {
 
 const initialState: AuthState = {
     token: '',
-    reqStatus: ReqStatus.pending,
+    reqStatus: ReqStatus.never,
     codeStatus: 'send'
 };
 

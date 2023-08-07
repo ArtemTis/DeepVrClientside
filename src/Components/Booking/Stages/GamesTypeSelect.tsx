@@ -32,6 +32,9 @@ const GamesTypeSelect = () => {
     setSelected(room);
   };
 
+  console.log(gameTypes);
+  
+
   return (
     <>
       <LoadWrapper isLoading={isLoading}>

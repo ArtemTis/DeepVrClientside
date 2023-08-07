@@ -109,7 +109,7 @@ select:-webkit-autofill:focus {
     line-height: 140%;
     color: #EE6E7E;
     text-align: left;
-    margin-bottom: -8px;
+    margin-bottom: -4px;
     padding-left: 12px;
 }
 

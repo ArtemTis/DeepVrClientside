@@ -60,6 +60,7 @@ const StyledFooter = styled(Footer)`
   position: fixed;
   bottom: 30px;
   width: 30vw;
+  min-width: 260px;
   left: 35vw;
   padding: 15px 10px !important;
 

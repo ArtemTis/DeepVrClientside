@@ -33,6 +33,7 @@ const StyledButton = styled.button`
     gap: 10px;
 
     width: 20vw;
+    min-width: 240px;
     min-height: 60px;
     height: 60px;
     padding: 16px 32px;

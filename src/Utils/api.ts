@@ -28,7 +28,8 @@ export const Api = {
 
     setInstanceUrl(prefix: string | undefined) {
         const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
-        instanceUrl = url;
+        // instanceUrl = url;
+        instanceUrl = 'http://192.168.1.40:5274/api';
         if (url) instanceStorageUrl = url.replace('/api', '/storage');
         else instanceStorageUrl = undefined;
     },
@@ -65,7 +66,10 @@ export const Api = {
     async getAllGames() {
         return axios.get<Array<IGame>>(
             `${instanceUrl}/v3/games/all`, {
-            timeout: 8000
+            timeout: 8000,
+            headers: {
+                token: 'guest_token'
+            }
         }
         );
     },
@@ -73,7 +77,44 @@ export const Api = {
     async getGamesTypes() {
         return axios.get<Array<IGameType>>(
             `${instanceUrl}/v3/game-types/all`, {   
-            timeout: 8000
+            timeout: 8000,
+            headers: {
+                token: 'guest_token'
+            }
+        }
+        );
+    },
+
+    async getGameByType(id: number | undefined) {
+        return axios.get<Array<IGetGamesResponse>>(
+            `${instanceUrl}/v3/game-types/${id}/games`, {   
+            timeout: 8000,
+            headers: {
+                token: 'guest_token'
+            },
+            transformResponse: [
+                (data) => {
+
+                    return JSON.parse(data);
+                    // let resp;
+                    // try {
+                    //   resp = JSON.parse(data);
+                    //   console.log(resp.games);
+                      
+                    //   if (resp.status === "success") {
+                    //     return resp.games;
+                    //   } else {
+                    //     throw Error(`Request failed with reason -  ${data}`);
+                    //   }
+                    // } catch (error) {
+                    //   throw Error(
+                    //     `Error parsingJSON data - ${JSON.stringify(
+                    //       error
+                    //     )}`
+                    //   );
+                    // }
+                  },
+            ]
         }
         );
     },

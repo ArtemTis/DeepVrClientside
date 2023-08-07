@@ -17,9 +17,10 @@ import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
 import "../BookingStyles.css";
 import { gamesTypes } from "../../../Utils/redux/gamesType/asyncActions";
-import { selectGamesByType } from "../../../Utils/redux/games/selectors";
+import { selectGamesByType, selectGamesByTypeId } from "../../../Utils/redux/games/selectors";
 import { useDispatch } from "react-redux";
 import { Title } from "../Components/Title";
+import { getGameByType } from "../../../Utils/redux/games/asyncActions";
 
 enum ReqStatus {
   pending,
@@ -29,14 +30,19 @@ enum ReqStatus {
 
 export const GameSelect: React.FC = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const selectedTypeId = useAppSelector((state: RootState) => state.bookingReducer.typeGame)?.id;
+  let selectedGames = useAppSelector((state: RootState) => state.allGames.gameByType);
   let selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
 
-
-  console.log(selectedTypeId);
+  console.log(selectedGame);
+  console.log(selectedGames);
   
+  
+  useEffect(() => {
+    dispatch(getGameByType(selectedTypeId))
+  },[])
 
   const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
 

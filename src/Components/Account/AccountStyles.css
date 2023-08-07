@@ -8,19 +8,19 @@
   align-items: center;
   width: 100%;
   height: calc(100vh - var(--footer-height));
-  gap: 24px;
+  /* gap: 24px; */
 }
 
 .login-title {
-  height: 50px;
+  /* height: 150px; */
   width: 100%;
   text-align: center;
 
-  font-family: 'Bebas Neue';
+  font-family: 'SF Pro Display';
+  font-size: 46px;
   font-style: normal;
   font-weight: 700;
-  font-size: 46px;
-  line-height: 50px;
+  line-height: 180%; /* 82.8px */
   /* identical to box height, or 109% */
 
   text-align: center;
@@ -106,7 +106,6 @@
   justify-content: flex-start;
   align-items: center;
   gap: 16px;
-  padding: 0 16px;
 }
 
 @media screen and (max-width: 768px) {
@@ -115,24 +114,6 @@
   }
 }
 
-.profile-header {
-  width: 100%;
-  text-align: center;
-
-  font-family: 'Bebas Neue';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  color: #FFFFFF;
-  
-  position: sticky;
-  top: 0;
-  padding: 16px 0;
-  background-color: var(--bg-main-color);
-
-  box-sizing: border-box;
-  z-index: 12;
-}
 
 .profile-open-settings-icon {
   position: absolute;
@@ -144,13 +125,12 @@
 }
 
 .profile-divide {
-  background: #1F2032;
+  background: #1F253F;
   border-radius: 15px;
   overflow: hidden;
-  padding: 16px;
+  padding: 30px;
   width: 100%;
   height: max-content;
-  /* box-sizing: content-box; */
 }
 
 .profile-divide-header {
@@ -181,7 +161,7 @@
   font-family: 'SF Pro Display';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 120%;
   text-align: right;
   letter-spacing: -0.41px;
@@ -333,10 +313,10 @@
 
 .profile-divide-btn-full {
   font-family: 'SF Pro Display';
+  font-size: 22px;
   font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 140%;
+  font-weight: 600;
+  line-height: 160%;
 
   color: #FFFFFF;
   width: 100%;
@@ -351,8 +331,8 @@
 }
 
 .profile-divide-header-img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 
 .profile-order-info-more {
@@ -361,7 +341,7 @@
   height: 100%;
 
   font-weight: 400;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 140%;
 
   display: flex;
