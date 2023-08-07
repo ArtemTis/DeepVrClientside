@@ -9,14 +9,14 @@ const api = {
     return new Promise<IStories[]>((resolve, reject) => {
       setTimeout(() => {
         resolve(storiesData);
-      }, 1000)
+      }, 5000)
     });
   },
   getThumbnails: () => {
     return new Promise<IThumbnail[]>((resolve, reject) => {
       setTimeout(() => {
         resolve(thumbnailsData);
-      }, 1000)
+      }, 2000)
     });
   },
 }

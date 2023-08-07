@@ -7,7 +7,7 @@ type Status = "never" | "loading" | "error" | "successfull";
 interface KnowledgeByState {
     stories: IStories[],
     storiesLoadingStatus: Status,
-    storiesErrorText?: string
+    storiesErrorText?: string,
 }
 
 const initialState: KnowledgeByState = {
@@ -19,7 +19,7 @@ const storiesSlice = createSlice({
     name: "stories",
     initialState,
     reducers: {},
-    extraReducers(builder) {
+    extraReducers: (builder) => {
         builder.addCase(getAllStories.pending, (state) => {
             state.storiesLoadingStatus = "loading";
         }),

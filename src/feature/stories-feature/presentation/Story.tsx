@@ -1,7 +1,7 @@
 import Stories from "stories-react";
 import IStories from "../data/storiesDto";
 
-import "./style.css"
+import "./storyStyles.css"
 import "./media.css"
 
 import { ReactComponent as Prev } from "../data/icons/prev.svg";

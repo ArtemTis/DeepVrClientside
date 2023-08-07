@@ -7,19 +7,21 @@ type Status = "never" | "loading" | "error" | "successfull";
 interface KnowledgeByState {
     thumbnails: IThumbnail[],
     thumbnailsLoadingStatus: Status,
+    isViewed: boolean,
     thumbnailsErrorText?: string 
 }
 
 const initialState: KnowledgeByState = {
     thumbnails: [],
+    isViewed: false,
     thumbnailsLoadingStatus: 'never'
 };
 
-const thumbnailslice = createSlice({
+const thumbnailSlice = createSlice({
     name: "articles",
     initialState,
     reducers: {},
-    extraReducers(builder) {
+    extraReducers: (builder) => {
         builder.addCase(getAllThumbnails.pending, (state) => {
             state.thumbnailsLoadingStatus = "loading";
         }),
@@ -34,4 +36,4 @@ const thumbnailslice = createSlice({
     },
 });
 
-export const thumbnailsReducer = thumbnailslice.reducer;
+export const thumbnailsReducer = thumbnailSlice.reducer;

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import IThumbnail from "../data/thumbnailDto";
-import IStories from "../data/storiesDto";
 import StoryThumbnail from "./StoryThumbnail";
 import Story from "./Story";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
-import { selectStories, selectThumbnails } from "../store/selectors";
+import { selectStories, selectThumbnails, selectThumbnailLoadingStatus, selectStoryLoadingStatus } from "../store/selectors";
 import { getAllStories, getAllThumbnails } from "../store/asyncActions";
+import { LoadWrapper } from "../../../Components/Common/Markup/LoadWrapper";
+
+import "./thumbnailStyles.css";
+import "./storyStyles.css"
 
 
 const Stories = () => {
@@ -14,27 +16,45 @@ const Stories = () => {
     const dispatch = useAppDispatch();
     const stories = useAppSelector(selectStories);
     const thumbnails = useAppSelector(selectThumbnails);
+    const thumbnailsLoadingStatus = useAppSelector(selectThumbnailLoadingStatus);
+    const storiesLoadingStatus = useAppSelector(selectStoryLoadingStatus);
+
+    const viewedThumbnails: number[] = JSON.parse(localStorage.getItem('viewedThumbnails') || '[]');
 
     useEffect(() => {
         dispatch(getAllStories());
         dispatch(getAllThumbnails());
     }, []);
 
-    const [activeThumbnailIndex, setActiveThumbnailIndex] = useState(-1);
+
+    const [activeThumbnailId, setActiveThumbnailId] = useState(-1);
     const [currentIndexStory, setCurrentIndexStory] = useState(0);
 
+
+    const nextId = useMemo(() => thumbnails.findIndex((thumbnail) => thumbnail.id == activeThumbnailId)
+    ,[activeThumbnailId, thumbnails]);
+
+    function setThumbnailId() {
+        if (!viewedThumbnails.includes(activeThumbnailId)) {
+            const newViewed = [...viewedThumbnails, activeThumbnailId];
+            localStorage.setItem('viewedThumbnails', JSON.stringify(newViewed));
+        }
+    }
+
     const handleModalOpen = (index: number) => {
-        setActiveThumbnailIndex(index + 1);
+        setActiveThumbnailId(thumbnails[index].id);
     };
 
     const handleModalNext = (index: number, len: number) => {
+
         if (index === -1 || index === len - 1) {
-            if (activeThumbnailIndex === thumbnails.length) {
+            if (nextId === thumbnails.length - 1) {
+                setThumbnailId();
                 handleModalClose();
-                setCurrentIndexStory(0);
             }
             else {
-                setActiveThumbnailIndex(activeThumbnailIndex + 1);
+                setThumbnailId();
+                setActiveThumbnailId(thumbnails[nextId + 1].id);
                 setCurrentIndexStory(0);
             }
         }
@@ -45,12 +65,11 @@ const Stories = () => {
 
     const handleModalPrev = (index: number, len: number) => {
         if (index === -1 || index == 0) {
-            if (activeThumbnailIndex === 1) {
+            if (activeThumbnailId === 1) {
                 handleModalClose();
-                setCurrentIndexStory(0);
             }
             else {
-                setActiveThumbnailIndex(activeThumbnailIndex - 1);
+                setActiveThumbnailId(activeThumbnailId - 1);
                 setCurrentIndexStory(0);
             }
         }
@@ -60,31 +79,53 @@ const Stories = () => {
     };
 
     const handleModalClose = () => {
-        setActiveThumbnailIndex(-1);
+        setActiveThumbnailId(-1);
+        setCurrentIndexStory(0);
     }
 
     return (
         <div className="stories">
-            {thumbnails.map((thumbnail: IThumbnail, index: number) => (
+            {thumbnailsLoadingStatus === "never" ? <div>Never...</div> : null}
+            {thumbnailsLoadingStatus === "loading" ?
+                Array.from({ length: 4 }, (_, index) =>
+                    <div key={index} className="thumbnailLoading">
+                        <LoadWrapper isLoading={true} height={1} />
+                    </div>
+                )
+                : null}
+            {thumbnailsLoadingStatus === "error" ? <div>Error loading story's thumbnail.</div> : null}
+            {thumbnailsLoadingStatus === "successfull" ? thumbnails.map((thumbnail, index) => (
                 <StoryThumbnail
-                    key={index}
+                    key={thumbnail.id}
                     setActiveStory={handleModalOpen}
-                    index={index}
                     thumbnail={thumbnail}
+                    index={index}
                 />
-            ))}
+            )) : null}
 
 
-            {activeThumbnailIndex !== -1 && (
+            {activeThumbnailId !== -1 && (
                 <>
-                    <Story stories={stories.filter((store) => store.stories_group_id === activeThumbnailIndex)}
-                        handleCloseClick={handleModalClose}
-                        handleModalNext={handleModalNext}
-                        handleModalPrev={handleModalPrev}
-                        group_index={activeThumbnailIndex}
-                        curIndex={currentIndexStory}
-                        setCurrentIndex={setCurrentIndexStory}
-                    />
+                    {storiesLoadingStatus === "never" ? <div>Never...</div> : null}
+                    {storiesLoadingStatus === "loading"
+                        ? <div className="stories-container">
+                            <div className="close-icon" onClick={handleModalClose}>
+                                &#x2715;
+                            </div>
+                            <LoadWrapper isLoading={true} height={1} />
+                        </div>
+                        : null}
+                    {storiesLoadingStatus === "error" ? <div>Error loading stories.</div> : null}
+                    {storiesLoadingStatus === "successfull"
+                        ? <Story stories={stories.filter((store) => store.stories_group_id === activeThumbnailId)}
+                            handleCloseClick={handleModalClose}
+                            handleModalNext={handleModalNext}
+                            handleModalPrev={handleModalPrev}
+                            group_index={activeThumbnailId}
+                            curIndex={currentIndexStory}
+                            setCurrentIndex={setCurrentIndexStory}
+                        />
+                        : null}
                 </>
             )}
         </div>
