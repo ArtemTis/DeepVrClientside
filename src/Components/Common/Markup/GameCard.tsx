@@ -1,18 +1,18 @@
 import { Col } from "antd";
 import { Api } from "../../../Utils/api";
-import { IGame } from "../../../Utils/types";
+import { IGameOnType, IGame, IGetGamesResponse } from "../../../Utils/types";
 import { SelectedMark } from "../../Booking/Components/SelectedMark";
 
 import "../CommonStyles.css";
 
 interface Props {
-  game: IGame;
+  game: IGameOnType;
   isSelected?: boolean;
-  onClick?: (game: IGame) => void;
+  onClick?: (game: IGameOnType) => void;
 }
 
 export const GameCard: React.FC<Props> = ({ game, isSelected, onClick }) => {
-  const imgUrl = game.logo;
+  const imgUrl = game.logoOverride;
   return (
     <Col xs={12} sm={8} md={6} lg={6} xl={4} xxl={4}>
       <div
@@ -23,9 +23,9 @@ export const GameCard: React.FC<Props> = ({ game, isSelected, onClick }) => {
       >
         <div
           className="selectable-card-bg game-card-bg"
-          style={game.logo ? { backgroundImage: `url(${imgUrl})` } : undefined}
+          style={imgUrl ? { backgroundImage: `url(${imgUrl})` } : undefined}
         >
-          <h2 className="game-card-title"> {game.title} </h2>
+          <h2 className="game-card-title"> {game.titleOverride} </h2>
           <SelectedMark isSelected={!!isSelected} />
         </div>
       </div>

@@ -86,7 +86,7 @@ export const Api = {
     },
 
     async getGameByType(id: number | undefined) {
-        return axios.get<Array<IGetGamesResponse>>(
+        return axios.get<IGetGamesResponse>(
             `${instanceUrl}/v3/game-types/${id}/games`, {   
             timeout: 8000,
             headers: {

@@ -10,7 +10,7 @@ import {
   setGame
 } from "../../../Utils/redux/booking/slice";
 import { RootState, useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
-import { IGame } from "../../../Utils/types";
+import { IGame, IGameOnType } from "../../../Utils/types";
 import { GameCard } from "../../Common/Markup/GameCard";
 import { StageLayout } from "./StageLayout";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
@@ -21,12 +21,8 @@ import { selectGamesByType, selectGamesByTypeId } from "../../../Utils/redux/gam
 import { useDispatch } from "react-redux";
 import { Title } from "../Components/Title";
 import { getGameByType } from "../../../Utils/redux/games/asyncActions";
+import { ReqStatus } from "../../../Utils/enums";
 
-enum ReqStatus {
-  pending,
-  fulfield,
-  rejected
-}
 
 export const GameSelect: React.FC = () => {
 
@@ -38,25 +34,27 @@ export const GameSelect: React.FC = () => {
 
   console.log(selectedGame);
   console.log(selectedGames);
-  
-  
+
+
   useEffect(() => {
     dispatch(getGameByType(selectedTypeId))
-  },[])
+  }, [])
 
   const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
 
-  const [selected, setSelected] = useState<IGame | undefined>(
-    useAppSelector(selectGame) as IGame
+  const beforeSelectedGame = useAppSelector(selectGame);
+
+  const [selected, setSelected] = useState<IGameOnType | undefined>(
+    
   );
 
-  const onCardClick = (game: IGame) => {
+  const onCardClick = (game: IGameOnType) => {
     setSelected(game);
   };
 
   useEffect(() => {
     dispatch(setGame(selected));
-  },[selected])
+  }, [selected])
 
 
 
@@ -64,8 +62,8 @@ export const GameSelect: React.FC = () => {
     <>
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
-          {selectedGame &&
-            selectedGame.map((game) => (
+          {selectedGames &&
+            selectedGames.games.map((game) => (
               <GameCard
                 game={game}
                 isSelected={selected?.id === game.id}

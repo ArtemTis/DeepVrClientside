@@ -93,9 +93,21 @@ export interface IGame {
 export interface IGetGamesResponse {
   id: number,
   title: string,
-  guest_max: number,
-  games: Array<IGame>,
+  // guest_max: number,
+  games: Array<IGameOnType>,
 }
+
+export interface IGameOnType {
+    id: 0,
+    externalId: string,
+    titleOverride: string,
+    priceOverride: 0,
+    logoOverride: string,
+    timeDuration: 0,
+    descriptionOverride: string,
+    gameTypeId: 0,
+    gameType: string
+  }
 
 export interface IBookingCredentials {
   name: string,
