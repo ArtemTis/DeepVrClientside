@@ -27,7 +27,17 @@
         font-size: 18px;
         font-weight: 400;
     }
+    
+}
+
+@media screen and (max-width: 800px) {
     .stories {
-        overflow-x: auto;
+        max-width: 95vw;
+        overflow-x: scroll;
+        -ms-overflow-style: none;  
+        scrollbar-width: none;
+    }
+    .stories::-webkit-scrollbar { 
+        display: none;  
     }
 }

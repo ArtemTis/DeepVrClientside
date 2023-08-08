@@ -4,13 +4,17 @@ import { RootState } from "../../../Utils/redux/store";
 export const selectThumbnails = createDraftSafeSelector(
     (state: RootState) => state.thumbnailsReducer,
     (state) => {
-        const viewedThumbnails: number[] = JSON.parse(localStorage.getItem('viewedThumbnails') || '[]');
+        const sortedThumbnails = state.thumbnails.slice().sort((a, b) => {
+            if (a.isViewed && !b.isViewed) {
+                return 1;
+            } else if (!a.isViewed && b.isViewed) {
+                return -1; 
+            } else {
+                return a.id - b.id;
+            }
+        });
 
-        const filteredThumbnails = state.thumbnails.filter(thumbnail => !viewedThumbnails.includes(thumbnail.id)).sort((a, b) => a.id - b.id);
-        const movedThumbnails = state.thumbnails.filter(thumbnail => viewedThumbnails.includes(thumbnail.id)).sort((a, b) => a.id - b.id);
-        const updatedThumbnails = filteredThumbnails.concat(movedThumbnails);
-
-        return updatedThumbnails;
+        return sortedThumbnails;
     }
 )
 

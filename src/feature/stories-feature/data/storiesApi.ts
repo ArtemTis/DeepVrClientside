@@ -16,7 +16,7 @@ const api = {
     return new Promise<IThumbnail[]>((resolve, reject) => {
       setTimeout(() => {
         resolve(thumbnailsData);
-      }, 2000)
+      }, 3000)
     });
   },
 }

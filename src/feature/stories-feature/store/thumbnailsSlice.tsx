@@ -7,13 +7,11 @@ type Status = "never" | "loading" | "error" | "successfull";
 interface KnowledgeByState {
     thumbnails: IThumbnail[],
     thumbnailsLoadingStatus: Status,
-    isViewed: boolean,
     thumbnailsErrorText?: string 
 }
 
 const initialState: KnowledgeByState = {
     thumbnails: [],
-    isViewed: false,
     thumbnailsLoadingStatus: 'never'
 };
 
@@ -27,7 +25,21 @@ const thumbnailSlice = createSlice({
         }),
         builder.addCase(getAllThumbnails.fulfilled, (state, action) => {
             state.thumbnailsLoadingStatus = "successfull";
-            state.thumbnails = action.payload;            
+
+            const viewedThumbnails: number[] = JSON.parse(localStorage.getItem('viewedThumbnails') || '[]');
+            
+            const thumbnailsId = action.payload.map(elem => elem.id);
+            const updatedViewedThumbnails = viewedThumbnails.filter(id => thumbnailsId.includes(id));
+            localStorage.setItem('viewedThumbnails', JSON.stringify(updatedViewedThumbnails));
+
+            state.thumbnails = action.payload.map(elem => {
+                const updatedThumbnail = { ...elem };
+                
+                if(updatedViewedThumbnails.includes(elem.id)) updatedThumbnail.isViewed = true;
+                else updatedThumbnail.isViewed = false;
+
+                return updatedThumbnail;
+            });
         }),
         builder.addCase(getAllThumbnails.rejected, (state, action) => {
             state.thumbnailsLoadingStatus = "error";

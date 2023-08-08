@@ -31,8 +31,9 @@ const Stories = () => {
     const [currentIndexStory, setCurrentIndexStory] = useState(0);
 
 
-    const nextId = useMemo(() => thumbnails.findIndex((thumbnail) => thumbnail.id == activeThumbnailId)
-    ,[activeThumbnailId, thumbnails]);
+    const currentThumbnailId = useMemo(() => 
+        thumbnails.findIndex((thumbnail) => thumbnail.id == activeThumbnailId),
+    [activeThumbnailId, thumbnails]);
 
     function setThumbnailId() {
         if (!viewedThumbnails.includes(activeThumbnailId)) {
@@ -48,13 +49,13 @@ const Stories = () => {
     const handleModalNext = (index: number, len: number) => {
 
         if (index === -1 || index === len - 1) {
-            if (nextId === thumbnails.length - 1) {
+            if (currentThumbnailId === thumbnails.length - 1) {
                 setThumbnailId();
                 handleModalClose();
             }
             else {
                 setThumbnailId();
-                setActiveThumbnailId(thumbnails[nextId + 1].id);
+                setActiveThumbnailId(thumbnails[currentThumbnailId + 1].id);
                 setCurrentIndexStory(0);
             }
         }
@@ -69,7 +70,7 @@ const Stories = () => {
                 handleModalClose();
             }
             else {
-                setActiveThumbnailId(activeThumbnailId - 1);
+                setActiveThumbnailId(thumbnails[currentThumbnailId - 1].id);
                 setCurrentIndexStory(0);
             }
         }
@@ -87,7 +88,7 @@ const Stories = () => {
         <div className="stories">
             {thumbnailsLoadingStatus === "never" ? <div>Never...</div> : null}
             {thumbnailsLoadingStatus === "loading" ?
-                Array.from({ length: 4 }, (_, index) =>
+                Array.from({ length: 3 }, (_, index) =>
                     <div key={index} className="thumbnailLoading">
                         <LoadWrapper isLoading={true} height={1} />
                     </div>
