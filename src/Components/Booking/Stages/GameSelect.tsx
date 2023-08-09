@@ -44,11 +44,11 @@ export const GameSelect: React.FC = () => {
 
   const beforeSelectedGame = useAppSelector(selectGame);
 
-  const [selected, setSelected] = useState<IGameOnType | undefined>(
+  const [selected, setSelected] = useState<IGame | undefined>(
     
   );
 
-  const onCardClick = (game: IGameOnType) => {
+  const onCardClick = (game: IGame) => {
     setSelected(game);
   };
 
@@ -63,7 +63,7 @@ export const GameSelect: React.FC = () => {
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
           {selectedGames &&
-            selectedGames.games.map((game) => (
+            selectedGames.fullGames.map((game) => (
               <GameCard
                 game={game}
                 isSelected={selected?.id === game.id}

@@ -6,13 +6,14 @@ import { SelectedMark } from "../../Booking/Components/SelectedMark";
 import "../CommonStyles.css";
 
 interface Props {
-  game: IGameOnType;
+  game: IGame;
   isSelected?: boolean;
-  onClick?: (game: IGameOnType) => void;
+  onClick?: (game: IGame) => void;
 }
 
 export const GameCard: React.FC<Props> = ({ game, isSelected, onClick }) => {
-  const imgUrl = game.logoOverride;
+  const imgUrl = game.logo;
+  
   return (
     <Col xs={12} sm={8} md={6} lg={6} xl={4} xxl={4}>
       <div
@@ -25,7 +26,7 @@ export const GameCard: React.FC<Props> = ({ game, isSelected, onClick }) => {
           className="selectable-card-bg game-card-bg"
           style={imgUrl ? { backgroundImage: `url(${imgUrl})` } : undefined}
         >
-          <h2 className="game-card-title"> {game.titleOverride} </h2>
+          <h2 className="game-card-title"> {game.title} </h2>
           <SelectedMark isSelected={!!isSelected} />
         </div>
       </div>

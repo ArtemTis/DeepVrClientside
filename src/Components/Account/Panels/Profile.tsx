@@ -36,6 +36,9 @@ import logoBonus3 from "../../../Assets/logo-bonus3-light.svg";
 import { LoadIcon } from "../../Common/Markup/LoadIcon";
 import styled from "styled-components";
 import Ticket from "../Compontents/Ticket";
+import close from "../../../Assets/close-cross.svg"
+import warning from "../../../Assets/warning.svg"
+import back from "../../../Assets/back.svg"
 
 let tempPopups: Array<React.ReactElement> = [];
 
@@ -156,22 +159,24 @@ export const Profile: React.FC = () => {
         ) : (
           <>
             <StyledHeader>
+              <StyledBackBtn>
+              </StyledBackBtn>
               <StyledTitle>
                 Профиль
               </StyledTitle>
-              <StyledSettingsBtn>
+              <StyledSettingsBtn
+                onClick={() =>
+                  addPopup(
+                    <SettingsPopup
+                      addPopup={addPopup}
+                      onBackClick={removeLastPopup}
+                    />
+                  )
+                }>
                 Настройки
-                <StyledImgSettings
+                <img
                   src={gearIcon}
                   alt="Открыть настройки профиля"
-                  onClick={() =>
-                    addPopup(
-                      <SettingsPopup
-                        addPopup={addPopup}
-                        onBackClick={removeLastPopup}
-                      />
-                    )
-                  }
                 />
               </StyledSettingsBtn>
             </StyledHeader>
@@ -204,10 +209,14 @@ export const Profile: React.FC = () => {
                 </div>
 
                 <TicketList className="profile-divide">
-                  <Ticket/>
-                  <Ticket/>
-                  <Ticket/>
+                  <Ticket />
                 </TicketList>
+
+                <Warning>
+                  <img src={warning} alt="warning icon" />
+                  <h3>Ваши бонусы скоро сгорят. Успейте воспользоваться до 10.04.2022</h3>
+                  <img src={close} alt="close cross" />
+                </Warning>
               </ProfileLeft>
 
 
@@ -293,7 +302,7 @@ export const Profile: React.FC = () => {
                       addPopup(<CitySelectPopup onBackClick={removeLastPopup} />)
                     }
                   >
-                  <span>О приложении</span>
+                    <span>О приложении</span>
                   </div>
                   <div className="divide-line" />
                   <div className="profile-divide-btn-full">
@@ -312,6 +321,7 @@ export const Profile: React.FC = () => {
 
 
 const StyledSettingsBtn = styled.div`
+  cursor: pointer;
   border-radius: 24px;
   background: #FFF;
   padding: 10px 18px;
@@ -327,16 +337,15 @@ const StyledSettingsBtn = styled.div`
   box-sizing: inherit;
 
 
-  position: absolute;
+  /* position: absolute; */
 	top: 24px;
 	left: 300px;
-`
 
-const StyledImgSettings = styled.img`
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  margin-left: 8px;
+  img{
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+  }
 `
 
 const StyledTitle = styled.h1`
@@ -354,7 +363,16 @@ const StyledTitle = styled.h1`
 `
 
 const StyledHeader = styled.div`
-  position: relative;
+  /* position: relative; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 1220px;
+`
+
+const StyledBackBtn = styled.div`
+  width: 102px;
 `
 
 const ProfileBody = styled.div`
@@ -381,4 +399,25 @@ const ProfileRight = styled.div`
 const TicketList = styled.div`
   display: flex;
   gap: 20px;
+`
+
+const Warning = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 30px;
+  border-radius: 16px;
+  background: var(--f-9-d-450, #F9D450);
+
+  h3{
+    color: var(--050411, #050411);
+    font-family: Gilroy;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; 
+    margin: 0;
+  }
+  img:last-child{
+    cursor: pointer;
+  }
 `
