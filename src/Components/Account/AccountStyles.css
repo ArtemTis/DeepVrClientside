@@ -407,8 +407,8 @@
 }
 
 .popup-header {
-  margin-bottom: 16px;
-  padding: 16px 0;  
+  /* margin-bottom: 16px;
+  padding: 16px 0;   */
 
   display: flex;
   justify-content: space-between;
@@ -446,10 +446,10 @@
   margin-top: -2px;
 }
 
-.popup-settings-divide {
+/* .popup-settings-divide {
   padding: 0 16px;
   margin-top: 42px;
-}
+} */
 
 .popup-settings-row {
   font-family: 'SF Pro Display';

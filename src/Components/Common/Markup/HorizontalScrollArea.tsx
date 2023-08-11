@@ -40,7 +40,7 @@ export const HorizontalScrollArea: React.FC<Props> = ({
       firstElemRef.current?.scrollIntoView({
         behavior: "smooth",
         inline: "end",
-        block: "start",
+        block: "nearest",
       });
     };
 
@@ -50,7 +50,7 @@ export const HorizontalScrollArea: React.FC<Props> = ({
       lastElemRef.current?.scrollIntoView({
         behavior: "smooth",
         inline: "start",
-        block: "start",
+        block: "nearest",
       });
     };
 

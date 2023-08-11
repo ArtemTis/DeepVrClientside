@@ -1,5 +1,5 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { RootState, useAppSelector } from "../store";
 
 export const selectCurrentStep = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.currentStep],
@@ -18,8 +18,9 @@ export const selectGame = createDraftSafeSelector(
     (game) => game
 )
 export const selectPlayersCount = createDraftSafeSelector(
-    [(state: RootState) => state.bookingReducer.playersCount],
-    (playersCount) => playersCount ?? 0
+    [(state: RootState) => state.bookingReducer.playersCount,
+    (state: RootState) => selectGame(state)],
+    (playersCount, selectGame) => playersCount ?? selectGame?.guest_min ?? 0
 )
 export const selectSelectedTime = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.selectedTime],

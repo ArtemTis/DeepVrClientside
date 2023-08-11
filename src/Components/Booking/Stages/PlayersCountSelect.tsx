@@ -21,7 +21,7 @@ export const PlayersCountSelect: React.FC = () => {
   const max = game?.guest_max ?? 1;
 
   const [count, setCount] = useState<string | number | undefined>(
-    useAppSelector(selectPlayersCount) ?? game?.guest_min ?? 1
+    useAppSelector(selectPlayersCount) ?? min ?? 1
   );
 
   console.log(count);

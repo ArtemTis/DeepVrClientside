@@ -91,30 +91,7 @@ export const Api = {
             timeout: 8000,
             headers: {
                 token: 'guest_token'
-            },
-            transformResponse: [
-                (data) => {
-
-                    return JSON.parse(data);
-                    // let resp;
-                    // try {
-                    //   resp = JSON.parse(data);
-                    //   console.log(resp.games);
-                      
-                    //   if (resp.status === "success") {
-                    //     return resp.games;
-                    //   } else {
-                    //     throw Error(`Request failed with reason -  ${data}`);
-                    //   }
-                    // } catch (error) {
-                    //   throw Error(
-                    //     `Error parsingJSON data - ${JSON.stringify(
-                    //       error
-                    //     )}`
-                    //   );
-                    // }
-                  },
-            ]
+            }
         }
         );
     },

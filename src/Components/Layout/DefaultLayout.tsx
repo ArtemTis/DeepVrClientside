@@ -54,7 +54,7 @@ const StyledFooter = styled(Footer)`
   border-radius: 20px;
   background: #454385 !important;
   box-shadow: 0px 8px 24px 0px rgba(70, 68, 136, 0.30);
-  z-index: 10;
+  z-index: 12;
 
   color: #FFF;
   position: fixed;
