@@ -30,7 +30,7 @@
 
 .next-btn-inactive {
     opacity: 0.4;
-    cursor: default;
+    cursor: default !important;
 }
 
 .form-field {

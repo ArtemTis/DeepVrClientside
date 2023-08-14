@@ -1,4 +1,4 @@
-import { Radio, RadioChangeEvent, Row } from "antd";
+import { Button, Modal, Radio, RadioChangeEvent, Row } from "antd";
 import { ColLg } from "../Common/Markup/ColLg";
 import { DefaultLayout } from "../Layout/DefaultLayout";
 import "./AchievementsStyles.css";
@@ -13,14 +13,17 @@ import friends from "../../Assets/achievement/friends.svg"
 import puzzles from "../../Assets/achievement/puzzles.svg"
 import photo from "../../Assets/achievement/photo.svg"
 import Achieve from "./Achieve";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AchieveModal from "./AchieveModal";
 
 
 
-interface IAchieve {
+export interface IAchieve {
   id: number,
   title: string,
   icon: string,
+  description: string,
+  promo: string,
   type: 'my' | 'all'
 }
 
@@ -31,48 +34,79 @@ export const Achievements: React.FC = () => {
       id: 1,
       title: 'Просто хороший человек',
       icon: star,
-      type: 'my'
+      type: 'my',
+      description: 'Хороший мальчик или девочка',
+      promo: 'GOOD100',
     },
     {
       id: 2,
       title: 'За участие в турнире',
       icon: tournBig,
-      type: 'my'
+      type: 'my',
+      description: 'Перенеситесь в прошлое, чтобы посмотреть, сможете ли вы изменить ситуацию, из которой, казалось - не было выхода. Что произошло в ночь аварии? А что было потом? Найдите ответы на вопросы, которые до сих пор оставались без ответа.',
+      promo: 'SALE1000',
     },
     {
       id: 3,
       title: 'Первый сыграл в новую игру',
       icon: space,
-      type: 'my'
+      type: 'my',
+      description: 'Первый раз, Первый раз, Первый раз, Первый раз',
+      promo: 'FIRST500',
     },
     {
       id: 4,
       title: 'Привёл много друзей',
       icon: friends,
-      type: 'my'
+      type: 'my',
+      description: 'Не имей сто друзей, а имей новый промокод',
+      promo: 'FRIENDS&FAMILY',
     },
     {
       id: 5,
       title: 'Решение головоломки',
       icon: puzzles,
-      type: 'all'
+      type: 'all',
+      description: 'Большая бошка, большой мозг',
+      promo: 'GD2000',
     },
     {
       id: 6,
       title: 'Оставил отзыв с фото',
       icon: photo,
-      type: 'all'
+      type: 'all',
+      description: 'Перенеситесь в прошлое, чтобы посмотреть, сможете ли вы изменить ситуацию, из которой, казалось - не было выхода. Что произошло в ночь аварии? А что было потом? Найдите ответы на вопросы, которые до сих пор оставались без ответа. ',
+      promo: 'FREE123',
     },
   ]
 
-  const [sortItems, setSorrtItems] = useState<Array<IAchieve>>(items);
+  const [sortItems, setSorrtItems] = useState<Array<IAchieve>>(items.filter(item => item.type === 'my'));
+  const [sorted, setIsSorted] = useState<boolean>(false);
 
   const onChange = (e: RadioChangeEvent) => {
     if (e.target.value === 'my') {
       setSorrtItems(items.filter(item => item.type === 'my'))
-    }else{
-      setSorrtItems(items)
+      setIsSorted(true);
+    } else {
+      setSorrtItems(items);
+      setIsSorted(false);
     }
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [activeModal, setActiveModal] = useState<IAchieve>();
+
+  const showModal = (id: number) => {
+    setIsModalOpen(true);
+    setActiveModal(items.find(item => item.id === id));
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -91,21 +125,22 @@ export const Achievements: React.FC = () => {
         <StyledWrapperItems>
           {
             sortItems.map(item => (
-              <Achieve icon={item.icon} title={item.title} />
+              <Achieve icon={item.icon} title={item.title} received={item.type === 'my'} key={item.id} sorted={sorted} showModal={() => showModal(item.id)} />
             ))
           }
 
         </StyledWrapperItems>
-        {/* <ColLg>
-          <div className="achievments-header">
-            Раздел находится в разработке
-          </div>
-          <img src={img} alt="" className="achievments-image" />
-          <div className="achievments-text">
-            Данный раздел еще не готов и находится в разработке, возвращатесь
-            позже
-          </div>
-        </ColLg> */}
+
+        <StyledModal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+          footer={[
+            // <Button key="submit" type="primary" onClick={handleOk}>
+            //   Забрать баллы
+            // </Button>,
+          ]}
+        >
+          <AchieveModal item={activeModal} />
+
+        </StyledModal>
       </StyledWrapper>
     </DefaultLayout>
   );
@@ -116,6 +151,10 @@ const StyledGroup = styled(Radio.Group)`
 
   border-radius: 16px;
   background: #2B2C45;
+
+  margin-bottom: 20px;
+
+  display: block;
 
 `
 
@@ -161,6 +200,13 @@ const StyledRadio = styled(Radio.Button)`
   }
 `
 
+const StyledModal = styled(Modal)`
+  min-width: 1280px !important;
+
+
+  background: rgba(25, 26, 41, 1) !important;
+`
+
 const StyledWrapperItems = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -177,7 +223,7 @@ const StyledTitle = styled.h1`
   line-height: 180%; /* 82.8px */
   text-transform: uppercase;
 
-  margin: 90px auto 20px;
+  margin: 40px auto 20px;
 `
 
 const StyledWrapper = styled.div`
@@ -185,4 +231,9 @@ const StyledWrapper = styled.div`
   flex-direction: column;
 
   align-items: start;
+
+  margin: 0 auto;
+
+
+  max-width: 1220px;
 `
