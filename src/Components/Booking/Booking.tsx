@@ -37,10 +37,6 @@ export const Booking: React.FC = () => {
     };
   }, [dispatch, isFinished]);
 
-
-  console.log(currentStep);
-
-
   const booking = useAppSelector(state => state.bookingReducer);
 
   const isFinish = useCallback(() => {

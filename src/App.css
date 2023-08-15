@@ -172,7 +172,7 @@
 :where(.css-1i9hnpv).ant-modal .ant-modal-content {
     background: rgba(25, 26, 41, 1);
     color: #fff;
-    border-top: 1px solid #444656;
+    /* border-top: 1px solid #444656; */
     box-sizing: border-box;
 }
 

@@ -31,8 +31,6 @@ const GamesTypeSelect = () => {
   const onCardClick = (room: IGameType) => {
     setSelected(room);
   };
-
-  console.log(gameTypes);
   
 
   return (

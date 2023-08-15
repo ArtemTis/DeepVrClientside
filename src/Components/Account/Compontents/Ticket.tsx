@@ -94,5 +94,9 @@ const Achievement = styled.div`
     text-decoration: underline;
     white-space: nowrap;
     width: fit-content;
+
+    &:last-child{
+        cursor: pointer;
+    }
 }
 `

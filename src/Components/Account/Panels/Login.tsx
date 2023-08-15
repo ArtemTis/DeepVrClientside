@@ -21,12 +21,8 @@ import { Link } from "react-router-dom";
 import { REGISTER_PATH } from "../../../Utils/routeConstants";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { ReqStatus } from "../../../Utils/enums";
 
-enum ReqStatus {
-  pending,
-  fulfield,
-  rejected
-}
 
 export const Login = () => {
   const {
@@ -37,7 +33,8 @@ export const Login = () => {
     mode: "onTouched",
   });
 
-  const textError = useSelector((state: RootState) => state.authReducer.textError) === 'Rejected' ? 'Ошибка авторизации' : '';
+
+  let textError = useSelector((state: RootState) => state.authReducer.textError) === 'Rejected' ? 'Ошибка авторизации' : '';
 
   const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending);
 
@@ -127,5 +124,9 @@ const LoginContainer = styled.div`
   /* next-btn-inactive */
   button{
     margin: 20px 0;
+  }
+
+  .login-title{
+    margin: 40px 0 20px;
   }
 `

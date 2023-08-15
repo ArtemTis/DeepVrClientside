@@ -28,3 +28,8 @@
 
   color: #ABAFE5;
 }
+
+
+.ant-modal-wrap{
+  inset-inline-end: -20px !important;
+}

@@ -22,23 +22,23 @@ export const FooterMenu: React.FC = () => {
 
       <FooterMenuButton
         icon={gamesIcon}
-        text="Games"
+        text="Игры"
         linkTo={HOME_PATH}
       />
 
       <FooterMenuButton
         icon={bookingIcon}
-        text="Booking"
+        text="Бронирование"
         linkTo={BOOKING_PATH}
       />
       <FooterMenuButton
         icon={achivementsIcon}
-        text="Progress"
+        text="Достижения"
         linkTo={ACHIVEMENTS_PATH}
       />
       <FooterMenuButton
         icon={accountIcon}
-        text="Account"
+        text="Аккаунт"
         linkTo={`${ACCOUNT_PATH}`}
       />
 

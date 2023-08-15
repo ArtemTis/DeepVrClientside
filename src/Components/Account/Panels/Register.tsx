@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../../Utils/redux/auth/asyncActions";
 import { useSelector } from "react-redux";
 import { ReqStatus } from "../../../Utils/enums";
+import styled from "styled-components";
 
 
 export const Register = () => {
@@ -43,7 +44,7 @@ export const Register = () => {
 
   return (
     <Row justify="center">
-      <ColLg className="login-container">
+      <RegisterContainer>
         <div className="login-title">Регистрация</div>
         <form className="login-form">
           <FormField
@@ -96,7 +97,24 @@ export const Register = () => {
           
         </div>
         <LoadWrapper isLoading={isLoading} height={1} />
-      </ColLg>
+      </RegisterContainer>
     </Row>
   );
 };
+
+const RegisterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 35vw;
+
+  /* next-btn-inactive */
+  button{
+    margin: 20px 0;
+  }
+
+  .login-title{
+    margin: 40px 0 20px;
+  }
+`

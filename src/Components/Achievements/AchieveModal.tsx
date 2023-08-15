@@ -31,7 +31,6 @@ export default AchieveModal;
 
 const ModalWrapper = styled.div`
     display: flex;
-    padding: 20px 16px;
 
     h2{
         color: #FFF;
@@ -70,6 +69,8 @@ const ModalWrapper = styled.div`
 
     div{
         width: 780px;
+        display: flex;
+        flex-direction: column;
         
         *{
             margin: 0;
@@ -96,7 +97,8 @@ const StyledButton = styled.button`
     font-weight: 500;
     line-height: normal;
 
-    margin-top: 20px !important;
+    /* margin-top: 20px !important; */
+    margin-top: auto !important;
 
     &:hover{
         color: #FFF;

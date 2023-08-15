@@ -12,6 +12,7 @@ import space from "../../Assets/achievement/space.svg"
 import friends from "../../Assets/achievement/friends.svg"
 import puzzles from "../../Assets/achievement/puzzles.svg"
 import photo from "../../Assets/achievement/photo.svg"
+import close from "../../Assets/close-cross.svg"
 import Achieve from "./Achieve";
 import { useEffect, useState } from "react";
 import AchieveModal from "./AchieveModal";
@@ -137,6 +138,7 @@ export const Achievements: React.FC = () => {
             //   Забрать баллы
             // </Button>,
           ]}
+          closeIcon={<img src={close} alt="close icon" />}
         >
           <AchieveModal item={activeModal} />
 
@@ -155,7 +157,6 @@ const StyledGroup = styled(Radio.Group)`
   margin-bottom: 20px;
 
   display: block;
-
 `
 
 const StyledRadio = styled(Radio.Button)`
@@ -202,9 +203,19 @@ const StyledRadio = styled(Radio.Button)`
 
 const StyledModal = styled(Modal)`
   min-width: 1280px !important;
-
-
+  padding-bottom: 0px !important;
+  border-radius: 16px !important;
   background: rgba(25, 26, 41, 1) !important;
+
+  .ant-modal-content{
+    padding: 40px !important;
+    border-radius: 16px !important;
+    
+  }
+  .ant-modal-footer{
+    margin-top: 0 !important;
+  }
+
 `
 
 const StyledWrapperItems = styled.div`
