@@ -152,7 +152,9 @@ const StyledGroup = styled(Radio.Group)`
   padding: 10px 24px;
 
   border-radius: 16px;
-  background: #2B2C45;
+  /* background: #2B2C45; */
+  background: rgba(31, 32, 50, 1);
+
 
   margin-bottom: 20px;
 
@@ -188,7 +190,7 @@ const StyledRadio = styled(Radio.Button)`
 
   &.ant-radio-button-wrapper-checked{
     border-radius: 10px;
-    background: var(--linear, linear-gradient(90deg, #36C0E7 3.84%, #4B51EA 84.38%, #4B51EA 86.98%)) !important;
+    background: linear-gradient(105.69deg, #952EF1 8.78%, #17C5E7 99.66%) !important;
 
     color: #FFF;
     text-align: center;

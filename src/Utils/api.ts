@@ -141,10 +141,13 @@ export const Api = {
     //     )
     // },
 
-    async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
+    async getAvalibleDateAndTime(gameId: number, playersCount: number, token: string) {
         return axios.get<IAvalibleTime[]>(
-            `${instanceUrl}/v3/booking/available?game_id=${gameId}`, {
-            timeout: 8000
+            `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
+            timeout: 8000,
+            headers: {
+                token: 'guest_token'
+            }
         }
         );
     },

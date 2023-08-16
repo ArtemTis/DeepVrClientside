@@ -11,6 +11,10 @@ import ru from "date-fns/locale/ru";
 
 import "../BookingStyles.css";
 import { selectDate } from "../../../Utils/redux/booking/selectors";
+import { selectAvalibleTime } from "../../../Utils/redux/avalibleTime/selectors";
+import { getAvalibleDateAndTime } from "../../../Utils/redux/avalibleTime/asyncActions";
+import { IAvalibleTime } from "../../../Utils/types";
+import styled from "styled-components";
 
 export const DateSelect: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,11 +22,16 @@ export const DateSelect: React.FC = () => {
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 1);
   const maxDate = new Date();
-  maxDate.setMonth(maxDate.getMonth() + 1);
+  maxDate.setMonth(maxDate.getMonth() + 2);
 
-  const preselectedDate = useAppSelector(selectDate);
+  useEffect(() => {
+    dispatch(getAvalibleDateAndTime());
+  },[])
+
+  const preselectedDate = useAppSelector(selectAvalibleTime);
+  
   const [selected, setSelected] = useState<Date | undefined>(
-    preselectedDate ? new Date(preselectedDate) : undefined
+    // preselectedDate ? new Date(preselectedDate) : undefined
   );
 
   useEffect(() => {
@@ -55,6 +64,7 @@ export const DateSelect: React.FC = () => {
                 maxDate={maxDate}
                 minDate={minDate}
                 selectedDate={selected}
+                preselectedDate={preselectedDate}
               />
             )}
             inline
@@ -73,6 +83,7 @@ interface CustomDayProps {
   minDate: Date;
   maxDate: Date;
   selectedDate: Date | undefined;
+  preselectedDate:  IAvalibleTime[];
 }
 const CustomDay: React.FC<CustomDayProps> = ({
   dayOfMonth,
@@ -80,15 +91,29 @@ const CustomDay: React.FC<CustomDayProps> = ({
   minDate,
   maxDate,
   selectedDate,
+  preselectedDate
 }) => {
+
+  let emptyDay : string = `${new Date(`${preselectedDate.find(day => day.times.length === 0)?.date}`)}`;
+  let unselectDate : string = `${date}`;
+
   const isSelected =
     selectedDate &&
     date.getFullYear() === selectedDate.getFullYear() &&
     date.getMonth() === selectedDate.getMonth() &&
     date.getDate() === selectedDate.getDate();
-  const isUnselectable = date < minDate || date > maxDate;
+
+  const isUnselectable = date < minDate || date > maxDate || (emptyDay.slice(0, 15) === unselectDate.slice(0, 15));
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setDate(`${selectedDate}`.slice(0, 15)));
+  },[selectedDate])
+  
+  
   return (
-    <div
+    <StyledDay
       className={`datepicker-customDay${isUnselectable
           ? " datepicker-customDay-unselectable"
           : isSelected
@@ -97,7 +122,18 @@ const CustomDay: React.FC<CustomDayProps> = ({
         }`}
     >
       <div className="datepicker-customDay-day">{dayOfMonth}</div>
-      <div className="datepicker-customDay-places">36 мест</div>
-    </div>
+      {/* <div className="datepicker-customDay-places">36 мест</div> */}
+    </StyledDay>
   );
 };
+
+
+const StyledDay = styled.div`
+  
+  &.datepicker-customDay-selected{
+
+    .datepicker-customDay-day{
+      font-weight: 600
+    }
+  }
+`

@@ -80,7 +80,7 @@ const ModalWrapper = styled.div`
 
 const StyledButton = styled.button`
     border-radius: 16px;
-    background: linear-gradient(90deg, #36C0E7 3.84%, #4B51EA 84.38%, #4B51EA 86.98%);
+    background: linear-gradient(105.69deg, #952EF1 8.78%, #17C5E7 99.66%);
     box-shadow: 0px 15px 60px 0px rgba(66, 130, 233, 0.45);
     cursor: pointer;
 

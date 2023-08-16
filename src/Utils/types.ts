@@ -60,7 +60,7 @@ export interface IGameType {
 
 export interface IAvalibleTime {
   date: string,
-  hours: []
+  times: []
 }
 
 export interface IGame {

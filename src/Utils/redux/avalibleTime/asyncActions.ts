@@ -6,7 +6,7 @@ import axios from "axios";
 import { Api } from "../../api";
 
 
-export const getAvalibleTime = createAsyncThunk(
+export const getAvalibleDateAndTime = createAsyncThunk(
     'getAvalibleTime',
     async function (_, { rejectWithValue, getState }) {
         const state = getState() as RootState;
@@ -14,9 +14,8 @@ export const getAvalibleTime = createAsyncThunk(
         const token = selectToken(state);
         const gameId = selectGameId(state);
         const playersCount = selectPlayersCount(state);
-        const date = selectDate(state);
         try {
-            const res = await Api.getAvalibleTime(gameId, playersCount, token, date ?? '');
+            const res = await Api.getAvalibleDateAndTime(gameId, playersCount, token,);
 
             return res.data;
         } catch (error) {

@@ -22,25 +22,32 @@ import { Title } from "../Components/Title";
 export const TimeSelect: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const preselectedDate = useAppSelector(selectDate);
+  const selectedDate = useAppSelector(selectDate);
+
+  const date = useAppSelector(selectAvalibleTime);
   const preselectedTime = useAppSelector(selectSelectedTime);
   const [selected, setSelected] = useState<string | undefined>(
-    preselectedDate && preselectedTime
-      ? `${preselectedDate.slice(0, 10)} ${preselectedTime}`
+    date && preselectedTime
+      ? `${date.slice(0, 10)} ${preselectedTime}`
       : undefined
   );
 
+  console.log(date);
+  
+  let avalibleTime 
 
-  const date = useAppSelector(selectDate);
-  const times = useAppSelector(selectAvalibleTime);
-  const timeIndex = times.findIndex(field => field.date === date);
-  const avalibleTime = times[timeIndex].hours
+  // const date = useAppSelector(selectDate);
+  // const times = useAppSelector(selectAvalibleTime);
+  // const timeIndex = times.findIndex(field => field.date === date);
+  // const avalibleTime = times[timeIndex].date;
+  // console.log(avalibleTime);
+  
 
-  const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending);
+  const isLoading = useSelector((state: RootState) => state.timeReducer.reqStatus === ReqStatus.pending);
 
   useEffect(() => {
     dispatch(setTime)
-  }, [preselectedDate, preselectedTime])
+  }, [date, preselectedTime])
 
   const onNextClick = () => {
     if (!!selected) {
@@ -61,8 +68,8 @@ export const TimeSelect: React.FC = () => {
 
         <LoadWrapper isLoading={isLoading}>
           <Row justify="start" gutter={[20, 20]}>
-            {avalibleTime &&
-              avalibleTime.map((time) => (
+            {/* {date.times &&
+              date.times.map((time) => (
                 <Col
                   xs={12}
                   sm={8}
@@ -80,7 +87,7 @@ export const TimeSelect: React.FC = () => {
                     onClick={onTimeClick}
                   />
                 </Col>
-              ))}
+              ))} */}
           </Row>
         </LoadWrapper>
       </>
