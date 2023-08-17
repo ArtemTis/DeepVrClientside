@@ -1,8 +1,8 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 
-export const selectAvalibleTime = createDraftSafeSelector(
-    [(state: RootState) => state.timeReducer.avalibleTime],
+export const selectAvalibleDayAndTime = createDraftSafeSelector(
+    [(state: RootState) => state.timeReducer.avalibleDayAndTime],
     (avalibleTime) => avalibleTime ?? []
 )
 export const selectReqStatus = createDraftSafeSelector(

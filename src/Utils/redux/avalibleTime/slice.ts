@@ -4,7 +4,7 @@ import { getAvalibleDateAndTime } from "./asyncActions";
 import { IAvalibleTime } from "../../types";
 
 interface TimeState {
-    avalibleTime?: IAvalibleTime[];
+    avalibleDayAndTime?: IAvalibleTime[];
     textError?: string;
     reqStatus?: ReqStatus;
 }
@@ -26,7 +26,7 @@ const timeSlice = createSlice({
         )
         builder.addCase(getAvalibleDateAndTime.fulfilled,
             (state, action) => {
-                state.avalibleTime = action.payload;
+                state.avalibleDayAndTime = action.payload;
                 state.reqStatus = ReqStatus.fulfield;
             }
         )

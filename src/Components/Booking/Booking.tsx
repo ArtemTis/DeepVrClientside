@@ -39,16 +39,24 @@ export const Booking: React.FC = () => {
 
   const booking = useAppSelector(state => state.bookingReducer);
 
+  console.log(booking);
+
+
   const isFinish = useCallback(() => {
 
     return Config[currentStep].isFinished(booking)
   }, [booking])
 
+  
   const Label = () => {
     return (
       <div>
         <StyledCurrentStep>{Config[currentStep].title}</StyledCurrentStep>
-        <StyledNextStep>Далее: {Config[currentStep + 1].title}</StyledNextStep>
+        {
+          currentStep < Config.length - 2
+          &&
+          <StyledNextStep>Далее: {Config[currentStep + 1].title}</StyledNextStep>
+        }
       </div>
     )
   }
@@ -87,7 +95,7 @@ export const Booking: React.FC = () => {
 const StyledLoaderWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin: 40px 0 15vh;
+  margin: 40px 0 7vh;
 `
 
 const StyledNextButton = styled(NextButton)`
@@ -119,7 +127,10 @@ const StyledPrevButton = styled(Button)`
 const StyledWrapperButtons = styled.div`
   padding: 20px 12vw 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 20px;
+
+  margin-top: 5vh;
 
   cursor: pointer;
   border: none;

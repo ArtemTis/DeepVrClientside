@@ -1,6 +1,10 @@
 
 @import url('https://fonts.cdnfonts.com/css/bebas-neue');
 
+textarea{
+    min-height: 24px;
+}
+
 .booking-wrapper {
     --fixed-panel-height: 84px;
     --step-display-height: 72px;
@@ -279,7 +283,10 @@
     background-color: #1F2032;
     border-radius: 15px;
     overflow: hidden;
-    height: 410px;
+    height: 350px;
+
+    min-width: 420px;
+    max-width: 450px;
 
     display: flex;
     flex-direction: column;
@@ -543,7 +550,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 12px;
+    gap: 30px;
 }
 .time-card-bg-selected {
     background-color: #ABAFE5;

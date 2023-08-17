@@ -61,7 +61,7 @@ export const GameSelect: React.FC = () => {
   return (
     <>
       <LoadWrapper isLoading={isLoading}>
-        <Row justify="start" gutter={[20, 20]}>
+        <Row justify="center" gutter={[20, 20]}>
           {selectedGames &&
             selectedGames.fullGames.map((game) => (
               <GameCard

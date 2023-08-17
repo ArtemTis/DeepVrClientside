@@ -14,7 +14,7 @@ import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 import "../BookingStyles.css";
 import { useSelector } from "react-redux";
 import { ReqStatus } from "../../../Utils/enums";
-import { selectAvalibleTime } from "../../../Utils/redux/avalibleTime/selectors";
+import { selectAvalibleDayAndTime } from "../../../Utils/redux/avalibleTime/selectors";
 import { selectDate, selectSelectedTime } from "../../../Utils/redux/booking/selectors";
 import { Title } from "../Components/Title";
 
@@ -22,42 +22,24 @@ import { Title } from "../Components/Title";
 export const TimeSelect: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const selectedDate = useAppSelector(selectDate);
+  const selectedDateBooking = useAppSelector(selectDate);
 
-  const date = useAppSelector(selectAvalibleTime);
+  const date = useAppSelector(selectAvalibleDayAndTime);
+
   const preselectedTime = useAppSelector(selectSelectedTime);
+
   const [selected, setSelected] = useState<string | undefined>(
-    date && preselectedTime
-      ? `${date.slice(0, 10)} ${preselectedTime}`
-      : undefined
+    selectedDateBooking && preselectedTime
+      ? `${preselectedTime}` : undefined
   );
-
-  console.log(date);
   
-  let avalibleTime 
-
-  // const date = useAppSelector(selectDate);
-  // const times = useAppSelector(selectAvalibleTime);
-  // const timeIndex = times.findIndex(field => field.date === date);
-  // const avalibleTime = times[timeIndex].date;
-  // console.log(avalibleTime);
-  
+  let avalibleTime = date.find(date => date.date === selectedDateBooking?.slice(0, 10));
 
   const isLoading = useSelector((state: RootState) => state.timeReducer.reqStatus === ReqStatus.pending);
 
-  useEffect(() => {
-    dispatch(setTime)
-  }, [date, preselectedTime])
-
-  const onNextClick = () => {
-    if (!!selected) {
-      dispatch(setTime(selected));
-      dispatch(increaseStep());
-    }
-  };
-  const onBackClick = () => {
-    dispatch(decreaseStep());
-  };
+  useEffect(()=>{
+    dispatch(setTime(selected))
+  },[selected])
 
   const onTimeClick = (time: string) => {
     setSelected(time);
@@ -68,8 +50,8 @@ export const TimeSelect: React.FC = () => {
 
         <LoadWrapper isLoading={isLoading}>
           <Row justify="start" gutter={[20, 20]}>
-            {/* {date.times &&
-              date.times.map((time) => (
+            {avalibleTime?.times &&
+              avalibleTime.times.map((time: string) => (
                 <Col
                   xs={12}
                   sm={8}
@@ -80,14 +62,14 @@ export const TimeSelect: React.FC = () => {
                   key={time}
                 >
                   <TimeCard
-                    time={time}
+                    time={time.slice(0, 5)}
                     isSelected={
-                      time === selected
+                      time.slice(0, 5) === selected
                     }
                     onClick={onTimeClick}
                   />
                 </Col>
-              ))} */}
+              ))}
           </Row>
         </LoadWrapper>
       </>

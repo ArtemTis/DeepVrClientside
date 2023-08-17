@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Row } from "antd";
 import {
   decreaseStep,
@@ -9,7 +9,7 @@ import { selectCredentials } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
 import { StageLayout } from "./StageLayout";
 import { PromoModal } from "../Components/PromoModal";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { selectIsAuthorised, selectUser } from "../../../Utils/redux/auth/selectors";
 import { NavLink } from "react-router-dom";
 import { ACCOUNT_PATH } from "../../../Utils/routeConstants";
@@ -26,6 +26,7 @@ import infoIcon from "../../../Assets/infoIcon.svg";
 import userIcon from "../../../Assets/user-icon-liliac.svg";
 import arrowRight from "../../../Assets/arrow-right.svg";
 import { Title } from "../Components/Title";
+import { IBookingCredentials } from "../../../Utils/types";
 
 const agreementHref = "/";
 const bonusesInfoHref = "/";
@@ -44,6 +45,7 @@ export const CredentialsForm: React.FC = () => {
     setValue,
     getValues,
     control,
+    watch,
     formState: { errors, isValid },
   } = useForm({
     mode: "onTouched",
@@ -54,10 +56,27 @@ export const CredentialsForm: React.FC = () => {
     },
   });
 
+  const watchAllFields = useWatch({ control });
+
+  console.log(watchAllFields);
+
+
   const [isPromoActive, setIsPromoActive] = useState(!credentials?.useDiscount);
   const [areBonusesActive, setAreBonusesActive] = useState(!credentials?.promo);
 
-  const values = getValues();
+  const values = useMemo(() => ({ ...watchAllFields, ...getValues() }), [watchAllFields]);
+
+
+  useEffect(() => {
+    if (values.phone && values.name && values.licenseAgree) {
+      console.log(values);
+      dispatch(setCredentials(values))
+    }
+  }, [values])
+
+  console.log(credentials);
+  
+
 
   const openModal = () => {
     setIsPromoModalOpen(true);
@@ -71,27 +90,28 @@ export const CredentialsForm: React.FC = () => {
     setIsPromoModalOpen(false);
   };
 
-  const onNextClick = () => {
-    if (isValid) {
-      dispatch(setCredentials(values));
-      dispatch(increaseStep());
-    }
-  };
-  const onBackClick = () => {
-    dispatch(decreaseStep());
-  };
+  // const onNextClick = () => {
+  //   if (isValid) {
+  //     dispatch(setCredentials(values));
+  //     dispatch(increaseStep());
+  //   }
+  // };
+  // const onBackClick = () => {
+  //   dispatch(decreaseStep());
+  // };
 
   return (
     <>
-      
+
       <Row justify="center" gutter={[20, 20]}>
         <ColLg>
           <form className="credentials-container">
+            {/* <form onSubmit={handleSubmit(onSubmit)} id='createModuleForm'> */}
             <PromoModal
               isOpen={isPromoModalOpen}
               onCancel={closeModal}
               onSubmit={submitModalRes}
-              value={values.promo}
+              value={watchAllFields.promo}
             />
 
             <FormField
@@ -138,9 +158,8 @@ export const CredentialsForm: React.FC = () => {
             {isAuthorised ? (
               <>
                 <div
-                  className={`credentials-promo-btn credentials-description${
-                    isPromoActive ? "" : " credentials-not-usable"
-                  }`}
+                  className={`credentials-promo-btn credentials-description${isPromoActive ? "" : " credentials-not-usable"
+                    }`}
                   onClick={isPromoActive ? openModal : undefined}
                 >
                   <input
@@ -153,9 +172,8 @@ export const CredentialsForm: React.FC = () => {
                 </div>
 
                 <div
-                  className={`credentials-bonuses-container${
-                    areBonusesActive ? "" : " credentials-not-usable"
-                  }`}
+                  className={`credentials-bonuses-container${areBonusesActive ? "" : " credentials-not-usable"
+                    }`}
                 >
                   <div className="credentials-description">
                     <span>Баллы и бонусы</span>

@@ -63,12 +63,12 @@ export const Config: IStep[] = [
   },
   {
     component: <DateSelect />,
-    isFinished: (booking) => booking.date !== undefined,
+    isFinished: (booking) => booking.date !== 'undefined',
     title: 'Выберите удобный день'
   },
   {
     component: <TimeSelect />,
-    isFinished: (booking) => booking.avalibleTime !== undefined,
+    isFinished: (booking) => booking.selectedTime?.length === 5,
     title: 'Выберите подходящее время'
   },
   {

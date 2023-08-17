@@ -11,7 +11,7 @@ import ru from "date-fns/locale/ru";
 
 import "../BookingStyles.css";
 import { selectDate } from "../../../Utils/redux/booking/selectors";
-import { selectAvalibleTime } from "../../../Utils/redux/avalibleTime/selectors";
+import { selectAvalibleDayAndTime } from "../../../Utils/redux/avalibleTime/selectors";
 import { getAvalibleDateAndTime } from "../../../Utils/redux/avalibleTime/asyncActions";
 import { IAvalibleTime } from "../../../Utils/types";
 import styled from "styled-components";
@@ -28,11 +28,13 @@ export const DateSelect: React.FC = () => {
     dispatch(getAvalibleDateAndTime());
   },[])
 
-  const preselectedDate = useAppSelector(selectAvalibleTime);
+  const preselectedDate = useAppSelector(selectAvalibleDayAndTime);
+  const selectedDate = useAppSelector(selectDate);
   
   const [selected, setSelected] = useState<Date | undefined>(
-    // preselectedDate ? new Date(preselectedDate) : undefined
+    selectedDate ? new Date(selectedDate) : undefined
   );
+  
 
   useEffect(() => {
     if (!!selected) {
