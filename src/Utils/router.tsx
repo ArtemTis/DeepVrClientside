@@ -55,6 +55,8 @@ export const router = createBrowserRouter(
 
         <Route index element={<BookingStep/>} />
         <Route path={`${BOOKING_PATH}/:step`} element={<BookingStep/>} />
+        <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
+        {/* <Route path={BOOKING_DONE_PATH} element={<Done />} /> */}
     
         {/* <Route index element={<Navigate to={BOOKING_ADDRESS_PATH} />} /> */}
         {/* <Route path={BOOKING_ADDRESS_PATH} element={<CitySelect />} />

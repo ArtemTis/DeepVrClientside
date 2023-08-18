@@ -2,7 +2,7 @@
 @import url('https://fonts.cdnfonts.com/css/bebas-neue');
 
 textarea{
-    min-height: 24px;
+    min-height: 26px;
 }
 
 .booking-wrapper {
@@ -30,7 +30,7 @@ textarea{
 }
 
 .booking-viewport {
-    min-height: calc(100vh - var(--fixed-panel-height) - var(--footer-height));
+    /* min-height: calc(100vh - var(--fixed-panel-height) - var(--footer-height)); */
     max-width: 100%;
     width: 100%;
     padding: 0 16px;
@@ -46,7 +46,7 @@ textarea{
     width: 100%;
     text-align: center;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 }
 .booking-header {
@@ -283,10 +283,12 @@ textarea{
     background-color: #1F2032;
     border-radius: 15px;
     overflow: hidden;
-    height: 350px;
+    /* height: 350px; */
+    height: 45vh;
+    min-height: 380px;
 
-    min-width: 420px;
-    max-width: 450px;
+    min-width: 30vw;
+    max-width: 32vw;
 
     display: flex;
     flex-direction: column;
@@ -782,11 +784,11 @@ textarea{
     font-size: 36px;
 }
 
-.done-img {
+/* .done-img {
     width: 160px;
     height: 256px;
     padding-top: 54px;
-}
+} */
 
 .done-text {
     font-family: 'SF Pro Display';
@@ -795,4 +797,5 @@ textarea{
     font-size: 16px;
     text-align: center;
     color: #ABAFE5;
+
 }

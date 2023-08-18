@@ -33,10 +33,21 @@ const allGames = createSlice({
                 state.requestStatus = ReqStatus.rejected;
             }
         )
+        builder.addCase(getGameByType.pending,
+            (state, action) => {
+                state.requestStatus = ReqStatus.pending;
+            }
+        )
         builder.addCase(getGameByType.fulfilled,
             (state, action) => {
                 // allGamesAdapter.setAll(state, action.payload)
+                state.requestStatus = ReqStatus.fulfield;
                 state.gameByType = action.payload;
+            }
+        )
+        builder.addCase(getGameByType.rejected,
+            (state, action) => {
+                state.requestStatus = ReqStatus.rejected;
             }
         )
     }

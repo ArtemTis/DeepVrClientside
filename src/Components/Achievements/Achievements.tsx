@@ -208,6 +208,9 @@ const StyledModal = styled(Modal)`
   padding-bottom: 0px !important;
   border-radius: 16px !important;
   background: rgba(25, 26, 41, 1) !important;
+  top: 10vh;
+
+  margin: auto;
 
   .ant-modal-content{
     padding: 40px !important;

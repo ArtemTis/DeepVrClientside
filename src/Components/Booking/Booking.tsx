@@ -7,13 +7,13 @@ import {
 import { selectCurrentStep, selectIsFinished } from "../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../Utils/redux/store";
 import "./BookingStyles.css";
-import { useCallback, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router";
+import { useCallback, useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router";
 import TypeGameSelect from "./Stages/GamesTypeSelect";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { Config } from "./Stages/Config";
 import { Link } from "react-router-dom";
-import { BOOKING_PATH } from "../../Utils/routeConstants";
+import { BOOKING_CONFIRM_PATH, BOOKING_DONE_PATH, BOOKING_PATH } from "../../Utils/routeConstants";
 import { LoaderGipno } from "../Stepper/loader-components";
 import { Title } from "./Components/Title";
 import styled from "styled-components";
@@ -21,12 +21,18 @@ import { DefaultLayout } from "../Layout/DefaultLayout";
 import { Footer } from "antd/es/layout/layout";
 import { FooterMenu } from "../Layout/Footer/FooterMenu";
 import { NextButton } from "../Common/Markup/NextButton";
+import { Done } from "./Stages/Done";
+import close from '../../Assets/close-cross.svg'
 
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);
   const isFinished = useAppSelector(selectIsFinished);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const location = useLocation().pathname;
+  const { step } = useParams();
+
 
   useEffect(() => {
     return function checkState() {
@@ -47,13 +53,13 @@ export const Booking: React.FC = () => {
     return Config[currentStep].isFinished(booking)
   }, [booking])
 
-  
+
   const Label = () => {
     return (
       <div>
         <StyledCurrentStep>{Config[currentStep].title}</StyledCurrentStep>
         {
-          currentStep < Config.length - 2
+          currentStep < Config.length - 1
           &&
           <StyledNextStep>Далее: {Config[currentStep + 1].title}</StyledNextStep>
         }
@@ -61,33 +67,83 @@ export const Booking: React.FC = () => {
     )
   }
 
+  let stepPath = location.split('/').slice(-1)[0]
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    navigate('/');
+  };
+
+
 
   return (
     <DefaultLayout>
       <div className="booking-wrapper">
 
-        <StyledLoaderWrapper>
+        {
+          step && +step < Config.length
+          &&
+          <StyledLoaderWrapper>
 
-          <LoaderGipno innerText={"stepper"} type={"circle"}
-            fontSize={20} value={currentStep} maxValue={Config.length - 1} width={100}
-            height={8} colorStops={[{ color: '#30A5D1', percent: 100 },]}
-            label={<Label />}
-            labelPosition="right"
-          />
-        </StyledLoaderWrapper>
+            <LoaderGipno innerText={"stepper"} type={"circle"}
+              fontSize={20} value={currentStep} maxValue={Config.length - 1} width={100}
+              height={8} colorStops={[{ color: '#30A5D1', percent: 100 },]}
+              label={<Label />}
+              labelPosition="right"
+            />
+          </StyledLoaderWrapper>
+        }
+
+
 
 
         <Outlet />
 
-        <StyledWrapperButtons>
-          {
-            currentStep > 1 &&
-            <StyledPrevButton onClick={() => navigate(`${currentStep - 1}`)}>Назад</StyledPrevButton>
-          }
-          <StyledNextButton isActive={isFinish()} onClick={() => navigate(`${currentStep + 1}`)}>Далее</StyledNextButton>
-        </StyledWrapperButtons>
+        {
+          stepPath !== 'done'
+          &&
+          <StyledWrapperButtons>
+            {
+              +stepPath > 1
+                ?
+                <StyledPrevButton onClick={() => navigate(`${currentStep - 1}`)}>Назад</StyledPrevButton>
+                :
+                <StyledPrevButton onClick={() => navigate(`${currentStep}`)}>Назад</StyledPrevButton>
+
+            }
+            {
+              currentStep < Config.length - 1
+                ?
+                <StyledNextButton isActive={isFinish()} onClick={() => navigate(`${currentStep + 1}`)}>Далее</StyledNextButton>
+                :
+                !Number.isNaN(+stepPath)
+                  ?
+                  <StyledNextButton isActive={isFinish()} onClick={() => navigate(BOOKING_CONFIRM_PATH)}>Далее</StyledNextButton>
+                  :
+                  <StyledNextButton isActive={true} onClick={showModal}>Готово</StyledNextButton>
+            }
+          </StyledWrapperButtons>
+        }
+
+
 
       </div>
+
+
+      <StyledModal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[]}  closeIcon={<img src={close} alt="close icon" />}>
+        <Done />
+      </StyledModal>
+
     </DefaultLayout>
   );
 };
@@ -157,4 +213,21 @@ const StyledCurrentStep = styled.h2`
   line-height: 24px;
   margin: 0;
   margin-bottom: 8px;
+`
+
+const StyledModal = styled(Modal)`
+  padding-bottom: 0px !important;
+  border-radius: 16px !important;
+  background: rgba(25, 26, 41, 1) !important;
+
+  top: 10vh;
+
+  .ant-modal-content{
+    padding: 40px !important;
+    border-radius: 16px !important;
+    
+  }
+  .ant-modal-footer{
+    margin-top: 0 !important;
+  }
 `

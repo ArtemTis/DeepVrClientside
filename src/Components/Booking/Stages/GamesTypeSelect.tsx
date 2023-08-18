@@ -18,7 +18,7 @@ const GamesTypeSelect = () => {
   const gameTypes = useAppSelector(selectGameTypes);
   const [selected, setSelected] = useState<IGameType>();
 
-  const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
+  const isLoading = useAppSelector((state: RootState) => state.gamesType.requestStatus === ReqStatus.pending);
 
   useEffect(() => {
     dispatch(gamesTypes());

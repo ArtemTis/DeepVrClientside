@@ -34,6 +34,7 @@ import { createBooking } from "../../../Utils/redux/booking/asyncActions";
 import { ReqStatus } from "../../../Utils/enums";
 import { getSummary } from "../../../Utils/redux/summary/asyncActions";
 import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
+import styled from "styled-components";
 
 export const ConfirmBooking: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -88,9 +89,6 @@ export const ConfirmBooking: React.FC = () => {
       }))
     }
   };
-  const onBackClick = () => {
-    dispatch(decreaseStep());
-  };
 
   useEffect(() => {
 
@@ -113,15 +111,10 @@ export const ConfirmBooking: React.FC = () => {
               className="summary-params-table"
               gutter={[10, 24]}
             >
-              <Col
-                className="summary-params-table-cell summary-params-table-description"
-                span={6}
-              >
-                Зал:
+              <Col span={24}>
+                <StyledTitle>Бронирование</StyledTitle>
               </Col>
-              <Col className="summary-params-table-cell" span={18}>
-                {typeGame?.title}
-              </Col>
+            
 
               <Col
                 className="summary-params-table-cell summary-params-table-description"
@@ -232,19 +225,18 @@ export const ConfirmBooking: React.FC = () => {
         </Row>
         <LoadWrapper isLoading={isPostingForm} height={1} />
       </div>
-      <FixedPanel>
-        <Col xs={12} sm={10} md={9} lg={8} xl={7} xxl={6}>
-          <BackButton onClick={onBackClick}>Назад</BackButton>
-        </Col>
-        <Col xs={12} sm={10} md={9} lg={8} xl={7} xxl={6}>
-          <NextButton
-            onClick={onNextClick}
-            isActive={!!summary && !isPostingForm}
-          >
-            Далее
-          </NextButton>
-        </Col>
-      </FixedPanel>
     </>
   );
 };
+
+
+const StyledTitle = styled.h1`
+  margin: 0 0 60px;
+
+  color: rgb(255, 255, 255);
+  font-family: "SF Pro Display";
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+`
