@@ -100,7 +100,7 @@ const bookingSlice = createSlice({
         )
         builder.addCase(getAvalibleTime.fulfilled,
             (state, action) => {
-                state.avalibleTime = action.payload;
+                // state.avalibleTime = action.payload;
                 state.reqStatus = ReqStatus.fulfield;
             }
         )

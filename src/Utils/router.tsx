@@ -24,6 +24,7 @@ import {
   SINGIN_CODE_PATH,
   SINGIN_EMAIL_PATH,
   SINGIN_TEL_PATH,
+  STORIES_PATH,
 } from "./routeConstants";
 import { Register } from "../Components/Account/Panels/Register";
 import LoginCode from "../Components/Account/Panels/Login/LoginCode";
@@ -41,11 +42,15 @@ import { CredentialsForm } from "../Components/Booking/Stages/CredentialsForm";
 import { ConfirmBooking } from "../Components/Booking/Stages/ConfirmBooking";
 import { Done } from "../Components/Booking/Stages/Done";
 import TypeGameSelect from "../Components/Booking/Stages/GamesTypeSelect";
+import StoryId from "../feature/stories-feature/presentation/StoryId";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path={HOME_PATH} element={<Games />} />
+      
+      <Route path={`${STORIES_PATH}/:id`} element={<StoryId />} />
+
       <Route path={BOOKING_PATH} element={<Booking />} >
         {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
         <Route index element={<Navigate to={BOOKING_CITY_PATH} />} />
@@ -59,7 +64,9 @@ export const router = createBrowserRouter(
         <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
         <Route path={BOOKING_DONE_PATH} element={<Done />} />
       </Route>
+
       <Route path={ACHIVEMENTS_PATH} element={<Achievements />} />
+
       <Route path={ACCOUNT_PATH} element={<Account />}>
         <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} />
         <Route path={LOGIN_PATH} element={<Login />} >
@@ -71,6 +78,7 @@ export const router = createBrowserRouter(
         <Route path={PROFILE_PATH} element={<AuthGuard element={<Profile />} />} />
         <Route path={REGISTER_PATH} element={<Register />} />
       </Route>
+
       <Route path="*" element={<NotFound />} />
     </>
   ));

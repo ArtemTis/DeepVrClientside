@@ -1,4 +1,4 @@
-import IThumbnail from "./thumbnailDto";
+import { IThumbnail } from "./storiesDto";
 
 const thumbnailsData: IThumbnail[] = [
     {

@@ -1,24 +1,22 @@
-import IStories from "./storiesDto";
-import IThumbnail from "./thumbnailDto";
-
-import storiesData from "./stories";
-import thumbnailsData from "./thumbnails";
+import {IStoriesRequest, IThumbnailDto, stories1, stories2, stories3, thumbnails} from "./storiesDto";
 
 const api = {
   getStories: () => {
-    return new Promise<IStories[]>((resolve, reject) => {
+    return new Promise<IThumbnailDto[]>((resolve, reject) => {
       setTimeout(() => {
-        resolve(storiesData);
-      }, 5000)
+        resolve(thumbnails);
+      }, 2000)
     });
   },
-  getThumbnails: () => {
-    return new Promise<IThumbnail[]>((resolve, reject) => {
+  getThumbnails: (id: number) => {
+    return new Promise<IStoriesRequest[]>((resolve, reject) => {
       setTimeout(() => {
-        resolve(thumbnailsData);
-      }, 3000)
+        if(id === 1) resolve(stories1);
+        if(id === 2) resolve(stories2);
+        if(id === 3) resolve(stories3);
+      }, 2000)
     });
-  },
+  }
 }
 
 export default api;

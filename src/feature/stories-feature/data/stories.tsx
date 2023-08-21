@@ -1,4 +1,4 @@
-import IStories from "./storiesDto";
+import { IStories } from "./storiesDto";
 
 const storiesData: IStories[] = [
   {

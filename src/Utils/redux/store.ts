@@ -4,9 +4,7 @@ import authReducer from "./auth/slice";
 import bookingReducer from "./booking/slice";
 import gamesType from "./gamesType/slice";
 import allGames from "./games/slice";
-
-import { storiesReducer } from "../../feature/stories-feature/store/storiesSlice";
-import { thumbnailsReducer } from "../../feature/stories-feature/store/thumbnailsSlice";
+import { storiesReducer } from "../../feature/stories-feature/store/slice";
 
 const rootReducer = combineReducers({
     bookingReducer,
@@ -14,7 +12,6 @@ const rootReducer = combineReducers({
     gamesType,
     allGames,
     storiesReducer,
-    thumbnailsReducer
 });
 
 export const setupStore = () => configureStore({

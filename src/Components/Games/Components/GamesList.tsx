@@ -47,7 +47,6 @@ export const GamesList: React.FC = () => {
       .finally(() => {
         setIsLoading(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -150,6 +149,9 @@ export const GamesList: React.FC = () => {
           </div>
         </ColLg>
       </Row>
+
+      <Stories />
+
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
           {gamesFiltered &&
@@ -163,7 +165,6 @@ export const GamesList: React.FC = () => {
             ))}
         </Row>
       </LoadWrapper>
-      <Stories />
     </div>
   );
 };

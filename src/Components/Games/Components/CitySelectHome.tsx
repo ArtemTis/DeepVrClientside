@@ -47,8 +47,6 @@ export const CitySelectHome: React.FC = () => {
         </NextButton>
       </ColLg>
     </Row>
-    
-    <Stories/>
     </>
   );
 };

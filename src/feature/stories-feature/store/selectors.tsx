@@ -1,44 +1,30 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../../Utils/redux/store";
+import { storiesAdapter } from "./slice";
 
-export const selectThumbnails = createDraftSafeSelector(
-    (state: RootState) => state.thumbnailsReducer,
-    (state) => {
-        const sortedThumbnails = state.thumbnails.slice().sort((a, b) => {
-            if (a.isViewed && !b.isViewed) {
-                return 1;
-            } else if (!a.isViewed && b.isViewed) {
-                return -1; 
-            } else {
-                return a.id - b.id;
-            }
-        });
+export const baseSelectors = storiesAdapter.getSelectors();
 
-        return sortedThumbnails;
-    }
-)
+export const selectThumbnails = (state: RootState) => baseSelectors.selectAll(state.storiesReducer);
+
+export const selectById = (state: RootState, id: number) => baseSelectors.selectById(state.storiesReducer, id);
+
+export const selectStoriesById = (state: RootState, id: number) => baseSelectors.selectById(state.storiesReducer, id)?.stories ?? [];
+
+export const selectIsThumbnailLoaded = (state: RootState, id: number) => selectStoriesById(state, id).length != 0;
+
+export const selectIds = (state: RootState) => baseSelectors.selectIds(state.storiesReducer) as number[];
 
 export const selectThumbnailLoadingStatus = createDraftSafeSelector(
-    (state: RootState) => state.thumbnailsReducer,
-    (state) => state.thumbnailsLoadingStatus
-)
-
-export const selectThumbnailTextError = createDraftSafeSelector(
-    (state: RootState) => state.thumbnailsReducer,
-    (state) => state.thumbnailsErrorText
-)
-
-export const selectStories = createDraftSafeSelector(
     (state: RootState) => state.storiesReducer,
-    (state) => state.stories
+    (state) => state.allThumbnailLoadingStatus
+)
+
+export const selectTextError = createDraftSafeSelector(
+    (state: RootState) => state.storiesReducer,
+    (state) => state.allThumbnailErrorText
 )
 
 export const selectStoryLoadingStatus = createDraftSafeSelector(
     (state: RootState) => state.storiesReducer,
-    (state) => state.storiesLoadingStatus
-)
-
-export const selectStoryTextError = createDraftSafeSelector(
-    (state: RootState) => state.storiesReducer,
-    (state) => state.storiesErrorText
+    (state) => state.statusStoriesByThumbnailId
 )

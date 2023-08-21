@@ -112,7 +112,7 @@ export const Profile: React.FC = () => {
           setIsLoadingCity(false);
           setIsLoadingHistory(false);
         });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const bonusesRefs = {
