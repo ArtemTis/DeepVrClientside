@@ -10,6 +10,8 @@ import { decreaseStep, increaseStep, setTypeGame } from '../../../Utils/redux/bo
 import { gamesTypes } from '../../../Utils/redux/gamesType/asyncActions'
 import { ReqStatus } from '../../../Utils/enums'
 import styled from 'styled-components'
+import { createEmpty } from '../../../Utils/redux/booking/asyncActions'
+import { selectBookingId } from '../../../Utils/redux/booking/selectors'
 
 const GamesTypeSelect = () => {
 

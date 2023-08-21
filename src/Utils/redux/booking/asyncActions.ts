@@ -20,3 +20,18 @@ export const createBooking = createAsyncThunk(
 )
 
 
+export const createEmpty = createAsyncThunk(
+    'bookingSlice/createEmpty',
+    async function (_, { rejectWithValue }) {
+        try {
+            const res = await Api.createEmpty();
+
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data.error_text ?? "Ошибка создания заказа");
+            }
+            return rejectWithValue('Неизвестная ошибка');
+        }
+    }
+)

@@ -4,7 +4,7 @@ import {
   increaseStep,
   setStep,
 } from "../../Utils/redux/booking/slice";
-import { selectCurrentStep, selectIsFinished } from "../../Utils/redux/booking/selectors";
+import { selectBookingId, selectCredentials, selectCurrentStep, selectDate, selectGame, selectIsFinished, selectPlayersCount, selectSelectedTime } from "../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../Utils/redux/store";
 import "./BookingStyles.css";
 import { useCallback, useEffect, useState } from "react";
@@ -23,10 +23,22 @@ import { FooterMenu } from "../Layout/Footer/FooterMenu";
 import { NextButton } from "../Common/Markup/NextButton";
 import { Done } from "./Stages/Done";
 import close from '../../Assets/close-cross.svg'
+import { createBooking, createEmpty } from "../../Utils/redux/booking/asyncActions";
+import { selectToken } from "../../Utils/redux/auth/selectors";
 
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);
   const isFinished = useAppSelector(selectIsFinished);
+
+  const token = useAppSelector(selectToken) ?? 'guest_token';
+  const credentials = useAppSelector(selectCredentials);
+  const summary = useAppSelector(state => state.summaryReducer.summary);
+  const typeGame = useAppSelector(state => state.bookingReducer.typeGame);
+  const game = useAppSelector(selectGame);
+  const date = useAppSelector(selectDate)?.substring(0, 10);
+  const time = useAppSelector(selectSelectedTime)?.substring(0, 5);
+  const count = useAppSelector(selectPlayersCount);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -85,6 +97,42 @@ export const Booking: React.FC = () => {
   };
 
 
+  const confirmBooking = () => {
+    if (
+      !!summary &&
+      !!credentials &&
+      !!game &&
+      !!typeGame &&
+      !!date &&
+      !!time &&
+      typeof count === "number"
+    ) {
+      // setIsPostingForm(true);
+
+      // dispatch(createEmpty())
+      // {
+      //   name: credentials.name,
+      //   date,
+      //   phone: credentials.phone,
+      //   booking: {
+      //     game_id: game.id,
+      //     typeGame_id: typeGame.id,
+      //     guest_quantity: count,
+      //     time: `${date} ${time}`,
+      //   },
+      //   comment: credentials.comment,
+      //   bonus: summary.bonus_discount,
+      //   certificates: [],
+      //   promo_code: credentials.promo ?? "",
+      //   token,
+      // }
+    }
+  };
+
+  const confirm = () => {
+    confirmBooking()
+    showModal()
+  }
 
   return (
     <DefaultLayout>
@@ -118,8 +166,10 @@ export const Booking: React.FC = () => {
                 ?
                 <StyledPrevButton onClick={() => navigate(`${currentStep - 1}`)}>Назад</StyledPrevButton>
                 :
-                <StyledPrevButton onClick={() => navigate(`${currentStep}`)}>Назад</StyledPrevButton>
-
+                stepPath === 'confirm'
+                  ?
+                  <StyledPrevButton onClick={() => navigate(`${currentStep}`)}>Назад</StyledPrevButton>
+                  : <></>
             }
             {
               currentStep < Config.length - 1
@@ -130,7 +180,7 @@ export const Booking: React.FC = () => {
                   ?
                   <StyledNextButton isActive={isFinish()} onClick={() => navigate(BOOKING_CONFIRM_PATH)}>Далее</StyledNextButton>
                   :
-                  <StyledNextButton isActive={true} onClick={showModal}>Готово</StyledNextButton>
+                  <StyledNextButton isActive={true} onClick={confirm}>Готово</StyledNextButton>
             }
           </StyledWrapperButtons>
         }
@@ -140,7 +190,7 @@ export const Booking: React.FC = () => {
       </div>
 
 
-      <StyledModal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[]}  closeIcon={<img src={close} alt="close icon" />}>
+      <StyledModal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[]} closeIcon={<img src={close} alt="close icon" />}>
         <Done />
       </StyledModal>
 

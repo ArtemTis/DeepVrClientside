@@ -46,52 +46,16 @@ export const ConfirmBooking: React.FC = () => {
   const count = useAppSelector(selectPlayersCount);
   const date = useAppSelector(selectDate)?.substring(0, 10);
   const time = useAppSelector(selectSelectedTime)?.substring(0, 5);
-  const credentials = useAppSelector(selectCredentials);
+
 
   const { promo, useDiscount } = useAppSelector(
-    selectCredentials
+    selectCredentials ?? undefined
   ) as IBookingCredentials;
 
-
-  const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
-  const errorText = useAppSelector(state => state.bookingReducer.textError);
-  const summary = useAppSelector(state => state.summaryReducer.summary);
-
-  const [isPostingForm, setIsPostingForm] = useState(false);
-
-  const onNextClick = () => {
-    if (
-      !!summary &&
-      !!credentials &&
-      !!game &&
-      !!typeGame &&
-      !!date &&
-      !!time &&
-      typeof count === "number"
-    ) {
-      setIsPostingForm(true);
-
-      dispatch(createBooking({
-        name: credentials.name,
-        date,
-        phone: credentials.phone,
-        booking: {
-          game_id: game.id,
-          typeGame_id: typeGame.id,
-          guest_quantity: count,
-          time: `${date} ${time}`,
-        },
-        comment: credentials.comment,
-        bonus: summary.bonus_discount,
-        certificates: [],
-        promo_code: credentials.promo ?? "",
-        token,
-      }))
-    }
-  };
+  console.log([game, count, user, promo, useDiscount]);
+  
 
   useEffect(() => {
-
     dispatch(getSummary({
       game_id: game?.id ?? -1,
       guest_count: count ?? -1,
@@ -100,6 +64,16 @@ export const ConfirmBooking: React.FC = () => {
       use_bonus: useDiscount,
     }))
   }, [game, count, user, promo, useDiscount]);
+
+  const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
+  const errorText = useAppSelector(state => state.bookingReducer.textError);
+  const summary = useAppSelector(state => state.summaryReducer.summary);
+
+  console.log(summary);
+
+
+  const [isPostingForm, setIsPostingForm] = useState(false);
+
 
   return (
     <>
@@ -114,7 +88,7 @@ export const ConfirmBooking: React.FC = () => {
               <Col span={24}>
                 <StyledTitle>Бронирование</StyledTitle>
               </Col>
-            
+
 
               <Col
                 className="summary-params-table-cell summary-params-table-description"

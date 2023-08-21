@@ -47,3 +47,8 @@ export const selectTextError = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.textError],
     (textError) => textError
 )
+
+export const selectBookingId = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.bookingId],
+    (bookingId) => bookingId
+)

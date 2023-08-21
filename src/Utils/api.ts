@@ -76,7 +76,7 @@ export const Api = {
 
     async getGamesTypes() {
         return axios.get<Array<IGameType>>(
-            `${instanceUrl}/v3/game-types/all`, {   
+            `${instanceUrl}/v3/game-types/all`, {
             timeout: 8000,
             headers: {
                 token: 'guest_token'
@@ -87,7 +87,7 @@ export const Api = {
 
     async getGameByType(id: number | undefined) {
         return axios.get<IGetGamesResponse>(
-            `${instanceUrl}/v3/game-types/${id}/games`, {   
+            `${instanceUrl}/v3/game-types/${id}/games`, {
             timeout: 8000,
             headers: {
                 token: 'guest_token'
@@ -151,13 +151,14 @@ export const Api = {
         }
         );
     },
-    
+
     async getSummary(data: IGetSummaryRequestData) {
         return axios.post<ISummaryResponse>(
             `${instanceUrl}/v3/orders/precalculate`,
             data, {
             headers: {
-                timeout: 8000
+                timeout: 8000,
+                token: 'guest_token'
             }
         }
         );
@@ -184,6 +185,47 @@ export const Api = {
         }
         );
     },
+
+    async createBookingById(id: string, data: {
+        gameId: number,
+        time: string,
+        guestCount: number
+    }) {
+        return axios.put(
+            `${instanceUrl}/v3/orders/${id}/bookings`,
+            data, {
+            headers: {
+                timeout: 8000,
+                token: 'guest_token'
+            }
+        }
+        );
+    },
+
+    async precalculate(){
+        return axios.post(
+            `${instanceUrl}/v3/orders/precalculate`,
+            {},
+            {
+                headers: {
+                    token: 'guest_count'
+                }
+            }
+        )
+    },
+
+    async createEmpty() {
+        return axios.post(
+            `${instanceUrl}/v3/orders/create-empty`,
+            {},
+            {
+                headers: {
+                    token: 'guest_token'
+                }
+            }
+        );
+    },
+
     // end booking
 
     // account

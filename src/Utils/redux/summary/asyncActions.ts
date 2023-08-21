@@ -7,8 +7,9 @@ export const getSummary = createAsyncThunk(
     'summarySlice/getSummary',
     async function (values: IGetSummaryRequestData, { rejectWithValue }) {
         try {
+            console.log(values);
             const res = await Api.getSummary(values);
-
+            
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
