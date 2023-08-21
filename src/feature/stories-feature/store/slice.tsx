@@ -3,20 +3,7 @@ import { getAllThumbnails, getGroupStoriesById } from "./asyncActions";
 import { IThumbnail, IStoriesRequest, IThumbnailDto } from "../data/storiesDto";
 import { ReqStatus } from "../../../Utils/enums";
 
-export const storiesAdapter = createEntityAdapter<IThumbnail>(
-    {
-        selectId: (t) => t.id,
-        sortComparer: (a, b) => {
-            if (a.isViewed && !b.isViewed) {
-                return 1;
-            } else if (!a.isViewed && b.isViewed) {
-                return -1;
-            } else {
-                return a.id - b.id;
-            }
-        }
-    }
-);
+export const storiesAdapter = createEntityAdapter<IThumbnail>({selectId: (t) => t.id});
 
 const initialState = storiesAdapter.getInitialState({
     allThumbnailLoadingStatus: ReqStatus.never,
@@ -34,8 +21,6 @@ const slice = createSlice({
             if (!viewedThumbnails.includes(action.payload)) {
                 const newViewed = [...viewedThumbnails, action.payload];
                 localStorage.setItem('viewedThumbnails', JSON.stringify(newViewed));
-                const thumbnails = storiesAdapter.getSelectors().selectAll(state);
-                // thumbnails[action.payload].isViewed = true;
                 const thumbnail = storiesAdapter.getSelectors().selectById(state, action.payload);
                 if (thumbnail == undefined) return;
                 storiesAdapter.setOne(state, { ...thumbnail, isViewed: true });
@@ -98,6 +83,18 @@ const filteredThumbnails = (state: IThumbnailDto[]) => {
 
         return updatedThumbnail;
     });
+
+    
+    readyThumbnails.sort((a, b) => {
+            if (a.isViewed && !b.isViewed) {
+                return 1;
+            } else if (!a.isViewed && b.isViewed) {
+                return -1;
+            } else {
+                return a.id - b.id;
+            }
+        }
+    )
     
 
     return readyThumbnails;
@@ -111,7 +108,7 @@ const filteredStories = (state: IStoriesRequest[]) => {
         return {
             id: story.id,
             type: story.content.includes("mp4") ? "video" : "image",
-            duration: 6000,
+            duration: 10000,
             url: story.content,
             stories_group_id: story.storiesGroupId
         }

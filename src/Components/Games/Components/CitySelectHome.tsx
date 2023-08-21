@@ -13,7 +13,7 @@ import { NextButton } from "../../Common/Markup/NextButton";
 import { SelectCityList } from "../../Common/Markup/SelectCityList";
 
 import "../GamesStyles.css";
-import Stories from "../../../feature/stories-feature/presentation/Stories";
+import ThumbnailsContainer from "../../../feature/stories-feature/presentation/ThumbnailsContainer";
 
 export const CitySelectHome: React.FC = () => {
   const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;

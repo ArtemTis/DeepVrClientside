@@ -4,8 +4,8 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999; /*9999*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,6 +33,7 @@
 
 .prev-next {
     position: absolute;
+    z-index: 9999;
     top: calc(50% - 40px / 2);
     left: 5px;
     right: 5px;

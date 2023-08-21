@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Navigate, redirect, Route, Routes } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Location, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { NotFound } from "../Components/404";
 import { Account } from "../Components/Account/Account";
 import { Achievements } from "../Components/Achievements/Achievements";
@@ -42,14 +42,25 @@ import { CredentialsForm } from "../Components/Booking/Stages/CredentialsForm";
 import { ConfirmBooking } from "../Components/Booking/Stages/ConfirmBooking";
 import { Done } from "../Components/Booking/Stages/Done";
 import TypeGameSelect from "../Components/Booking/Stages/GamesTypeSelect";
-import StoryId from "../feature/stories-feature/presentation/StoryId";
+import Story from "../feature/stories-feature/presentation/Story";
+
+
+// const C = (prosp: {buildChild: (location: Location) => React.ReactElement}) => {
+//   const location = useLocation();
+
+//   return <Routes>
+//     {prosp.buildChild(location)}
+//   </Routes>  
+// }
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+    {/* <C buildChild={(loc) => ( */}
+      {/* <Routes location={loc.state?.previousLocation || loc}> */}
       <Route path={HOME_PATH} element={<Games />} />
       
-      <Route path={`${STORIES_PATH}/:id`} element={<StoryId />} />
+      {/* <Route path={`${STORIES_PATH}/:id`} element={<Story />} /> */}
 
       <Route path={BOOKING_PATH} element={<Booking />} >
         {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
@@ -80,5 +91,8 @@ export const router = createBrowserRouter(
       </Route>
 
       <Route path="*" element={<NotFound />} />
+
+    {/* </Routes>
+    )}/> */}
     </>
   ));

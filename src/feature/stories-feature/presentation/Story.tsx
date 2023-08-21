@@ -1,61 +1,94 @@
-import Stories from "stories-react";
-import { IStories } from "../data/storiesDto";
+import { Location, useNavigate, useParams } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
+import { selectIds, selectStoriesById, selectIsThumbnailLoaded } from "../store/selectors";
+import { LoadWrapper } from "../../../Components/Common/Markup/LoadWrapper";
+import { useEffect, useMemo, useState } from "react";
+import { getGroupStoriesById } from "../store/asyncActions";
+import { setViewed } from "../store/slice";
+import { STORIES_PATH } from "../../../Utils/routeConstants";
+import ViewStory from "./StoryView";
 
-import { ReactComponent as Prev } from "../data/icons/prev.svg";
-import { ReactComponent as Next } from "../data/icons/next.svg";
-import { useRef } from "react";
+const Story = (props: {location: Location}) => {
+    const location = props.location;
 
-interface Props {
-    stories: IStories[],
-    handleCloseClick: () => void,
-    handleModalNext: (index: number, len: number) => void,
-    handleModalPrev: (index: number) => void,
-    group_index: number,
-    curIndex: number,
-    setCurrentIndex: (index: number) => void,
-}
+    const [currentIndexStory, setCurrentIndexStory] = useState(0);
+    const navigate = useNavigate();
 
-const Story: React.FC<Props> = ({ stories, handleCloseClick, handleModalNext, handleModalPrev, group_index, curIndex, setCurrentIndex }) => {
+    const { id } = useParams();
+    const currentThumbnailId = Number(id);
 
-    const mouseRef = useRef<HTMLDivElement | null>(null);
-    let videoClassName = "";
+    const dispatch = useAppDispatch();
 
-    const setCurrentIndexStory = (index: number) => {
-        setCurrentIndex(index);
-    }
+    const thumbnailsIds = useAppSelector(selectIds);
+    const isThumbnailLoaded = useAppSelector(state => selectIsThumbnailLoaded(state, currentThumbnailId));
 
-    if(stories[curIndex].type === 'video') {
-        videoClassName = "video-close";
-    }
-    else {
-        videoClassName = "photo-close";
+    const stories = useAppSelector(state => selectStoriesById(state, currentThumbnailId));
+    
+
+    useEffect(() => {
+        if (!isThumbnailLoaded) {
+            dispatch(getGroupStoriesById(currentThumbnailId));
+        }
+    }, [currentThumbnailId, isThumbnailLoaded]);
+
+    const currentThumbnailIndex = useMemo(() =>
+        thumbnailsIds.findIndex((thumbnail: number) => thumbnail == currentThumbnailId),
+    [currentThumbnailId, thumbnailsIds]);
+
+    const handleModalNext = (index: number, len: number) => {
+        if (index === -1 || index === len - 1) {
+            if (currentThumbnailIndex === thumbnailsIds.length - 1) {
+                dispatch(setViewed(currentThumbnailId));
+                handleModalClose();
+            }
+            else {
+                dispatch(setViewed(currentThumbnailId));
+                setCurrentIndexStory(0);
+                navigate(`${STORIES_PATH}/${thumbnailsIds[currentThumbnailIndex + 1]}`, {state: { previousLocation: location }});
+            }
+        }
+        else {
+            setCurrentIndexStory(index + 1);
+        }
+    };
+
+    const handleModalPrev = (index: number) => {
+        if (index === -1 || index == 0) {
+            if (currentThumbnailIndex === 0) {
+                handleModalClose();
+            }
+            else {
+                setCurrentIndexStory(0);
+                navigate(`${STORIES_PATH}/${thumbnailsIds[currentThumbnailIndex - 1]}`, {state: { previousLocation: location }});
+            }
+        }
+        else {
+            setCurrentIndexStory(index - 1);
+        }
+    };
+
+    const handleModalClose = () => {
+        setCurrentIndexStory(0);
+        navigate('/', {replace: true});
     }
 
     return (
         <>
-            <div className="stories-container" ref={mouseRef}>
-                <div className={`close-icon ${videoClassName}`} onClick={handleCloseClick}>
-                    &#x2715;
-                </div>
-                <div className="stories-wrapper">
-                    <Stories height="100%"
-                        width="100%"
-                        key={group_index}
-                        stories={stories}
-                        onAllStoriesEnd={() => handleModalNext(-1, stories.length)}
-                        onStoryChange={(currentIndex: number) => setCurrentIndexStory(currentIndex)}
-                        currentIndex={curIndex}
-                    />
-                    <div className="prev-next">
-                        <button onClick={() => handleModalPrev(curIndex)}>
-                            <Prev />
-                        </button>
-                        <button onClick={() => handleModalNext(curIndex, stories.length)}>
-                            <Next />
-                        </button>
+            {stories.length == 0
+                ? <div className="stories-container">
+                    <div className="close-icon" onClick={handleModalClose}>
+                        &#x2715;
                     </div>
+                    <LoadWrapper isLoading={true} height={1} />
                 </div>
-            </div>
+                :  <ViewStory stories={stories}
+                    handleCloseClick={handleModalClose}
+                    handleModalNext={handleModalNext}
+                    handleModalPrev={handleModalPrev}
+                    group_index={currentThumbnailId}
+                    curIndex={currentIndexStory}
+                    setCurrentIndex={setCurrentIndexStory}
+                />}
         </>
     )
 }
