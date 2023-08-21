@@ -1,8 +1,8 @@
 import Stories from "stories-react";
 import { IStories } from "../data/storiesDto";
 
-import { ReactComponent as Prev } from "../data/icons/prev.svg";
-import { ReactComponent as Next } from "../data/icons/next.svg";
+import { ReactComponent as Prev } from "../../../Assets/prev.svg";
+import { ReactComponent as Next } from "../../../Assets/next.svg";
 
 interface Props {
     stories: IStories[],

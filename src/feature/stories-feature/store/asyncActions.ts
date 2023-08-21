@@ -1,14 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Api } from "../../../Utils/api";
-import api from "../data/storiesApi";
 
 export const getAllThumbnails = createAsyncThunk(
-    'getAllThumbnail',
-    // async () => {
-    //     return await api.getStories();
-    // }
-    
+    'getAllThumbnail',    
     async function (_, { rejectWithValue }) {
         try {
             const res = await Api.getAllThumbnails();
@@ -24,9 +19,6 @@ export const getAllThumbnails = createAsyncThunk(
 
 export const getGroupStoriesById = createAsyncThunk(
     'getGroupStoriesById',
-    // async function (id: number) {
-    //     return await api.getThumbnails(id);
-    // }
     async function (id: number, { rejectWithValue }) {        
         try {
             const res = await Api.getGroupStoriesById(id);

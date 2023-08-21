@@ -1,7 +1,4 @@
-import "./thumbnailStyles.css"
 import { IThumbnail } from "../data/storiesDto";
-
-type isViewed = "viewed" | "notViewed";
 
 const Thumbnail = (props: {thumbnail: IThumbnail}) => {
     const { thumbnail } = props;

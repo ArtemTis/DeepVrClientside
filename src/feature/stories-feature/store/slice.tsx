@@ -3,6 +3,8 @@ import { getAllThumbnails, getGroupStoriesById } from "./asyncActions";
 import { IThumbnail, IStoriesRequest, IThumbnailDto } from "../data/storiesDto";
 import { ReqStatus } from "../../../Utils/enums";
 
+import emptyThumbnailImage from "../../../Assets/emptyThumbnails.png"
+
 export const storiesAdapter = createEntityAdapter<IThumbnail>({selectId: (t) => t.id});
 
 const initialState = storiesAdapter.getInitialState({
@@ -66,7 +68,7 @@ const filteredThumbnails = (state: IThumbnailDto[]) => {
         return {
             id: item.id,
             title: item.title,
-            content: item.logo
+            content: item.logo == null ? emptyThumbnailImage : item.logo,
         }
     })
     const viewedThumbnails: number[] = JSON.parse(localStorage.getItem('viewedThumbnails') || '[]');
@@ -83,7 +85,6 @@ const filteredThumbnails = (state: IThumbnailDto[]) => {
 
         return updatedThumbnail;
     });
-
     
     readyThumbnails.sort((a, b) => {
             if (a.isViewed && !b.isViewed) {
@@ -96,10 +97,8 @@ const filteredThumbnails = (state: IThumbnailDto[]) => {
         }
     )
     
-
     return readyThumbnails;
 }
-
 
 const filteredStories = (state: IStoriesRequest[]) => {
     const arr = state.filter((story) => story.content !== null)
@@ -108,7 +107,7 @@ const filteredStories = (state: IStoriesRequest[]) => {
         return {
             id: story.id,
             type: story.content.includes("mp4") ? "video" : "image",
-            duration: 10000,
+            duration: 12000,
             url: story.content,
             stories_group_id: story.storiesGroupId
         }
