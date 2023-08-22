@@ -53,16 +53,38 @@ export const ConfirmBooking: React.FC = () => {
   ) as IBookingCredentials;
 
   console.log([game, count, user, promo, useDiscount]);
-  
+
 
   useEffect(() => {
-    dispatch(getSummary({
-      game_id: game?.id ?? -1,
-      guest_count: count ?? -1,
-      user_id: user?.id,
-      promocode: promo ?? "",
-      use_bonus: useDiscount,
-    }))
+    dispatch(getSummary(
+      //   {
+      //   game_id: game?.id ?? -1,
+      //   guest_count: count ?? -1,
+      //   user_id: user?.id,
+      //   promocode: promo ?? "",
+      //   use_bonus: useDiscount,
+      // }
+      {
+        client: {
+          phone: user?.phone ?? '',
+          name: user?.name ?? '',
+          id: user?.id ?? null,
+        },
+        bookings: [
+          {
+            gameId: game?.id ?? -1,
+            time: time ?? '',
+            guestCount: count ?? null,
+            id: null
+          }
+        ],
+        paymentInfo: {
+          bonus: null,
+          promoCode: promo ?? "",
+          certificates: null
+        }
+      }
+    ))
   }, [game, count, user, promo, useDiscount]);
 
   const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
@@ -159,26 +181,26 @@ export const ConfirmBooking: React.FC = () => {
                   )}
                 </span>
               </div>
-              {!!summary && !!summary.promo_discount && (
+              {!!summary && !!summary.promo && (
                 <div className="summary-row">
                   <span>Промокод:</span>
                   <span className="summary-row-price">
                     {loadingStatus ? (
                       <LoadIcon />
                     ) : (
-                      <>{curencyFormat.format(summary.promo_discount)}</>
+                      <>{curencyFormat.format(summary.promo)}</>
                     )}
                   </span>
                 </div>
               )}
-              {!!summary && !!summary.bonus_discount && (
+              {!!summary && !!summary.discount && (
                 <div className="summary-row">
                   <span>Бонусы:</span>
                   <span className="summary-row-price">
                     {loadingStatus ? (
                       <LoadIcon />
                     ) : (
-                      <>{curencyFormat.format(summary.bonus_discount)}</>
+                      <>{curencyFormat.format(summary.discount)}</>
                     )}
                   </span>
                 </div>

@@ -9,6 +9,7 @@ import { CitySelectHome } from "./Components/CitySelectHome";
 export const Games: React.FC = () => {
   const city = useAppSelector(selectSelectedCity);
   return (
-    <DefaultLayout>{!!city ? <GamesList /> : <CitySelectHome />}</DefaultLayout>
+    // <DefaultLayout>{!!city ? <GamesList /> : <CitySelectHome />}</DefaultLayout>
+    <DefaultLayout><GamesList /></DefaultLayout>
   );
 };

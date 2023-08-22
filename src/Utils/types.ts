@@ -129,11 +129,56 @@ export interface IGetWorktimeResponse {
 }
 
 export interface ISummaryResponse {
+  paymentInfo: {
+    bonus: number,
+    promocode: string,
+    certificates: [
+      string
+    ]
+  },
   price: number,
-  bonus_discount?: number,
-  promo_discount?: number,
+  promo: number,
+  bonus: number,
+  certificates: number,
   total: number,
+  discount: number
 }
+// export interface ISummaryResponse {
+//   price: number,
+//   bonus_discount?: number,
+//   promo_discount?: number,
+//   total: number,
+// }
+
+export interface IGetSummaryRequestData {
+  client: {
+    phone: string,
+    name: string,
+    id: number | null
+  },
+  bookings: [
+    {
+      gameId: number,
+      time: string,
+      guestCount: number,
+      id: number | null
+    }
+  ],
+  paymentInfo: {
+    bonus: number | null,
+    promoCode: string | null,
+    certificates: [
+      string
+    ] | null
+  }
+}
+// export interface IGetSummaryRequestData {
+//   game_id: number,
+//   guest_count: number,
+//   user_id?: number,
+//   use_bonus?: boolean,
+//   promocode?: string
+// }
 
 export interface IValidatePromo {
   promo_type: string,
@@ -170,14 +215,6 @@ export interface IValidatePromoRequestData {
   promo_code: string,
   price: number,
   game: number
-}
-
-export interface IGetSummaryRequestData {
-  game_id: number,
-  guest_count: number,
-  user_id?: number,
-  use_bonus?: boolean,
-  promocode?: string
 }
 
 export interface IBookingFields {

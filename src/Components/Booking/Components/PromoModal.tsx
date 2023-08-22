@@ -48,11 +48,11 @@ export const PromoModal: React.FC<Props> = ({
 
   useEffect(() => {
 
-    dispatch(getSummary({
-      game_id: game?.id ?? -1,
-      guest_count: count ?? -1,
-      user_id: user?.id,
-    }))
+    // dispatch(getSummary({
+    //   game_id: game?.id ?? -1,
+    //   guest_count: count ?? -1,
+    //   user_id: user?.id,
+    // }))
 
     onChange();
   }, [game, count, user]);

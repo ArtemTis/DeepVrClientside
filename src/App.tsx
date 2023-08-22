@@ -15,6 +15,7 @@ import {
   LOGIN_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
+  SELECT_CITY_PATH,
   SINGIN_CODE_PATH,
   SINGIN_EMAIL_PATH,
   SINGIN_TEL_PATH,
@@ -40,6 +41,12 @@ import Story from "./feature/stories-feature/presentation/Story";
 
 import "./App.css";
 import BookingStep from "./Components/Booking/Components/BookingStep";
+import { CitySelectHome } from "./Components/Games/Components/CitySelectHome";
+import { Modal } from "antd";
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "./Utils/redux/store";
+import { selectCity } from "./Utils/redux/booking/selectors";
+import { setCity } from "./Utils/redux/booking/slice";
 
 export const App = () => {
   const location = useLocation();
@@ -49,14 +56,19 @@ export const App = () => {
     <div className="App">
       <Routes location={previousLocation || location}>
 
+        {/* <Route index element={<CityGuard element={<Navigate to={HOME_PATH} replace />} />} />
+        <Route path={SELECT_CITY_PATH} element={<CityGuard element={<CitySelectHome />} />} /> */}
+        {/* <Route path={SELECT_CITY_PATH} element={<CitySelectHome />} /> */}
+
+
         <Route path={HOME_PATH} element={<Games />} />
         <Route path={BOOKING_PATH} element={<Booking />} >
-        {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
+          {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
 
-        <Route index element={<BookingStep/>} />
-        <Route path={`${BOOKING_PATH}/:step`} element={<BookingStep/>} />
-        <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
-      </Route>
+          <Route index element={<BookingStep />} />
+          <Route path={`${BOOKING_PATH}/:step`} element={<BookingStep />} />
+          <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
+        </Route>
 
         <Route path={ACHIVEMENTS_PATH} element={<Achievements />} />
 
@@ -78,9 +90,12 @@ export const App = () => {
 
       {previousLocation && (
         <Routes>
-          <Route path={`${STORIES_PATH}/:id`} element={<Story location={previousLocation}/>} />
+          <Route path={`${STORIES_PATH}/:id`} element={<Story location={previousLocation} />} />
         </Routes>
       )}
+
+      <CitySelectHome />
+    
     </div>
   );
 }

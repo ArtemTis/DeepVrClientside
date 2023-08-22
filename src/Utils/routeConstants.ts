@@ -2,6 +2,7 @@ export const HOME_PATH = '/';
 export const BOOKING_PATH = '/booking';
 export const ACHIVEMENTS_PATH = '/achivements';
 export const ACCOUNT_PATH = '/account';
+export const SELECT_CITY_PATH = '/city';
 
 //Account routing
 export const REGISTER_PATH = 'register'
