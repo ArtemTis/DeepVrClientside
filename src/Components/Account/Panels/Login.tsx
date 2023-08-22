@@ -1,21 +1,13 @@
 import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Api } from "../../../Utils/api";
 import { RootState, useAppDispatch } from "../../../Utils/redux/store";
-import { ColLg } from "../../Common/Markup/ColLg";
 import { FormError } from "../../Common/FormFields/FormError";
-import { NextButton } from "../../Common/Markup/NextButton";
-import { PassField } from "../../Common/FormFields/PassField";
-import { PhoneInput } from "../../Common/FormFields/PhoneField";
-import { EmailField } from "../../Common/FormFields/EmailField";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
-import { FormField } from "../../Common/FormFields/FormField";
 import { ILoginForm } from "../../../Utils/types";
 
 import "../AccountStyles.css";
 
-import passIcon from "../../../Assets/passIcon.svg";
 import { Outlet, useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { REGISTER_PATH } from "../../../Utils/routeConstants";
@@ -53,7 +45,6 @@ export const Login = () => {
 
   useEffect(() => {
     changeVariant("tel");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

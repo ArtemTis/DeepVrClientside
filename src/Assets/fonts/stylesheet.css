@@ -178,3 +178,50 @@
     font-style: italic;
 }
 
+/* //////////////////////////////////////////////////// */
+
+@font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy Regular'), local('Gilroy-Regular'),
+        url('Gilroy-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy Bold'), local('Gilroy-Bold'),
+        url('Gilroy-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy Semibold'), local('Gilroy-Semibold'),
+        url('Gilroy-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy Medium'), local('Gilroy-Medium'),
+        url('Gilroy-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Gilroy';
+    src: local('Gilroy UltraLight'), local('Gilroy-UltraLight'),
+        url('Gilroy-UltraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+
