@@ -1,0 +1,67 @@
+.stories-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999; /*9999*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    z-index: 1000;
+    font-weight: 800;
+    border-color: white;
+}
+
+.stories-wrapper {
+    position: relative;
+    cursor: pointer;
+    width: 50vh;
+    height: 95vh;
+    margin: 30px 0;
+}
+
+.prev-next {
+    position: absolute;
+    z-index: 9999;
+    top: calc(50% - 40px / 2);
+    left: 5px;
+    right: 5px;
+}
+
+.prev-next button {
+    position: absolute;
+    background: #494848;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    cursor: pointer;
+    border-color: transparent;
+    z-index: 1000;
+}
+
+.stories-wrapper:hover .prev-next button, .prev-next:hover button {
+    background: #908d8d;
+}
+
+.prev-next button:first-child {
+    left: -50px;
+}
+
+.prev-next button:last-child {
+    right: -50px;
+}

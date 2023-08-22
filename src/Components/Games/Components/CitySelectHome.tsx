@@ -13,6 +13,7 @@ import { NextButton } from "../../Common/Markup/NextButton";
 import { SelectCityList } from "../../Common/Markup/SelectCityList";
 
 import "../GamesStyles.css";
+import ThumbnailsContainer from "../../../feature/stories-feature/presentation/ThumbnailsContainer";
 import styled from "styled-components";
 
 export const CitySelectHome: React.FC = () => {
@@ -37,6 +38,7 @@ export const CitySelectHome: React.FC = () => {
   };
 
   return (
+    <>
     <Row justify="center">
       <ColLg className="home-city-select-container ">
         <div className="home-title">Чтобы посмотреть игры, выберите город</div>
@@ -48,6 +50,7 @@ export const CitySelectHome: React.FC = () => {
         </StyledWrapper>
       </ColLg>
     </Row>
+    </>
   );
 };
 

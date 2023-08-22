@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Navigate, redirect, Route, Routes } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Location, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { NotFound } from "../Components/404";
 import { Account } from "../Components/Account/Account";
 import { Achievements } from "../Components/Achievements/Achievements";
@@ -24,6 +24,7 @@ import {
   SINGIN_CODE_PATH,
   SINGIN_EMAIL_PATH,
   SINGIN_TEL_PATH,
+  STORIES_PATH,
 } from "./routeConstants";
 import { Register } from "../Components/Account/Panels/Register";
 import LoginCode from "../Components/Account/Panels/Login/LoginCode";
@@ -45,11 +46,26 @@ import BookingStepLayout from "../Components/Booking/Components/BookingStep";
 import BookingStep from "../Components/Booking/Components/BookingStep";
 import { Config } from "../Components/Booking/Stages/Config";
 
+import Story from "../feature/stories-feature/presentation/Story";
+
+
+// const C = (prosp: {buildChild: (location: Location) => React.ReactElement}) => {
+//   const location = useLocation();
+
+//   return <Routes>
+//     {prosp.buildChild(location)}
+//   </Routes>  
+// }
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+    {/* <C buildChild={(loc) => ( */}
+      {/* <Routes location={loc.state?.previousLocation || loc}> */}
       <Route path={HOME_PATH} element={<Games />} />
+      
+      {/* <Route path={`${STORIES_PATH}/:id`} element={<Story />} /> */}
+
       <Route path={BOOKING_PATH} element={<Booking />} >
         {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
 
@@ -69,7 +85,9 @@ export const router = createBrowserRouter(
               <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
         <Route path={BOOKING_DONE_PATH} element={<Done />} /> */}
       </Route>
+
       <Route path={ACHIVEMENTS_PATH} element={<Achievements />} />
+
       <Route path={ACCOUNT_PATH} element={<Account />}>
         <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} />
         <Route path={LOGIN_PATH} element={<Login />} >
@@ -81,6 +99,10 @@ export const router = createBrowserRouter(
         <Route path={PROFILE_PATH} element={<AuthGuard element={<Profile />} />} />
         <Route path={REGISTER_PATH} element={<Register />} />
       </Route>
+
       <Route path="*" element={<NotFound />} />
+
+    {/* </Routes>
+    )}/> */}
     </>
   ));

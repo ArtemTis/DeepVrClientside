@@ -280,3 +280,8 @@ export interface IDate {
   date: string,
   freePlace: number
 }
+
+export interface IAvalibleTime {
+  date: string,
+  hours: []
+}

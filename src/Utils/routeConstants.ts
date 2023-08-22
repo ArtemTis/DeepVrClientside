@@ -21,3 +21,6 @@ export const BOOKING_TIME_PATH = 'time'
 export const BOOKING_CREDITIALS_PATH = 'credentials'
 export const BOOKING_CONFIRM_PATH = 'confirm'
 export const BOOKING_DONE_PATH = 'done'
+
+//stories routing
+export const STORIES_PATH = "/stories"

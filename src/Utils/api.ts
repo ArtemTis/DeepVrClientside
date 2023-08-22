@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios"
 import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate, IAvalibleTime } from "./types"
+import { IStoriesRequest, IThumbnailDto } from "../feature/stories-feature/data/storiesDto";
 
 export interface ErrorResponse {
     error: number,
@@ -141,6 +142,21 @@ export const Api = {
     //     )
     // },
 
+    async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
+        return axios.get<IAvalibleTime[]>(
+            `${instanceUrl}/v3/booking/available?game_id=${gameId}`, {
+            timeout: 8000
+        }
+        )
+    },
+    // async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
+    //     return new Promise<string[]>((resolve) =>
+    //         setTimeout(() => {
+    //             resolve(['10:00', '11:00', '12:00', '13:00', '22:00'])
+    //         }, 500)
+    //     )
+    // },
+
     async getAvalibleDateAndTime(gameId: number, playersCount: number, token: string) {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
@@ -202,7 +218,7 @@ export const Api = {
         );
     },
 
-    async precalculate(){
+    async precalculate() {
         return axios.post(
             `${instanceUrl}/v3/orders/precalculate`,
             {},
@@ -335,5 +351,30 @@ export const Api = {
             }
         }
         );
-    }
+    },
+
+
+    async getAllThumbnails() {
+        return axios.get<Array<IThumbnailDto>>(
+            `http://192.168.1.40:5274/api/v3/stories/groups/active`, {
+            timeout: 8000,
+            headers: {
+                token: "guest_token"
+            }
+        }
+        );
+    },
+
+    async getGroupStoriesById(id: number) {
+        return axios.get<Array<IStoriesRequest>>(
+            `http://192.168.1.40:5274/api/v3/stories/groups/${id}/active`, {
+            timeout: 8000,
+            headers: {
+                token: "guest_token"
+            }
+        }
+        );
+    },
+
+
 }

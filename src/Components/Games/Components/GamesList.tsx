@@ -19,6 +19,9 @@ import { getAllGames } from "../../../Utils/redux/games/asyncActions";
 import { selectGames } from "../../../Utils/redux/games/selectors";
 import { ReqStatus } from "../../../Utils/enums";
 
+import 'stories-react/dist/index.css';
+import ThumbnailsContainer from "../../../feature/stories-feature/presentation/ThumbnailsContainer";
+
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
   const [gamesFiltered, setGamesFiltered] = useState<Array<IGame>>();
@@ -144,6 +147,9 @@ export const GamesList: React.FC = () => {
           </div>
         </ColLg>
       </Row>
+
+      <ThumbnailsContainer />
+
       <LoadWrapper isLoading={isLoading}>
         <Row justify="start" gutter={[20, 20]}>
           {gamesFiltered &&

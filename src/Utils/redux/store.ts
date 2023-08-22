@@ -8,6 +8,7 @@ import profileReducer from "./profile/slice";
 import summaryReducer from "./summary/slice";
 import dateReducer from "./date/slice";
 import timeReducer from "./avalibleTime/slice";
+import { storiesReducer } from "../../feature/stories-feature/store/slice";
 
 const rootReducer = combineReducers({
     profileReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     gamesType,
     dateReducer,
     timeReducer,
-    summaryReducer
+    summaryReducer,
+    storiesReducer
 });
 
 export const setupStore = () => configureStore({
