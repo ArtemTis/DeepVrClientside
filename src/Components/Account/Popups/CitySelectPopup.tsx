@@ -3,12 +3,12 @@ import { SelectCityList } from "../../Common/Markup/SelectCityList";
 import { useState } from "react";
 import { ICity } from "../../../Utils/types";
 import { NextButton } from "../../Common/Markup/NextButton";
-import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
+import { useAppDispatch, useAppSelector } from "../../../app/store";
 import { selectToken } from "../../../Utils/redux/auth/selectors";
 import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 
 import "../AccountStyles.css";
-import { Api } from "../../../Utils/api";
+import { Api } from "../../../lib/utils/api";
 
 interface Props {
   onBackClick: () => void;

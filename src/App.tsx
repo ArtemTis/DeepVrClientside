@@ -1,11 +1,11 @@
 import { Navigate, Route, Routes, useLocation } from "react-router";
 import { router } from "./Utils/router";
 
-import { NotFound } from "./Components/404";
-import { Account } from "./Components/Account/Account";
-import { Achievements } from "./Components/Achievements/Achievements";
-import { Booking } from "./Components/Booking/Booking";
-import { Games } from "./Components/Games/Games";
+import { NotFound } from "./core/404";
+import { Account } from "./features/profile-feature/presentation/pages/Account";
+import { Achievements } from "./features/achievements-feature/presentation/pages/Achievements";
+import { Booking } from "./features/booking-feature/presentation/pages/Booking";
+import { Games } from "./features/games-feature/presentation/pages/Games";
 import {
   ACCOUNT_PATH,
   ACHIVEMENTS_PATH,
@@ -22,29 +22,29 @@ import {
   STORIES_PATH,
 } from "./Utils/routeConstants";
 import { Register } from "./Components/Account/Panels/Register";
-import LoginCode from "./Components/Account/Panels/Login/LoginCode";
+import LoginCode from "./features/auth-feature/presentation/components/LoginCode";
 import LoginEmail from "./Components/Account/Panels/Login/LoginEmail";
 import LoginTel from "./Components/Account/Panels/Login/LoginTel";
-import { Login } from "./Components/Account/Panels/Login";
-import { Profile } from "./Components/Account/Panels/Profile";
-import { AuthGuard } from "./Utils/guards/AuthGuard";
-import { CitySelect } from "./Components/Booking/Stages/CitySelect.";
-import { GameSelect } from "./Components/Booking/Stages/GameSelect";
-import { PlayersCountSelect } from "./Components/Booking/Stages/PlayersCountSelect";
-import { DateSelect } from "./Components/Booking/Stages/DateSelect";
-import { TimeSelect } from "./Components/Booking/Stages/TimeSelect";
-import { CredentialsForm } from "./Components/Booking/Stages/CredentialsForm";
-import { ConfirmBooking } from "./Components/Booking/Stages/ConfirmBooking";
-import { Done } from "./Components/Booking/Stages/Done";
-import TypeGameSelect from "./Components/Booking/Stages/GamesTypeSelect";
+import { Login } from "./features/auth-feature/presentation/pages/Login";
+import { Profile } from "./features/profile-feature/presentation/pages/Profile";
+import { AuthGuard } from "./features/auth-feature/utils/AuthGuard";
+import { CitySelect } from "./features/booking-feature/presentation/components/Stages/CitySelect.";
+import { GameSelect } from "./features/booking-feature/presentation/components/Stages/GameSelect";
+import { PlayersCountSelect } from "./features/booking-feature/presentation/components/Stages/PlayersCountSelect";
+import { DateSelect } from "./features/booking-feature/presentation/components/Stages/DateSelect";
+import { TimeSelect } from "./features/booking-feature/presentation/components/Stages/TimeSelect";
+import { CredentialsForm } from "./features/booking-feature/presentation/components/Stages/CredentialsForm";
+import { ConfirmBooking } from "./features/booking-feature/presentation/components/Stages/ConfirmBooking";
+import { Done } from "./features/booking-feature/presentation/components/Stages/Done";
+import TypeGameSelect from "./features/booking-feature/presentation/components/Stages/GamesTypeSelect";
 import Story from "./feature/stories-feature/presentation/Story";
 
 import "./App.css";
 import BookingStep from "./Components/Booking/Components/BookingStep";
-import { CitySelectHome } from "./Components/Games/Components/CitySelectHome";
+import { CitySelectHome } from "./features/games-feature/presentation/components/CitySelectHome";
 import { Modal } from "antd";
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "./Utils/redux/store";
+import { useAppDispatch, useAppSelector } from "./app/store";
 import { selectCity } from "./Utils/redux/booking/selectors";
 import { setCity } from "./Utils/redux/booking/slice";
 

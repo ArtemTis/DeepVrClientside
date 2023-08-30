@@ -1,22 +1,22 @@
 import { PopupLayout } from "./PopupLayout";
-import { useAppDispatch, useAppSelector } from "../../../Utils/redux/store";
+import { useAppDispatch, useAppSelector } from "../../../app/store";
 import { selectToken, selectUser } from "../../../Utils/redux/auth/selectors";
 import { setUser } from "../../../Utils/redux/auth/slice";
 import { useForm } from "react-hook-form";
-import { FormField } from "../../Common/FormFields/FormField";
+import { FormField } from "../../../lib/ui/FormFields/FormField";
 import { IChangePassForm, IEditProfileForm } from "../../../Utils/types";
 
 import userIcon from "../../../Assets/user-icon-liliac.svg";
 
 import "../AccountStyles.css";
-import { EmailField } from "../../Common/FormFields/EmailField";
-import { PhoneInput } from "../../Common/FormFields/PhoneField";
+import { EmailField } from "../../../lib/ui/FormFields/EmailField";
+import { PhoneInput } from "../../../lib/ui/FormFields/PhoneField";
 import { NextButton } from "../../Common/Markup/NextButton";
 import { useState } from "react";
 import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
-import { PassField } from "../../Common/FormFields/PassField";
-import { FormError } from "../../Common/FormFields/FormError";
-import { Api } from "../../../Utils/api";
+import { PassField } from "../../../lib/ui/FormFields/PassField";
+import { FormError } from "../../../lib/ui/FormFields/FormError";
+import { Api } from "../../../lib/utils/api";
 
 interface Props {
   onBackClick: () => void;
