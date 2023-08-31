@@ -1,20 +1,16 @@
 import { Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
-import {
-  decreaseStep,
-  increaseStep,
-  setDate,
-} from "../../../Utils/redux/booking/slice";
 import { useAppDispatch, useAppSelector } from "../../../../../app/store";
 import ru from "date-fns/locale/ru";
 
-import "../BookingStyles.css";
-import { selectDate } from "../../../Utils/redux/booking/selectors";
+import "../../pages/BookingStyles.css";
 import { selectAvalibleDayAndTime } from "../../../store/avalibleTime/selectors";
 import { getAvalibleDateAndTime } from "../../../store/avalibleTime/asyncActions";
-import { IAvalibleTime } from "../../../Utils/types";
 import styled from "styled-components";
+import { selectDate } from "../../../store/selectors";
+import { setDate } from "../../../store/slice";
+import { IAvalibleTime } from "../../../../../lib/utils/types";
 
 export const DateSelect: React.FC = () => {
   const dispatch = useAppDispatch();

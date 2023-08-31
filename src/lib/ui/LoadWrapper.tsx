@@ -1,9 +1,6 @@
-import { IChildren } from "../../../Utils/types";
-
-import loadIcon from "../../../Assets/load.svg";
-
-import "../CommonStyles.css";
-import { ReqStatus } from "../../../Utils/enums";
+import loadIcon from "../../Assets/load.svg";
+import "./CommonStyles.css";
+import { IChildren } from "../utils/types";
 
 interface Props {
   children?: IChildren;

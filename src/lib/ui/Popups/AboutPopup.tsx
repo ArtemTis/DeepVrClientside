@@ -1,6 +1,6 @@
 import { PopupLayout } from "./PopupLayout";
 
-import "../AccountStyles.css";
+import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
 
 interface Props {
   onBackClick: () => void;

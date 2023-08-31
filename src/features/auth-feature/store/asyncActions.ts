@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ILoginForm, IRegisterForm } from "../../../Utils/types";
 import { RootState } from "../../../app/store";
 import { selectToken } from "./selectors";
 import { Api } from "../../../lib/utils/api";
 import axios from "axios";
+import { ILoginForm, IRegisterForm } from "../../../lib/utils/types";
 
 export const singIn = createAsyncThunk(
     'authSlice/singIn',

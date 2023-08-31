@@ -1,13 +1,11 @@
-import { OrderInfoRow } from "../Compontents/OrderInfoRow";
 import { PopupLayout } from "./PopupLayout";
-import { OrderInfoRowEmpty } from "../Compontents/OrderInfoRowEmpty";
 import { useEffect, useState } from "react";
-
 import ordoredIcon from "../../../Assets/ordoredIcon.svg";
 import unordoredIcon from "../../../Assets/unordoredIcon.svg";
-
-import "../AccountStyles.css";
-import { IOrderHistoryItem } from "../../../Utils/types";
+import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
+import { IOrderHistoryItem } from "../../utils/types";
+import { OrderInfoRow } from "../../../features/profile-feature/presentation/components/OrderInfoRow";
+import { OrderInfoRowEmpty } from "../../../features/profile-feature/presentation/components/OrderInfoRowEmpty";
 
 interface Props {
   history?: Array<IOrderHistoryItem>;

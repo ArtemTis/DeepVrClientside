@@ -1,10 +1,4 @@
-import {
-  clearState,
-  decreaseStep,
-  increaseStep,
-  setStep,
-} from "../../Utils/redux/booking/slice";
-import { selectBookingId, selectCredentials, selectCurrentStep, selectDate, selectGame, selectIsFinished, selectPlayersCount, selectSelectedTime } from "../../Utils/redux/booking/selectors";
+import { selectBookingId, selectCredentials, selectCurrentStep, selectDate, selectGame, selectIsFinished, selectPlayersCount, selectSelectedTime } from "../../store/selectors";
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
 import "./BookingStyles.css";
 import { useCallback, useEffect, useState } from "react";
@@ -13,18 +7,15 @@ import TypeGameSelect from "../components/Stages/GamesTypeSelect";
 import { Button, Modal } from "antd";
 import { Config } from "../components/Stages/Config";
 import { Link } from "react-router-dom";
-import { BOOKING_CONFIRM_PATH, BOOKING_DONE_PATH, BOOKING_PATH } from "../../Utils/routeConstants";
 import { LoaderGipno } from "../components/Stepper/loader-components";
-import { Title } from "../../../../Components/Booking/Components/Title";
 import styled from "styled-components";
 import { DefaultLayout } from "../../../../core/DefaultLayout";
-import { Footer } from "antd/es/layout/layout";
-import { FooterMenu } from "../../../../core/Footer/FooterMenu";
-import { NextButton } from "../Common/Markup/NextButton";
 import { Done } from "../components/Stages/Done";
-import close from '../../Assets/close-cross.svg'
-import { createBooking, createEmpty } from "../../store/asyncActions";
-import { selectToken } from "../../Utils/redux/auth/selectors";
+import close from '../../../../Assets/close-cross.svg'
+import { selectToken } from "../../../auth-feature/store/selectors";
+import { clearState, setStep } from "../../store/slice";
+import { NextButton } from "../../../../lib/ui/NextButton";
+import { BOOKING_CONFIRM_PATH } from "../../../../lib/utils/routeConstants";
 
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);

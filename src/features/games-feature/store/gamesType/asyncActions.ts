@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Api } from "../../../lib/utils/api";
 import axios from "axios";
+import { Api } from "../../../../lib/utils/api";
 
 export const gamesTypes = createAsyncThunk(
     'gamesTypes/gamesTypes',

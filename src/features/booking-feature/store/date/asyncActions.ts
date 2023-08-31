@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../../../app/store";
-import { selectToken } from "../auth/selectors";
-import { selectGameId, selectPlayersCount } from "../booking/selectors";
 import { Api } from "../../../../lib/utils/api";
 import axios from "axios";
+import { selectToken } from "../../../auth-feature/store/selectors";
+import { selectGameId, selectPlayersCount } from "../selectors";
 
 export const getDate = createAsyncThunk(
     'getDate',

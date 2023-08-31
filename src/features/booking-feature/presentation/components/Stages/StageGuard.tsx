@@ -1,6 +1,5 @@
 import React from 'react'
 import { useAppSelector } from '../../../../../app/store';
-import { selectCurrentStep } from '../../../Utils/redux/booking/selectors';
 
 interface AuthGuardProps {
     element: React.ReactElement

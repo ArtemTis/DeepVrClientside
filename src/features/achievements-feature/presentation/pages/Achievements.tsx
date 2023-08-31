@@ -1,23 +1,17 @@
 import { Button, Modal, Radio, RadioChangeEvent, Row } from "antd";
-import { ColLg } from "../../../../Components/Common/Markup/ColLg";
 import { DefaultLayout } from "../../../../core/DefaultLayout";
-import "./AchievementsStyles.css";
-
-import img from "../../Assets/mirage-astronaut.png";
+import "../components/AchievementsStyles.css";
 import styled from "styled-components";
-
-import star from "../../Assets/achievement/star.svg"
-import tournBig from "../../Assets/achievement/tournBig.svg"
-import space from "../../Assets/achievement/space.svg"
-import friends from "../../Assets/achievement/friends.svg"
-import puzzles from "../../Assets/achievement/puzzles.svg"
-import photo from "../../Assets/achievement/photo.svg"
-import close from "../../Assets/close-cross.svg"
+import star from "../../../../Assets/achievement/star.svg"
+import tournBig from "../../../../Assets/achievement/tournBig.svg"
+import space from "../../../../Assets/achievement/space.svg"
+import friends from "../../../../Assets/achievement/friends.svg"
+import puzzles from "../../../../Assets/achievement/puzzles.svg"
+import photo from "../../../../Assets/achievement/photo.svg"
+import close from "../../../../Assets/close-cross.svg"
 import Achieve from "../components/Achieve";
 import { useEffect, useState } from "react";
-import AchieveModal from "../Achievements/AchieveModal";
-
-
+import AchieveModal from "../components/AchieveModal";
 
 export interface IAchieve {
   id: number,

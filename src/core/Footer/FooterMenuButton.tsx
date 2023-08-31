@@ -1,7 +1,6 @@
 import { NavLink, useLocation, useMatch } from "react-router-dom";
-import "../../../App.css";
+import "../../App.css";
 import styled from "styled-components";
-import Icon from '@ant-design/icons';
 
 interface FooterMenuButtonProps {
   icon: string;

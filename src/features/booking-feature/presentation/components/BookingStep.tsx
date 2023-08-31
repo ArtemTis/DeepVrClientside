@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
-import { selectCurrentStep } from '../../../Utils/redux/booking/selectors';
-import { useAppDispatch, useAppSelector } from '../../../app/store';
-import { BOOKING_PATH } from '../../../Utils/routeConstants';
-import { Config } from '../../../features/booking-feature/presentation/components/Stages/Config';
-import { setStep } from '../../../Utils/redux/booking/slice';
+import { useAppDispatch, useAppSelector } from '../../../../app/store';
+import { selectCurrentStep } from '../../store/selectors';
+import { setStep } from '../../store/slice';
+import { BOOKING_PATH } from '../../../../lib/utils/routeConstants';
+import { Config } from './Stages/Config';
 
 const BookingStep = () => {
 

@@ -1,5 +1,5 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit"
-import { RootState } from "../store"
+import { RootState } from "../../../app/store"
 
 export const selectAllCities = createDraftSafeSelector(
     [(state: RootState) => state.profileReducer.allCities],

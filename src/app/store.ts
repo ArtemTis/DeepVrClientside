@@ -1,14 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import authReducer from "./auth/slice";
-import bookingReducer from "./booking/slice";
-import gamesType from "../Utils/redux/gamesType/slice";
+import authReducer from "../features/auth-feature/store/slice";
+import bookingReducer from "../features/booking-feature/store/slice";
+import gamesType from "../features/games-feature/store/gamesType/slice";
 import allGames from "../features/games-feature/store/games/slice";
-import profileReducer from "./profile/slice";
+import profileReducer from "../features/profile-feature/store/slice";
 import summaryReducer from "../features/booking-feature/store/summary/slice";
 import dateReducer from "../features/booking-feature/store/date/slice";
 import timeReducer from "../features/booking-feature/store/avalibleTime/slice";
-import { storiesReducer } from "../../feature/stories-feature/store/slice";
+import { storiesReducer } from "../features/stories-feature/store/slice";
 
 const rootReducer = combineReducers({
     profileReducer,

@@ -1,10 +1,8 @@
-import { selectSelectedCity } from "../../Utils/redux/auth/selectors";
 import { useAppSelector } from "../../../../app/store";
 import { DefaultLayout } from "../../../../core/DefaultLayout";
-import { GamesList } from "../../../../Components/Games/Components/GamesList";
-
-import "./GamesStyles.css";
-import { CitySelectHome } from "../components/CitySelectHome";
+import "../components/GamesStyles.css";
+import { selectSelectedCity } from "../../../auth-feature/store/selectors";
+import { GamesList } from "../components/GamesList";
 
 export const Games: React.FC = () => {
   const city = useAppSelector(selectSelectedCity);

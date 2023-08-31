@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ReqStatus } from "../../enums";
 import { getAvalibleDateAndTime } from "./asyncActions";
-import { IAvalibleTime } from "../../types";
+import { IAvalibleTime } from "../../../../lib/utils/types";
+import { ReqStatus } from "../../../../lib/utils/enums";
 
 interface TimeState {
     avalibleDayAndTime?: IAvalibleTime[];

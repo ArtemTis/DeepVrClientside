@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ticket from "../../../Assets/ticket.svg";
+import ticket from "../../../../Assets/ticket.svg";
 import code from "./code.svg";
 
 const Ticket: React.FC = () => {

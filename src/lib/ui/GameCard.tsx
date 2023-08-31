@@ -1,9 +1,7 @@
 import { Col } from "antd";
-import { Api } from "../../../lib/utils/api";
-import { IGameOnType, IGame, IGetGamesResponse } from "../../../Utils/types";
-import { SelectedMark } from "../../Booking/Components/SelectedMark";
-
-import "../CommonStyles.css";
+import "./CommonStyles.css";
+import { IGame } from "../utils/types";
+import { SelectedMark } from "../../features/booking-feature/presentation/components/SelectedMark";
 
 interface Props {
   game: IGame;

@@ -1,19 +1,17 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import { STORIES_PATH } from "../../../Utils/routeConstants";
-import { ReqStatus } from "../../../Utils/enums";
 import Thumbnail from "./ThumbnailView";
 import { useAppDispatch, useAppSelector } from "../../../app/store";
 import { selectThumbnailLoadingStatus, selectThumbnails } from "../store/selectors";
 import { getAllThumbnails } from "../store/asyncActions";
-import { LoadWrapper } from "../../../Components/Common/Markup/LoadWrapper";
-
 import emptyThumbnailImage from "../../../Assets/emptyThumbnails.png"
 
 import "./thumbnailStyles.css";
 import "./storyStyles.css"
 import "./media.css"
+import { ReqStatus } from "../../../lib/utils/enums";
+import { LoadWrapper } from "../../../lib/ui/LoadWrapper";
+import { STORIES_PATH } from "../../../lib/utils/routeConstants";
 
 const ThumbnailsContainer = () => {
 

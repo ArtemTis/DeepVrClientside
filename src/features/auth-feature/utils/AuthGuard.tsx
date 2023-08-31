@@ -1,8 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router";
-import { selectIsAuthorised } from "../redux/auth/selectors";
 import { useAppSelector } from "../../../app/store";
-import { LOGIN_PATH } from "../../../Utils/routeConstants";
+import { selectIsAuthorised } from "../store/selectors";
+import { LOGIN_PATH } from "../../../lib/utils/routeConstants";
 
 interface AuthGuardProps {
     element: React.ReactElement

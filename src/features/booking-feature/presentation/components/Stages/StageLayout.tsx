@@ -1,13 +1,13 @@
 import { Col } from "antd";
-import { selectCurrentStep } from "../../../Utils/redux/booking/selectors";
 import { useAppSelector } from "../../../../../app/store";
 import { BackButton } from "../BackButton";
-import { FixedPanel } from "../../../../../Components/Booking/Components/FixedPanel";
-import { NextButton } from "../../Common/Markup/NextButton";
-import { StepDisplay } from "../../../../../Components/Booking/Components/StepDisplay";
-import { Title } from "../../../../../Components/Booking/Components/Title";
 
 import "../BookingStyles.css";
+import { selectCurrentStep } from "../../../store/selectors";
+import { StepDisplay } from "../StepDisplay";
+import { Title } from "../Title";
+import { FixedPanel } from "../FixedPanel";
+import { NextButton } from "../../../../../lib/ui/NextButton";
 
 interface Props {
   children: React.ReactElement;

@@ -1,25 +1,22 @@
 import { Col, Row } from "antd";
-import { FixedPanel } from "../../../../../Components/Booking/Components/FixedPanel";
-import { NextButton } from "../../Common/Markup/NextButton";
-import { Title } from "../../../../../Components/Booking/Components/Title";
 import { useEffect, useState } from "react";
-import { ICity } from "../../../Utils/types";
 import { Api } from "../../../../../lib/utils/api";
-import { CityCard } from "../../../../../Components/Booking/Components/CityCard";
 import { RootState, useAppDispatch, useAppSelector } from "../../../../../app/store";
-import {
-  increaseStep,
-  setCity,
-} from "../../../Utils/redux/booking/slice";
-import { selectCity} from "../../../Utils/redux/booking/selectors";
-import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
-import { setSelectedCity } from "../../../Utils/redux/auth/slice";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
 import "../BookingStyles.css";
 import { useSelector } from "react-redux";
-import { ReqStatus } from "../../../Utils/enums";
-import { selectAllCities } from "../../../Utils/redux/profile/selectors";
+import { selectSelectedCity } from "../../../../auth-feature/store/selectors";
+import { ICity } from "../../../../../lib/utils/types";
+import { selectCity } from "../../../store/selectors";
+import { ReqStatus } from "../../../../../lib/utils/enums";
+import { selectAllCities } from "../../../../profile-feature/store/selectors";
+import { increaseStep, setCity } from "../../../store/slice";
+import { setSelectedCity } from "../../../../auth-feature/store/slice";
+import { Title } from "../Title";
+import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
+import { CityCard } from "../CityCard";
+import { FixedPanel } from "../FixedPanel";
+import { NextButton } from "../../../../../lib/ui/NextButton";
 
 export const CitySelect: React.FC = () => {
   const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;

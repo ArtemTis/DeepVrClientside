@@ -1,8 +1,6 @@
 import React from 'react'
 import { IAchieve } from '../pages/Achievements'
 import styled from 'styled-components'
-import { Button, Modal } from 'antd'
-import { NextButton } from '../../../../Components/Common/Markup/NextButton'
 
 interface IProps {
     item?: IAchieve,

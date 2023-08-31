@@ -1,17 +1,10 @@
 import { Col, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
-import {
-  decreaseStep,
-  increaseStep,
-  setPlayersCount,
-} from "../../../Utils/redux/booking/slice";
-import { selectGame, selectPlayersCount } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../../../app/store";
-
-import "../BookingStyles.css";
-
-import vrGlasses from "../../../Assets/Очки 3.png";
-import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
+import "../../pages/BookingStyles.css";
+import vrGlasses from "../../../../../Assets/Очки 3.png";
+import { selectGame, selectPlayersCount } from "../../../store/selectors";
+import { setPlayersCount } from "../../../store/slice";
 
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
-import "../BookingStyles.css";
-import mark from "../../../Assets/selectedMark.svg";
+import "../pages/BookingStyles.css";
+import mark from "../../../../Assets/selectedMark.svg";
 
 interface Props {
   isSelected: boolean;

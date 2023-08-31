@@ -1,21 +1,16 @@
 import { Modal } from "antd";
-import "../BookingStyles.css";
-
+import "../pages/BookingStyles.css";
 import { useEffect, useRef, useState } from "react";
-import { FormError } from "../../../lib/ui/FormFields/FormError";
-import { TextInputNonForm } from "../../../lib/ui/FormFields/TextInputNonForm";
-import { ISummaryResponse } from "../../../Utils/types";
-import { AppDispatch, useAppSelector } from "../../../app/store";
-import { selectToken, selectUser } from "../../../Utils/redux/auth/selectors";
-import { selectGame, selectPlayersCount } from "../../../Utils/redux/booking/selectors";
-import { Api } from "../../../lib/utils/api";
-
-import closeIcon from "../../../Assets/closeIcon.svg";
-import { LoadIcon } from "../../Common/Markup/LoadIcon";
 import { useDispatch } from "react-redux";
-import { getSummary, postValidatePromo } from "../../../Utils/redux/summary/asyncActions";
-import { selectSummary } from "../../../Utils/redux/summary/selectors";
-import { ReqStatus } from "../../../Utils/enums";
+import { AppDispatch, useAppSelector } from "../../../../app/store";
+import { selectToken, selectUser } from "../../../auth-feature/store/selectors";
+import { selectGame, selectPlayersCount } from "../../store/selectors";
+import { ReqStatus } from "../../../../lib/utils/enums";
+import { postValidatePromo } from "../../store/summary/asyncActions";
+import { FormError } from "../../../../lib/ui/FormFields/FormError";
+import { TextInputNonForm } from "../../../../lib/ui/FormFields/TextInputNonForm";
+import { LoadIcon } from "../../../../lib/ui/LoadIcon";
+import closeIcon from "../../../../Assets/closeIcon.svg"
 
 interface Props {
   isOpen: boolean;

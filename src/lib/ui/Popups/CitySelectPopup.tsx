@@ -1,14 +1,14 @@
 import { PopupLayout } from "./PopupLayout";
-import { SelectCityList } from "../../Common/Markup/SelectCityList";
 import { useState } from "react";
-import { ICity } from "../../../Utils/types";
-import { NextButton } from "../../Common/Markup/NextButton";
 import { useAppDispatch, useAppSelector } from "../../../app/store";
-import { selectToken } from "../../../Utils/redux/auth/selectors";
-import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 
-import "../AccountStyles.css";
-import { Api } from "../../../lib/utils/api";
+import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
+import { Api } from "../../utils/api";
+import { ICity } from "../../utils/types";
+import { selectToken } from "../../../features/auth-feature/store/selectors";
+import { setSelectedCity } from "../../../features/auth-feature/store/slice";
+import { SelectCityList } from "../SelectCityList";
+import { NextButton } from "../NextButton";
 
 interface Props {
   onBackClick: () => void;

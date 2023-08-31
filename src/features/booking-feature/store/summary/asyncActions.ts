@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IGetSummaryRequestData, IValidatePromoRequestData } from "../../types";
 import { Api } from "../../../../lib/utils/api";
 import axios from "axios";
+import { IGetSummaryRequestData, IValidatePromoRequestData } from "../../../../lib/utils/types";
 
 export const getSummary = createAsyncThunk(
     'summarySlice/getSummary',

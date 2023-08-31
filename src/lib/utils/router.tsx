@@ -1,22 +1,9 @@
 import { createBrowserRouter, createRoutesFromElements, Location, Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { NotFound } from "../core/404";
-import { Account } from "../Components/Account/Account";
-import { Achievements } from "../features/achievements-feature/presentation/pages/Achievements";
-import { Booking } from "../Components/Booking/Booking";
-import { Games } from "../Components/Games/Games";
 import {
   ACCOUNT_PATH,
   ACHIVEMENTS_PATH,
-  BOOKING_ADDRESS_PATH,
   BOOKING_CONFIRM_PATH,
-  BOOKING_CREDITIALS_PATH,
-  BOOKING_DATE_PATH,
-  BOOKING_DONE_PATH,
-  BOOKING_GAME_PATH,
   BOOKING_PATH,
-  BOOKING_PLAYERS_PATH,
-  BOOKING_TIME_PATH,
-  BOOKING_TYPEGAME_PATH,
   HOME_PATH,
   LOGIN_PATH,
   PROFILE_PATH,
@@ -24,38 +11,22 @@ import {
   SINGIN_CODE_PATH,
   SINGIN_EMAIL_PATH,
   SINGIN_TEL_PATH,
-  STORIES_PATH,
 } from "./routeConstants";
-import { Register } from "../Components/Account/Panels/Register";
-import LoginCode from "../Components/Account/Panels/Login/LoginCode";
-import LoginEmail from "../Components/Account/Panels/Login/LoginEmail";
-import LoginTel from "../Components/Account/Panels/Login/LoginTel";
-import { Login } from "../Components/Account/Panels/Login";
-import { Profile } from "../Components/Account/Panels/Profile";
-import { AuthGuard } from "../features/auth-feature/utils/AuthGuard";
-import { CitySelect } from "../Components/Booking/Stages/CitySelect.";
-import { GameSelect } from "../Components/Booking/Stages/GameSelect";
-import { PlayersCountSelect } from "../Components/Booking/Stages/PlayersCountSelect";
-import { DateSelect } from "../Components/Booking/Stages/DateSelect";
-import { TimeSelect } from "../Components/Booking/Stages/TimeSelect";
-import { CredentialsForm } from "../Components/Booking/Stages/CredentialsForm";
-import { ConfirmBooking } from "../Components/Booking/Stages/ConfirmBooking";
-import { Done } from "../Components/Booking/Stages/Done";
-import TypeGameSelect from "../Components/Booking/Stages/GamesTypeSelect";
-import BookingStepLayout from "../Components/Booking/Components/BookingStep";
-import BookingStep from "../Components/Booking/Components/BookingStep";
-import { Config } from "../Components/Booking/Stages/Config";
+import { Games } from "../../features/games-feature/presentation/pages/Games";
+import { Booking } from "../../features/booking-feature/presentation/pages/Booking";
+import BookingStep from "../../features/booking-feature/presentation/components/BookingStep";
+import { ConfirmBooking } from "../../features/booking-feature/presentation/components/Stages/ConfirmBooking";
+import { Achievements } from "../../features/achievements-feature/presentation/pages/Achievements";
+import { Account } from "../../features/profile-feature/presentation/pages/Account";
+import { AuthGuard } from "../../features/auth-feature/utils/AuthGuard";
+import { Login } from "../../features/auth-feature/presentation/pages/Login";
+import LoginTel from "../../features/auth-feature/presentation/components/LoginTel";
+import LoginEmail from "../../features/auth-feature/presentation/components/LoginEmail";
+import LoginCode from "../../features/auth-feature/presentation/components/LoginCode";
+import { Profile } from "../../features/profile-feature/presentation/pages/Profile";
+import { Register } from "../../features/auth-feature/presentation/pages/Register";
+import { NotFound } from "../../core/404";
 
-import Story from "../feature/stories-feature/presentation/Story";
-
-
-// const C = (prosp: {buildChild: (location: Location) => React.ReactElement}) => {
-//   const location = useLocation();
-
-//   return <Routes>
-//     {prosp.buildChild(location)}
-//   </Routes>  
-// }
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

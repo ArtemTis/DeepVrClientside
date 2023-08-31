@@ -1,40 +1,26 @@
 import { Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  decreaseStep,
-  increaseStep,
-} from "../../../Utils/redux/booking/slice";
-import {
-  selectCredentials,
-  selectDate,
-  selectGame,
-  selectPlayersCount,
-  selectSelectedTime,
-} from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../../../app/store";
-import { Title } from "../../../../../Components/Booking/Components/Title";
-import { FixedPanel } from "../../../../../Components/Booking/Components/FixedPanel";
 import { BackButton } from "../BackButton";
-import { NextButton } from "../../Common/Markup/NextButton";
-import { IBookingCredentials, ISummaryResponse } from "../../../Utils/types";
 import { Api } from "../../../../../lib/utils/api";
-import { selectToken, selectUser } from "../../../Utils/redux/auth/selectors";
-import { LoadIcon } from "../../Common/Markup/LoadIcon";
 import { FormError } from "../../../../../lib/ui/FormFields/FormError";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
-import "../BookingStyles.css";
+import "../../pages/BookingStyles.css";
 
-import userIcon from "../../../Assets/user-icon-liliac.svg";
-import gameIcon from "../../../Assets/console.svg";
-import dateIcon from "../../../Assets/calendar.svg";
-import timeIcon from "../../../Assets/time.svg";
-import { curencyFormat } from "../../../Utils/format";
+import userIcon from "../../../../../Assets/user-icon-liliac.svg";
+import gameIcon from "../../../../../Assets/console.svg";
+import dateIcon from "../../../../../Assets/calendar.svg";
+import timeIcon from "../../../../../Assets/time.svg";
 import { createBooking } from "../../../store/asyncActions";
-import { ReqStatus } from "../../../Utils/enums";
 import { getSummary } from "../../../store/summary/asyncActions";
-import { selectGameTypes } from "../../../Utils/redux/gamesType/selectors";
 import styled from "styled-components";
+import { selectToken, selectUser } from "../../../../auth-feature/store/selectors";
+import { selectCredentials, selectDate, selectGame, selectPlayersCount, selectSelectedTime } from "../../../store/selectors";
+import { IBookingCredentials } from "../../../../../lib/utils/types";
+import { ReqStatus } from "../../../../../lib/utils/enums";
+import { LoadIcon } from "../../../../../lib/ui/LoadIcon";
+import { curencyFormat } from "../../../../../lib/utils/format";
+import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
 
 export const ConfirmBooking: React.FC = () => {
   const dispatch = useAppDispatch();

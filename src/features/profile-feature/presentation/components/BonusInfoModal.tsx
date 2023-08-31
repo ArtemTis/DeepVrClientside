@@ -1,8 +1,8 @@
 import { Modal } from "antd";
 
-import crossWhite from "../../../Assets/crossWhite.svg";
+import crossWhite from "../../../../Assets/crossWhite.svg";
 
-import "../AccountStyles.css";
+import "../pages/AccountStyles.css";
 
 interface Props {
   isOpen: boolean;

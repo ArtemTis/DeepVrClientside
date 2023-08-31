@@ -1,26 +1,26 @@
 import { Row } from "antd";
-import { ColLg } from "../../Common/Markup/ColLg";
 import { useEffect, useRef, useState } from "react";
-import { IGame } from "../../../Utils/types";
-import { Api } from "../../../lib/utils/api";
-import { useAppDispatch, useAppSelector } from "../../../app/store";
-import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
-import { setSelectedCity } from "../../../Utils/redux/auth/slice";
-import { GameCard } from "../../Common/Markup/GameCard";
 import { GameModal } from "./GameModal";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 
-import "../GamesStyles.css";
+import "./GamesStyles.css";
 
-import searchIcon from "../../../Assets/magnifier.svg";
-import crossWhite from "../../../Assets/crossWhite.svg";
-import arrowRight from "../../../Assets/arrow-right.svg";
-import { getAllGames } from "../../../features/games-feature/store/games/asyncActions";
-import { selectGames } from "../../../features/games-feature/store/games/selectors";
-import { ReqStatus } from "../../../Utils/enums";
+import searchIcon from "../../../../Assets/magnifier.svg";
+import crossWhite from "../../../../Assets/crossWhite.svg";
+import arrowRight from "../../../../Assets/arrow-right.svg";
 
 import 'stories-react/dist/index.css';
-import ThumbnailsContainer from "../../../feature/stories-feature/presentation/ThumbnailsContainer";
+import { IGame } from "../../../../lib/utils/types";
+import { selectSelectedCity } from "../../../auth-feature/store/selectors";
+import { useAppDispatch, useAppSelector } from "../../../../app/store";
+import { ReqStatus } from "../../../../lib/utils/enums";
+import { Api } from "../../../../lib/utils/api";
+import { getAllGames } from "../../store/games/asyncActions";
+import { selectGames } from "../../store/games/selectors";
+import { setSelectedCity } from "../../../auth-feature/store/slice";
+import { ColLg } from "../../../../lib/ui/ColLg";
+import ThumbnailsContainer from "../../../stories-feature/presentation/ThumbnailsContainer";
+import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
+import { GameCard } from "../../../../lib/ui/GameCard";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();

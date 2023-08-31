@@ -1,20 +1,18 @@
 import { Col, Row } from "antd";
-import "../../../App.css";
+import "../../App.css";
 import { FooterMenuButton } from "./FooterMenuButton";
 
-import gamesIcon from "../../../Assets/games.svg";
-import bookingIcon from "../../../Assets/booking.svg";
-import achivementsIcon from "../../../Assets/achivements.svg";
-import accountIcon from "../../../Assets/account.svg";
+import gamesIcon from "../../Assets/games.svg";
+import bookingIcon from "../../Assets/booking.svg";
+import achivementsIcon from "../../Assets/achivements.svg";
+import accountIcon from "../../Assets/account.svg";
+import styled from "styled-components";
 import {
   ACCOUNT_PATH,
   ACHIVEMENTS_PATH,
   BOOKING_PATH,
   HOME_PATH,
-  LOGIN_PATH,
-  SINGIN_TEL_PATH,
-} from "../../../Utils/routeConstants";
-import styled from "styled-components";
+} from "../../lib/utils/routeConstants";
 
 export const FooterMenu: React.FC = () => {
   return (

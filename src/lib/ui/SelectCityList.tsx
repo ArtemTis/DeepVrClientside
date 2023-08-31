@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/store";
-import { ICity } from "../../../Utils/types";
+import { ICity } from "../utils/types";
+import { useAppDispatch, useAppSelector } from "../../app/store";
+import { allCities } from "../../features/profile-feature/store/asyncActions";
+import { selectSelectedCity } from "../../features/auth-feature/store/selectors";
+import { ReqStatus } from "../utils/enums";
 import { LoadWrapper } from "./LoadWrapper";
-
-import "../CommonStyles.css";
-import { allCities } from "../../../features/profile-feature/store/asyncActions";
-import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
-import { ReqStatus } from "../../../Utils/enums";
 import styled from "styled-components";
 
 

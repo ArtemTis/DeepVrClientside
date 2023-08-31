@@ -1,17 +1,14 @@
 import { Col, Row, Space } from "antd";
-import { FixedPanel } from "../../../../../Components/Booking/Components/FixedPanel";
-import { NextButton } from "../../Common/Markup/NextButton";
-import { Title } from "../../../../../Components/Booking/Components/Title";
 import { useAppDispatch } from "../../../../../app/store";
-import { setIsFinished } from "../../../Utils/redux/booking/slice";
-import { HOME_PATH } from "../../../Utils/routeConstants";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 
-import "../BookingStyles.css";
+import "../../pages/BookingStyles.css";
 
-import doneImg from "../../../Assets/mirage-done.png";
+import doneImg from "../../../../../Assets/mirage-done.png";
 import styled from "styled-components";
+import { Title } from "../Title";
+import { NextButton } from "../../../../../lib/ui/NextButton";
 
 export const Done: React.FC = () => {
   const dispatch = useAppDispatch();

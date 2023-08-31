@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios"
 import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate, IAvalibleTime } from "./types"
-import { IStoriesRequest, IThumbnailDto } from "../feature/stories-feature/data/storiesDto";
+import { IStoriesRequest, IThumbnailDto } from "../../features/stories-feature/data/storiesDto";
+
 
 export interface ErrorResponse {
     error: number,

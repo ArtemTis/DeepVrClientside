@@ -1,10 +1,10 @@
-import { IRoom } from "../../../Utils/types";
 import "../BookingStyles.css";
 import { SelectedMark } from "./SelectedMark";
 
 import playersIcon from "../../../Assets/console 1.svg";
 import timeIcon from "../../../Assets/clock 1.svg";
 import ageIcon from "../../../Assets/vr-glasses 2.svg";
+import { IRoom } from "../../../../lib/utils/types";
 
 interface Props {
   room: IRoom;

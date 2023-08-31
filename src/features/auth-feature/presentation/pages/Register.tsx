@@ -1,23 +1,20 @@
 import { Row } from "antd";
 import { useForm } from "react-hook-form";
-import { RootState, useAppDispatch } from "../../../app/store";
-import { ColLg } from "../../Common/Markup/ColLg";
-import { FormError } from "../../../lib/ui/FormFields/FormError";
-import { FormField } from "../../../lib/ui/FormFields/FormField";
-import { NextButton } from "../../Common/Markup/NextButton";
-import { PassField } from "../../../lib/ui/FormFields/PassField";
-import { PhoneInput as PhoneField } from "../../../lib/ui/FormFields/PhoneField";
-
-import userIcon from "../../../Assets/user-icon-liliac.svg";
-
-import "../AccountStyles.css";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
-import { EmailField } from "../../../lib/ui/FormFields/EmailField";
+import userIcon from "../../../../Assets/user-icon-liliac.svg";
+import "../../../profile-feature/presentation/pages/AccountStyles.css";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../../../features/auth-feature/store/asyncActions";
 import { useSelector } from "react-redux";
-import { ReqStatus } from "../../../Utils/enums";
 import styled from "styled-components";
+import { RootState, useAppDispatch } from "../../../../app/store";
+import { ReqStatus } from "../../../../lib/utils/enums";
+import { FormField } from "../../../../lib/ui/FormFields/FormField";
+import { EmailField } from "../../../../lib/ui/FormFields/EmailField";
+import { PassField } from "../../../../lib/ui/FormFields/PassField";
+import { FormError } from "../../../../lib/ui/FormFields/FormError";
+import { PhoneInput } from "../../../../lib/ui/FormFields/PhoneField";
+import { NextButton } from "../../../../lib/ui/NextButton";
+import { register } from "../../store/asyncActions";
+import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
 
 
 export const Register = () => {
@@ -56,7 +53,7 @@ export const Register = () => {
             placeholder="Имя"
             autocomplete="name"
           />
-          <PhoneField
+          <PhoneInput
             control={control}
             error={errors.phone}
             autocomplete="username"

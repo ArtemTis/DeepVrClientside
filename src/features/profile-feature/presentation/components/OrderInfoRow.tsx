@@ -1,6 +1,6 @@
-import { curencyFormat, dateFormatDayMonth } from "../../../Utils/format";
-import { IOrderHistoryItem } from "../../../Utils/types";
-import "../AccountStyles.css";
+import { curencyFormat, dateFormatDayMonth } from "../../../../lib/utils/format";
+import { IOrderHistoryItem } from "../../../../lib/utils/types";
+import "../pages/AccountStyles.css";
 
 interface Props {
   order: IOrderHistoryItem;

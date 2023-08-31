@@ -1,10 +1,10 @@
 import { EmailField } from '../../../../lib/ui/FormFields/EmailField';
 import { PassField } from '../../../../lib/ui/FormFields/PassField';
 import { useForm } from 'react-hook-form';
-import { ILoginForm } from '../../../../Utils/types';
-import { NextButton } from '../../../Common/Markup/NextButton';
 import { singIn } from '../../../../features/auth-feature/store/asyncActions';
 import { useAppDispatch } from '../../../../app/store';
+import { ILoginForm } from '../../../../lib/utils/types';
+import { NextButton } from '../../../../lib/ui/NextButton';
 
 const LoginEmail = () => {
 

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../../lib/utils/api";
 import axios from "axios";
-import { IBookingFields, IGetSummaryRequestData } from "../../../Utils/types";
+import { IBookingFields } from "../../../lib/utils/types";
 
 export const createBooking = createAsyncThunk(
     'bookingSlice/createBooking',

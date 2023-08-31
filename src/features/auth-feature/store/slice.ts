@@ -1,7 +1,7 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { ICity, IUser } from "../../types";
 import { register, singIn, singInCode } from "./asyncActions";
-import { ReqStatus } from "../../enums";
+import { ICity, IUser } from "../../../lib/utils/types";
+import { ReqStatus } from "../../../lib/utils/enums";
 
 interface AuthState {
     token: string;

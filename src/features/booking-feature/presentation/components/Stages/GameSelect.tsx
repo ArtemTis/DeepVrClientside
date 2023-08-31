@@ -1,27 +1,15 @@
 import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
-import { Api } from "../../../../../lib/utils/api";
-import {
-  selectGame
-} from "../../../Utils/redux/booking/selectors";
-import {
-  decreaseStep,
-  increaseStep,
-  setGame
-} from "../../../Utils/redux/booking/slice";
 import { RootState, useAppDispatch, useAppSelector } from "../../../../../app/store";
-import { IGame, IGameOnType } from "../../../Utils/types";
-import { GameCard } from "../../Common/Markup/GameCard";
-import { StageLayout } from "./StageLayout";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
-
-import "../BookingStyles.css";
-import { gamesTypes } from "../../../Utils/redux/gamesType/asyncActions";
+import "../../pages/BookingStyles.css";
 import { selectGamesByType, selectGamesByTypeId } from "../../../../games-feature/store/games/selectors";
-import { useDispatch } from "react-redux";
-import { Title } from "../../../../../Components/Booking/Components/Title";
 import { getGameByType } from "../../../../games-feature/store/games/asyncActions";
-import { ReqStatus } from "../../../Utils/enums";
+import { ReqStatus } from "../../../../../lib/utils/enums";
+import { selectGame } from "../../../store/selectors";
+import { IGame } from "../../../../../lib/utils/types";
+import { setGame } from "../../../store/slice";
+import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
+import { GameCard } from "../../../../../lib/ui/GameCard";
 
 
 export const GameSelect: React.FC = () => {

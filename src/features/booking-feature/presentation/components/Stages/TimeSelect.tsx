@@ -1,22 +1,14 @@
 import { Col, Row } from "antd";
 import { useEffect, useState } from "react";
-import {
-  decreaseStep,
-  increaseStep,
-  setTime,
-} from "../../../Utils/redux/booking/slice";
 import { RootState, useAppDispatch, useAppSelector } from "../../../../../app/store";
-import { StageLayout } from "./StageLayout";
-import { Api } from "../../../../../lib/utils/api";
-import { TimeCard } from "../../../../../Components/Booking/Components/TimeCard";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
-
-import "../BookingStyles.css";
+import "../../pages/BookingStyles.css";
 import { useSelector } from "react-redux";
-import { ReqStatus } from "../../../Utils/enums";
 import { selectAvalibleDayAndTime } from "../../../store/avalibleTime/selectors";
-import { selectDate, selectSelectedTime } from "../../../Utils/redux/booking/selectors";
-import { Title } from "../../../../../Components/Booking/Components/Title";
+import { selectDate, selectSelectedTime } from "../../../store/selectors";
+import { setTime } from "../../../store/slice";
+import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
+import { TimeCard } from "../TimeCard";
+import { ReqStatus } from "../../../../../lib/utils/enums";
 
 
 export const TimeSelect: React.FC = () => {

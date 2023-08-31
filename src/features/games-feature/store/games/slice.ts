@@ -1,8 +1,7 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { IGame, IGetGamesResponse } from "../../types";
 import { getAllGames, getGameByType } from "./asyncActions";
-import { ReqStatus } from "../../enums";
-
+import { IGame, IGetGamesResponse } from "../../../../lib/utils/types";
+import { ReqStatus } from "../../../../lib/utils/enums";
 
 export const allGamesAdapter = createEntityAdapter<IGame>({
     selectId: (allGames) => allGames.id,

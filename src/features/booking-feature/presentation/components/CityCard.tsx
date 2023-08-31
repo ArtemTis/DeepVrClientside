@@ -1,4 +1,4 @@
-import { ICity } from "../../../Utils/types";
+import { ICity } from "../../../../lib/utils/types";
 import "../BookingStyles.css";
 
 import moai from "../moai.jpg";

@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../../lib/utils/api";
 import axios from "axios";
-import { ITokenDTO } from "../../../Utils/types";
 import { RootState } from "../../../app/store";
-import { selectGameId } from "../booking/selectors";
 import { selectInstancePrefix } from "./selectors";
+import { ITokenDTO } from "../../../lib/utils/types";
+import { selectGameId } from "../../booking-feature/store/selectors";
 
 export const allCities = createAsyncThunk(
     'profileSlice/allCities',

@@ -1,10 +1,10 @@
 import { PhoneInput } from '../../../../lib/ui/FormFields/PhoneField'
 import { PassField } from '../../../../lib/ui/FormFields/PassField'
 import { useForm } from 'react-hook-form';
-import { ILoginForm } from '../../../../Utils/types';
-import { NextButton } from '../../../Common/Markup/NextButton';
 import { useAppDispatch } from '../../../../app/store';
 import { singIn } from '../../../../features/auth-feature/store/asyncActions';
+import { ILoginForm } from '../../../../lib/utils/types';
+import { NextButton } from '../../../../lib/ui/NextButton';
 
 const LoginTel = () => {
 

@@ -1,9 +1,8 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { Api } from "../../api";
-import { IBookingCredentials, ICity, IGame, IGameType } from "../../types";
-import { gamesTypes } from "../gamesType/asyncActions";
+import { ICity } from "../../../lib/utils/types";
+import { ReqStatus } from "../../../lib/utils/enums";
+import { Api } from "../../../lib/utils/api";
 import { allCities } from "./asyncActions";
-import { ReqStatus } from "../../enums";
 
 interface ProfileState {
     // currentStep: number;

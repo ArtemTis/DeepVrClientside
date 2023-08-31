@@ -1,5 +1,5 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
-import { RootState, useAppSelector } from "../store";
+import { RootState } from "../../../app/store";
 
 export const selectCurrentStep = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.currentStep],

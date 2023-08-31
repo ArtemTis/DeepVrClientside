@@ -1,44 +1,31 @@
 import { Button, Row } from "antd";
-import { ColLg } from "../../Common/Markup/ColLg";
 import { useEffect, useRef, useState } from "react";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
-import {
-  selectSelectedCity,
-  selectToken,
-  selectUser
-} from "../../../Utils/redux/auth/selectors";
-import {
-  setSelectedCity,
-  setToken,
-  setUser,
-} from '../../../Utils/redux/auth/slice'
 import { Api } from "../../../../lib/utils/api";
 import { BonusCard } from "../components/BonusCrad";
-import { HorizontalScrollArea } from "../../Common/Markup/HorizontalScrollArea";
-import { OrderInfoRow } from "../Compontents/OrderInfoRow";
-import { OrdersAllPopup } from "../../../../Components/Account/Popups/OrdersAllPopup";
-import { SettingsPopup } from "../../../../Components/Account/Popups/SettingsPopup";
-import { CitySelectPopup } from "../../../../Components/Account/Popups/CitySelectPopup";
-import {
-  IGetBonusesInfoResponse,
-  IOrderHistoryItem,
-} from "../../../Utils/types";
+import { OrdersAllPopup } from "../../../../lib/ui/Popups/OrdersAllPopup";
+import { SettingsPopup } from "../../../../lib/ui/Popups/SettingsPopup";
+import { CitySelectPopup } from "../../../../lib/ui/Popups/CitySelectPopup";
 
-import "../AccountStyles.css";
+import "./AccountStyles.css";
 
-import gearIcon from "../../../Assets/gearIcon.svg";
-import arrowRight from "../../../Assets/arrow-right.svg";
-import logoutIcon from "../../../Assets/logoutIcon.svg";
-import logoBonus1 from "../../../Assets/logo-bonus1-light.svg";
-import logoBonus2 from "../../../Assets/logo-bonus2-light.svg";
-import logoBonus3 from "../../../Assets/logo-bonus3-light.svg";
-import { LoadIcon } from "../../Common/Markup/LoadIcon";
+import gearIcon from "../../../../Assets/gearIcon.svg";
+import arrowRight from "../../../../Assets/arrow-right.svg";
+import logoutIcon from "../../../../Assets/logoutIcon.svg";
+import logoBonus1 from "../../../../Assets/logo-bonus1-light.svg";
+import logoBonus2 from "../../../../Assets/logo-bonus2-light.svg";
+import logoBonus3 from "../../../../Assets/logo-bonus3-light.svg";
 import styled from "styled-components";
-import Ticket from "../Compontents/Ticket";
-import close from "../../../Assets/close-cross.svg"
-import warning from "../../../Assets/warning.svg"
-import back from "../../../Assets/back.svg"
+import close from "../../../../Assets/close-cross.svg"
+import warning from "../../../../Assets/warning.svg"
+import { IGetBonusesInfoResponse, IOrderHistoryItem } from "../../../../lib/utils/types";
+import { selectSelectedCity, selectToken, selectUser } from "../../../auth-feature/store/selectors";
+import { setSelectedCity, setToken, setUser } from "../../../auth-feature/store/slice";
+import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
+import { OrderInfoRow } from "../components/OrderInfoRow";
+import Ticket from "../components/Ticket";
+import { HorizontalScrollArea } from "../../../../lib/ui/HorizontalScrollArea";
+import { LoadIcon } from "../../../../lib/ui/LoadIcon";
 
 let tempPopups: Array<React.ReactElement> = [];
 

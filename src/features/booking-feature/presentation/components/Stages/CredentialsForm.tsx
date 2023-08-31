@@ -1,32 +1,26 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Row } from "antd";
-import {
-  decreaseStep,
-  increaseStep,
-  setCredentials,
-} from "../../../Utils/redux/booking/slice";
-import { selectCredentials } from "../../../Utils/redux/booking/selectors";
 import { useAppDispatch, useAppSelector } from "../../../../../app/store";
 import { StageLayout } from "./StageLayout";
-import { PromoModal } from "../../../../../Components/Booking/Components/PromoModal";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
-import { selectIsAuthorised, selectUser } from "../../../Utils/redux/auth/selectors";
 import { NavLink } from "react-router-dom";
-import { ACCOUNT_PATH } from "../../../Utils/routeConstants";
-import { ColLg } from "../../Common/Markup/ColLg";
 import { FormField } from "../../../../../lib/ui/FormFields/FormField";
 import { PhoneInput } from "../../../../../lib/ui/FormFields/PhoneField";
 import { FormCheckbox } from "../../../../../lib/ui/FormFields/FormCheckbox";
 import { TextAreaInput } from "../../../../../lib/ui/FormFields/TextAreaInput";
 
-import "../BookingStyles.css";
-import "../../Common/CommonStyles.css";
+import "../../pages/BookingStyles.css";
+import "../../../../../lib/ui/CommonStyles.css";
 
-import infoIcon from "../../../Assets/infoIcon.svg";
-import userIcon from "../../../Assets/user-icon-liliac.svg";
-import arrowRight from "../../../Assets/arrow-right.svg";
-import { Title } from "../../../../../Components/Booking/Components/Title";
-import { IBookingCredentials } from "../../../Utils/types";
+import infoIcon from "../../../../../Assets/infoIcon.svg";
+import userIcon from "../../../../../Assets/user-icon-liliac.svg";
+import arrowRight from "../../../../../Assets/arrow-right.svg";
+import { selectIsAuthorised, selectUser } from "../../../../auth-feature/store/selectors";
+import { selectCredentials } from "../../../store/selectors";
+import { setCredentials } from "../../../store/slice";
+import { ColLg } from "../../../../../lib/ui/ColLg";
+import { PromoModal } from "../PromoModal";
+import { ACCOUNT_PATH } from "../../../../../lib/utils/routeConstants";
 
 const agreementHref = "/";
 const bonusesInfoHref = "/";

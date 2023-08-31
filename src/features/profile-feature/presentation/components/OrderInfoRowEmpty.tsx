@@ -1,4 +1,4 @@
-import "../AccountStyles.css";
+import "../pages/AccountStyles.css";
 
 export const OrderInfoRowEmpty: React.FC = () => {
   return <div className="profile-order-info"></div>;

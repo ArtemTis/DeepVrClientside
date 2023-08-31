@@ -1,6 +1,5 @@
-import loadIcon from "../../../Assets/load.svg";
-
-import "../CommonStyles.css";
+import loadIcon from "../../Assets/load.svg";
+import "./CommonStyles.css";
 
 export const LoadIcon: React.FC = () => {
   return (

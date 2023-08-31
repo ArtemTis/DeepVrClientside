@@ -8,7 +8,7 @@ import {
   Viewport,
 } from "@radix-ui/react-scroll-area";
 
-import "../../App.css";
+import "../App.css";
 import styled from "styled-components";
 
 interface Props {

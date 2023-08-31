@@ -1,23 +1,18 @@
 import { Col, Modal, Row } from "antd";
 import { useState } from "react";
 import { Api } from "../../../../lib/utils/api";
-import {
-  selectSelectedCity,
-  selectToken
-} from "../../../Utils/redux/auth/selectors";
-import { setSelectedCity } from "../../../Utils/redux/auth/slice";
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
-import { ICity } from "../../../Utils/types";
-import { ColLg } from "../../../../Components/Common/Markup/ColLg";
-import { NextButton } from "../../../../Components/Common/Markup/NextButton";
-import { SelectCityList } from "../../../../Components/Common/Markup/SelectCityList";
 import close from "../../../Assets/close-cross.svg"
 
-import "../GamesStyles.css";
-import ThumbnailsContainer from "../../../feature/stories-feature/presentation/ThumbnailsContainer";
+import "./GamesStyles.css";
 import styled from "styled-components";
-import { selectCity } from "../../../Utils/redux/booking/selectors";
-import { setCity } from "../../../Utils/redux/booking/slice";
+import { selectSelectedCity, selectToken } from "../../../auth-feature/store/selectors";
+import { ICity } from "../../../../lib/utils/types";
+import { selectCity } from "../../../booking-feature/store/selectors";
+import { setSelectedCity } from "../../../auth-feature/store/slice";
+import { setCity } from "../../../booking-feature/store/slice";
+import { SelectCityList } from "../../../../lib/ui/SelectCityList";
+import { NextButton } from "../../../../lib/ui/NextButton";
 
 export const CitySelectHome: React.FC = () => {
   const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;

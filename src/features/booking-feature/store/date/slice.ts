@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { ReqStatus } from "../../enums";
 import { getDate } from "./asyncActions";
+import { ReqStatus } from "../../../../lib/utils/enums";
 
 interface DateState {
     date: {

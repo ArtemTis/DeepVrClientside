@@ -3,17 +3,15 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RootState, useAppDispatch } from "../../../../app/store";
 import { FormError } from "../../../../lib/ui/FormFields/FormError";
-import { LoadWrapper } from "../../Common/Markup/LoadWrapper";
-import { ILoginForm } from "../../../Utils/types";
-
-import "../AccountStyles.css";
-
+import "../../../profile-feature/presentation/pages/AccountStyles.css";
 import { Outlet, useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { REGISTER_PATH } from "../../../Utils/routeConstants";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { ReqStatus } from "../../../Utils/enums";
+import { ILoginForm } from "../../../../lib/utils/types";
+import { ReqStatus } from "../../../../lib/utils/enums";
+import { REGISTER_PATH } from "../../../../lib/utils/routeConstants";
+import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
 
 
 export const Login = () => {

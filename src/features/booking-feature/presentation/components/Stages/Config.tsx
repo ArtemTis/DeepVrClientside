@@ -1,6 +1,4 @@
-import { BookingState } from "../../../Utils/redux/booking/slice";
-import { BOOKING_CONFIRM_PATH, BOOKING_CREDITIALS_PATH, BOOKING_DATE_PATH, BOOKING_GAME_PATH, BOOKING_PLAYERS_PATH, BOOKING_TIME_PATH, BOOKING_TYPEGAME_PATH } from "../../../Utils/routeConstants";
-import { IBookingFields } from "../../../Utils/types";
+import { BookingState } from "../../../store/slice";
 import { ConfirmBooking } from "./ConfirmBooking";
 import { CredentialsForm } from "./CredentialsForm";
 import { DateSelect } from "./DateSelect";
@@ -9,30 +7,6 @@ import GamesTypeSelect from "./GamesTypeSelect";
 import { PlayersCountSelect } from "./PlayersCountSelect";
 import { TimeSelect } from "./TimeSelect";
 
-// const CurrentPanel = () => {
-//   switch (currentStep) {
-//     case 0:
-//       return <CitySelect />;
-//     case 1:
-      // return <TypeGameSelect />;
-//     case 2:
-//       return <GameSelect />;
-//     case 3:
-//       return <PlayersCountSelect />;
-//     case 4:
-//       return <DateSelect />;
-//     case 5:
-//       return <TimeSelect />;
-//     case 6:
-//       return <CredentialsForm />;
-//     case 7:
-//       return <ConfirmBooking />;
-//     case 8:
-//       return <Done />;
-//     default:
-//       return null;
-//   }
-// };
 
 interface IStep {
   component: JSX.Element;

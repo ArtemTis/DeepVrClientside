@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { SelectedMark } from './SelectedMark';
-import { IGameType } from '../../../Utils/types';
-
-import playersIcon from "../../../Assets/console 1.svg";
-import timeIcon from "../../../Assets/clock 1.svg";
-import ageIcon from "../../../Assets/vr-glasses 2.svg";
+import playersIcon from "../../../../Assets/console 1.svg";
+import timeIcon from "../../../../Assets/clock 1.svg";
+import ageIcon from "../../../../Assets/vr-glasses 2.svg";
+import { IGameType } from '../../../../lib/utils/types';
 
 interface Props {
   gameType: IGameType;

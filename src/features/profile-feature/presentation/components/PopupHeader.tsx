@@ -1,8 +1,7 @@
-import "../AccountStyles.css";
+import "../pages/AccountStyles.css";
 import styled from "styled-components";
-import back from "../../../Assets/back.svg"
-import gearIcon from "../../../Assets/gearIcon.svg";
-import { SettingsPopup } from "../Popups/SettingsPopup";
+import back from "../../../../Assets/back.svg"
+import gearIcon from "../../../../Assets/gearIcon.svg";
 
 export interface PopupHeaderProps {
   title: string;

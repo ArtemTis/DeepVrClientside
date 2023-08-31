@@ -5,13 +5,13 @@ import {
   Viewport,
 } from "@radix-ui/react-scroll-area";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { IChildren } from "../../../Utils/types";
 
-import "../CommonStyles.css";
-import "../../../App.css";
+import "./CommonStyles.css";
+import "../../App.css";
 
-import arrowLeft from "../../../Assets/arrow-left.svg";
-import arrowRight from "../../../Assets/arrow-right.svg";
+import arrowLeft from "../../Assets/arrow-left.svg";
+import arrowRight from "../../Assets/arrow-right.svg";
+import { IChildren } from "../utils/types";
 
 interface Props {
   children?: IChildren;

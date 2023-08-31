@@ -1,31 +1,24 @@
 import { Modal } from "antd";
-import { IGame } from "../../../Utils/types";
-import { NextButton } from "../../Common/Markup/NextButton";
 import {
   Root as ScrollRoot,
   Scrollbar,
   Thumb,
   Viewport,
 } from "@radix-ui/react-scroll-area";
-import { Api } from "../../../lib/utils/api";
-import { useAppDispatch, useAppSelector } from "../../../app/store";
-import {
-  clearState,
-  setCity,
-  setTypeGame,
-  setGame,
-  setStep,
-} from "../../../Utils/redux/booking/slice";
-import { selectSelectedCity } from "../../../Utils/redux/auth/selectors";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
-import { BOOKING_PATH } from "../../../Utils/routeConstants";
 
-import playersIcon from "../../../Assets/console 1.svg";
-import timeIcon from "../../../Assets/clock 1.svg";
-import ageIcon from "../../../Assets/vr-glasses 2.svg";
+import playersIcon from "../../../../Assets/console 1.svg";
+import timeIcon from "../../../../Assets/clock 1.svg";
+import ageIcon from "../../../../Assets/vr-glasses 2.svg";
 
-import "../GamesStyles.css";
+import "./GamesStyles.css";
+import { IGame } from "../../../../lib/utils/types";
+import { useAppDispatch, useAppSelector } from "../../../../app/store";
+import { selectSelectedCity } from "../../../auth-feature/store/selectors";
+import { clearState, setCity, setGame, setStep, setTypeGame } from "../../../booking-feature/store/slice";
+import { BOOKING_PATH } from "../../../../lib/utils/routeConstants";
+import { NextButton } from "../../../../lib/ui/NextButton";
 
 interface Props {
   game?: IGame;

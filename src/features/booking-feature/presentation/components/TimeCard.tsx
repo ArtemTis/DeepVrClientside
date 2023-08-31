@@ -1,7 +1,7 @@
-import "../BookingStyles.css";
+import "../pages/BookingStyles.css";
 
-import timeIcon from "../../../Assets/time.svg";
-import timeIconAlt from "../../../Assets/time-dark.svg";
+import timeIcon from "../../../../Assets/time.svg";
+import timeIconAlt from "../../../../Assets/time-dark.svg";
 
 interface Props {
   time: string;

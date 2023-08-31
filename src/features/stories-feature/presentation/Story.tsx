@@ -1,13 +1,12 @@
 import { Location, useNavigate, useParams } from "react-router";
-
 import { useAppDispatch, useAppSelector } from "../../../app/store";
 import { selectIds, selectStoriesById, selectIsThumbnailLoaded } from "../store/selectors";
-import { LoadWrapper } from "../../../Components/Common/Markup/LoadWrapper";
 import { useEffect, useMemo, useState } from "react";
 import { getGroupStoriesById } from "../store/asyncActions";
 import { setViewed } from "../store/slice";
-import { STORIES_PATH } from "../../../Utils/routeConstants";
 import ViewStory from "./StoryView";
+import { STORIES_PATH } from "../../../lib/utils/routeConstants";
+import { LoadWrapper } from "../../../lib/ui/LoadWrapper";
 
 const Story = (props: {location: Location}) => {
     const location = props.location;

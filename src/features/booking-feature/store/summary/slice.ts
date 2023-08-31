@@ -1,8 +1,8 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { Api } from "../../../../lib/utils/api";
-import { IBookingCredentials, ICity, IGame, IGameType, ISummaryResponse, IValidatePromo } from "../../types";
-import { ReqStatus } from "../../enums";
 import { getSummary } from "./asyncActions";
+import { ReqStatus } from "../../../../lib/utils/enums";
+import { ISummaryResponse, IValidatePromo } from "../../../../lib/utils/types";
 
 interface SummaryState {
     textError?: string;

@@ -1,9 +1,8 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import { getAllThumbnails, getGroupStoriesById } from "./asyncActions";
 import { IThumbnail, IStoriesRequest, IThumbnailDto } from "../data/storiesDto";
-import { ReqStatus } from "../../../Utils/enums";
-
 import emptyThumbnailImage from "../../../Assets/emptyThumbnails.png"
+import { ReqStatus } from "../../../lib/utils/enums";
 
 export const storiesAdapter = createEntityAdapter<IThumbnail>({selectId: (t) => t.id});
 
