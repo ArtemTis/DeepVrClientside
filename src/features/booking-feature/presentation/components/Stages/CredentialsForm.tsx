@@ -12,9 +12,9 @@ import { TextAreaInput } from "../../../../../lib/ui/FormFields/TextAreaInput";
 import "../../pages/BookingStyles.css";
 import "../../../../../lib/ui/CommonStyles.css";
 
-import infoIcon from "../../../../../Assets/infoIcon.svg";
-import userIcon from "../../../../../Assets/user-icon-liliac.svg";
-import arrowRight from "../../../../../Assets/arrow-right.svg";
+import infoIcon from "../../../../../assets/infoIcon.svg";
+import userIcon from "../../../../../assets/user-icon-liliac.svg";
+import arrowRight from "../../../../../assets/arrow-right.svg";
 import { selectIsAuthorised, selectUser } from "../../../../auth-feature/store/selectors";
 import { selectCredentials } from "../../../store/selectors";
 import { setCredentials } from "../../../store/slice";

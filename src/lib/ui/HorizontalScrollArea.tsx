@@ -9,8 +9,8 @@ import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import "./CommonStyles.css";
 import "../../App.css";
 
-import arrowLeft from "../../Assets/arrow-left.svg";
-import arrowRight from "../../Assets/arrow-right.svg";
+import arrowLeft from "../../assets/arrow-left.svg";
+import arrowRight from "../../assets/arrow-right.svg";
 import { IChildren } from "../utils/types";
 
 interface Props {

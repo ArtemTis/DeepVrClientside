@@ -10,7 +10,7 @@ import { postValidatePromo } from "../../store/summary/asyncActions";
 import { FormError } from "../../../../lib/ui/FormFields/FormError";
 import { TextInputNonForm } from "../../../../lib/ui/FormFields/TextInputNonForm";
 import { LoadIcon } from "../../../../lib/ui/LoadIcon";
-import closeIcon from "../../../../Assets/closeIcon.svg"
+import closeIcon from "../../../../assets/closeIcon.svg"
 
 interface Props {
   isOpen: boolean;

@@ -1,4 +1,4 @@
-import loadIcon from "../../Assets/load.svg";
+import loadIcon from "../../assets/load.svg";
 import "./CommonStyles.css";
 import { IChildren } from "../utils/types";
 

@@ -1,5 +1,5 @@
 import { PopupLayout } from "./PopupLayout";
-import arrowRight from "../../../Assets/arrow-right.svg";
+import arrowRight from "../../../assets/arrow-right.svg";
 import "../../../features/profile-feature/presentation/pages/AccountStyles.css";
 import { ProfileSettingsPopup } from "./ProfileSettingsPopup";
 import { AboutPopup } from "./AboutPopup";

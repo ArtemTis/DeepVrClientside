@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
 import { Fragment } from "react";
 import { useMediaQuery } from "react-responsive";
-import dash from "../../../Assets/Line 1.svg";
+import dash from "../../../assets/Line 1.svg";
 import "../BookingStyles.css";
 import { useAppDispatch } from "../../../../app/store";
 import { setStep } from "../../store/slice";

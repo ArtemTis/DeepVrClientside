@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/store";
 import "../../pages/BookingStyles.css";
-import vrGlasses from "../../../../../Assets/Очки 3.png";
+import vrGlasses from "../../../../../assets/Очки 3.png";
 import { selectGame, selectPlayersCount } from "../../../store/selectors";
 import { setPlayersCount } from "../../../store/slice";
 

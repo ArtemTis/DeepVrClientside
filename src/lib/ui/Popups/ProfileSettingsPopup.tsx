@@ -2,7 +2,7 @@ import { PopupLayout } from "./PopupLayout";
 import { useAppDispatch, useAppSelector } from "../../../app/store";
 import { useForm } from "react-hook-form";
 import { FormField } from "../FormFields/FormField";
-import userIcon from "../../../Assets/user-icon-liliac.svg";
+import userIcon from "../../../assets/user-icon-liliac.svg";
 import { EmailField } from "../FormFields/EmailField";
 import { PhoneInput } from "../FormFields/PhoneField";
 import { useState } from "react";

@@ -191,13 +191,14 @@ export const Api = {
         }
         );
     },
-
-    async createBooking(data: IBookingFields) {
+///////////////////////////////////////////
+    async createBooking(data: IGetSummaryRequestData) {
         return axios.post(
-            `${instanceUrl}/v3/booking/user`,
+            `${instanceUrl}/v3/order/create`,
             data, {
             headers: {
-                timeout: 8000
+                timeout: 8000,
+                token: 'guest_token'
             }
         }
         );

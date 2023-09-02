@@ -1,7 +1,7 @@
 import { PhoneInput } from '../../../../lib/ui/FormFields/PhoneField'
 import { useForm } from 'react-hook-form';
 import { FormField } from '../../../../lib/ui/FormFields/FormField';
-import passIcon from "../../../../Assets/passIcon.svg";
+import passIcon from "../../../../assets/passIcon.svg";
 import { useAppDispatch, useAppSelector } from '../../../../app/store';
 import { singInCode } from '../../store/asyncActions';
 import { ILoginForm } from '../../../../lib/utils/types';

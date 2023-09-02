@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from "react-router";
 
 import "../../pages/BookingStyles.css";
 
-import doneImg from "../../../../../Assets/mirage-done.png";
+import doneImg from "../../../../../assets/mirage-done.png";
 import styled from "styled-components";
 import { Title } from "../Title";
 import { NextButton } from "../../../../../lib/ui/NextButton";

@@ -9,15 +9,15 @@ import { CitySelectPopup } from "../../../../lib/ui/Popups/CitySelectPopup";
 
 import "./AccountStyles.css";
 
-import gearIcon from "../../../../Assets/gearIcon.svg";
-import arrowRight from "../../../../Assets/arrow-right.svg";
-import logoutIcon from "../../../../Assets/logoutIcon.svg";
-import logoBonus1 from "../../../../Assets/logo-bonus1-light.svg";
-import logoBonus2 from "../../../../Assets/logo-bonus2-light.svg";
-import logoBonus3 from "../../../../Assets/logo-bonus3-light.svg";
+import gearIcon from "../../../../assets/gearIcon.svg";
+import arrowRight from "../../../../assets/arrow-right.svg";
+import logoutIcon from "../../../../assets/logoutIcon.svg";
+import logoBonus1 from "../../../../assets/logo-bonus1-light.svg";
+import logoBonus2 from "../../../../assets/logo-bonus2-light.svg";
+import logoBonus3 from "../../../../assets/logo-bonus3-light.svg";
 import styled from "styled-components";
-import close from "../../../../Assets/close-cross.svg"
-import warning from "../../../../Assets/warning.svg"
+import close from "../../../../assets/close-cross.svg"
+import warning from "../../../../assets/warning.svg"
 import { IGetBonusesInfoResponse, IOrderHistoryItem } from "../../../../lib/utils/types";
 import { selectSelectedCity, selectToken, selectUser } from "../../../auth-feature/store/selectors";
 import { setSelectedCity, setToken, setUser } from "../../../auth-feature/store/slice";

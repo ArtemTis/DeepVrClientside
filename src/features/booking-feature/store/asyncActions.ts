@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../../lib/utils/api";
 import axios from "axios";
-import { IBookingFields } from "../../../lib/utils/types";
+import { IBookingFields, IGetSummaryRequestData } from "../../../lib/utils/types";
 
 export const createBooking = createAsyncThunk(
     'bookingSlice/createBooking',
-    async function (values: IBookingFields, { rejectWithValue }) {
+    async function (values: IGetSummaryRequestData, { rejectWithValue }) {
         try {
             const res = await Api.createBooking(values);
-
+            
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {

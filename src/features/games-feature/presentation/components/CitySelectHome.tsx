@@ -2,7 +2,7 @@ import { Col, Modal, Row } from "antd";
 import { useState } from "react";
 import { Api } from "../../../../lib/utils/api";
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
-import close from "../../../Assets/close-cross.svg"
+import close from "../../../assets/close-cross.svg"
 
 import "./GamesStyles.css";
 import styled from "styled-components";

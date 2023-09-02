@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import receivedIcon from '../../../../Assets/achievement/received.svg'
+import receivedIcon from '../../../../assets/achievement/received.svg'
 
 interface IProp {
   title: string,

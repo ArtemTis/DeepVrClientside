@@ -4,9 +4,9 @@ import { FormField } from "./FormField";
 
 import "../CommonStyles.css";
 
-import passIcon from "../../../Assets/passIcon.svg";
-import passVisible from "../../../Assets/passVisible.svg";
-import passHidden from "../../../Assets/passHidden.svg";
+import passIcon from "../../../assets/passIcon.svg";
+import passVisible from "../../../assets/passVisible.svg";
+import passHidden from "../../../assets/passHidden.svg";
 
 interface Props {
   control: Control<any, any>;

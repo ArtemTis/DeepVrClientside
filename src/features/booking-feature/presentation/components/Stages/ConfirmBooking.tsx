@@ -7,11 +7,10 @@ import { FormError } from "../../../../../lib/ui/FormFields/FormError";
 
 import "../../pages/BookingStyles.css";
 
-import userIcon from "../../../../../Assets/user-icon-liliac.svg";
-import gameIcon from "../../../../../Assets/console.svg";
-import dateIcon from "../../../../../Assets/calendar.svg";
-import timeIcon from "../../../../../Assets/time.svg";
-import { createBooking } from "../../../store/asyncActions";
+import userIcon from "../../../../../assets/user-icon-liliac.svg";
+import gameIcon from "../../../../../assets/console.svg";
+import dateIcon from "../../../../../assets/calendar.svg";
+import timeIcon from "../../../../../assets/time.svg";
 import { getSummary } from "../../../store/summary/asyncActions";
 import styled from "styled-components";
 import { selectToken, selectUser } from "../../../../auth-feature/store/selectors";
@@ -33,52 +32,11 @@ export const ConfirmBooking: React.FC = () => {
   const date = useAppSelector(selectDate)?.substring(0, 10);
   const time = useAppSelector(selectSelectedTime)?.substring(0, 5);
 
-
-  const { promo, useDiscount } = useAppSelector(
-    selectCredentials ?? undefined
-  ) as IBookingCredentials;
-
-  console.log([game, count, user, promo, useDiscount]);
-
-
-  useEffect(() => {
-    dispatch(getSummary(
-      //   {
-      //   game_id: game?.id ?? -1,
-      //   guest_count: count ?? -1,
-      //   user_id: user?.id,
-      //   promocode: promo ?? "",
-      //   use_bonus: useDiscount,
-      // }
-      {
-        client: {
-          phone: user?.phone ?? '',
-          name: user?.name ?? '',
-          id: user?.id ?? 0
-        },
-        bookings: [
-          {
-            gameId: game?.id ?? -1,
-            time: time ?? '',
-            guestCount: count ?? null,
-            id: null
-          }
-        ],
-        paymentInfo: {
-          bonus: null ?? 1,
-          promoCode: promo ?? null,
-          certificates: null
-        }
-      }
-    ))
-  }, [game, count, user, promo, useDiscount]);
-
   const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
   const errorText = useAppSelector(state => state.bookingReducer.textError);
   const summary = useAppSelector(state => state.summaryReducer.summary);
 
   console.log(summary);
-
 
   const [isPostingForm, setIsPostingForm] = useState(false);
 

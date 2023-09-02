@@ -8,9 +8,9 @@ import {
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
 
-import playersIcon from "../../../../Assets/console 1.svg";
-import timeIcon from "../../../../Assets/clock 1.svg";
-import ageIcon from "../../../../Assets/vr-glasses 2.svg";
+import playersIcon from "../../../../assets/console 1.svg";
+import timeIcon from "../../../../assets/clock 1.svg";
+import ageIcon from "../../../../assets/vr-glasses 2.svg";
 
 import "./GamesStyles.css";
 import { IGame } from "../../../../lib/utils/types";

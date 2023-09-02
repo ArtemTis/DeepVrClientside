@@ -1,7 +1,7 @@
 import { PopupLayout } from "./PopupLayout";
 import { useEffect, useState } from "react";
-import ordoredIcon from "../../../Assets/ordoredIcon.svg";
-import unordoredIcon from "../../../Assets/unordoredIcon.svg";
+import ordoredIcon from "../../../assets/ordoredIcon.svg";
+import unordoredIcon from "../../../assets/unordoredIcon.svg";
 import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
 import { IOrderHistoryItem } from "../../utils/types";
 import { OrderInfoRow } from "../../../features/profile-feature/presentation/components/OrderInfoRow";

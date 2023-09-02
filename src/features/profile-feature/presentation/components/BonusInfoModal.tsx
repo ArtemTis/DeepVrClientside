@@ -1,6 +1,6 @@
 import { Modal } from "antd";
 
-import crossWhite from "../../../../Assets/crossWhite.svg";
+import crossWhite from "../../../../assets/crossWhite.svg";
 
 import "../pages/AccountStyles.css";
 

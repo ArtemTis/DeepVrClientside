@@ -4,7 +4,7 @@ import Thumbnail from "./ThumbnailView";
 import { useAppDispatch, useAppSelector } from "../../../app/store";
 import { selectThumbnailLoadingStatus, selectThumbnails } from "../store/selectors";
 import { getAllThumbnails } from "../store/asyncActions";
-import emptyThumbnailImage from "../../../Assets/emptyThumbnails.png"
+import emptyThumbnailImage from "../../../assets/emptyThumbnails.png"
 
 import "./thumbnailStyles.css";
 import "./storyStyles.css"

@@ -3,7 +3,7 @@ import { FormField } from "./FormField";
 
 import "../CommonStyles.css";
 
-import phoneIcon from "../../../Assets/phone.svg";
+import phoneIcon from "../../../assets/phone.svg";
 
 interface Props {
   control: Control<any, any>;

@@ -1,7 +1,7 @@
 import { Control, FieldError } from "react-hook-form";
 import { FormField } from "./FormField";
 
-import emailIcon from "../../../Assets/emailIcon.svg";
+import emailIcon from "../../../assets/emailIcon.svg";
 
 import "../CommonStyles.css";
 

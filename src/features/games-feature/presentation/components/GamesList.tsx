@@ -4,9 +4,9 @@ import { GameModal } from "./GameModal";
 
 import "./GamesStyles.css";
 
-import searchIcon from "../../../../Assets/magnifier.svg";
-import crossWhite from "../../../../Assets/crossWhite.svg";
-import arrowRight from "../../../../Assets/arrow-right.svg";
+import searchIcon from "../../../../assets/magnifier.svg";
+import crossWhite from "../../../../assets/crossWhite.svg";
+import arrowRight from "../../../../assets/arrow-right.svg";
 
 import 'stories-react/dist/index.css';
 import { IGame } from "../../../../lib/utils/types";

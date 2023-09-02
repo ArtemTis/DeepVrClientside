@@ -2,10 +2,10 @@ import { Col, Row } from "antd";
 import "../../App.css";
 import { FooterMenuButton } from "./FooterMenuButton";
 
-import gamesIcon from "../../Assets/games.svg";
-import bookingIcon from "../../Assets/booking.svg";
-import achivementsIcon from "../../Assets/achivements.svg";
-import accountIcon from "../../Assets/account.svg";
+import gamesIcon from "../../assets/games.svg";
+import bookingIcon from "../../assets/booking.svg";
+import achivementsIcon from "../../assets/achivements.svg";
+import accountIcon from "../../assets/account.svg";
 import styled from "styled-components";
 import {
   ACCOUNT_PATH,

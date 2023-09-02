@@ -1,6 +1,6 @@
 import { Row } from "antd";
 import { useForm } from "react-hook-form";
-import userIcon from "../../../../Assets/user-icon-liliac.svg";
+import userIcon from "../../../../assets/user-icon-liliac.svg";
 import "../../../profile-feature/presentation/pages/AccountStyles.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BonusInfoModal } from "./BonusInfoModal";
-import infoIcon from "../../../../Assets/infoIcon.svg";
+import infoIcon from "../../../../assets/infoIcon.svg";
 import "../pages/AccountStyles.css";
 import { numberFormat } from "../../../../lib/utils/format";
 

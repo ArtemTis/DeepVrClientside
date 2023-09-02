@@ -11,24 +11,18 @@ import { LoaderGipno } from "../components/Stepper/loader-components";
 import styled from "styled-components";
 import { DefaultLayout } from "../../../../core/DefaultLayout";
 import { Done } from "../components/Stages/Done";
-import close from '../../../../Assets/close-cross.svg'
-import { selectToken } from "../../../auth-feature/store/selectors";
+import close from '../../../../assets/close-cross.svg'
+import { selectToken, selectUser } from "../../../auth-feature/store/selectors";
 import { clearState, setStep } from "../../store/slice";
 import { NextButton } from "../../../../lib/ui/NextButton";
 import { BOOKING_CONFIRM_PATH } from "../../../../lib/utils/routeConstants";
+import { getSummary } from "../../store/summary/asyncActions";
+import { IBookingCredentials, IGetSummaryRequestData } from "../../../../lib/utils/types";
+import { createBooking } from "../../store/asyncActions";
 
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);
   const isFinished = useAppSelector(selectIsFinished);
-
-  const token = useAppSelector(selectToken) ?? 'guest_token';
-  const credentials = useAppSelector(selectCredentials);
-  const summary = useAppSelector(state => state.summaryReducer.summary);
-  const typeGame = useAppSelector(state => state.bookingReducer.typeGame);
-  const game = useAppSelector(selectGame);
-  const date = useAppSelector(selectDate)?.substring(0, 10);
-  const time = useAppSelector(selectSelectedTime)?.substring(0, 5);
-  const count = useAppSelector(selectPlayersCount);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -87,42 +81,46 @@ export const Booking: React.FC = () => {
     navigate('/');
   };
 
+  const user = useAppSelector(selectUser);
 
-  const confirmBooking = () => {
-    if (
-      !!summary &&
-      !!credentials &&
-      !!game &&
-      !!typeGame &&
-      !!date &&
-      !!time &&
-      typeof count === "number"
-    ) {
-      // setIsPostingForm(true);
+  let timeISO;
 
-      // dispatch(createEmpty())
-      // {
-      //   name: credentials.name,
-      //   date,
-      //   phone: credentials.phone,
-      //   booking: {
-      //     game_id: game.id,
-      //     typeGame_id: typeGame.id,
-      //     guest_quantity: count,
-      //     time: `${date} ${time}`,
-      //   },
-      //   comment: credentials.comment,
-      //   bonus: summary.bonus_discount,
-      //   certificates: [],
-      //   promo_code: credentials.promo ?? "",
-      //   token,
-      // }
+  if (booking.selectedTime) {
+
+    let timeParse = new Date(booking.date ?? '');
+
+    timeParse.setHours(timeParse.getHours() + Number.parseInt(booking.selectedTime ?? ''));
+
+    timeISO = timeParse.toISOString();
+
+  }
+
+  const sendBooking: IGetSummaryRequestData = {
+    client: {
+      phone: booking.credentials?.phone ?? '',
+      name: booking.credentials?.name ?? '',
+      id: user?.id ?? null
+    },
+    bookings: [
+      {
+        gameId: +(booking.game?.id ?? -1),
+        time: timeISO ?? '',
+        guestCount: booking.playersCount ?? -1,
+        id: null
+      }
+    ],
+    paymentInfo: {
+      bonus: null,
+      promoCode: null,
+      certificates: null
     }
-  };
+  }
+
+  console.log(sendBooking);
 
   const confirm = () => {
-    confirmBooking()
-    showModal()
+    dispatch(createBooking(sendBooking))
+    showModal();
   }
 
   return (
