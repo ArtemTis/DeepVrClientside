@@ -210,6 +210,7 @@ const StyledPrevButton = styled(Button)`
   outline: none;
   border: 0;
   width: 20vw;
+  min-width: 240px;
 
   height: 60px;
   padding: 16px 32px;
@@ -229,6 +230,34 @@ const StyledWrapperButtons = styled.div`
 
   cursor: pointer;
   border: none;
+  
+  @media screen and (max-width: 750px) {
+    padding: 0;
+
+    button{
+      min-width: 40vw;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    position: fixed;
+    bottom: 72px;
+    left: 0px;
+    z-index: 10;
+    margin: 0;
+    padding: 12px 16px 20px 16px;
+
+    display: flex;
+    justify-content: space-between;
+
+    background-color:  #080C22;
+
+    gap: 10px;
+    button{
+      min-width: 45vw;
+    }
+  }
 `
 
 const StyledNextStep = styled.h3`
@@ -240,18 +269,27 @@ const StyledNextStep = styled.h3`
   font-weight: 400;
   line-height: 24px;
   margin: 0;
+
+  @media screen and (max-width: 450px) {
+    font-size: 16px;
+    white-space: normal;
+  }
 `
 
 const StyledCurrentStep = styled.h2`
   color: #FFF;
   text-align: right;
   font-family: SF Pro Display;
-  font-size: 26px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
   margin: 0;
   margin-bottom: 8px;
+
+  @media screen and (max-width: 510px) {
+    white-space: normal;
+  }
 `
 
 const StyledModal = styled(Modal)`

@@ -8,6 +8,7 @@ import { StepDisplay } from "../StepDisplay";
 import { Title } from "../Title";
 import { FixedPanel } from "../FixedPanel";
 import { NextButton } from "../../../../../lib/ui/NextButton";
+import styled from "styled-components";
 
 interface Props {
   children: React.ReactElement;

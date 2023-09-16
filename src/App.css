@@ -111,34 +111,12 @@
   background-color: transparent;
 }
 
-/* .app-footer  */
-/* :where(.css-dev-only-do-not-override-1i9hnpv).ant-layout .ant-layout-footer,
-:where(.css-1i9hnpv).ant-layout .ant-layout-footer {
-  background-color: var(--bg-main-color);
-  color: #FFF;
-  position: fixed;
-  bottom: 0;
-  height: var(--footer-height);
-  width: 100%;
-  padding: 0;
-  border-top: #444656 solid 1px;
-} */
-
 :where(.css-dev-only-do-not-override-1i9hnpv).ant-layout .ant-layout-content, 
 :where(.css-1i9hnpv).ant-layout .ant-layout-content{
   box-sizing: content-box;
 }
 
 /* ------------ */
-
-/* .app-bg {
-  color: #FFF;
-  background-color: var(--bg-main-color);
-  min-height: 100vh;
-  height: calc(100vh - var(--footer-height));
-  position: relative;
-  padding-bottom: var(--footer-height);
-} */
 
 
 .full-height-wrapper{
@@ -147,24 +125,11 @@
   height: auto;
 }
 
-
-/* .footer-menu-selected-link {
-  margin-top: -2px;
-  border-bottom: 2px solid #30A5D1;
-  width: 100%;
-} */
-
-/* .footer-menu-text {
-  font-family: 'SF Pro Display';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  color: #FFF;
-  flex-grow: 0;
-  height: 19px;
-} */
-
-
+@media screen and (max-width: 400px) {
+  .full-height-wrapper{
+    padding-bottom: 180px;
+  }
+}
 
 /* modal style override */
 .antd-modal-content, 

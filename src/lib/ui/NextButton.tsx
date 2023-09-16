@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import "./CommonStyles.css";
+import { useAppSelector } from "../../app/store";
+import { selectCurrentStep } from "../../features/booking-feature/store/selectors";
 
 interface Props {
   children: React.ReactNode;
@@ -12,9 +14,12 @@ export const NextButton: React.FC<Props> = ({
   children,
   isActive,
 }) => {
+
+  const currentStep = useAppSelector(selectCurrentStep);
+
   return (
     <StyledButton
-      className={`${isActive ? "" : " next-btn-inactive"}`}
+      className={`${isActive ? "" : " next-btn-inactive"} ${currentStep === 1 ? "first-step" : ""}`}
       onClick={(e) => {
         e.preventDefault();
         isActive && onClick?.(e);
@@ -50,4 +55,12 @@ const StyledButton = styled.button`
 
     border-radius: 30px;
     background: var(--linear, linear-gradient(163deg, #952EF1 0%, #17C5E7 100%));
+
+    
+
+      @media screen and (max-width: 500px) {
+        &.first-step{
+          width: 100%;
+      }
+    }
 `

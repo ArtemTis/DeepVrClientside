@@ -48,7 +48,7 @@ export const DateSelect: React.FC = () => {
   return (
     <>
       <Row justify="center">
-        <Col xs={24} sm={20} md={14} lg={12} xl={10} xxl={8}>
+        <Col xs={22} sm={20} md={14} lg={12} xl={10} xxl={8}>
           <ReactDatePicker
             minDate={minDate}
             maxDate={maxDate}

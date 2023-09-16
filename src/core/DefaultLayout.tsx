@@ -60,14 +60,26 @@ const StyledFooter = styled(Footer)`
   position: fixed;
   bottom: 30px;
   width: 30vw;
-  min-width: 260px;
-  left: 35vw;
+  left: 50vw;
+  min-width: 350px;
+  transform: translate(-50%, 0%);
   padding: 15px 10px !important;
+
+  @media screen and (max-width: 1200px) {
+    width: 50vw;
+  }
+
+  @media screen and (max-width: 500px) {
+    bottom: -1px;
+    width: 100%;
+    left: 0px;
+    transform: translate(0%, 0%);
+    border-radius: 20px 20px 0 0;
+  }
 
   .footer-menu{
     display: flex;
     align-items: center;
     justify-content: space-between;
-
   }
 `

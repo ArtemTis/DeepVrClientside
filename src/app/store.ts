@@ -6,7 +6,6 @@ import gamesType from "../features/games-feature/store/gamesType/slice";
 import allGames from "../features/games-feature/store/games/slice";
 import profileReducer from "../features/profile-feature/store/slice";
 import summaryReducer from "../features/booking-feature/store/summary/slice";
-import dateReducer from "../features/booking-feature/store/date/slice";
 import timeReducer from "../features/booking-feature/store/avalibleTime/slice";
 import { storiesReducer } from "../features/stories-feature/store/slice";
 
@@ -16,7 +15,6 @@ const rootReducer = combineReducers({
     authReducer,
     allGames,
     gamesType,
-    dateReducer,
     timeReducer,
     summaryReducer,
     storiesReducer

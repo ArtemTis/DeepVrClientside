@@ -82,5 +82,6 @@ const StyledCity = styled.div`
     color: white;
     border-radius: 15px;
     background: #1F253F;
+    min-width: 230px;
   }
 `

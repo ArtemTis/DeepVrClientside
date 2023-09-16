@@ -12,6 +12,15 @@ const CircleLoaderContainer = styled.div<{width: number | string}>`
   position: relative;
   width: ${({width}) => (width === 'expand' ? '100%' : width + 'px')};
   height: ${({width}) => (width === 'expand' ? '100%' : width + 'px')};
+
+  @media screen and (max-width: 450px) {
+    /* width: 80px;
+    height: 80px; */
+
+    span{
+      font-size: 12px;
+    }
+  }
 `;
 
 const Circle = styled.circle<{height: number}>`
@@ -33,6 +42,16 @@ const CircleContainer = styled.div<{labelPosition: LabelPosition}>`
   display: flex;
   flex-direction: ${({ labelPosition }) => ((labelPosition === "top" || labelPosition === "bottom") ? "column" : "row")};
   align-items: ${({ labelPosition }) => ((labelPosition === "top" || labelPosition === "bottom") ? "left" : "center")};
+
+  
+  @media screen and (max-width: 420px) {
+    h2{
+      font-size: 24px;
+    }
+    h3{
+      font-size: 16px;
+    }
+  }
 `;
 
 const InnerDiv = styled.div<{width: number | string}>`
@@ -40,6 +59,15 @@ const InnerDiv = styled.div<{width: number | string}>`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+
+  @media screen and (max-width: 460px) {
+    top: 45%;
+  }
+
+  @media screen and (max-width: 420px) {
+    /* top: 35%; */
+    top: 35px;
+  }
 `;
 
 export function CircleLoaderGipno (props: Props) {

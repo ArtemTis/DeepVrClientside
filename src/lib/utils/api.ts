@@ -30,8 +30,8 @@ export const Api = {
 
     setInstanceUrl(prefix: string | undefined) {        
         const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
-        // instanceUrl = url;
-        instanceUrl = 'http://192.168.1.40:5274/api';
+        instanceUrl = url;
+        // instanceUrl = 'http://192.168.1.40:5274/api';
         if (url) instanceStorageUrl = url.replace('/api', '/storage');
         else instanceStorageUrl = undefined;
     },
@@ -123,26 +123,6 @@ export const Api = {
         );
     },
 
-    async getDate(gameId: number, guestCount: number, token: string) {
-        return new Promise<IDate[]>((resolve) =>
-            setTimeout(() => {
-                resolve([{ date: '04.06.23', freePlace: 44 },
-                { date: '05.06.23', freePlace: 3 },
-                { date: '06.06.23', freePlace: 50 },
-                { date: '07.06.23', freePlace: 14 },
-                { date: '08.06.23', freePlace: 23 }])
-            }, 500)
-        )
-    },
-
-    // async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
-    //     return new Promise<string[]>((resolve) =>
-    //         setTimeout(() => {
-    //             resolve(['10:00', '11:00', '12:00', '13:00', '22:00'])
-    //         }, 500)
-    //     )
-    // },
-
     async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?game_id=${gameId}`, {
@@ -150,13 +130,6 @@ export const Api = {
         }
         )
     },
-    // async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
-    //     return new Promise<string[]>((resolve) =>
-    //         setTimeout(() => {
-    //             resolve(['10:00', '11:00', '12:00', '13:00', '22:00'])
-    //         }, 500)
-    //     )
-    // },
 
     async getAvalibleDateAndTime(gameId: number, playersCount: number, token: string) {
         return axios.get<IAvalibleTime[]>(
@@ -358,7 +331,7 @@ export const Api = {
 
     async getAllThumbnails() {
         return axios.get<Array<IThumbnailDto>>(
-            `http://192.168.1.40:5274/api/v3/stories/groups/active`, {
+            `${instanceUrl}/v3/stories/groups/active`, {
             timeout: 8000,
             headers: {
                 token: "guest_token"
@@ -369,7 +342,7 @@ export const Api = {
 
     async getGroupStoriesById(id: number) {
         return axios.get<Array<IStoriesRequest>>(
-            `http://192.168.1.40:5274/api/v3/stories/groups/${id}/active`, {
+            `${instanceUrl}/v3/stories/groups/${id}/active`, {
             timeout: 8000,
             headers: {
                 token: "guest_token"

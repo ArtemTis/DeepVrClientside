@@ -64,6 +64,7 @@ export const CitySelectHome: React.FC = () => {
 const StyledModal = styled(Modal)`
   margin: 0 auto;
   width: 25vw !important;
+  min-width: 280px;
 
   img{
     cursor: default !important;
@@ -72,6 +73,7 @@ const StyledModal = styled(Modal)`
   .ant-modal-close{
     cursor: default !important;
   }
+
 `
 
 const ModalWrapper = styled.div`

@@ -1,7 +1,6 @@
-
 @import url('https://fonts.cdnfonts.com/css/bebas-neue');
 
-textarea{
+textarea {
     min-height: 26px;
 }
 
@@ -19,6 +18,12 @@ textarea{
     justify-content: center;
 }
 
+/* @media screen and (max-width: 750px) {
+    .booking-wrapper {
+        padding: 0;
+    }
+} */
+
 .fixed-panel {
     background-color: var(--bg-main-color);
     position: sticky;
@@ -35,6 +40,7 @@ textarea{
     width: 100%;
     padding: 0 16px;
 }
+
 .booking-viewport-alt {
     min-height: calc(100vh - var(--fixed-panel-height) - var(--footer-height) - var(--step-display-height));
     max-width: 100%;
@@ -49,6 +55,7 @@ textarea{
     justify-content: center;
     align-items: center;
 }
+
 .booking-header {
     font-family: 'SF Pro Display';
     font-style: normal;
@@ -83,6 +90,7 @@ textarea{
     box-sizing: border-box;
     border: none;
 }
+
 .back-btn-inner {
     display: flex;
     flex-direction: row;
@@ -104,6 +112,7 @@ textarea{
     --border-width: 2px;
     padding: var(--border-width);
 }
+
 .selectable-card-wrapper-selected {
     background: linear-gradient(90deg, #36C0E7 6.68%, #4B51EA 84.84%, #4B51EA 87.36%);
 }
@@ -116,10 +125,12 @@ textarea{
     position: relative;
     z-index: 10;
 }
+
 .city-card-wrapper {
     height: 251px;
     filter: drop-shadow(0px 0px 20px #250F5D);
 }
+
 .city-card-bg {
     background-position: center;
     background-size: cover;
@@ -150,7 +161,7 @@ textarea{
     position: absolute;
     top: -32px;
     right: -32px;
-    
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -164,7 +175,8 @@ textarea{
     background: #4B51EA;
     transform: rotate(45deg);
 }
-.selected-mark *{
+
+.selected-mark * {
     transform: rotate(-45deg);
 }
 
@@ -180,6 +192,7 @@ textarea{
     justify-content: center;
     flex-direction: row;
 }
+
 .step-circle-container {
     display: flex;
     flex-direction: row;
@@ -187,6 +200,7 @@ textarea{
     align-items: center;
     justify-content: center;
 }
+
 .step-circle {
     padding: 4px;
     border-radius: 50%;
@@ -207,12 +221,15 @@ textarea{
     flex-shrink: 0;
     flex-grow: 0;
 }
+
 .step-circle-unselected {
     opacity: 0.4;
 }
+
 .step-circle-clickable {
     cursor: pointer;
 }
+
 .step-circle-not-clickable {
     cursor: default;
 }
@@ -237,6 +254,7 @@ textarea{
     width: 28vw;
     padding: 2px;
 }
+
 .room-card-bg {
     background-color: #191A29;
     padding: 30px;
@@ -256,6 +274,7 @@ textarea{
     margin: 0;
     padding: 0;
 }
+
 .room-card-description {
     display: flex;
     flex-direction: row;
@@ -295,6 +314,18 @@ textarea{
     justify-content: space-evenly;
     align-items: center;
 }
+
+@media screen and (max-width: 1220px) {
+    .count-select-bg {
+        min-width: 70vw;
+    }
+}
+@media screen and (max-width: 500px) {
+    .count-select-bg {
+        min-width: 80vw;
+    }
+}
+
 .count-select-img {
     height: 126px;
     width: auto;
@@ -308,8 +339,9 @@ textarea{
     justify-content: center;
     align-items: center;
     gap: 24px;
-    
+
 }
+
 .count-select-input-wrapper {
     background: var(--bg-gradient);
     border-radius: 15px;
@@ -319,11 +351,12 @@ textarea{
     width: 95px;
     overflow: hidden;
 }
+
 .count-select-input {
     width: 100%;
     height: 100%;
     background-color: #1F2032;
-    
+
     font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
@@ -336,6 +369,7 @@ textarea{
     border-radius: 13px;
     text-align: center;
 }
+
 .count-select-input::-webkit-outer-spin-button,
 .count-select-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -362,7 +396,7 @@ textarea{
     padding: 0;
 }
 
-/* datepicker overrides */ 
+/* datepicker overrides */
 .react-datepicker__header {
     font-family: 'SF Pro Display';
     font-style: normal;
@@ -370,11 +404,13 @@ textarea{
     font-size: 16px;
     line-height: 21px;
 }
+
 .react-datepicker__current-month {
     height: 25px;
     margin-bottom: 35px;
     text-transform: capitalize;
 }
+
 .react-datepicker__navigation {
     align-items: center;
     background: none;
@@ -392,9 +428,11 @@ textarea{
     text-indent: -999em;
     overflow: hidden;
 }
+
 .react-datepicker__navigation--next {
     right: 2px;
 }
+
 .react-datepicker__navigation-icon--next::before {
     transform: rotate(45deg);
     left: -7px;
@@ -403,6 +441,7 @@ textarea{
 .react-datepicker__navigation--previous {
     left: 2px;
 }
+
 .react-datepicker__navigation-icon--previous::before {
     transform: rotate(225deg);
     right: -7px;
@@ -414,7 +453,11 @@ textarea{
     font-size: 20px;
     width: 0;
 }
-.react-datepicker__year-read-view--down-arrow, .react-datepicker__month-read-view--down-arrow, .react-datepicker__month-year-read-view--down-arrow, .react-datepicker__navigation-icon::before {
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow,
+.react-datepicker__navigation-icon::before {
     border-color: #ccc;
     border-style: solid;
     border-width: 3px 3px 0 0;
@@ -452,7 +495,9 @@ textarea{
     justify-content: center;
     align-items: center;
 }
-.react-datepicker__week, .react-datepicker__day-names {
+
+.react-datepicker__week,
+.react-datepicker__day-names {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -460,11 +505,13 @@ textarea{
     align-items: center;
     gap: 7px;
 }
+
 .react-datepicker__day-names {
     margin-bottom: 44px;
 }
 
-.react-datepicker__day, .react-datepicker__day-name {
+.react-datepicker__day,
+.react-datepicker__day-name {
     width: 43px;
     height: 43px;
     border-radius: 7px;
@@ -472,6 +519,7 @@ textarea{
     cursor: pointer;
     box-sizing: border-box;
 }
+
 .react-datepicker__day-name {
     height: auto;
     color: #ABAFE5;
@@ -486,7 +534,7 @@ textarea{
     background-color: #1F2032;
     padding: 6px 6px;
     box-sizing: border-box;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -499,12 +547,15 @@ textarea{
     background-color: transparent;
     border: none;
 }
+
 .datepicker-customDay-selected {
     background-color: #ABAFE5;
     font-weight: 600 !important;
 }
+
 .datepicker-customDay-unselectable {
-    background-color: #0F0F1D;;
+    background-color: #0F0F1D;
+    ;
 }
 
 .datepicker-customDay-day {
@@ -516,6 +567,7 @@ textarea{
     color: #FFF;
     height: min-content;
 }
+
 .datepicker-customDay-places {
     font-family: 'SF Pro Display';
     font-size: 8px;
@@ -531,9 +583,10 @@ textarea{
     color: #191A29;
 }
 
-.datepicker-customDay-unselectable .datepicker-customDay-day{
+.datepicker-customDay-unselectable .datepicker-customDay-day {
     color: #828188;
 }
+
 .datepicker-customDay-unselectable .datepicker-customDay-places {
     color: #58597B;
 }
@@ -542,6 +595,7 @@ textarea{
     height: auto;
     background-color: transparent;
 }
+
 .time-card-bg {
     background-color: #1F2032;
     padding: 16px;
@@ -554,10 +608,12 @@ textarea{
     align-items: center;
     gap: 30px;
 }
+
 .time-card-bg-selected {
     background-color: #ABAFE5;
     color: #050411;
 }
+
 .time-card-title {
     font-family: 'SF Pro Display';
     font-style: normal;
@@ -565,6 +621,7 @@ textarea{
     font-size: 16px;
     line-height: 140%;
 }
+
 .time-card-img {
     width: 20px;
     height: 20px;
@@ -590,6 +647,7 @@ textarea{
     font-size: 18px;
     line-height: 140%;
 }
+
 .credentials-promo-btn {
     width: 100%;
     height: auto;
@@ -628,10 +686,12 @@ textarea{
     text-align: left;
     cursor: pointer;
 }
-.credentials-need-login:hover{
+
+.credentials-need-login:hover {
     color: #FFF;
 }
-.credentials-need-login span{
+
+.credentials-need-login span {
     text-decoration: underline;
 }
 
@@ -647,6 +707,7 @@ textarea{
     box-sizing: border-box;
     gap: 16px
 }
+
 .modal-promo-title {
     font-family: 'SF Pro Display';
     font-style: normal;
@@ -656,6 +717,7 @@ textarea{
 
     color: #ABAFE5;
 }
+
 .modal-promo-description {
     width: 100%;
     font-family: 'SF Pro Display';
@@ -667,10 +729,11 @@ textarea{
     color: #ABAFE5;
 }
 
-.modal-promo-error-input{
+.modal-promo-error-input {
     outline: 2px solid #EE6E7E;
 }
-.modal-promo-success-input{
+
+.modal-promo-success-input {
     outline: 2px solid #30A5D1;
 }
 
@@ -684,11 +747,12 @@ textarea{
     color: #EE6E7E;
 }
 
-.modal-promo-footer{
+.modal-promo-footer {
     box-sizing: border-box;
     padding: 0 16px;
     width: 100%;
 }
+
 .modal-promo-btn {
     width: 100%;
     height: 64px;
@@ -705,33 +769,37 @@ textarea{
     border: none;
     border-radius: 15px;
 }
+
 .modal-promo-btn-inactive {
     cursor: default;
     opacity: 0.4;
 }
 
-.summary-params-table{
+.summary-params-table {
     width: 100%;
     padding-top: 50px;
     padding-bottom: 35px;
 }
+
 .summary-params-table-cell {
     height: 35px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    
+
     font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
     color: #FFF;
 }
+
 .summary-params-table-description {
     color: #ABAFE5;
     font-weight: 400;
 }
+
 .summary-params-table-description-img {
     width: 24px;
     height: 24px;
@@ -749,7 +817,7 @@ textarea{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    
+
     font-family: 'SF Pro Display';
     font-style: normal;
     font-weight: 400;
@@ -757,6 +825,7 @@ textarea{
     line-height: 140%;
     color: #ABAFE5;
 }
+
 .summary-row-price {
     color: #FFFFFF;
     font-weight: 600;
@@ -779,6 +848,7 @@ textarea{
     border-top: 1px solid #444656;
     margin-top: 16px;
 }
+
 .summary-total-price {
     font-weight: 600;
     font-size: 36px;
