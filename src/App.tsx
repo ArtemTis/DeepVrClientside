@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes, useLocation } from "react-router";
-import { router } from "./Utils/router";
 
 import { NotFound } from "./Components/404";
 import { Account } from "./Components/Account/Account";
@@ -19,6 +18,7 @@ import {
   SINGIN_EMAIL_PATH,
   SINGIN_TEL_PATH,
   STORIES_PATH,
+  GAMES_DETAILS_PATH
 } from "./Utils/routeConstants";
 import { Register } from "./Components/Account/Panels/Register";
 import LoginCode from "./Components/Account/Panels/Login/LoginCode";
@@ -40,6 +40,7 @@ import Story from "./feature/stories-feature/presentation/Story";
 
 import "./App.css";
 import BookingStep from "./Components/Booking/Components/BookingStep";
+import ModalContainer from "./feature/games-details-feature/presentation/ModalContainer";
 
 export const App = () => {
   const location = useLocation();
@@ -78,6 +79,7 @@ export const App = () => {
 
       {previousLocation && (
         <Routes>
+          <Route path={`${GAMES_DETAILS_PATH}/:id`} element={<ModalContainer location={previousLocation}/>} />
           <Route path={`${STORIES_PATH}/:id`} element={<Story location={previousLocation}/>} />
         </Routes>
       )}

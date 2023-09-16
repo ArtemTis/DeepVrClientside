@@ -1,4 +1,4 @@
-import { Row } from "antd";
+import { Col, Row } from "antd";
 import { ColLg } from "../../Common/Markup/ColLg";
 import { useEffect, useRef, useState } from "react";
 import { IGame } from "../../../Utils/types";
@@ -21,6 +21,10 @@ import { ReqStatus } from "../../../Utils/enums";
 
 import 'stories-react/dist/index.css';
 import ThumbnailsContainer from "../../../feature/stories-feature/presentation/ThumbnailsContainer";
+import ModalContainer from "../../../feature/games-details-feature/presentation/ModalContainer";
+import { Link, useLocation } from "react-router-dom";
+import { HOME_PATH } from "../../../Utils/routeConstants";
+import GamesCard from "../../../feature/games-details-feature/presentation/GamesCard";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
@@ -37,6 +41,7 @@ export const GamesList: React.FC = () => {
 
   const searchRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     Api.setInstanceUrl(city?.code);
@@ -59,9 +64,9 @@ export const GamesList: React.FC = () => {
     else setGamesFiltered(games);
   }, [searchString, games]);
 
-  const openModal = (game: IGame) => {
-    setModalState(game);
-  };
+  // const openModal = (game: IGame) => {
+  //   setModalState(game);
+  // };
 
   const closeModal = () => {
     setModalState(undefined);
@@ -99,70 +104,78 @@ export const GamesList: React.FC = () => {
   const resetCity = () => {
     dispatch(setSelectedCity(undefined));
   };
-  
+
 
   return (
-    <div className="home-wrapper">
-      <GameModal game={modalState} isOpen={!!modalState} onClose={closeModal} />
-      <Row justify="center" className="header-sticky">
-        <ColLg className="home-header-wrapper">
-          <div className="home-header">
-            <div className="home-subtitle">Игры</div>
-            {isSearchOpen ? (
-              <div className="home-search-bg" onClick={onSearchBgClick}>
-                <input
-                  className="home-search-input"
-                  placeholder="Поиск"
-                  onInput={onSearch}
-                  onBlur={onBlur}
-                  ref={searchRef}
-                />
-                {searchString && (
-                  <img
-                    className="home-search-cross"
-                    src={crossWhite}
-                    alt="Очистить поиск"
-                    onClick={clearSearch}
+    <>
+      <div className="home-wrapper">
+        {/* <GameModal game={modalState} isOpen={!!modalState} onClose={closeModal} /> */}
+        <Row justify="center" className="header-sticky">
+          <ColLg className="home-header-wrapper">
+            <div className="home-header">
+              <div className="home-subtitle">Игры</div>
+              {isSearchOpen ? (
+                <div className="home-search-bg" onClick={onSearchBgClick}>
+                  <input
+                    className="home-search-input"
+                    placeholder="Поиск"
+                    onInput={onSearch}
+                    onBlur={onBlur}
+                    ref={searchRef}
                   />
-                )}
-              </div>
-            ) : (
-              <div className="home-search-placeholder" onClick={openSearch} />
-            )}
-            <img
-              src={searchIcon}
-              alt="Поиск"
-              className="home-title-img home-title-img-search"
-              onClick={openSearch}
-            />
-          </div>
-          <div className="home-subheader">
-            <div>
-              Выбрано: <span className="home-subheader-city">{city?.name}</span>
-            </div>
-            <div className="home-subheader-change-city" onClick={resetCity}>
-              Выбрать другой город
-              <img src={arrowRight} className="" alt="" />
-            </div>
-          </div>
-        </ColLg>
-      </Row>
-
-      <ThumbnailsContainer />
-
-      <LoadWrapper isLoading={isLoading}>
-        <Row justify="start" gutter={[20, 20]}>
-          {gamesFiltered &&
-            gamesFiltered.map((game) => (
-              <GameCard
-                game={game}
-                isSelected={false}
-                key={game.id}
-                onClick={() => openModal(game)}
+                  {searchString && (
+                    <img
+                      className="home-search-cross"
+                      src={crossWhite}
+                      alt="Очистить поиск"
+                      onClick={clearSearch}
+                    />
+                  )}
+                </div>
+              ) : (
+                <div className="home-search-placeholder" onClick={openSearch} />
+              )}
+              <img
+                src={searchIcon}
+                alt="Поиск"
+                className="home-title-img home-title-img-search"
+                onClick={openSearch}
               />
-            ))}
+            </div>
+            <div className="home-subheader">
+              <div>
+                Выбрано: <span className="home-subheader-city">{city?.name}</span>
+              </div>
+              <div className="home-subheader-change-city" onClick={resetCity}>
+                Выбрать другой город
+                <img src={arrowRight} className="" alt="" />
+              </div>
+            </div>
+          </ColLg>
         </Row>
-      </LoadWrapper>
-    </div>
+
+        <span className="title_games">Новости</span>
+        <ThumbnailsContainer />
+
+        <span className="title_games">Игры</span>
+        <LoadWrapper isLoading={isLoading}>
+          {/* <Row justify="start" gutter={[20, 20]}> */}
+          <div className="gamesRow">
+            <GamesCard />
+            {/* {gamesFiltered &&
+              gamesFiltered.map((game) => (
+                <Link to={`${HOME_PATH}${game.id}`} key={game.id} state={{ previousLocation: location }}>
+                  <GameCard
+                    game={game}
+                    isSelected={false}
+                    // onClick={() => openModal(game)}
+                  />
+                </Link>
+
+              ))} */}
+          {/* </Row> */}</div>
+        </LoadWrapper>
+      </div>
+    </>
   );
 };

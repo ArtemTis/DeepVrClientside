@@ -63,7 +63,7 @@ export const GameSelect: React.FC = () => {
               <GameCard
                 game={game}
                 isSelected={selected?.id === game.id}
-                onClick={onCardClick}
+                // onClick={onCardClick}
                 key={game.id}
               />
             ))}
