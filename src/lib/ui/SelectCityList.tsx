@@ -53,7 +53,7 @@ const CitiesList = styled.div`
   flex-direction: column;
   gap: 14px;
   margin-bottom: 14px;
-  
+
 `
 
 const StyledCity = styled.div`

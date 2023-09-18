@@ -25,3 +25,7 @@ export const BOOKING_DONE_PATH = 'done'
 
 //stories routing
 export const STORIES_PATH = "/stories"
+
+
+//game description routing
+export const GAMES_DETAILS_PATH = "/game"

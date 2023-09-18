@@ -123,6 +123,13 @@ export const Booking: React.FC = () => {
     showModal();
   }
 
+  const precalculate = () => {
+    navigate(BOOKING_CONFIRM_PATH);
+    console.log(sendBooking);
+
+    dispatch(getSummary(sendBooking));
+  }
+
   return (
     <DefaultLayout>
       <div className="booking-wrapper">
@@ -167,7 +174,7 @@ export const Booking: React.FC = () => {
                 :
                 !Number.isNaN(+stepPath)
                   ?
-                  <StyledNextButton isActive={isFinish()} onClick={() => navigate(BOOKING_CONFIRM_PATH)}>Далее</StyledNextButton>
+                  <StyledNextButton isActive={isFinish()} onClick={precalculate}>Далее</StyledNextButton>
                   :
                   <StyledNextButton isActive={true} onClick={confirm}>Готово</StyledNextButton>
             }

@@ -30,7 +30,7 @@ export const NextButton: React.FC<Props> = ({
   );
 };
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
     display: flex;
     flex-direction: row;
     justify-content: center;

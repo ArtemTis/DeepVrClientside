@@ -10,6 +10,7 @@ import {
   ACHIVEMENTS_PATH,
   BOOKING_CONFIRM_PATH,
   BOOKING_PATH,
+  GAMES_DETAILS_PATH,
   HOME_PATH,
   LOGIN_PATH,
   PROFILE_PATH,
@@ -36,6 +37,7 @@ import LoginTel from "./features/auth-feature/presentation/components/LoginTel";
 import LoginEmail from "./features/auth-feature/presentation/components/LoginEmail";
 import { Register } from "./features/auth-feature/presentation/pages/Register";
 import Story from "./features/stories-feature/presentation/Story";
+import ModalContainer from "./features/games-details-feature/presentation/ModalContainer";
 
 export const App = () => {
   const location = useLocation();
@@ -80,7 +82,8 @@ export const App = () => {
 
       {previousLocation && (
         <Routes>
-          <Route path={`${STORIES_PATH}/:id`} element={<Story location={previousLocation} />} />
+          <Route path={`${GAMES_DETAILS_PATH}/:id`} element={<ModalContainer location={previousLocation}/>} />
+          <Route path={`${STORIES_PATH}/:id`} element={<Story location={previousLocation}/>} />
         </Routes>
       )}
 

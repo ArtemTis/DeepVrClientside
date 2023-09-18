@@ -9,8 +9,10 @@ interface Props {
   onClick?: (game: IGame) => void;
 }
 
-export const GameCard: React.FC<Props> = ({ game, isSelected, onClick }) => {
+export const GameCard: React.FC<Props> = ({ game, isSelected, onClick}) => {
   const imgUrl = game.logo;
+  console.log(game);
+  
   
   return (
     <Col xs={12} sm={8} md={6} lg={6} xl={4} xxl={4}>

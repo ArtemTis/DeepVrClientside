@@ -9,6 +9,7 @@ export const getSummary = createAsyncThunk(
         try {
             console.log(values);
             const res = await Api.getSummary(values);
+            console.log(res.data);
             
             return res.data;
         } catch (error) {
