@@ -22,16 +22,18 @@ export const PopupHeader: React.FC<PopupHeaderProps> = ({
         {title}
       </StyledTitle>
       <StyledSettingsBtn
-        // onClick={() =>
-        //   addPopup(
-        //     <SettingsPopup
-        //       addPopup={addPopup}
-        //       onBackClick={removeLastPopup}
-        //     />
-        //   )
-        // }
-        >
-        Настройки
+      // onClick={() =>
+      //   addPopup(
+      //     <SettingsPopup
+      //       addPopup={addPopup}
+      //       onBackClick={removeLastPopup}
+      //     />
+      //   )
+      // }
+      >
+        <span>
+          Настройки
+        </span>
         <img
           src={gearIcon}
           alt="Открыть настройки профиля"
@@ -50,6 +52,10 @@ const StyledHeader = styled.div`
   margin: 40px 0 20px;
 
   width: 1220px;
+
+  @media screen and (max-width: 1250px) {
+    width: 90vw;
+  }
 `
 
 const StyledBackBtn = styled.div`
@@ -72,6 +78,19 @@ const StyledBackBtn = styled.div`
     font-weight: 500;
     line-height: 120%; /* 19.2px */
     letter-spacing: 1px;
+  }
+
+  @media screen and (max-width: 400px) {
+    background: none;
+    h3{
+      display: none;
+    }
+    img{
+      margin: 0;
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(104deg) brightness(110%) contrast(101%);
+      width: 24px;
+      height: 24px;
+    }
   }
 `
 
@@ -101,6 +120,19 @@ const StyledSettingsBtn = styled.div`
     height: 20px;
     margin-left: 8px;
   }
+
+  @media screen and (max-width: 560px) {
+    background: none;
+    span{
+      display: none;
+    }
+    img{
+      margin: 0;
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(104deg) brightness(110%) contrast(101%);
+      width: 24px;
+      height: 24px;
+    }
+  }
 `
 
 const StyledTitle = styled.h1`
@@ -115,4 +147,8 @@ const StyledTitle = styled.h1`
   letter-spacing: 1px;
 
   grid-area: A;
+
+  @media screen and (max-width: 660px) {
+    font-size: 30px;
+  }
 `

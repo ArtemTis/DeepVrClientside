@@ -320,6 +320,7 @@ textarea {
         min-width: 70vw;
     }
 }
+
 @media screen and (max-width: 500px) {
     .count-select-bg {
         min-width: 80vw;
@@ -607,6 +608,12 @@ textarea {
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
+}
+
+@media screen and (max-width: 380px) {
+    .time-card-bg {
+        gap: 10px;
+    }
 }
 
 .time-card-bg-selected {

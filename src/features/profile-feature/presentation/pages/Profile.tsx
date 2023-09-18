@@ -160,7 +160,9 @@ export const Profile: React.FC = () => {
                     />
                   )
                 }>
-                Настройки
+                <span>
+                  Настройки
+                </span>
                 <img
                   src={gearIcon}
                   alt="Открыть настройки профиля"
@@ -333,6 +335,19 @@ const StyledSettingsBtn = styled.div`
     height: 20px;
     margin-left: 8px;
   }
+
+  @media screen and (max-width: 560px) {
+    background: none;
+    span{
+      display: none;
+    }
+    img{
+      margin: 0;
+      filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(104deg) brightness(110%) contrast(101%);
+      width: 24px;
+      height: 24px;
+    }
+  }
 `
 
 const StyledTitle = styled.h1`
@@ -347,6 +362,10 @@ const StyledTitle = styled.h1`
   letter-spacing: 1px;
 
   grid-area: A;
+
+  @media screen and (max-width: 560px) {
+    font-size: 30px;
+  }
 `
 
 const StyledHeader = styled.div`
@@ -357,6 +376,13 @@ const StyledHeader = styled.div`
   margin-top: 40px;
 
   width: 1220px;
+
+  @media screen and (max-width: 1250px) {
+    max-width: 80vw;
+  }
+  @media screen and (max-width: 900px) {
+    max-width: 90vw;
+  }
 `
 
 const StyledBackBtn = styled.div`
@@ -370,18 +396,42 @@ const ProfileBody = styled.div`
   gap: 20px;
   
   max-width: 1720px;
+
+  @media screen and (max-width: 1250px) {
+    max-width: 1000px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(1, 90vw);
+    grid-auto-flow: row;
+  }
 `
 
 const ProfileLeft = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media screen and (max-width: 1250px) {
+    max-width: 40vw;
+  }
+  @media screen and (max-width: 900px) {
+    max-width: 90vw;
+  }
 `
 
 const ProfileRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media screen and (max-width: 1250px) {
+    max-width: 40vw;
+  }
+  @media screen and (max-width: 900px) {
+    max-width: 100vw;
+  }
 `
 
 const TicketList = styled.div`

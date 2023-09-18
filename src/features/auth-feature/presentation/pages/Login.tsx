@@ -110,6 +110,8 @@ const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
 
+  padding: 0 20px;
+
   /* next-btn-inactive */
   button{
     margin: 20px 0;
@@ -118,4 +120,8 @@ const LoginContainer = styled.div`
   .login-title{
     margin: 40px 0 20px;
   }
+
+  @media screen and (max-width: 400px) {
+    margin-bottom: -50px;
+    }
 `

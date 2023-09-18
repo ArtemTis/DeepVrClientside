@@ -159,6 +159,12 @@ select:-webkit-autofill:focus {
     align-items: center;
 }
 
+@media screen and (max-width: 750px) {
+    .form-checkbox {
+        width: 28px;
+    }
+}
+
 .form-checkbox img {
     display: none;
     user-select: none;

@@ -85,13 +85,13 @@ export const Register = () => {
           />
         </form>
         <FormError errorMsg={textError} />
-        <NextButton onClick={()=>dispatch(register(getValues()))} isActive={isValid}>
+        <NextButton onClick={() => dispatch(register(getValues()))} isActive={isValid}>
           Зарегистрироваться
         </NextButton>
         <div className="login-description">
           У меня уже есть аккаунт.{" "}
-          <label  onClick={() => navigate(-1)} className="login-description-link">Войти.</label>
-          
+          <label onClick={() => navigate(-1)} className="login-description-link">Войти.</label>
+
         </div>
         <LoadWrapper isLoading={isLoading} height={1} />
       </RegisterContainer>
@@ -113,5 +113,9 @@ const RegisterContainer = styled.div`
 
   .login-title{
     margin: 40px 0 20px;
+  }
+
+  @media screen and (max-width: 400px) {
+    margin-bottom: -60px;
   }
 `

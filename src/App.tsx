@@ -2,6 +2,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router";
 import { NotFound } from "./core/404";
 import { Account } from "./features/profile-feature/presentation/pages/Account";
 import { Achievements } from "./features/achievements-feature/presentation/pages/Achievements";
+import { AchievementsTemporarily } from "./features/achievements-feature/presentation/pages/AchievementsTemporarily";
 import { Booking } from "./features/booking-feature/presentation/pages/Booking";
 import { Games } from "./features/games-feature/presentation/pages/Games";
 import {
@@ -58,7 +59,8 @@ export const App = () => {
           <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
         </Route>
 
-        <Route path={ACHIVEMENTS_PATH} element={<Achievements />} />
+        {/* <Route path={ACHIVEMENTS_PATH} element={<Achievements />} /> */}
+        <Route path={ACHIVEMENTS_PATH} element={<AchievementsTemporarily />} />
 
         <Route path={ACCOUNT_PATH} element={<Account />}>
           <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} />

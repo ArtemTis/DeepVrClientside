@@ -13,12 +13,13 @@ const CircleLoaderContainer = styled.div<{width: number | string}>`
   width: ${({width}) => (width === 'expand' ? '100%' : width + 'px')};
   height: ${({width}) => (width === 'expand' ? '100%' : width + 'px')};
 
-  @media screen and (max-width: 450px) {
-    /* width: 80px;
-    height: 80px; */
+  @media screen and (max-width: 470px) {
+    min-width: 86px;
+    min-height: 86px;
 
     span{
-      font-size: 12px;
+      font-size: 14px;
+      white-space: nowrap;
     }
   }
 `;
@@ -66,7 +67,7 @@ const InnerDiv = styled.div<{width: number | string}>`
 
   @media screen and (max-width: 420px) {
     /* top: 35%; */
-    top: 35px;
+    /* top: 42px; */
   }
 `;
 
