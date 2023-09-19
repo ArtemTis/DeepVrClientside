@@ -30,8 +30,8 @@ export const Api = {
 
     setInstanceUrl(prefix: string | undefined) {        
         const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
-        instanceUrl = url;
-        // instanceUrl = 'http://192.168.1.40:5274/api';
+        // instanceUrl = url;
+        instanceUrl = 'http://192.168.1.117:5274/api';
         if (url) instanceStorageUrl = url.replace('/api', '/storage');
         else instanceStorageUrl = undefined;
     },
@@ -159,7 +159,8 @@ export const Api = {
             `${instanceUrl}/v3/promo/accept-discount`,
             data, {
             headers: {
-                timeout: 8000
+                timeout: 8000,
+                token: 'guest_token'
             }
         }
         );

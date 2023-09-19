@@ -72,13 +72,11 @@ export const Profile: React.FC = () => {
                 (d) => d.name === selectedCity.data?.city
               );
               dispatch(setSelectedCity(c));
-              setIsLoadingCity(false);
+              setIsLoadingCity(false);          
             }
             return Promise.all([
               history.data,
               ...history.data.map((order) => {
-                console.log(order)
-                console.log(cities)
                 order.location = cities.data.find((c) => c.id == +order.location_id);
                 const ids = JSON.parse(order.games_id) as Array<number>;
                 return Promise.all([
@@ -104,7 +102,6 @@ export const Profile: React.FC = () => {
           setIsLoadingCity(false);
           setIsLoadingHistory(false);
         });
-
   }, []);
 
   const bonusesRefs = {

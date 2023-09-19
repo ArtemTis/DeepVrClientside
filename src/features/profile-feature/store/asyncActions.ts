@@ -92,7 +92,3 @@ export const getGameInfo = createAsyncThunk(
         }
     }
 )
-
-// checkStatus
-
-// logout

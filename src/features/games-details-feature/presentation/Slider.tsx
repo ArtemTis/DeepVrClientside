@@ -4,6 +4,7 @@ import { ReactComponent as Prev } from "../../../Assets/prev.svg";
 import { ReactComponent as Next } from "../../../Assets/next.svg";
 
 import "./slider.css";
+import { IGame } from '../../../lib/utils/types';
 // import myvideo from "../../../Assets/video.mp4";
 
 const images = [
@@ -30,7 +31,7 @@ const items = [
     },
 ];
 
-const Slider = () => {
+const Slider:React.FC<{images?: IGame}> = ({images}) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const handlePrevClick = () => {

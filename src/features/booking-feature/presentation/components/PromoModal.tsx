@@ -54,12 +54,12 @@ export const PromoModal: React.FC<Props> = ({
 
   const onChange = () => {
 
-    dispatch(postValidatePromo({
-      game: game?.id ?? -1,
-      price: summary?.price ?? 0,
-      token,
-      promo_code: inputRef.current?.value ?? "",
-    }))
+    // dispatch(postValidatePromo({
+    //   game: game?.id ?? -1,
+    //   price: summary?.price ?? 0,
+    //   token,
+    //   promo_code: inputRef.current?.value ?? "",
+    // }))
 
   };
 

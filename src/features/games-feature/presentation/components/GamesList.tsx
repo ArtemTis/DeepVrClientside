@@ -164,21 +164,12 @@ export const GamesList: React.FC = () => {
 
         <span className="title_games">Игры</span>
         <LoadWrapper isLoading={isLoading}>
-          {/* <Row justify="start" gutter={[20, 20]}> */}
           <div className="gamesRow">
-            <GamesCard />
-            {/* {gamesFiltered &&
+            {gamesFiltered &&
               gamesFiltered.map((game) => (
-                <Link to={`${HOME_PATH}${game.id}`} key={game.id} state={{ previousLocation: location }}>
-                  <GameCard
-                    game={game}
-                    isSelected={false}
-                    // onClick={() => openModal(game)}
-                  />
-                </Link>
-
-              ))} */}
-            {/* </Row> */}</div>
+                <GamesCard game={game} key={game.id}/>
+              ))}
+           </div>
         </LoadWrapper>
       </div>
       {
