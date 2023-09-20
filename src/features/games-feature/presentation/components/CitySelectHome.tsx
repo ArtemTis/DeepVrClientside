@@ -13,50 +13,15 @@ import { setSelectedCity } from "../../../auth-feature/store/slice";
 import { setCity } from "../../../booking-feature/store/slice";
 import { SelectCityList } from "../../../../lib/ui/SelectCityList";
 import { NextButton } from "../../../../lib/ui/NextButton";
+import CitySelectList from "./CitySelectList";
 
 export const CitySelectHome: React.FC = () => {
-  const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;
-  const isSelectedCity = useAppSelector(selectCity);
-
-  const [selected, setSelected] = useState<ICity | undefined>(
-    selectedCityProfile ?? isSelectedCity ?? undefined
-  );
-  const dispatch = useAppDispatch();
-  const token = useAppSelector(selectToken);
-
-  const onSelect = (city: ICity | undefined) => {
-    setSelected(city);
-
-    if (!!token)
-      Api.setUserCity({ token, city: city?.name ?? "" }).catch((err) =>
-        console.log(err)
-      );
-  };
-
-  const confirmm = () => {
-    if (selected) {
-      dispatch(setSelectedCity(selected));
-      dispatch(setCity(selected));
-    }
-    setIsModalOpen(false);
-  };
-  
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(!!isSelectedCity ? false : true);
-
-  // const handleCancel = () => {
-  //   // setIsModalOpen(false);
-  // };<img src={close} alt="close"/>
+  const isSelectedCity = !!useAppSelector(selectCity);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(isSelectedCity ? false : true);
 
   return (
     <StyledModal open={isModalOpen} footer={[]} closeIcon={<></>}>
-
-      <ModalWrapper>
-        <SelectCityList selected={selected} onSelect={onSelect} />
-        <NextButton onClick={confirmm} isActive={!!selected}>
-          Выбрать
-        </NextButton>
-      </ModalWrapper>
-
+      <CitySelectList setIslOpen={setIsModalOpen} isSelectedCity={isSelectedCity}/>
     </StyledModal>
   );
 };
@@ -66,6 +31,9 @@ const StyledModal = styled(Modal)`
   width: 25vw !important;
   min-width: 280px;
 
+  border-radius: 16px;
+background: var(--101-a-29, #191A29);
+
   img{
     cursor: default !important;
   }
@@ -74,11 +42,6 @@ const StyledModal = styled(Modal)`
     cursor: default !important;
   }
 
+
 `
 
-const ModalWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 15px;
-`

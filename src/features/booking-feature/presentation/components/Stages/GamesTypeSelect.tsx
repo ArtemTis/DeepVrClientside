@@ -26,7 +26,7 @@ const GamesTypeSelect = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(setTypeGame(selected));
+    dispatch(setTypeGame(selected)); 
   }, [selected])
 
   const onCardClick = (room: IGameType) => {

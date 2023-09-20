@@ -1,5 +1,5 @@
-import { Col, Row } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { Button, Col, Dropdown, MenuProps, Popover, Radio, RadioChangeEvent, Row, Space } from "antd";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { GameModal } from "./GameModal";
 
 import "./GamesStyles.css";
@@ -7,6 +7,7 @@ import "./GamesStyles.css";
 import searchIcon from "../../../../assets/magnifier.svg";
 import crossWhite from "../../../../assets/crossWhite.svg";
 import arrowRight from "../../../../assets/arrow-right.svg";
+import arrow from "../../../../assets/arrow-down.svg";
 
 import 'stories-react/dist/index.css';
 import { IGame } from "../../../../lib/utils/types";
@@ -25,6 +26,9 @@ import { useLocation } from "react-router";
 import GamesCard from "../../../games-details-feature/presentation/GamesCard";
 import { setCity } from "../../../booking-feature/store/slice";
 import { CitySelectHome } from "./CitySelectHome";
+import styled from "styled-components";
+import { selectCity } from "../../../booking-feature/store/selectors";
+import CitySelectList from "./CitySelectList";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
@@ -66,14 +70,6 @@ export const GamesList: React.FC = () => {
     else setGamesFiltered(games);
   }, [searchString, games]);
 
-  // const openModal = (game: IGame) => {
-  //   setModalState(game);
-  // };
-
-  const closeModal = () => {
-    setModalState(undefined);
-  };
-
   const openSearch = () => {
     setIsSearchOpen(true);
     setTimeout(() => {
@@ -111,6 +107,50 @@ export const GamesList: React.FC = () => {
     setIsOpen(true);
   };
 
+  const isSelectedCity = !!useAppSelector(selectCity);
+
+  const [open, setOpen] = useState<boolean>(false);
+
+  const contentItems: {
+    element: JSX.Element;
+    type: string;
+  }[] = [
+      {
+        element: <CitySelectList setIslOpen={setOpen} isSelectedCity={isSelectedCity} />,
+        type: 'city'
+      },
+      {
+        element: <></>,
+        type: 'instance'
+      }
+    ]
+
+  const [content, setContent] = useState<JSX.Element>(contentItems[0].element);
+
+  const onChange = (e: RadioChangeEvent) => {
+    if (e.target.value === 'city') {
+      setContent(contentItems.find(item => item.type === 'city')?.element !!)
+    } else {
+      setContent(contentItems.find(item => item.type === 'instance')?.element !!)
+    }
+  };
+
+  const text =
+    <StyledGroup defaultValue="city" buttonStyle="solid" onChange={onChange}>
+      <StyledRadio value="city">
+        Город
+      </StyledRadio>
+      <StyledRadio value="instance">
+        Филиал
+      </StyledRadio>
+    </StyledGroup>;
+
+
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
+
   return (
     <>
       <div className="home-wrapper">
@@ -119,6 +159,42 @@ export const GamesList: React.FC = () => {
           <ColLg className="home-header-wrapper">
             <div className="home-header">
               <div className="home-subtitle">Игры</div>
+
+            </div>
+            <div className="home-subheader">
+              <div>
+                Выбрано: <span className="home-subheader-city">{city?.name}</span>
+              </div>
+              <div className="home-subheader-change-city" onClick={resetCity}>
+                Выбрать другой город
+                <img src={arrowRight} className="" alt="" />
+              </div>
+            </div>
+          </ColLg>
+        </Row>
+
+        <h1 className="title_games">Новости</h1>
+        <ThumbnailsContainer />
+
+        <h1 className="title_games">Игры</h1>
+        <GamesWrappwe>
+          <Filters>
+            <Filter>
+              Всё
+            </Filter>
+            <Filter>
+              Квест
+            </Filter>
+            <Filter>
+              Шутер
+            </Filter>
+            <Filter>
+              Бродилки
+            </Filter>
+          </Filters>
+
+          <SearchWrapper>
+            <div>
               {isSearchOpen ? (
                 <div className="home-search-bg" onClick={onSearchBgClick}>
                   <input
@@ -147,29 +223,30 @@ export const GamesList: React.FC = () => {
                 onClick={openSearch}
               />
             </div>
-            <div className="home-subheader">
-              <div>
-                Выбрано: <span className="home-subheader-city">{city?.name}</span>
-              </div>
-              <div className="home-subheader-change-city" onClick={resetCity}>
-                Выбрать другой город
-                <img src={arrowRight} className="" alt="" />
-              </div>
-            </div>
-          </ColLg>
-        </Row>
 
-        <span className="title_games">Новости</span>
-        <ThumbnailsContainer />
+            <StyledPopover placement="bottomRight"
+              title={text}
+              content={content}
+              arrow={false}
+              trigger="click"
+              open={open}
+              onOpenChange={handleOpenChange}>
+              <Filter>Город/Филиал
+                <img src={arrow} alt="Стрелка" />
+              </Filter>
 
-        <span className="title_games">Игры</span>
+            </StyledPopover>
+
+          </SearchWrapper>
+        </GamesWrappwe>
+
         <LoadWrapper isLoading={isLoading}>
           <div className="gamesRow">
             {gamesFiltered &&
               gamesFiltered.map((game) => (
-                <GamesCard game={game} key={game.id}/>
+                <GamesCard game={game} key={game.id} />
               ))}
-           </div>
+          </div>
         </LoadWrapper>
       </div>
       {
@@ -179,3 +256,109 @@ export const GamesList: React.FC = () => {
     </>
   );
 };
+
+const StyledPopover = styled(Popover) <{ open: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: ${({ open }) => (open ? '#55C1E7' : '')} !important;
+  color: ${({ open }) => (open ? 'white' : '')} !important;
+  
+  img{
+    width: 20px;
+    transform: ${({ open }) => (open ? '' : 'rotateX(180deg) rotateY(180deg)')};
+  }
+
+`
+
+const GamesWrappwe = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+const Filters = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+`
+const Filter = styled.p`
+  display: flex;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 16px;
+
+  border-radius: 24px;
+  background: #3A3A6B;
+  cursor: pointer;
+
+  color: rgba(255, 255, 255, 0.70);
+  font-family: SF Pro Display;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 24px */
+  margin: 0;
+
+  a{
+    color: rgba(255, 255, 255, 0.70);
+  }
+`
+const SearchWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  >div{
+    display: flex;
+    align-items: center;
+  }
+`
+const StyledGroup = styled(Radio.Group)`
+  padding: 8px;
+
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.11);
+
+  margin-bottom: 20px;
+
+  display: block;
+`
+
+
+const StyledRadio = styled(Radio.Button)`
+  color: var(--abafe-5, #ABAFE5);
+  text-align: center;
+  font-family: Gilroy;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 28px */
+  letter-spacing: 0.04px;
+  width: 150px;
+
+  &.ant-radio-button-wrapper{
+    background: none !important;
+    border: none !important;
+    padding: 13px 22px;
+    height: 54px;
+
+    :hover{
+      color: #ABAFE5;
+    }
+
+    &::before{
+      content: none;
+    }
+  }
+
+  &.ant-radio-button-wrapper-checked{
+    border-radius: 25px;
+    background: #30A5D1 !important;
+
+    color: #FFF;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+  }
+`

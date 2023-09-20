@@ -10,7 +10,7 @@
     backdrop-filter: blur(9px);
 
     max-width: 380px;
-    height: 100%;
+    /* height: 100%; */
 }
 
 

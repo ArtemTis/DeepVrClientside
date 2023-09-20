@@ -1,6 +1,5 @@
 .thumbnail, .emptyThumbnail {
     display: inline-block;
-    margin: 10px;
     position: relative;
     padding: 0;
     background-color: transparent;
@@ -54,5 +53,6 @@
 
 .stories {
     display: flex;
-    margin: 10px;
+    gap: 15px;
+    margin: 20px 0;
 }

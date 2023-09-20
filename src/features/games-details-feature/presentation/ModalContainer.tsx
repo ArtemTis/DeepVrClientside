@@ -13,11 +13,16 @@ import styled from "styled-components";
 import { Api } from "../../../lib/utils/api";
 import { useAppSelector } from "../../../app/store";
 import { selectGames } from "../../games-feature/store/games/selectors";
+import { useDispatch } from "react-redux";
+import { setGame, setTypeGame } from "../../booking-feature/store/slice";
+import { BOOKING_PATH } from "../../../lib/utils/routeConstants";
+import { IGame } from "../../../lib/utils/types";
 
 const ModalContainer = (props: { location: Location }) => {
     const location = props.location;
     const navigate = useNavigate();
     const idGame = useParams().id;
+    const dispatch = useDispatch();
 
     const { id } = useParams();
     const [isModalOpen, setIsModalOpen] = useState(true);
@@ -34,11 +39,66 @@ const ModalContainer = (props: { location: Location }) => {
     const time = 40;
     const age = 12;
 
-    let gameById;
+    let gameById: IGame | undefined;
     if (idGame) {
         gameById = useAppSelector(selectGames).find(game => `${game.id}` === idGame);
     }
     console.log(gameById);
+
+    const goToBooking = (e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        navigate(`${BOOKING_PATH}/3`);
+        dispatch(setTypeGame({
+            "id": 1,
+            "title": "Классика",
+            "games": [
+                {
+                    "id": 2,
+                    "externalId": "99e94140-b497-4479-9798-b3ae8f6455fa",
+                    "titleOverride": "AltSpaceVR",
+                    "priceOverride": 1000,
+                    "logoOverride": "https://gipno.creatrix-digital.ru/storage/2023/08/17/4621589e68c02b3abe5fe01116ad3ccca1b26b9c.png",
+                    "timeDuration": null,
+                    "descriptionOverride": null,
+                    "gameTypeId": 1
+                }
+            ],
+            "fullGames": [
+                {
+                    "id": "2",
+                    "owner_id": 1,
+                    "name": "AltSpaceVR",
+                    "use_key": 1,
+                    "created_at": "2023-08-17T11:16:51.000000Z",
+                    "updated_at": "2023-08-23T12:44:11.000000Z",
+                    "title": "AltSpaceVR",
+                    "slug": null,
+                    "time_duration": null,
+                    "price": 1000,
+                    "is_active": 1,
+                    "logo": "https://gipno.creatrix-digital.ru/storage/2023/08/17/4621589e68c02b3abe5fe01116ad3ccca1b26b9c.png",
+                    "guest_min": null,
+                    "guest_max": null,
+                    "description": null,
+                    "age_limit": null,
+                    "images": null,
+                    "video": null,
+                    "genre": null,
+                    "actual_build": {
+                        "id": "99f971ac-0460-4de2-9903-08660c038829",
+                        "game_id": "99e94140-b497-4479-9798-b3ae8f6455fa",
+                        "version": "1.0",
+                        "platform": "0",
+                        "link": "com.altvr.AltspaceVR_Quest",
+                        "created_at": "2023-08-25T12:25:30.000000Z",
+                        "updated_at": "2023-08-25T12:25:30.000000Z"
+                    }
+                }
+            ]
+        }));
+        dispatch(setGame(gameById));
+    }
     
 
     return (
@@ -70,7 +130,7 @@ const ModalContainer = (props: { location: Location }) => {
                         {gameById?.description}
                         {/* Перенеситесь в прошлое, чтобы посмотреть, сможете ли вы изменить ситуацию, из которой, казалось - не было выхода Что произошло в ночь аварии? А что было потом? Найдите ответы на вопросы, которые до сих пор оставались без ответа */}
                     </div>
-                    <button className="info_button">Забронировать</button>
+                    <button className="info_button" onClick={goToBooking}>Забронировать</button>
                 </div>
             </div >
         </StyledModal>
