@@ -17,6 +17,10 @@ export const selectGame = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.game],
     (game) => game
 )
+export const selectTypeGame = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.typeGame],
+    (typeGame) => typeGame
+)
 export const selectPlayersCount = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.playersCount,
     (state: RootState) => selectGame(state)],

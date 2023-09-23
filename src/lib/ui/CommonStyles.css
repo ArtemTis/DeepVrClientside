@@ -1,5 +1,3 @@
-
-
 @import url('https://fonts.cdnfonts.com/css/bebas-neue');
 
 .next-btn {
@@ -241,6 +239,9 @@ select:-webkit-autofill:focus {
 .city-select-row-selected {
     cursor: default;
     color: #FFF;
+
+    border-radius: 15px;
+    background: rgba(171, 175, 229, 0.20) !important;
 }
 
 .city-select-no-available {

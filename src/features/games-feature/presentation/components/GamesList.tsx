@@ -8,10 +8,12 @@ import searchIcon from "../../../../assets/magnifier.svg";
 import crossWhite from "../../../../assets/crossWhite.svg";
 import arrowRight from "../../../../assets/arrow-right.svg";
 import arrow from "../../../../assets/arrow-down.svg";
+import avatar from "../../../../assets/Avatar.svg";
+import notification from "../../../../assets/Notification.svg";
 
 import 'stories-react/dist/index.css';
 import { IGame } from "../../../../lib/utils/types";
-import { selectSelectedCity } from "../../../auth-feature/store/selectors";
+import { selectIsAuthorised, selectSelectedCity, selectUser } from "../../../auth-feature/store/selectors";
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
 import { ReqStatus } from "../../../../lib/utils/enums";
 import { Api } from "../../../../lib/utils/api";
@@ -29,6 +31,9 @@ import { CitySelectHome } from "./CitySelectHome";
 import styled from "styled-components";
 import { selectCity } from "../../../booking-feature/store/selectors";
 import CitySelectList from "./CitySelectList";
+import { Link } from "react-router-dom";
+import { ACCOUNT_PATH, PROFILE_PATH } from "../../../../lib/utils/routeConstants";
+import ErrorText from "../../../../lib/ui/ErrorText";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
@@ -37,10 +42,14 @@ export const GamesList: React.FC = () => {
   const [modalState, setModalState] = useState<IGame | undefined>();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  const isAuthorised = useAppSelector(selectIsAuthorised);
+  const nametUser = useAppSelector(selectUser);
   const [searchString, setSearchString] = useState<string>();
 
 
-  const isLoading = useAppSelector(state => state.allGames.requestStatus) === ReqStatus.pending;
+  const requestStatus = useAppSelector(state => state.allGames.requestStatus);
+  const isLoading = requestStatus === ReqStatus.pending;
+  const isError = requestStatus === ReqStatus.rejected;
 
   const searchRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
@@ -129,9 +138,9 @@ export const GamesList: React.FC = () => {
 
   const onChange = (e: RadioChangeEvent) => {
     if (e.target.value === 'city') {
-      setContent(contentItems.find(item => item.type === 'city')?.element !!)
+      setContent(contentItems.find(item => item.type === 'city')?.element!!)
     } else {
-      setContent(contentItems.find(item => item.type === 'instance')?.element !!)
+      setContent(contentItems.find(item => item.type === 'instance')?.element!!)
     }
   };
 
@@ -155,7 +164,7 @@ export const GamesList: React.FC = () => {
     <>
       <div className="home-wrapper">
         {/* <GameModal game={modalState} isOpen={!!modalState} onClose={closeModal} /> */}
-        <Row justify="center" className="header-sticky">
+        {/* <Row justify="center" className="header-sticky">
           <ColLg className="home-header-wrapper">
             <div className="home-header">
               <div className="home-subtitle">Игры</div>
@@ -171,9 +180,23 @@ export const GamesList: React.FC = () => {
               </div>
             </div>
           </ColLg>
-        </Row>
+        </Row> */}
 
-        <h1 className="title_games">Новости</h1>
+        <StyledHeader>
+
+          <h1 className="title_games">Новости</h1>
+
+          {
+            isAuthorised &&
+            <StyledProfile>
+              <Link to={ACCOUNT_PATH}>
+                <img src={avatar} alt="иконка профиля" />
+                <h2>{nametUser?.name}</h2>
+              </Link>
+              <img src={notification} alt="уведомления" />
+            </StyledProfile>
+          }
+        </StyledHeader>
         <ThumbnailsContainer />
 
         <h1 className="title_games">Игры</h1>
@@ -239,23 +262,63 @@ export const GamesList: React.FC = () => {
 
           </SearchWrapper>
         </GamesWrappwe>
-
-        <LoadWrapper isLoading={isLoading}>
-          <div className="gamesRow">
-            {gamesFiltered &&
-              gamesFiltered.map((game) => (
-                <GamesCard game={game} key={game.id} />
-              ))}
-          </div>
-        </LoadWrapper>
+        {
+          isError
+            ?
+            <ErrorText>Упс, что-то пошло не так</ErrorText>
+            :
+            <LoadWrapper isLoading={isLoading}>
+              <div className="gamesRow">
+                {gamesFiltered &&
+                  gamesFiltered.map((game) => (
+                    <GamesCard game={game} key={game.id} />
+                  ))}
+              </div>
+            </LoadWrapper>
+        }
       </div>
-      {
+      {/* {
         isOpen &&
         <CitySelectHome />
-      }
+      } */}
     </>
   );
 };
+
+const StyledHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+`
+
+const StyledProfile = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  >img{
+    width: 28px;
+    height: 28px;
+  }
+
+  a{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    h2{
+      color: var(--White, #FFF);
+      font-family: SF Pro Display;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+    }
+
+    >img{
+    width: 40px;
+    height: 40px;
+  }
+  }
+`
 
 const StyledPopover = styled(Popover) <{ open: boolean }>`
   display: flex;

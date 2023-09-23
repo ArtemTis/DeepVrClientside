@@ -1,11 +1,11 @@
 import { PopupLayout } from "./PopupLayout";
 import { useAppDispatch, useAppSelector } from "../../../app/store";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { FormField } from "../FormFields/FormField";
 import userIcon from "../../../assets/user-icon-liliac.svg";
 import { EmailField } from "../FormFields/EmailField";
 import { PhoneInput } from "../FormFields/PhoneField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PassField } from "../FormFields/PassField";
 import { FormError } from "../FormFields/FormError";
 import { Api } from "../../utils/api";
@@ -22,6 +22,7 @@ interface Props {
 
 export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
   const user = useAppSelector(selectUser);
+
   const {
     control: controlEdit,
     getValues: getValuesEdit,
@@ -31,7 +32,7 @@ export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
     defaultValues: {
       name: user?.name,
       email: user?.email,
-      phone: user?.phone,
+      phone: `8${user?.phone}`,
     },
   });
 
@@ -43,15 +44,18 @@ export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
     mode: "onTouched",
   });
 
+  const watchAllFields = useWatch({ control: controlEdit });
+
   const token = useAppSelector(selectToken);
   const dispatch = useAppDispatch();
 
-  const values = getValuesEdit();
-  const canUpdateProfile =
-    isValidEdit &&
-    (values.email !== user?.email ||
-      values.name !== user.name ||
-      values.phone !== user.phone);
+  // const values = getValuesEdit();
+  let equalValues =
+    (watchAllFields.email!! !== user?.email ||
+      watchAllFields.name!! !== user.name ||
+      watchAllFields.phone!! !== `8${user?.phone}`);
+
+  const canUpdateProfile = isValidEdit && equalValues;
 
   const onSubmitEdit = () => {
     setIsLoadingEditProfile(true);

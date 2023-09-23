@@ -11,15 +11,20 @@ import { gamesTypes } from '../../../../games-feature/store/gamesType/asyncActio
 import { setTypeGame } from '../../../store/slice'
 import { LoadWrapper } from '../../../../../lib/ui/LoadWrapper'
 import TypeGameCard from '../TypeGameCard'
+import { selectTypeGame } from '../../../store/selectors'
+import ErrorText from '../../../../../lib/ui/ErrorText'
 
 const GamesTypeSelect = () => {
 
   const dispatch = useAppDispatch();
 
   const gameTypes = useAppSelector(selectGameTypes);
-  const [selected, setSelected] = useState<IGameType>();
+  const typeGame = useAppSelector(selectTypeGame);
+  const [selected, setSelected] = useState<IGameType | undefined>(typeGame);
 
-  const isLoading = useAppSelector((state: RootState) => state.gamesType.requestStatus === ReqStatus.pending);
+  const requestStatus = useAppSelector((state: RootState) => state.gamesType.requestStatus);
+  const isError = requestStatus === ReqStatus.rejected;
+  const isLoading = requestStatus === ReqStatus.pending;
 
   useEffect(() => {
     dispatch(gamesTypes());
@@ -36,7 +41,12 @@ const GamesTypeSelect = () => {
 
   return (
     <>
-      <LoadWrapper isLoading={isLoading}>
+     { 
+     isError 
+     ? 
+      <ErrorText>Упс, что-то пошло не так</ErrorText>
+     :
+     <LoadWrapper isLoading={isLoading}>
         <TypeGameWrapper>
           {gameTypes &&
             gameTypes.map((gameType) => (
@@ -51,6 +61,7 @@ const GamesTypeSelect = () => {
             ))}
         </TypeGameWrapper>
       </LoadWrapper>
+      }
     </>
   )
 }

@@ -31,7 +31,7 @@ export const SelectCityList: React.FC<Props> = ({ selected, onSelect }) => {
           cityList.map((c) => {
             return (
               <StyledCity
-                className={`city-select-row${c.id === selected?.id ? " city-select-row-selected" : ""
+                className={`city-select-row${c.id === selected?.id || selectedCity?.id ? " city-select-row-selected" : ""
                   }`}
                 key={c.code}
                 onClick={() => onSelect(c)}

@@ -1,7 +1,7 @@
 @import url('https://fonts.cdnfonts.com/css/bebas-neue');
 
 .home-wrapper {
-  padding: 5vh 5vw;
+  padding: 10px 5vw;
   position: relative;
 }
 
@@ -304,7 +304,7 @@
   line-height: 160%;
   /* 73.6px */
   text-align: left;
-  margin: 0;
+  margin: 20px 0;
 }
 
 .gamesRow {

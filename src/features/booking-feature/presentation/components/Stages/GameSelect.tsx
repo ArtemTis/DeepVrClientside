@@ -19,8 +19,6 @@ export const GameSelect: React.FC = () => {
   const selectedTypeId = useAppSelector((state: RootState) => state.bookingReducer.typeGame)?.id;
   const selectedGames = useAppSelector((state: RootState) => state.allGames.gameByType);
   const selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
-
-  console.log(selectedGames?.fullGames);
   
 
   useEffect(() => {
@@ -31,7 +29,7 @@ export const GameSelect: React.FC = () => {
 
   const beforeSelectedGame = useAppSelector(selectGame);
 
-  const [selected, setSelected] = useState<IGame | undefined>();
+  const [selected, setSelected] = useState<IGame | undefined>(beforeSelectedGame);
 
   const onCardClick = (game: IGame) => {
     setSelected(game);

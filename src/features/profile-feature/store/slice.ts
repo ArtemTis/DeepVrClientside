@@ -5,17 +5,8 @@ import { Api } from "../../../lib/utils/api";
 import { allCities } from "./asyncActions";
 
 interface ProfileState {
-    // currentStep: number;
     city?: ICity;
     allCities: ICity[];
-    // typeGame?: IGameType;
-    // game?: IGame;
-    // playersCount?: number;
-    // date?: string;
-    // selectedTime?: string;
-    // avalibleTime?: string[];
-    // credentials?: IBookingCredentials;
-    // isFinished: boolean;
     instancePrefix: string;
     textError?: string;
     reqStatus?: ReqStatus;
@@ -28,7 +19,7 @@ const initialState: ProfileState = {
 };
 
 const profileSlice = createSlice({
-    name: "bookingSlice",
+    name: "profileSlice",
     initialState,
     reducers: {
 
