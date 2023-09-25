@@ -12,22 +12,25 @@ import "./media.css"
 import { ReqStatus } from "../../../lib/utils/enums";
 import { LoadWrapper } from "../../../lib/ui/LoadWrapper";
 import { STORIES_PATH } from "../../../lib/utils/routeConstants";
+import { selectGames } from "../../games-feature/store/games/selectors";
+import { selectSelectedCity } from "../../auth-feature/store/selectors";
 
 const ThumbnailsContainer = () => {
 
     const dispatch = useAppDispatch();
-
+    const selectedCity = useAppSelector(selectGames);
     const thumbnails = useAppSelector(selectThumbnails);
-    const thumbnailLoadingStatus = useAppSelector(selectThumbnailLoadingStatus)
+    const thumbnailLoadingStatus = useAppSelector(selectThumbnailLoadingStatus);
     const location = useLocation();
+    const city = useAppSelector(selectSelectedCity);
 
     useEffect(() => {
-        if (thumbnails.length == 0) dispatch(getAllThumbnails());
-    }, []);
+        if (thumbnails.length == 0 && city) dispatch(getAllThumbnails());
+    }, [city]);
 
     return (
         <div className="stories">
-            {(thumbnailLoadingStatus === ReqStatus.rejected || (thumbnailLoadingStatus === ReqStatus.fulfield && thumbnails.length == 0))
+            {(thumbnailLoadingStatus === ReqStatus.rejected || (thumbnailLoadingStatus === ReqStatus.fulfield && thumbnails.length === 0))
                 ? <EmptyThumbnail />
                 : null}
             {thumbnailLoadingStatus === ReqStatus.pending || thumbnailLoadingStatus === ReqStatus.never

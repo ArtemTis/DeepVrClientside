@@ -7,6 +7,7 @@ import { BOOKING_PATH, GAMES_DETAILS_PATH } from '../../../lib/utils/routeConsta
 import { IGame } from '../../../lib/utils/types';
 import { useDispatch } from 'react-redux';
 import { setGame, setTypeGame } from '../../booking-feature/store/slice';
+import { CitySelectHome } from '../../games-feature/presentation/components/CitySelectHome';
 
 const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
     const location = useLocation();
@@ -95,6 +96,7 @@ const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
                 </div>
                 <button className="card-button" onClick={e => goToBooking(e)}>{game.price} ₽</button>
             </div>
+            {/* <CitySelectHome /> */}
         </div>
     )
 }
