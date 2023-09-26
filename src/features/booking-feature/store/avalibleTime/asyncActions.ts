@@ -11,11 +11,11 @@ export const getAvalibleDateAndTime = createAsyncThunk(
     async function (_, { rejectWithValue, getState }) {
         const state = getState() as RootState;
 
-        const token = selectToken(state);
+        const token = selectToken(state) || undefined;
         const gameId = selectGameId(state);
         const playersCount = selectPlayersCount(state);
         try {
-            const res = await Api.getAvalibleDateAndTime(gameId, playersCount, token,);
+            const res = await Api.getAvalibleDateAndTime(gameId, playersCount, token);
 
             return res.data;
         } catch (error) {

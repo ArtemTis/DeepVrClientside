@@ -17,9 +17,6 @@ export const PlayersCountSelect: React.FC = () => {
     useAppSelector(selectPlayersCount) ?? min ?? 1
   );
 
-  console.log(count);
-  
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   

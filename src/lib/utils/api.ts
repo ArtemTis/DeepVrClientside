@@ -28,7 +28,7 @@ export const Api = {
         );
     },
 
-    setInstanceUrl(prefix: string | undefined) {        
+    setInstanceUrl(prefix: string | undefined) {
         const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
         instanceUrl = url;
         // instanceUrl = 'http://192.168.1.117:5274/api';
@@ -65,34 +65,34 @@ export const Api = {
     },
 
     // home
-    async getAllGames() {
+    async getAllGames(token: string = 'guest_token') {
         return axios.get<Array<IGame>>(
             `${instanceUrl}/v3/games/all`, {
             timeout: 8000,
             headers: {
-                token: 'guest_token'
+                token: token
             }
         }
         );
     },
 
-    async getGamesTypes() {
+    async getGamesTypes(token: string = 'guest_token') {
         return axios.get<Array<IGameType>>(
             `${instanceUrl}/v3/game-types/all`, {
             timeout: 8000,
             headers: {
-                token: 'guest_token'
+                token: token
             }
         }
         );
     },
 
-    async getGameByType(id: number | undefined) {
+    async getGameByType(id: number | undefined, token: string = 'guest_token') {
         return axios.get<IGetGamesResponse>(
             `${instanceUrl}/v3/game-types/${id}/games`, {
             timeout: 8000,
             headers: {
-                token: 'guest_token'
+                token: token
             }
         }
         );
@@ -131,48 +131,48 @@ export const Api = {
         )
     },
 
-    async getAvalibleDateAndTime(gameId: number, playersCount: number, token: string) {
+    async getAvalibleDateAndTime(gameId: number, playersCount: number, token: string = 'guest_token') {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
             timeout: 8000,
             headers: {
-                token: 'guest_token'
+                token: token
             }
         }
         );
     },
 
-    async getSummary(data: IGetSummaryRequestData) {
+    async getSummary(data: IGetSummaryRequestData, token: string = 'guest_token') {
         return axios.post<ISummaryResponse>(
             `${instanceUrl}/v3/orders/precalculate`,
             data, {
             headers: {
                 timeout: 8000,
-                token: 'guest_token'
+                token: token
             }
         }
         );
     },
 
-    async validatePromo(data: IValidatePromoRequestData) {
+    async validatePromo(data: IValidatePromoRequestData, token: string = 'guest_token') {
         return axios.post<IValidatePromo>(
             `${instanceUrl}/v3/promo/accept-discount`,
             data, {
             headers: {
                 timeout: 8000,
-                token: 'guest_token'
+                token: token
             }
         }
         );
     },
-///////////////////////////////////////////
-    async createBooking(data: IGetSummaryRequestData) {
+    ///////////////////////////////////////////
+    async createBooking(data: IGetSummaryRequestData, token: string = 'guest_token') {
         return axios.post(
             `${instanceUrl}/v3/order/create`,
             data, {
             headers: {
                 timeout: 8000,
-                token: 'guest_token'
+                token: token
             }
         }
         );
@@ -181,38 +181,40 @@ export const Api = {
     async createBookingById(id: string, data: {
         gameId: number,
         time: string,
-        guestCount: number
-    }) {
+        guestCount: number,
+    },
+        token: string = 'guest_token'
+    ) {
         return axios.put(
             `${instanceUrl}/v3/orders/${id}/bookings`,
             data, {
             headers: {
                 timeout: 8000,
-                token: 'guest_token'
+                token: token
             }
         }
         );
     },
 
-    async precalculate() {
+    async precalculate(token: string ='guest_token') {
         return axios.post(
             `${instanceUrl}/v3/orders/precalculate`,
             {},
             {
                 headers: {
-                    token: 'guest_count'
+                    token: token
                 }
             }
         )
     },
 
-    async createEmpty() {
+    async createEmpty(token: string ='guest_token') {
         return axios.post(
             `${instanceUrl}/v3/orders/create-empty`,
             {},
             {
                 headers: {
-                    token: 'guest_token'
+                    token: token
                 }
             }
         );
@@ -330,23 +332,23 @@ export const Api = {
     },
 
 
-    async getAllThumbnails() {
+    async getAllThumbnails(token: string ='guest_token') {
         return axios.get<Array<IThumbnailDto>>(
             `${instanceUrl}/v3/stories/groups/active`, {
             timeout: 8000,
             headers: {
-                token: "guest_token"
+                token: token
             }
         }
         );
     },
 
-    async getGroupStoriesById(id: number) {
+    async getGroupStoriesById(id: number, token: string ='guest_token') {
         return axios.get<Array<IStoriesRequest>>(
             `${instanceUrl}/v3/stories/groups/${id}/active`, {
             timeout: 8000,
             headers: {
-                token: "guest_token"
+                token: token
             }
         }
         );

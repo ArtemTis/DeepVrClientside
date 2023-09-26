@@ -42,8 +42,6 @@ export const Booking: React.FC = () => {
 
   const booking = useAppSelector(state => state.bookingReducer);
 
-  console.log(booking);
-
 
   const isFinish = useCallback(() => {
 
@@ -125,7 +123,6 @@ export const Booking: React.FC = () => {
 
   const precalculate = () => {
     navigate(BOOKING_CONFIRM_PATH);
-    console.log(sendBooking);
 
     dispatch(getSummary(sendBooking));
   }

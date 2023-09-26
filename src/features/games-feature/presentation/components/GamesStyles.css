@@ -119,21 +119,40 @@
 }
 
 .home-search-placeholder {
-  width: 100%;
+  width: auto;
   height: 36px;
   cursor: text;
 }
 
 .home-search-bg {
-  background: #2B2C45;
+  background: rgba(58, 58, 107, 1);
   border-radius: 15px;
   padding: 10px 15px;
-  width: 100%;
+  width: 30vw;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: text;
+
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 960px) {
+  .home-search-bg {
+    width: 60vw;
+  }
+}
+@media screen and (max-width: 660px) {
+  .home-search-bg {
+    width: 50vw;
+  }
+}
+@media screen and (max-width: 530px) {
+  .home-search-bg {
+    margin-right: 0;
+    width: 90vw;
+  }
 }
 
 .home-search-input {

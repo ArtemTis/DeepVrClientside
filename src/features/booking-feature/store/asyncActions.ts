@@ -2,12 +2,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../../lib/utils/api";
 import axios from "axios";
 import { IBookingFields, IGetSummaryRequestData } from "../../../lib/utils/types";
+import { RootState } from "../../../app/store";
+import { selectToken } from "../../auth-feature/store/selectors";
 
 export const createBooking = createAsyncThunk(
     'bookingSlice/createBooking',
-    async function (values: IGetSummaryRequestData, { rejectWithValue }) {
+    async function (values: IGetSummaryRequestData, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state) || undefined; 
         try {
-            const res = await Api.createBooking(values);
+            const res = await Api.createBooking(values, token);
             
             return res.data;
         } catch (error) {
@@ -22,9 +26,11 @@ export const createBooking = createAsyncThunk(
 
 export const createEmpty = createAsyncThunk(
     'bookingSlice/createEmpty',
-    async function (_, { rejectWithValue }) {
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state) || undefined; 
         try {
-            const res = await Api.createEmpty();
+            const res = await Api.createEmpty(token);
 
             return res.data;
         } catch (error) {

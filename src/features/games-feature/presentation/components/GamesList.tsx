@@ -13,7 +13,7 @@ import notification from "../../../../assets/Notification.svg";
 
 import 'stories-react/dist/index.css';
 import { IGame } from "../../../../lib/utils/types";
-import { selectIsAuthorised, selectSelectedCity, selectUser } from "../../../auth-feature/store/selectors";
+import { selectIsAuthorised, selectSelectedCity, selectToken, selectUser } from "../../../auth-feature/store/selectors";
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
 import { ReqStatus } from "../../../../lib/utils/enums";
 import { Api } from "../../../../lib/utils/api";
@@ -218,33 +218,34 @@ export const GamesList: React.FC = () => {
 
           <SearchWrapper>
             <div>
-              {isSearchOpen ? (
-                <div className="home-search-bg" onClick={onSearchBgClick}>
-                  <input
-                    className="home-search-input"
-                    placeholder="Поиск"
-                    onInput={onSearch}
-                    onBlur={onBlur}
-                    ref={searchRef}
+              {/* {isSearchOpen ? ( */}
+              <div className="home-search-bg" onClick={onSearchBgClick}>
+                <input
+                  className="home-search-input"
+                  placeholder="Поиск"
+                  onInput={onSearch}
+                  onBlur={onBlur}
+                  ref={searchRef}
+                />
+                {searchString && (
+                  <img
+                    className="home-search-cross"
+                    src={crossWhite}
+                    alt="Очистить поиск"
+                    onClick={clearSearch}
                   />
-                  {searchString && (
-                    <img
-                      className="home-search-cross"
-                      src={crossWhite}
-                      alt="Очистить поиск"
-                      onClick={clearSearch}
-                    />
-                  )}
-                </div>
-              ) : (
-                <div className="home-search-placeholder" onClick={openSearch} />
-              )}
-              <img
-                src={searchIcon}
-                alt="Поиск"
-                className="home-title-img home-title-img-search"
-                onClick={openSearch}
-              />
+                )}
+                <img
+                  src={searchIcon}
+                  alt="Поиск"
+                  className="home-title-img home-title-img-search"
+                  onClick={openSearch}
+                />
+              </div>
+              {/* ) : (
+                 <div className="home-search-placeholder" onClick={openSearch} />
+              )} */}
+
             </div>
 
             <StyledPopover placement="bottomRight"
@@ -332,22 +333,34 @@ const StyledPopover = styled(Popover) <{ open: boolean }>`
     transform: ${({ open }) => (open ? '' : 'rotateX(180deg) rotateY(180deg)')};
   }
 
+  @media screen and (max-width: 530px) {
+    justify-content: space-between;
+    width: 90vw;
+  }
+  
 `
 
 const GamesWrappwe = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 960px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `
 const Filters = styled.div`
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
 `
-const Filter = styled.p`
+const Filter = styled.div`
   display: flex;
   padding: 12px 16px;
   align-items: center;
   gap: 16px;
+  white-space: nowrap;
 
   border-radius: 24px;
   background: #3A3A6B;
@@ -373,6 +386,11 @@ const SearchWrapper = styled.div`
   >div{
     display: flex;
     align-items: center;
+  }
+
+  @media screen and (max-width: 530px) {
+    align-items: start;
+    flex-direction: column;
   }
 `
 const StyledGroup = styled(Radio.Group)`

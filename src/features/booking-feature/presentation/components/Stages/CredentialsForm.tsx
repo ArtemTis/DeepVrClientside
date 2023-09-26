@@ -52,9 +52,6 @@ export const CredentialsForm: React.FC = () => {
 
   const watchAllFields = useWatch({ control });
 
-  console.log(watchAllFields);
-
-
   const [isPromoActive, setIsPromoActive] = useState(!credentials?.useDiscount);
   const [areBonusesActive, setAreBonusesActive] = useState(!credentials?.promo);
 
@@ -67,9 +64,6 @@ export const CredentialsForm: React.FC = () => {
       dispatch(setCredentials(values))
     }
   }, [values])
-
-  console.log(credentials);
-  
 
 
   const openModal = () => {
