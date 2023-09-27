@@ -6,12 +6,13 @@ import { FormError } from "../../../../lib/ui/FormFields/FormError";
 import "../../../profile-feature/presentation/pages/AccountStyles.css";
 import { Outlet, useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { ILoginForm } from "../../../../lib/utils/types";
 import { ReqStatus } from "../../../../lib/utils/enums";
 import { REGISTER_PATH } from "../../../../lib/utils/routeConstants";
 import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
+import { setErrorText } from "../../store/slice";
 
 
 export const Login = () => {
@@ -27,6 +28,12 @@ export const Login = () => {
   let textError = useSelector((state: RootState) => state.authReducer.textError) === 'Rejected' ? 'Ошибка авторизации' : '';
 
   const isLoading = useSelector((state: RootState) => state.authReducer.reqStatus === ReqStatus.pending);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setErrorText(''))  
+  }, [])
 
   //get last route name for change active tab
   let location = useLocation();

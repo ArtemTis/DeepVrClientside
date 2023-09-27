@@ -12,7 +12,7 @@ export const singIn = createAsyncThunk(
         const token = selectToken(state);
         try {
             const res = await Api.login(getValues);
-
+            
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {

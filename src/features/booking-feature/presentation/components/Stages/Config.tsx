@@ -2,6 +2,7 @@ import { BookingState } from "../../../store/slice";
 import { ConfirmBooking } from "./ConfirmBooking";
 import { CredentialsForm } from "./CredentialsForm";
 import { DateSelect } from "./DateSelect";
+import FilialSelect from "./FilialSelect";
 import { GameSelect } from "./GameSelect";
 import GamesTypeSelect from "./GamesTypeSelect";
 import { PlayersCountSelect } from "./PlayersCountSelect";
@@ -16,9 +17,9 @@ interface IStep {
 
 export const Config: IStep[] = [
   {
-    component: <></>,
-    isFinished: (booking) => false,
-    title: ''
+    component: <FilialSelect/>,
+    isFinished: (booking) => booking.instance !== undefined,
+    title: 'Адреса'
   },
   {
     component: <GamesTypeSelect />,

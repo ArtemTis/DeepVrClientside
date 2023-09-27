@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { createBooking, createEmpty } from "./asyncActions";
-import { IBookingCredentials, ICity, IGame, IGameType } from "../../../lib/utils/types";
+import { IBookingCredentials, ICity, IGame, IGameType, IInstance } from "../../../lib/utils/types";
 import { ReqStatus } from "../../../lib/utils/enums";
 import { Api } from "../../../lib/utils/api";
 
 export interface BookingState {
     currentStep: number;
     city?: ICity;
+    instance?: IInstance;
     typeGame?: IGameType;
     game?: IGame;
     playersCount?: number;
@@ -21,7 +22,7 @@ export interface BookingState {
 }
 
 const initialState: BookingState = {
-    currentStep: 1,
+    currentStep: 0,
     isFinished: false,
     reqStatus: ReqStatus.never,
 };

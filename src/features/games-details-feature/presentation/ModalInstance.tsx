@@ -44,6 +44,11 @@ const ModalInstance:React.FC<IProp> = ({isModalOpen, setIsModalOpen, selectedIns
         setIsModalOpen(false);
     };
 
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        navigate(`/`);
+      };
+
     const goToBooking = () => {
         // e.stopPropagation();
 
@@ -101,7 +106,7 @@ const ModalInstance:React.FC<IProp> = ({isModalOpen, setIsModalOpen, selectedIns
     }
 
     return (
-        <StyledModal open={isModalOpen} footer={[]} closeIcon={<></>}>
+        <StyledModal open={isModalOpen} footer={[]} onCancel={handleCancel}>
             <ModalWrapper>
                 <SelectInstanceList selected={selected} onSelect={onSelect} />
                 <NextButton onClick={goToBooking} isActive={!!selected}>
@@ -128,6 +133,10 @@ background: var(--101-a-29, #191A29);
 
   .ant-modal-close{
     cursor: default !important;
+  }
+
+  .ant-modal-close-x{
+    cursor: pointer;
   }
 `
 const ModalWrapper = styled.div`

@@ -52,7 +52,7 @@ const authSlice = createSlice({
             isAnyOf(singIn.pending, singInCode.pending, register.pending),
             (state, action) => {
                 state.reqStatus = ReqStatus.pending;
-                state.textError = '';
+                // state.textError = '';
             }
         )
         builder.addMatcher(

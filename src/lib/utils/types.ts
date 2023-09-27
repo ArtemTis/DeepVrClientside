@@ -90,6 +90,13 @@ export interface IGame {
   rooms?: Array<IRoom>,
 }
 
+export interface IInstance {
+  id: number,
+  title: string,
+  city: string,
+  logo: string,
+}
+
 export interface IGetGamesResponse {
   id: number,
   title: string,
