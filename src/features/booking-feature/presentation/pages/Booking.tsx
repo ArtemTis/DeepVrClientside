@@ -30,7 +30,6 @@ export const Booking: React.FC = () => {
   const location = useLocation().pathname;
   const { step } = useParams();
 
-
   useEffect(() => {
     return function checkState() {
       if (isFinished) {

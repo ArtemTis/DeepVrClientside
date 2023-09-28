@@ -9,12 +9,23 @@ import doneImg from "../../../../../assets/mirage-done.png";
 import styled from "styled-components";
 import { Title } from "../Title";
 import { NextButton } from "../../../../../lib/ui/NextButton";
+import { setCredentials, setDate, setGame, setPlayersCount, setStep, setTime, setTypeGame } from "../../../store/slice";
 
 export const Done: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [useRedirect, setUseRedirect] = useState(false);
+
+  useEffect(() => {
+    dispatch(setTypeGame(undefined));
+    dispatch(setGame(undefined));
+    dispatch(setPlayersCount(undefined));
+    dispatch(setDate(undefined));
+    dispatch(setTime(undefined));
+    dispatch(setCredentials(undefined));
+    dispatch(setStep(1));
+  }, [])
 
   const onNextClick = () => {
     navigate('/');
