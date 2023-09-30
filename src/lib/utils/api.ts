@@ -20,10 +20,13 @@ export const Api = {
     get instanceUrl() {
         return instanceUrl;
     },
-    async getAllCities() {
+    async getAllCities(token: string = 'guest_token') {
         return axios.get<Array<ICity>>(
-            `${globalUrl}/instances/list`, {
-            timeout: 8000
+            `${globalUrl}/instances/all`, {
+            timeout: 8000,
+            headers: {
+                token: token
+            }
         }
         );
     },

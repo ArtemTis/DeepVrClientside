@@ -37,11 +37,12 @@ import LoginEmail from "./features/auth-feature/presentation/components/LoginEma
 import { Register } from "./features/auth-feature/presentation/pages/Register";
 import Story from "./features/stories-feature/presentation/Story";
 import ModalContainer from "./features/games-details-feature/presentation/ModalContainer";
+import { selectCurrentStep } from "./features/booking-feature/store/selectors";
 
 export const App = () => {
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;
-
+  const currentStep = useAppSelector(selectCurrentStep);
   return (
     <div className="App">
       <Routes location={previousLocation || location}>
@@ -54,7 +55,10 @@ export const App = () => {
         <Route path={HOME_PATH} element={<Games />} />
         <Route path={BOOKING_PATH} element={<Booking />} >
           {/* <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} /> */}
-
+          {
+            currentStep > 1 &&
+              <Route index element={<Navigate to={`${BOOKING_PATH}/${currentStep}`} />} />
+          }
           <Route index element={<BookingStep />} />
           <Route path={`${BOOKING_PATH}/:step`} element={<BookingStep />} />
           <Route path={BOOKING_CONFIRM_PATH} element={<ConfirmBooking />} />
