@@ -10,3 +10,8 @@ export const selectInstancePrefix = createDraftSafeSelector(
     [(state: RootState) => state.profileReducer.instancePrefix],
     (instancePrefix) => instancePrefix
 )
+
+export const selectAllInstances = createDraftSafeSelector(
+    [(state: RootState) => state.profileReducer.allInstances],
+    (allInstances) => allInstances
+)

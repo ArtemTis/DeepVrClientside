@@ -14,7 +14,7 @@ export const createBooking = createAsyncThunk(
             const res = await Api.createBooking(values, token);
             
             return res.data;
-        } catch (error) {
+        } catch (error) {    
             if (axios.isAxiosError(error)) {
                 return rejectWithValue(error.response?.data.error_text ?? "Ошибка создания заказа");
             }

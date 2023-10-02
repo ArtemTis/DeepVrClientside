@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate, IAvalibleTime } from "./types"
+import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate, IAvalibleTime, IInstance } from "./types"
 import { IStoriesRequest, IThumbnailDto } from "../../features/stories-feature/data/storiesDto";
 
 
@@ -20,17 +20,19 @@ export const Api = {
     get instanceUrl() {
         return instanceUrl;
     },
-    // async getAllCities() {
-    //     return axios.get<Array<ICity>>(
-    //         `${globalUrl}/instances/list`, {
-    //         timeout: 8000
-    //     }
-    //     );
-    // },
-
     async getAllCities(token: string = 'guest_token') {
         return axios.get<Array<ICity>>(
-            `${globalUrl}/instances/all`, {
+            `${globalUrl}/cities/all`, {
+            timeout: 8000,
+            headers: {
+                token: token
+            }
+        }
+        );
+    },
+    async getAllInstances(token: string = 'guest_token', cityId: number) {
+        return axios.get<Array<IInstance>>(
+            `${globalUrl}/instances/${cityId}`, {
             timeout: 8000,
             headers: {
                 token: token
@@ -41,8 +43,8 @@ export const Api = {
 
     setInstanceUrl(prefix: string | undefined) {
         const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
-        instanceUrl = url;
-        // instanceUrl = 'http://192.168.1.117:5274/api';
+        // instanceUrl = url;
+        instanceUrl = 'http://192.168.1.117:5274/api';
         if (url) instanceStorageUrl = url.replace('/api', '/storage');
         else instanceStorageUrl = undefined;
     },

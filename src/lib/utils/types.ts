@@ -48,7 +48,6 @@ export interface IRoom {
     room_id: number,
   }
 }
-
 export interface IGameType {
   id: number,
   title: string,
@@ -69,7 +68,7 @@ export interface IGame {
   slug: string,
   time_duration: number,
   price: number,
-  game_type_id: number,
+  gameTypeId?: number,
   is_active: number,
   deleted_at: string,
   created_at: string,
@@ -92,9 +91,17 @@ export interface IGame {
 
 export interface IInstance {
   id: number,
-  title: string,
-  city: string,
-  logo: string,
+  name: string,
+  city: {
+    id: number,
+    name: string,
+    instances: [
+      string
+    ]
+  },
+  cityId: number,
+  code: string,
+  ownerId: number,
 }
 
 export interface IGetGamesResponse {
@@ -214,7 +221,7 @@ export interface ILoginResponse {
   error: number | string;
   error_text: string;
   token: string;
-  user: IUser;
+  client: IUser;
 }
 
 export interface IValidatePromoRequestData {
@@ -252,7 +259,7 @@ export interface IRegisterResponse {
   error: number,
   error_text: string,
   token: string,
-  user: IUser
+  client: IUser
 };
 
 export interface ILoginByCodeResponse {

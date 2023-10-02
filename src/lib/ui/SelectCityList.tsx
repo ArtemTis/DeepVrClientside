@@ -33,7 +33,7 @@ export const SelectCityList: React.FC<Props> = ({ selected, onSelect }) => {
               <StyledCity
                 className={`city-select-row${c.id === selected?.id || selectedCity?.id ? " city-select-row-selected" : ""
                   }`}
-                key={c.code}
+                key={c.id}
                 onClick={() => onSelect(c)}
               >
                 {c.name}
@@ -53,7 +53,7 @@ const CitiesList = styled.div`
   flex-direction: column;
   gap: 14px;
   margin-bottom: 14px;
-
+  margin-top: 5px;
 `
 
 const StyledCity = styled.div`

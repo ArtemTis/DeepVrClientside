@@ -35,8 +35,7 @@ export const ConfirmBooking: React.FC = () => {
   const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
   const errorText = useAppSelector(state => state.bookingReducer.textError);
   const summary = useAppSelector(state => state.summaryReducer.summary);
-
-  console.log(summary);
+  const loadingSummary = useAppSelector(state => state.summaryReducer.reqStatus === ReqStatus.pending);
 
   const [isPostingForm, setIsPostingForm] = useState(false);
 
@@ -156,7 +155,7 @@ export const ConfirmBooking: React.FC = () => {
                   {loadingStatus ? (
                     <LoadIcon />
                   ) : (
-                    <>{summary && curencyFormat.format(summary.total)}</>
+                    <LoadWrapper isLoading={loadingSummary} height={1}>{summary && curencyFormat.format(summary.total)}</LoadWrapper>
                   )}
                 </span>
               </div>

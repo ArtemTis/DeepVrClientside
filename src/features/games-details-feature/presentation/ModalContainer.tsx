@@ -6,7 +6,7 @@ import ageIcon from "../../../assets/vr-glasses 2.svg";
 
 import "./modalStyles.css"
 import { Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import Slider from "./Slider";
 import styled from "styled-components";
@@ -19,6 +19,7 @@ import { BOOKING_PATH } from "../../../lib/utils/routeConstants";
 import { IGame } from "../../../lib/utils/types";
 import ModalInstance from "./ModalInstance";
 import { selectGame } from "../../booking-feature/store/selectors";
+import { selectGameTypes } from "../../games-feature/store/gamesType/selectors";
 
 const ModalContainer = (props: { location: Location }) => {
     const location = props.location;
@@ -33,13 +34,6 @@ const ModalContainer = (props: { location: Location }) => {
         setIsModalOpen(false);
     };
 
-    const title = 'Survival';
-    const genre = "шутер";
-    const minNumber = 2;
-    const maxNumber = 4;
-    const time = 40;
-    const age = 12;
-
     let gameById: IGame | undefined;
     if (idGame) {
         gameById = useAppSelector(selectGames).find(game => `${game.id}` === idGame);
@@ -52,8 +46,8 @@ const ModalContainer = (props: { location: Location }) => {
         e.stopPropagation();
         setIsModalOpen(false);
         setIsInstanceModalOpen(true);
+        
     }
-
 
     return (
         <>

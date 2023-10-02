@@ -52,7 +52,7 @@ export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
   // const values = getValuesEdit();
   let equalValues =
     (watchAllFields.email!! !== user?.email ||
-      watchAllFields.name!! !== user.name ||
+      watchAllFields.name!! !== user?.name ||
       watchAllFields.phone!! !== `8${user?.phone}`);
 
   const canUpdateProfile = isValidEdit && equalValues;

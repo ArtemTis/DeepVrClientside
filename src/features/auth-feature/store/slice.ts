@@ -5,7 +5,7 @@ import { ReqStatus } from "../../../lib/utils/enums";
 
 interface AuthState {
     token: string;
-    user?: IUser;
+    client?: IUser;
     selectedCity?: ICity;
     textError?: string;
     reqStatus: ReqStatus;
@@ -26,7 +26,7 @@ const authSlice = createSlice({
             state.token = action.payload;
         },
         setUser: (state, action: { payload: IUser | undefined }) => {
-            state.user = action.payload;
+            state.client = action.payload;
         },
         setSelectedCity: (state, action: { payload: ICity | undefined }) => {
             state.selectedCity = action.payload;
@@ -43,10 +43,10 @@ const authSlice = createSlice({
             state.codeStatus = 'auth';
         })
         builder.addCase(singIn.fulfilled, (state, action) => {
-            state.user = action.payload.user;
+            state.client = action.payload.client;
         })
         builder.addCase(register.fulfilled, (state, action) => {
-            state.user = action.payload.user;
+            state.client = action.payload.client;
         })
         builder.addMatcher(
             isAnyOf(singIn.pending, singInCode.pending, register.pending),

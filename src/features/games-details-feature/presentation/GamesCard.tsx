@@ -22,8 +22,6 @@ const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
     const goToBooking = (e: React.MouseEvent) => {
         e.stopPropagation();
         setIsInstanceModalOpen(true);
-        console.log(1);
-
     }
 
     const openModal = () => {

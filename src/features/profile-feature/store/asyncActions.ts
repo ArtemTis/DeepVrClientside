@@ -4,13 +4,33 @@ import axios from "axios";
 import { RootState } from "../../../app/store";
 import { selectInstancePrefix } from "./selectors";
 import { ITokenDTO } from "../../../lib/utils/types";
-import { selectGameId } from "../../booking-feature/store/selectors";
+import { selectCity, selectGameId } from "../../booking-feature/store/selectors";
+import { selectToken } from "../../auth-feature/store/selectors";
 
 export const allCities = createAsyncThunk(
     'profileSlice/allCities',
     async function (_, { rejectWithValue }) {
         try {            
             const res = await Api.getAllCities();
+
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
+            }
+            return rejectWithValue('Неизвестная ошибка');
+        }
+    }
+)
+
+export const allInstances = createAsyncThunk(
+    'profileSlice/allInstances',
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state) || undefined;
+        const cityId = selectCity(state)?.id!!;
+        try {            
+            const res = await Api.getAllInstances(token, cityId);
 
             return res.data;
         } catch (error) {

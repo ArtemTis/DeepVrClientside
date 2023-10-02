@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const InstanceCard: React.FC<Props> = ({ instance, isSelected, onClick}) => {
-  const imgUrl = instance.logo;
+  const imgUrl = instance.code;
   console.log(instance);
   
   
@@ -26,7 +26,7 @@ export const InstanceCard: React.FC<Props> = ({ instance, isSelected, onClick}) 
           className="selectable-card-bg game-card-bg"
           style={imgUrl ? { backgroundImage: `url(${imgUrl})` } : undefined}
         >
-          <h2 className="game-card-title"> {instance.title} </h2>
+          <h2 className="game-card-title"> {instance.name} </h2>
           <SelectedMark isSelected={!!isSelected} />
         </div>
       </div>

@@ -2,7 +2,7 @@ import { selectBookingId, selectCredentials, selectCurrentStep, selectDate, sele
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
 import "./BookingStyles.css";
 import { useCallback, useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router";
+import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router";
 import TypeGameSelect from "../components/Stages/GamesTypeSelect";
 import { Button, Modal } from "antd";
 import { Config } from "../components/Stages/Config";
@@ -15,7 +15,7 @@ import close from '../../../../assets/close-cross.svg'
 import { selectToken, selectUser } from "../../../auth-feature/store/selectors";
 import { clearState, setStep } from "../../store/slice";
 import { NextButton } from "../../../../lib/ui/NextButton";
-import { BOOKING_CONFIRM_PATH } from "../../../../lib/utils/routeConstants";
+import { BOOKING_CONFIRM_PATH, BOOKING_PATH } from "../../../../lib/utils/routeConstants";
 import { getSummary } from "../../store/summary/asyncActions";
 import { IBookingCredentials, IGetSummaryRequestData } from "../../../../lib/utils/types";
 import { createBooking } from "../../store/asyncActions";
@@ -146,8 +146,8 @@ export const Booking: React.FC = () => {
 
 
 
-
         <Outlet />
+
 
         {
           stepPath !== 'done'
