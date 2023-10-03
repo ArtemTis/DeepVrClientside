@@ -1,6 +1,6 @@
 import { Button, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../app/store";
+import { RootState, useAppDispatch, useAppSelector } from "../../../../app/store";
 import { Api } from "../../../../lib/utils/api";
 import { BonusCard } from "../components/BonusCrad";
 import { OrdersAllPopup } from "../../../../lib/ui/Popups/OrdersAllPopup";
@@ -26,83 +26,34 @@ import { OrderInfoRow } from "../components/OrderInfoRow";
 import Ticket from "../components/Ticket";
 import { HorizontalScrollArea } from "../../../../lib/ui/HorizontalScrollArea";
 import { LoadIcon } from "../../../../lib/ui/LoadIcon";
+import { getBonusesInfo, getHistory } from "../../store/asyncActions";
+import { selectBonuses, selectOrdersHistory } from "../../store/selectors";
+import { ReqStatus } from "../../../../lib/utils/enums";
 
 let tempPopups: Array<React.ReactElement> = [];
 
 export const Profile: React.FC = () => {
-  const [bonuses, setBonuses] = useState<IGetBonusesInfoResponse>();
-  const [history, setHistory] = useState<Array<IOrderHistoryItem>>();
-  const [isLoadingBonuses, setIsLoadingBonuses] = useState(false);
-  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
-  const [isLoadingCity, setIsLoadingCity] = useState(false);
+  const dispatch = useAppDispatch();
 
   const citySelected = useAppSelector(selectSelectedCity);
 
   const token = useAppSelector(selectToken);
   const user = useAppSelector(selectUser);
 
-  const dispatch = useAppDispatch();
-
   const [popupWindows, setPopupWindows] = useState<Array<React.ReactElement>>(
     []
   );
 
-  useEffect(() => {
-    setIsLoadingBonuses(true);
-    Api.getBonusesInfo({ token })
-      .then((res) => {
-        setIsLoadingBonuses(false);
-        setBonuses(res.data);
-      })
-      .catch((err) => console.log("error at getBonusesSummary:", err))
-      .finally(() => setIsLoadingBonuses(false));
+  const history = useAppSelector(selectOrdersHistory);
+  const bonuses = useAppSelector(selectBonuses);
+  const isLoading = useAppSelector((state: RootState) => state.profileReducer.reqStatus === ReqStatus.pending);
 
-    setIsLoadingHistory(true);
-    setIsLoadingCity(true);
-    user &&
-      Promise.all([
-        Api.getHistory(user.id),
-        Api.getAllCities(),
-        Api.getUserCity(token),
-      ])
-        .then(([history, cities, selectedCity]) => {
-          if (Api.checkStatus(history) && Api.checkStatus(cities)) {
-            if (Api.checkStatus(selectedCity)) {
-              const c = cities.data.find(
-                (d) => d.name === selectedCity.data?.city
-              );
-              dispatch(setSelectedCity(c));
-              setIsLoadingCity(false);          
-            }
-            return Promise.all([
-              history.data,
-              ...history.data.map((order) => {
-                order.location = cities.data.find((c) => c.id == +order.location_id);
-                const ids = JSON.parse(order.games_id) as Array<number>;
-                return Promise.all([
-                  ...ids.map((gameId) =>
-                    Api.getGameInfo(order.location?.code ?? "", gameId)
-                  ),
-                ]).then((games) => {
-                  order.games = games
-                    .filter((g) => Api.checkStatus(g))
-                    .map((g) => g.data);
-                  return order;
-                });
-              }),
-            ]).then(([history]) => {
-              setHistory(history);
-              setIsLoadingCity(false);
-              setIsLoadingHistory(false);
-            });
-          }
-        })
-        .catch((err) => console.log("error at getHistory:", err))
-        .finally(() => {
-          setIsLoadingCity(false);
-          setIsLoadingHistory(false);
-        });
-  }, []);
+  useEffect(() => {
+    dispatch(getBonusesInfo());
+    dispatch(getHistory(user?.id!!));
+  },[])
+
+  console.log(history);
 
   const bonusesRefs = {
     "1": useRef<HTMLDivElement>(),
@@ -186,9 +137,9 @@ export const Profile: React.FC = () => {
                       Смотреть все
                     </span>
                   </div>
-                  <LoadWrapper isLoading={isLoadingHistory} height={1}>
+                  <LoadWrapper isLoading={isLoading} height={1}>
                     {history &&
-                      history.slice(-3).map((order) => {
+                      history.slice(0, 3).map((order) => {
                         return <OrderInfoRow order={order} key={order.id} />;
                       })}
                   </LoadWrapper>
@@ -212,7 +163,7 @@ export const Profile: React.FC = () => {
                   onResize={() => console.log("resize")}
                 >
                   <div className="profile-divide-header">Баланс</div>
-                  <LoadWrapper isLoading={isLoadingBonuses} height={1}>
+                  <LoadWrapper isLoading={isLoading} height={1}>
                     <HorizontalScrollArea
                       firstElemRef={bonusesRefs["1"]}
                       lastElemRef={bonusesRefs["3"]}
@@ -258,7 +209,7 @@ export const Profile: React.FC = () => {
                   >
                     <span>Выбрать город</span>
                     <span className="profile-divide-header-option">
-                      {isLoadingCity ? (
+                      {isLoading ? (
                         <LoadIcon />
                       ) : (
                         <>{citySelected ? citySelected.name : "Не выбрано"}</>

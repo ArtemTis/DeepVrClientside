@@ -45,9 +45,11 @@ export const allInstances = createAsyncThunk(
 
 export const getBonusesInfo = createAsyncThunk(
     'profileSlice/getBonusesInfo',
-    async function (value: ITokenDTO, { rejectWithValue }) {
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
         try {            
-            const res = await Api.getBonusesInfo(value);
+            const res = await Api.getBonusesInfo({token});
 
             return res.data;
         } catch (error) {
@@ -61,9 +63,11 @@ export const getBonusesInfo = createAsyncThunk(
 
 export const getHistory = createAsyncThunk(
     'profileSlice/getHistory',
-    async function (value: number, { rejectWithValue }) {
+    async function (value: number, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
         try {            
-            const res = await Api.getHistory(value);
+            const res = await Api.getHistory(value, token);
 
             return res.data;
         } catch (error) {

@@ -283,9 +283,14 @@ export const Api = {
         );
     },
 
-    async getHistory(userId: number) {
+    async getHistory(userId: number, token: string) {
         return axios.get<Array<IOrderHistoryItem>>(
-            `${globalUrl}/orders/history/${userId}`
+            `${globalUrl}/orders/history/${userId}`,
+            {
+                headers: {
+                    token
+                }
+            }
         );
     },
 

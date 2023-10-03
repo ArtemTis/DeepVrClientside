@@ -1,8 +1,8 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { ICity, IInstance } from "../../../lib/utils/types";
+import { ICity, IGetBonusesInfoResponse, IInstance, IOrderHistoryItem } from "../../../lib/utils/types";
 import { ReqStatus } from "../../../lib/utils/enums";
 import { Api } from "../../../lib/utils/api";
-import { allCities, allInstances } from "./asyncActions";
+import { allCities, allInstances, getBonusesInfo, getHistory } from "./asyncActions";
 
 interface ProfileState {
     city?: ICity;
@@ -10,6 +10,8 @@ interface ProfileState {
     allInstances: IInstance[];
     instance?:IInstance
     instancePrefix: string;
+    bonuses?: IGetBonusesInfoResponse;
+    history?: IOrderHistoryItem[];
     textError?: string;
     reqStatus?: ReqStatus;
 }
@@ -35,26 +37,10 @@ const profileSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase( allCities.pending,
-            (state) => {
-                state.reqStatus = ReqStatus.pending;
-            }
-        )
         builder.addCase(allCities.fulfilled,
             (state, action) => {
                 state.allCities = action.payload;
                 state.reqStatus = ReqStatus.fulfield;
-            }
-        )
-        builder.addCase(allCities.rejected,
-            (state) => {
-                state.reqStatus = ReqStatus.rejected;
-            }
-        )
-
-        builder.addCase( allInstances.pending,
-            (state) => {
-                state.reqStatus = ReqStatus.pending;
             }
         )
         builder.addCase(allInstances.fulfilled,
@@ -63,9 +49,30 @@ const profileSlice = createSlice({
                 state.reqStatus = ReqStatus.fulfield;
             }
         )
-        builder.addCase(allInstances.rejected,
-            (state) => {
-                state.reqStatus = ReqStatus.rejected;
+        builder.addCase(getBonusesInfo.fulfilled,
+            (state, action) => {
+                state.bonuses = action.payload;
+                state.reqStatus = ReqStatus.fulfield;
+            }
+        )
+        builder.addCase(getHistory.fulfilled,
+            (state, action) => {
+                state.history = action.payload;
+                state.reqStatus = ReqStatus.fulfield;
+            }
+        )
+
+        builder.addMatcher(
+            isAnyOf(allCities.pending, allInstances.pending, getBonusesInfo.pending, getHistory.pending),
+            (state, action) => {
+                state.reqStatus = ReqStatus.pending;
+            }
+        )
+        builder.addMatcher(
+            isAnyOf(allCities.rejected, allInstances.rejected, getBonusesInfo.rejected, getHistory.rejected),
+            (state, action) => {
+                state.reqStatus = ReqStatus.fulfield;
+                state.textError = action.error.message;
             }
         )
     }

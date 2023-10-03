@@ -112,16 +112,16 @@ export interface IGetGamesResponse {
 }
 
 export interface IGameOnType {
-    id: 0,
-    externalId: string,
-    titleOverride: string,
-    priceOverride: 0,
-    logoOverride: string,
-    timeDuration: 0,
-    descriptionOverride: string,
-    gameTypeId: 0,
-    gameType: string
-  }
+  id: 0,
+  externalId: string,
+  titleOverride: string,
+  priceOverride: 0,
+  logoOverride: string,
+  timeDuration: 0,
+  descriptionOverride: string,
+  gameTypeId: 0,
+  gameType: string
+}
 
 export interface IBookingCredentials {
   name: string,
@@ -231,6 +231,8 @@ export interface IValidatePromoRequestData {
   game: number
 }
 
+
+
 export interface IBookingFields {
   certificates?: Array<string>,
   date: string,
@@ -300,20 +302,52 @@ export interface IChangePassForm {
   newPassword: string,
 }
 
-export interface IOrderHistoryItem {
+export interface IBookingHistory {
   id: number,
-  user_id: number,
-  booking_date: string,
-  location_id: string,
-  location?: ICity,
-  games_id: string,
-  games?: Array<IGame>
-  price: number,
-  guest_quantity: number,
-  external_id: number,
-  is_manual: number,
-  created_at: string,
-  updated_at: string
+  bookingDate: string,
+  gameId: number,
+  roomId: number,
+  guestCount: number,
+  orderId: string,
+  status: string,
+  createdAt: string,
+  updatedAt: string,
+  gameTypeId: number,
+  game: {
+    id: number,
+    externalId: string,
+    titleOverride: string,
+    priceOverride: number,
+    logoOverride: string,
+    timeDuration: number,
+    descriptionOverride: string,
+    gameTypeId: number
+  }
+}
+
+export interface IOrderHistoryItem {
+  id: string,
+  client: {
+    id: number,
+    name: string,
+    phone: string
+  },
+  bookings: [
+    IBookingHistory
+  ],
+  priceInfo: {
+    paymentInfo: {
+      bonus: number,
+      promocode: string,
+      certificates: string[],
+    },
+    price: number,
+    promo: number,
+    bonus: number,
+    certificates: number,
+    total: number,
+    discount: number
+  }
 }
 
 export interface IGetUserCityResponse {
