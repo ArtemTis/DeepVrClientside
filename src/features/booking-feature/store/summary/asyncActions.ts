@@ -11,10 +11,8 @@ export const getSummary = createAsyncThunk(
         const state = getState() as RootState;
         const token = selectToken(state) || undefined; 
         try {
-            console.log(values);
             const res = await Api.getSummary(values, token);
-            console.log(res.data);
-            
+
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {

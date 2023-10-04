@@ -55,7 +55,7 @@ export const CitySelect: React.FC = () => {
                 lg={12}
                 xl={8}
                 xxl={8}
-                key={city.code}
+                key={city.id}
               >
                 <CityCard
                   city={city}

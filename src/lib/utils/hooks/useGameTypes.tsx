@@ -13,7 +13,7 @@ const useGameType = () => {
         dispatch(gamesTypes());
     }
 
-    return gameTypes;
+    return {gameTypes, isLoading};
 }
 
 export default useGameType;

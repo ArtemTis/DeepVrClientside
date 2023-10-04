@@ -16,6 +16,11 @@ export const selectAllInstances = createDraftSafeSelector(
     (allInstances) => allInstances
 )
 
+export const selectInstance = createDraftSafeSelector(
+    [(state: RootState) => state.profileReducer.instance],
+    (instance) => instance
+)
+
 export const selectOrdersHistory = createDraftSafeSelector(
     [(state: RootState) => state.profileReducer.history],
     (history) => history

@@ -34,6 +34,8 @@ import CitySelectList from "./CitySelectList";
 import { Link } from "react-router-dom";
 import { ACCOUNT_PATH, PROFILE_PATH } from "../../../../lib/utils/routeConstants";
 import ErrorText from "../../../../lib/ui/ErrorText";
+import { SelectInstanceList } from "../../../../lib/ui/SelectInstanceList";
+import { selectInstance } from "../../../profile-feature/store/selectors";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
@@ -57,9 +59,13 @@ export const GamesList: React.FC = () => {
 
   useEffect(() => {
     if (city) {
-      Api.setInstanceUrl(city?.code);
+      console.log(city);
+      
+      Api.setInstanceUrl(city?.city);
 
       dispatch(getAllGames());
+      console.log('dispatch(getAllGames())');
+      
     }
 
   }, [city]);
@@ -117,6 +123,7 @@ export const GamesList: React.FC = () => {
   };
 
   const isSelectedCity = !!useAppSelector(selectCity);
+  // const isSelectedInstance = !!useAppSelector(selectInstance);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -130,6 +137,7 @@ export const GamesList: React.FC = () => {
       },
       {
         element: <></>,
+        // element: <ModalInstance setIslOpen={setOpen} isSelectedInstance={isSelectedInstance} />,
         type: 'instance'
       }
     ]

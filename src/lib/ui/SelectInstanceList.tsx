@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ICity } from "../utils/types";
 import { useAppDispatch, useAppSelector } from "../../app/store";
-import { allCities } from "../../features/profile-feature/store/asyncActions";
+import { allCities, allInstances } from "../../features/profile-feature/store/asyncActions";
 import { selectSelectedCity } from "../../features/auth-feature/store/selectors";
 import { ReqStatus } from "../utils/enums";
 import { LoadWrapper } from "./LoadWrapper";
@@ -15,8 +15,9 @@ interface IInstance   {
 
 interface Props {
     selected: IInstance | undefined;
-    onSelect: (city: IInstance | undefined) => void;
+    onSelect: (instance: IInstance | undefined) => void;
 }
+
 
 export const SelectInstanceList: React.FC<Props> = ({ selected, onSelect }) => {
     const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ export const SelectInstanceList: React.FC<Props> = ({ selected, onSelect }) => {
     
 
     useEffect(() => {
-        // dispatch(allInstances());
+        dispatch(allInstances());
     }, []);
 
     return (

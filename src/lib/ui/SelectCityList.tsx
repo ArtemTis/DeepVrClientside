@@ -18,20 +18,21 @@ export const SelectCityList: React.FC<Props> = ({ selected, onSelect }) => {
 
   const selectedCity = useAppSelector(selectSelectedCity);
   const cityList = useAppSelector(state => state.profileReducer.allCities);
-  const loadingStatus = useAppSelector(state => state.profileReducer.reqStatus === ReqStatus.pending);
+  const isLoading = useAppSelector(state => state.profileReducer.reqStatus === ReqStatus.pending);
+  const loading = useAppSelector(state => state.profileReducer.reqStatus);
 
   useEffect(() => {
     dispatch(allCities());
   }, []);
 
   return (
-    <LoadWrapper isLoading={loadingStatus} height={1}>
+    <LoadWrapper isLoading={isLoading} height={1}>
       <CitiesList>
         {!!cityList ? (
           cityList.map((c) => {
             return (
               <StyledCity
-                className={`city-select-row${c.id === selected?.id || selectedCity?.id ? " city-select-row-selected" : ""
+                className={`city-select-row${c.id === (selected?.id || selectedCity?.id) ? " city-select-row-selected" : ""
                   }`}
                 key={c.id}
                 onClick={() => onSelect(c)}

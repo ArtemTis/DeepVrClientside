@@ -39,7 +39,6 @@ interface BookingHistoryProps {
 }
 
 const BookingHistory: React.FC<BookingHistoryProps> = ({ booking }) => {
-  const dispatch = useAppDispatch();
   const countLastDigit = booking.guestCount % 10;
 
   const ending =
@@ -49,16 +48,14 @@ const BookingHistory: React.FC<BookingHistoryProps> = ({ booking }) => {
         ? "ы"
         : "";
 
-  const gameTypes = useGameType();
-
-  console.log('gameType: ' + gameTypes + "booking: " + booking.game.gameTypeId);
+  const {gameTypes, isLoading} = useGameType();
   
   const gameTypesName = gameTypes.find(type => type.id === booking.game.gameTypeId)
 
   return (
     <div className="profile-order-info-row">
       <span className="profile-order-info-span">{`${booking.guestCount
-        } персон${ending} | ${booking.game.titleOverride} | ${gameTypesName}`}</span>
+        } персон${ending} | ${booking.game.titleOverride} | ${gameTypesName?.title}`}</span>
       <span className="profile-order-info-row-date">
         {`от ${dateFormatDayMonth.format(new Date(booking.bookingDate))}`}
       </span>

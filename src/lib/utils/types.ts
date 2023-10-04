@@ -25,6 +25,24 @@ export interface IUser {
   error_text?: string;
 }
 
+// export interface ICity {
+//   id: number,
+//   name: string,
+//   instances: [
+//     {
+//       id: number,
+//       name: string,
+//       city: null,
+//       cityId: number,
+//       code: string,
+//       ownerId: number,
+//       createdAt: string,
+//       updatedAt: string,
+//       users: []
+//     }
+//   ]
+// }
+
 export interface ICity {
   id: number,
   name: string,
@@ -61,6 +79,50 @@ export interface IAvalibleTime {
   date: string,
   times: []
 }
+
+// export interface IGame {
+//   id: number,
+//   title: string,
+//   games: [
+//     {
+//       id: number,
+//       externalId: string,
+//       titleOverride: string,
+//       priceOverride: number,
+//       logoOverride: string,
+//       timeDuration: number,
+//       descriptionOverride: string,
+//       gameTypeId: number
+//     }
+//   ],
+//   fullGames: [
+//     {
+//       id: string,
+//       owner_id: number,
+//       name: string,
+//       use_key: number,
+//       created_at: string,
+//       updated_at: string,
+//       title: string,
+//       slug: string,
+//       time_duration: string,
+//       price: number,
+//       is_active: number,
+//       logo: string,
+//       guest_min: string,
+//       guest_max: string,
+//       description: string,
+//       age_limit: string,
+//       images: [
+//         string
+//       ],
+//       video: string,
+//       genre: string,
+//       actual_build: string,
+//       gameTypeId: number
+//     }
+//   ]
+// }
 
 export interface IGame {
   id: number,

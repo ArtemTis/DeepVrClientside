@@ -53,8 +53,6 @@ export const Profile: React.FC = () => {
     dispatch(getHistory(user?.id!!));
   },[])
 
-  console.log(history);
-
   const bonusesRefs = {
     "1": useRef<HTMLDivElement>(),
     "2": useRef<HTMLDivElement>(),
