@@ -7,7 +7,7 @@ import { getGameByType } from "../../../../games-feature/store/games/asyncAction
 import { ReqStatus } from "../../../../../lib/utils/enums";
 import { selectGame } from "../../../store/selectors";
 import { IGame } from "../../../../../lib/utils/types";
-import { setGame } from "../../../store/slice";
+import { setCredentials, setDate, setGame, setPlayersCount, setTime } from "../../../store/slice";
 import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
 import { GameCard } from "../../../../../lib/ui/GameCard";
 
@@ -36,6 +36,10 @@ export const GameSelect: React.FC = () => {
 
   useEffect(() => {
     dispatch(setGame(selected));
+
+    dispatch(setPlayersCount(undefined));
+    dispatch(setDate(undefined));
+    dispatch(setTime(undefined));
   }, [selected])
 
 

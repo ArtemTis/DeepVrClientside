@@ -8,7 +8,7 @@ import { selectGameTypes } from '../../../../games-feature/store/gamesType/selec
 import { IGameType } from '../../../../../lib/utils/types'
 import { ReqStatus } from '../../../../../lib/utils/enums'
 import { gamesTypes } from '../../../../games-feature/store/gamesType/asyncActions'
-import { setTypeGame } from '../../../store/slice'
+import { setCredentials, setDate, setGame, setPlayersCount, setTime, setTypeGame } from '../../../store/slice'
 import { LoadWrapper } from '../../../../../lib/ui/LoadWrapper'
 import TypeGameCard from '../TypeGameCard'
 import { selectTypeGame } from '../../../store/selectors'
@@ -32,6 +32,11 @@ const GamesTypeSelect = () => {
 
   useEffect(() => {
     dispatch(setTypeGame(selected)); 
+
+    dispatch(setGame(undefined));
+    dispatch(setPlayersCount(undefined));
+    dispatch(setDate(undefined));
+    dispatch(setTime(undefined));
   }, [selected])
 
   const onCardClick = (room: IGameType) => {

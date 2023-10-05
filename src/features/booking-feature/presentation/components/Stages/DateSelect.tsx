@@ -9,7 +9,7 @@ import { selectAvalibleDayAndTime } from "../../../store/avalibleTime/selectors"
 import { getAvalibleDateAndTime } from "../../../store/avalibleTime/asyncActions";
 import styled from "styled-components";
 import { selectDate } from "../../../store/selectors";
-import { setDate } from "../../../store/slice";
+import { setCredentials, setDate, setTime } from "../../../store/slice";
 import { IAvalibleTime } from "../../../../../lib/utils/types";
 
 export const DateSelect: React.FC = () => {
@@ -22,23 +22,25 @@ export const DateSelect: React.FC = () => {
 
   useEffect(() => {
     dispatch(getAvalibleDateAndTime());
-  },[])
+  }, [])
 
   const preselectedDate = useAppSelector(selectAvalibleDayAndTime);
   const selectedDate = useAppSelector(selectDate);
-  
+
   const [selected, setSelected] = useState<Date | undefined>(
     selectedDate ? new Date(selectedDate) : undefined
   );
-  
+
 
   useEffect(() => {
     if (!!selected) {
       selected.setMinutes(-selected.getTimezoneOffset());
       dispatch(setDate(selected.toISOString()));
+
+      dispatch(setTime(undefined));
     }
   }, [selected])
-  
+
 
   const onChangeDate = (d: Date) => {
     setSelected(d);
@@ -81,7 +83,7 @@ interface CustomDayProps {
   minDate: Date;
   maxDate: Date;
   selectedDate: Date | undefined;
-  preselectedDate:  IAvalibleTime[];
+  preselectedDate: IAvalibleTime[];
 }
 const CustomDay: React.FC<CustomDayProps> = ({
   dayOfMonth,
@@ -92,8 +94,8 @@ const CustomDay: React.FC<CustomDayProps> = ({
   preselectedDate
 }) => {
 
-  let emptyDay : string = `${new Date(`${preselectedDate.find(day => day.times.length === 0)?.date}`)}`;
-  let unselectDate : string = `${date}`;
+  let emptyDay: string = `${new Date(`${preselectedDate.find(day => day.times.length === 0)?.date}`)}`;
+  let unselectDate: string = `${date}`;
 
   const isSelected =
     selectedDate &&
@@ -107,16 +109,16 @@ const CustomDay: React.FC<CustomDayProps> = ({
 
   useEffect(() => {
     dispatch(setDate(`${selectedDate}`.slice(0, 15)));
-  },[selectedDate])
-  
-  
+  }, [selectedDate])
+
+
   return (
     <StyledDay
       className={`datepicker-customDay${isUnselectable
-          ? " datepicker-customDay-unselectable"
-          : isSelected
-            ? " datepicker-customDay-selected"
-            : ""
+        ? " datepicker-customDay-unselectable"
+        : isSelected
+          ? " datepicker-customDay-selected"
+          : ""
         }`}
     >
       <div className="datepicker-customDay-day">{dayOfMonth}</div>
