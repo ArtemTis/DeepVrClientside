@@ -68,7 +68,8 @@ const StyledCity = styled.div`
 
 
   &.city-select-row{
-    width: 20vw;
+    /* width: 20vw; */
+    width: 280px;
     padding: 14px 0px;
   }
   

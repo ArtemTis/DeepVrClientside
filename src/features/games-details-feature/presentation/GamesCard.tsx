@@ -6,22 +6,52 @@ import "./cardStyles.css"
 import { BOOKING_PATH, GAMES_DETAILS_PATH } from '../../../lib/utils/routeConstants';
 import { IGame } from '../../../lib/utils/types';
 import { useDispatch } from 'react-redux';
-import { setGame, setTypeGame } from '../../booking-feature/store/slice';
+import { setCredentials, setDate, setGame, setPlayersCount, setTime, setTypeGame } from '../../booking-feature/store/slice';
 import { CitySelectHome } from '../../games-feature/presentation/components/CitySelectHome';
 import ModalInstance from './ModalInstance';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../app/store';
+import { selectAllInstances, selectInstance } from '../../profile-feature/store/selectors';
+import useGameType from '../../../lib/utils/hooks/useGameTypes';
+import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
+import { selectGameTypes } from '../../games-feature/store/gamesType/selectors';
 
 const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
     const location = useLocation();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const selectedInstance = { id: 1, name: 'Все филиалы' };
-    const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(selectedInstance ? false : true);
+    const selectedInstance = useAppSelector(selectInstance);
+    const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(false);
+
+    const instances = useAppSelector(selectAllInstances);
+
+    // useEffect(() => {
+    //     dispatch(gamesTypes());
+    // }, [])
+    const gameTypes = useAppSelector(selectGameTypes);
 
     const goToBooking = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setIsInstanceModalOpen(true);
+        // setIsInstanceModalOpen(true);
+
+        if (instances.length > 1) {
+            setIsInstanceModalOpen(true);
+        } else {
+            dispatch(gamesTypes());
+
+
+            const gameTypeOfGame = gameTypes.find(type => type.id === game.gameTypeId);
+
+            navigate(`${BOOKING_PATH}/3`);
+            dispatch(setTypeGame(gameTypeOfGame));
+            dispatch(setGame(game));
+            dispatch(setPlayersCount(game.guest_min));
+
+            dispatch(setDate(undefined));
+            dispatch(setTime(undefined));
+            dispatch(setCredentials(undefined));
+        }
     }
 
     const openModal = () => {

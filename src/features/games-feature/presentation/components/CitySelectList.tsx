@@ -59,4 +59,6 @@ const ModalWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 15px;
+
+  max-width: 320px;
 `

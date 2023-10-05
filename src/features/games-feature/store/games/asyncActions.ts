@@ -11,10 +11,7 @@ export const getAllGames = createAsyncThunk(
         const token = selectToken(state) || undefined;
         try {
             const res = await Api.getAllGames(token);
-            console.log("games api");
-            console.log(res.data);
-            console.log(res.status);
-            
+
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {

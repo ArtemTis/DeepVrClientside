@@ -154,16 +154,16 @@ export interface IGame {
 export interface IInstance {
   id: number,
   name: string,
-  city: {
+  city?: {
     id: number,
     name: string,
     instances: [
       string
     ]
   },
-  cityId: number,
-  code: string,
-  ownerId: number,
+  cityId?: number,
+  code?: string,
+  ownerId?: number,
 }
 
 export interface IGetGamesResponse {

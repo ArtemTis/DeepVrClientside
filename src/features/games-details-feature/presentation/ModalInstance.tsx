@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { SelectInstanceList } from '../../../lib/ui/SelectInstanceList';
 import { useNavigate } from 'react-router';
 import { BOOKING_PATH } from '../../../lib/utils/routeConstants';
-import { setGame, setTypeGame } from '../../booking-feature/store/slice';
+import { setCredentials, setDate, setGame, setPlayersCount, setTime, setTypeGame } from '../../booking-feature/store/slice';
 import { IGame } from '../../../lib/utils/types';
 import { selectGameTypes } from '../../games-feature/store/gamesType/selectors';
 import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
@@ -21,14 +21,15 @@ interface IInstance {
 interface IProp {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedInstance: IInstance;
+  selectedInstance?: IInstance;
   game: IGame;
 
+  instances?: IInstance[];
   // setIslOpen: React.Dispatch<React.SetStateAction<boolean>>;
   // isSelectedInstance: boolean;
 }
 
-const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedInstance, game }) => {
+const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedInstance, game, instances }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   // const isSelectedInstance = !!useAppSelector(selectInstance);
@@ -50,6 +51,7 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
     setSelected(instance);
   };
 
+
   // const confirmm = () => {
   //     if (selected) {
   //         // dispatch(setSelectedInstance(selected));
@@ -69,7 +71,11 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
     navigate(`${BOOKING_PATH}/3`);
     dispatch(setTypeGame(gameTypeOfGame));
     dispatch(setGame(game));
-    console.log(game);
+    dispatch(setPlayersCount(game.guest_min));
+
+    dispatch(setDate(undefined));
+    dispatch(setTime(undefined));
+    dispatch(setCredentials(undefined));
 
     setIsModalOpen(false);
   }
@@ -77,7 +83,7 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
   return (
     <StyledModal open={isModalOpen} footer={[]} onCancel={handleCancel}>
       <ModalWrapper>
-        <SelectInstanceList selected={selected} onSelect={onSelect} />
+        <SelectInstanceList selected={selected} onSelect={onSelect} instances={instances} />
         <NextButton onClick={goToBooking} isActive={!!selected}>
           Выбрать
         </NextButton>

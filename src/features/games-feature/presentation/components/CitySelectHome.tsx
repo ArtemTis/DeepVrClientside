@@ -30,6 +30,7 @@ const StyledModal = styled(Modal)`
   margin: 0 auto;
   width: 25vw !important;
   min-width: 280px;
+  max-width: 350px;
 
   border-radius: 16px;
 background: var(--101-a-29, #191A29);

@@ -20,9 +20,6 @@ export const GameSelect: React.FC = () => {
   const selectedGames = useAppSelector((state: RootState) => state.allGames.gameByType);
   const selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
 
-  console.log(selectedGames);
-
-
   useEffect(() => {
     dispatch(getGameByType(selectedTypeId))
   }, [])

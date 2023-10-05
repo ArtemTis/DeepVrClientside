@@ -41,11 +41,11 @@ export const Api = {
         );
     },
 
-    setInstanceUrl(prefix: string | undefined ) {
+    setInstanceUrl(prefix: string | undefined = 'srt2' ) {
         const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
-        // instanceUrl = url;
+        instanceUrl = url;
         
-        instanceUrl = 'http://192.168.1.118:5274/api';
+        // instanceUrl = 'http://192.168.1.118:5274/api';
         if (url) instanceStorageUrl = url.replace('/api', '/storage');
         else instanceStorageUrl = undefined;
     },

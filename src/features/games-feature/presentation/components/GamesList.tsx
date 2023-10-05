@@ -64,8 +64,6 @@ export const GamesList: React.FC = () => {
       Api.setInstanceUrl(city?.city);
 
       dispatch(getAllGames());
-      console.log('dispatch(getAllGames())');
-      
     }
 
   }, [city]);
