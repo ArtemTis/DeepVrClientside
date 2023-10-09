@@ -14,12 +14,13 @@ import timeIcon from "../../../../../assets/time.svg";
 import { getSummary } from "../../../store/summary/asyncActions";
 import styled from "styled-components";
 import { selectToken, selectUser } from "../../../../auth-feature/store/selectors";
-import { selectCredentials, selectDate, selectGame, selectPlayersCount, selectSelectedTime } from "../../../store/selectors";
+import { selectBookingInstance, selectCredentials, selectDate, selectGame, selectPlayersCount, selectSelectedTime } from "../../../store/selectors";
 import { IBookingCredentials } from "../../../../../lib/utils/types";
 import { ReqStatus } from "../../../../../lib/utils/enums";
 import { LoadIcon } from "../../../../../lib/ui/LoadIcon";
 import { curencyFormat } from "../../../../../lib/utils/format";
 import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
+import { selectInstance } from "../../../../profile-feature/store/selectors";
 
 export const ConfirmBooking: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,6 +40,8 @@ export const ConfirmBooking: React.FC = () => {
 
   const [isPostingForm, setIsPostingForm] = useState(false);
 
+  // const instance = useAppSelector(selectBookingInstance)!!;
+  const instance = useAppSelector(selectInstance)!!;
 
   return (
     <>
@@ -109,6 +112,20 @@ export const ConfirmBooking: React.FC = () => {
               </Col>
               <Col className="summary-params-table-cell" span={18}>
                 {time}
+              </Col>
+
+              <Col
+                className="summary-params-table-cell summary-params-table-description"
+                span={6}
+              >
+                <img
+                  src={timeIcon}
+                  alt="Время"
+                  className="summary-params-table-description-img"
+                />
+              </Col>
+              <Col className="summary-params-table-cell" span={18}>
+                {instance.name}
               </Col>
 
               <FormError errorMsg={errorText} />

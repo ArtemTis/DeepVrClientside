@@ -25,37 +25,37 @@ export interface IUser {
   error_text?: string;
 }
 
-// export interface ICity {
-//   id: number,
-//   name: string,
-//   instances: [
-//     {
-//       id: number,
-//       name: string,
-//       city: null,
-//       cityId: number,
-//       code: string,
-//       ownerId: number,
-//       createdAt: string,
-//       updatedAt: string,
-//       users: []
-//     }
-//   ]
-// }
-
 export interface ICity {
   id: number,
   name: string,
-  city: string,
-  owner_id: number,
-  created_at: string,
-  updated_at: string,
-  code: string,
-  pivot: {
-    user_id: number,
-    instance_id: number
-  }
+  instances: [
+    {
+      id: number,
+      name: string,
+      city: null,
+      cityId: number,
+      code: string,
+      ownerId: number,
+      createdAt: string,
+      updatedAt: string,
+      users: []
+    }
+  ]
 }
+
+// export interface ICity {
+//   id: number,
+//   name: string,
+//   city: string,
+//   owner_id: number,
+//   created_at: string,
+//   updated_at: string,
+//   code: string,
+//   pivot: {
+//     user_id: number,
+//     instance_id: number
+//   }
+// }
 
 export interface IRoom {
   id: number,

@@ -8,7 +8,7 @@ import { selectCity } from '../../../booking-feature/store/selectors';
 import { selectSelectedCity, selectToken } from '../../../auth-feature/store/selectors';
 import { Api } from '../../../../lib/utils/api';
 import { setSelectedCity } from '../../../auth-feature/store/slice';
-import { setCity } from '../../../booking-feature/store/slice';
+import { setCity, setInstance } from '../../../booking-feature/store/slice';
 
 interface IProps {
     setIslOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,6 +38,10 @@ const CitySelectList:React.FC<IProps> = ({setIslOpen, isSelectedCity}) => {
         if (selected) {
             dispatch(setSelectedCity(selected));
             dispatch(setCity(selected));
+
+            // if (selected.instances.length === 1) {
+            //     dispatch(setInstance(selected.instances[0]));
+            // }
         }
         setIslOpen(false);
     };

@@ -60,7 +60,7 @@ export const CitySelect: React.FC = () => {
                 <CityCard
                   city={city}
                   onClick={getCity}
-                  isSelected={selected?.code === city.code}
+                  isSelected={selected?.id === city.id}
                 />
               </Col>
             ))}

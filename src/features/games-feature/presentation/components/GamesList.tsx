@@ -36,6 +36,8 @@ import { ACCOUNT_PATH, PROFILE_PATH } from "../../../../lib/utils/routeConstants
 import ErrorText from "../../../../lib/ui/ErrorText";
 import { SelectInstanceList } from "../../../../lib/ui/SelectInstanceList";
 import { selectInstance } from "../../../profile-feature/store/selectors";
+import ModalInstance from "../../../games-details-feature/presentation/ModalInstance";
+import InstanceSelectList from "../../../games-details-feature/presentation/InstanceSelectList";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
@@ -60,8 +62,8 @@ export const GamesList: React.FC = () => {
   useEffect(() => {
     if (city) {
       console.log(city);
-      
-      Api.setInstanceUrl(city?.city);
+
+      // Api.setInstanceUrl(city?.instances[0].code);
 
       dispatch(getAllGames());
     }
@@ -121,7 +123,7 @@ export const GamesList: React.FC = () => {
   };
 
   const isSelectedCity = !!useAppSelector(selectCity);
-  // const isSelectedInstance = !!useAppSelector(selectInstance);
+  const selectedInstance = useAppSelector(selectInstance);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -134,8 +136,7 @@ export const GamesList: React.FC = () => {
         type: 'city'
       },
       {
-        element: <></>,
-        // element: <ModalInstance setIslOpen={setOpen} isSelectedInstance={isSelectedInstance} />,
+        element: <InstanceSelectList setIslOpen={setOpen} selectedInstance={selectedInstance} />,
         type: 'instance'
       }
     ]
@@ -167,128 +168,99 @@ export const GamesList: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="home-wrapper">
-        {/* <GameModal game={modalState} isOpen={!!modalState} onClose={closeModal} /> */}
-        {/* <Row justify="center" className="header-sticky">
-          <ColLg className="home-header-wrapper">
-            <div className="home-header">
-              <div className="home-subtitle">Игры</div>
+    <div className="home-wrapper">
+      <StyledHeader>
 
-            </div>
-            <div className="home-subheader">
-              <div>
-                Выбрано: <span className="home-subheader-city">{city?.name}</span>
-              </div>
-              <div className="home-subheader-change-city" onClick={resetCity}>
-                Выбрать другой город
-                <img src={arrowRight} className="" alt="" />
-              </div>
-            </div>
-          </ColLg>
-        </Row> */}
+        <h1 className="title_games">Новости</h1>
 
-        <StyledHeader>
-
-          <h1 className="title_games">Новости</h1>
-
-          {
-            isAuthorised &&
-            <StyledProfile>
-              <Link to={ACCOUNT_PATH}>
-                <img src={avatar} alt="иконка профиля" />
-                <h2>{nametUser?.name}</h2>
-              </Link>
-              <img src={notification} alt="уведомления" />
-            </StyledProfile>
-          }
-        </StyledHeader>
-        <ThumbnailsContainer />
-
-        <h1 className="title_games">Игры</h1>
-        <GamesWrappwe>
-          <Filters>
-            <Filter>
-              Всё
-            </Filter>
-            <Filter>
-              Квест
-            </Filter>
-            <Filter>
-              Шутер
-            </Filter>
-            <Filter>
-              Бродилки
-            </Filter>
-          </Filters>
-
-          <SearchWrapper>
-            <div>
-              {/* {isSearchOpen ? ( */}
-              <div className="home-search-bg" onClick={onSearchBgClick}>
-                <input
-                  className="home-search-input"
-                  placeholder="Поиск"
-                  onInput={onSearch}
-                  onBlur={onBlur}
-                  ref={searchRef}
-                />
-                {searchString && (
-                  <img
-                    className="home-search-cross"
-                    src={crossWhite}
-                    alt="Очистить поиск"
-                    onClick={clearSearch}
-                  />
-                )}
-                <img
-                  src={searchIcon}
-                  alt="Поиск"
-                  className="home-title-img home-title-img-search"
-                  onClick={openSearch}
-                />
-              </div>
-              {/* ) : (
-                 <div className="home-search-placeholder" onClick={openSearch} />
-              )} */}
-
-            </div>
-
-            <StyledPopover placement="bottomRight"
-              title={text}
-              content={content}
-              arrow={false}
-              trigger="click"
-              open={open}
-              onOpenChange={handleOpenChange}>
-              <Filter>Город/Филиал
-                <img src={arrow} alt="Стрелка" />
-              </Filter>
-
-            </StyledPopover>
-
-          </SearchWrapper>
-        </GamesWrappwe>
         {
-          isError
-            ?
-            <ErrorText>Упс, что-то пошло не так</ErrorText>
-            :
-            <LoadWrapper isLoading={isLoading}>
-              <div className="gamesRow">
-                {gamesFiltered &&
-                  gamesFiltered.map((game) => (
-                    <GamesCard game={game} key={game.id} />
-                  ))}
-              </div>
-            </LoadWrapper>
+          isAuthorised &&
+          <StyledProfile>
+            <Link to={ACCOUNT_PATH}>
+              <img src={avatar} alt="иконка профиля" />
+              <h2>{nametUser?.name}</h2>
+            </Link>
+            <img src={notification} alt="уведомления" />
+          </StyledProfile>
         }
-      </div>
-      {/* {
-        isOpen &&
-        <CitySelectHome />
-      } */}
-    </>
+      </StyledHeader>
+      <ThumbnailsContainer />
+
+      <h1 className="title_games">Игры</h1>
+      <GamesWrappwe>
+        <Filters>
+          <Filter>
+            Всё
+          </Filter>
+          <Filter>
+            Квест
+          </Filter>
+          <Filter>
+            Шутер
+          </Filter>
+          <Filter>
+            Бродилки
+          </Filter>
+        </Filters>
+
+        <SearchWrapper>
+          <div>
+            {/* {isSearchOpen ? ( */}
+            <div className="home-search-bg" onClick={onSearchBgClick}>
+              <input
+                className="home-search-input"
+                placeholder="Поиск"
+                onInput={onSearch}
+                onBlur={onBlur}
+                ref={searchRef}
+              />
+              {searchString && (
+                <img
+                  className="home-search-cross"
+                  src={crossWhite}
+                  alt="Очистить поиск"
+                  onClick={clearSearch}
+                />
+              )}
+              <img
+                src={searchIcon}
+                alt="Поиск"
+                className="home-title-img home-title-img-search"
+                onClick={openSearch}
+              />
+            </div>
+          </div>
+
+          <StyledPopover placement="bottomRight"
+            title={text}
+            content={content}
+            arrow={false}
+            trigger="click"
+            open={open}
+            onOpenChange={handleOpenChange}>
+            <Filter>Город/Филиал
+              <img src={arrow} alt="Стрелка" />
+            </Filter>
+
+          </StyledPopover>
+
+        </SearchWrapper>
+      </GamesWrappwe>
+      {
+        isError
+          ?
+          <ErrorText>Упс, что-то пошло не так</ErrorText>
+          :
+          <LoadWrapper isLoading={isLoading}>
+            <div className="gamesRow">
+              {gamesFiltered &&
+                gamesFiltered.map((game) => (
+                  <GamesCard game={game} key={game.id} />
+                ))}
+            </div>
+          </LoadWrapper>
+      }
+    </div>
   );
 };
 

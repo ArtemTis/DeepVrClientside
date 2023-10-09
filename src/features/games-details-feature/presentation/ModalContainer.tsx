@@ -108,7 +108,7 @@ const ModalContainer = (props: { location: Location }) => {
                 </div >
             </StyledModal>
 
-            <ModalInstance isModalOpen={isInstanceModalOpen} setIsModalOpen={setIsInstanceModalOpen} selectedInstance={selectedInstance} game={gameById!!} instances={instances} />
+            <ModalInstance isModalOpen={isInstanceModalOpen} setIsModalOpen={setIsInstanceModalOpen} selectedInstance={selectedInstance} game={gameById!!} />
         </>
     )
 }

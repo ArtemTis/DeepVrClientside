@@ -19,7 +19,11 @@ const FilialSelect = () => {
         );
 
     useEffect(() => {
-        dispatch(allInstances())
+        dispatch(allInstances());
+
+        if (selectedallInstances.length === 1) {
+            setSelected(selectedallInstances[0]);
+        }
     }, [])
 
 

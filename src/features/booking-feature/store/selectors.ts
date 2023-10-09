@@ -9,6 +9,10 @@ export const selectCity = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.city],
     (city) => city
 )
+export const selectBookingInstance = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.instance],
+    (instance) => instance
+)
 export const selectDate = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.date],
     (date) => date

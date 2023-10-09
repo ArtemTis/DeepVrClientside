@@ -42,7 +42,8 @@ export const Api = {
     },
 
     setInstanceUrl(prefix: string | undefined = 'srt2' ) {
-        const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
+        const pref = 'srt2'
+        const url = `https://${pref}.${Api.globalUrl?.replace("https://", "")}`
         instanceUrl = url;
         
         // instanceUrl = 'http://192.168.1.118:5274/api';

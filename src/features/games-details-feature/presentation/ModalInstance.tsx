@@ -12,6 +12,7 @@ import { IGame } from '../../../lib/utils/types';
 import { selectGameTypes } from '../../games-feature/store/gamesType/selectors';
 import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
 import useGameType from '../../../lib/utils/hooks/useGameTypes';
+import InstanceSelectList from './InstanceSelectList';
 
 interface IInstance {
   id: number,
@@ -23,24 +24,13 @@ interface IProp {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedInstance?: IInstance;
   game: IGame;
-
-  instances?: IInstance[];
-  // setIslOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  // isSelectedInstance: boolean;
 }
 
-const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedInstance, game, instances }) => {
+const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedInstance, game }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // const isSelectedInstance = !!useAppSelector(selectInstance);
-  const isSelectedInstance = !!selectedInstance;
-
-  // useEffect(() => {
-  //   dispatch(gamesTypes())
-  // }, [])
 
   const { gameTypes, isLoading } = useGameType();
-  //useAppSelector(selectGameTypes)
   const gameTypeOfGame = gameTypes.find(type => type.id === game.gameTypeId);
 
   const [selected, setSelected] = useState<IInstance | undefined>(
@@ -50,15 +40,6 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
   const onSelect = (instance: IInstance | undefined) => {
     setSelected(instance);
   };
-
-
-  // const confirmm = () => {
-  //     if (selected) {
-  //         // dispatch(setSelectedInstance(selected));
-  //         // dispatch(setInstance(selected));
-  //     }
-  //     setIsModalOpen(false);
-  // };
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -82,12 +63,7 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
 
   return (
     <StyledModal open={isModalOpen} footer={[]} onCancel={handleCancel}>
-      <ModalWrapper>
-        <SelectInstanceList selected={selected} onSelect={onSelect} instances={instances} />
-        <NextButton onClick={goToBooking} isActive={!!selected}>
-          Выбрать
-        </NextButton>
-      </ModalWrapper>
+      <InstanceSelectList setIslOpen={setIsModalOpen} selectedInstance={selectedInstance} goToBooking={goToBooking}/>
     </StyledModal>
   )
 }
@@ -100,7 +76,7 @@ const StyledModal = styled(Modal)`
   min-width: 280px;
 
   border-radius: 16px;
-background: var(--101-a-29, #191A29);
+  background: var(--101-a-29, #191A29);
 
   img{
     cursor: default !important;
@@ -113,10 +89,4 @@ background: var(--101-a-29, #191A29);
   .ant-modal-close-x{
     cursor: pointer;
   }
-`
-const ModalWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 15px;
 `

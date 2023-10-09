@@ -6,19 +6,13 @@ import { selectSelectedCity } from "../../features/auth-feature/store/selectors"
 import { ReqStatus } from "../utils/enums";
 import { LoadWrapper } from "./LoadWrapper";
 import styled from "styled-components";
-
-// interface IInstance   {
-//     id: number,
-//     name: string
-// }
-
+import { selectAllInstances } from "../../features/profile-feature/store/selectors";
 
 interface Props {
     selected: IInstance | undefined;
     onSelect: (instance: IInstance | undefined) => void;
-    instances?: IInstance[];
+    instances: IInstance[];
 }
-
 
 export const SelectInstanceList: React.FC<Props> = ({ selected, onSelect, instances }) => {
     const dispatch = useAppDispatch();
@@ -27,7 +21,7 @@ export const SelectInstanceList: React.FC<Props> = ({ selected, onSelect, instan
 
     return (
         <LoadWrapper isLoading={isLoading} height={1}>
-            <CitiesList>
+            <InstanceList>
                 {!!instances ? (
                     instances.map((c) => {
                         return (
@@ -44,17 +38,16 @@ export const SelectInstanceList: React.FC<Props> = ({ selected, onSelect, instan
                 ) : (
                     <div className="city-select-no-available">Нет доступных городов</div>
                 )}
-            </CitiesList>
+            </InstanceList>
         </LoadWrapper>
     );
 };
 
-const CitiesList = styled.div`
+const InstanceList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin-bottom: 14px;
-
 `
 
 const StyledCity = styled.div`
@@ -85,5 +78,7 @@ const StyledCity = styled.div`
     border-radius: 15px;
     background: #1F253F;
     min-width: 230px;
+
+    padding: 14px 10px;
   }
 `
