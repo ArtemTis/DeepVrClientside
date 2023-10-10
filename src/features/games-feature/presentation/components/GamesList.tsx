@@ -38,6 +38,7 @@ import { SelectInstanceList } from "../../../../lib/ui/SelectInstanceList";
 import { selectInstance } from "../../../profile-feature/store/selectors";
 import ModalInstance from "../../../games-details-feature/presentation/ModalInstance";
 import InstanceSelectList from "../../../games-details-feature/presentation/InstanceSelectList";
+import { allInstances } from "../../../profile-feature/store/asyncActions";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
@@ -66,6 +67,7 @@ export const GamesList: React.FC = () => {
       // Api.setInstanceUrl(city?.instances[0].code);
 
       dispatch(getAllGames());
+      dispatch(allInstances());
     }
 
   }, [city]);

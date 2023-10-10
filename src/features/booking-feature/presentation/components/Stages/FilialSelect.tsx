@@ -6,6 +6,7 @@ import { ReqStatus } from '../../../../../lib/utils/enums'
 import { RootState, useAppDispatch, useAppSelector } from '../../../../../app/store'
 import { IInstance } from '../../../../../lib/utils/types'
 import { allInstances } from '../../../../profile-feature/store/asyncActions'
+import { setInstance } from '../../../store/slice'
 
 const FilialSelect = () => {
 
@@ -16,7 +17,7 @@ const FilialSelect = () => {
     const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
     const [selected, setSelected] = useState<IInstance | undefined>(
         selectedInstance
-        );
+    );
 
     useEffect(() => {
         dispatch(allInstances());
@@ -33,8 +34,8 @@ const FilialSelect = () => {
     };
 
     useEffect(() => {
-        // dispatch(setInstance(selected));
-      }, [selected])
+        dispatch(setInstance(selected));
+    }, [selected])
 
     return (
         <LoadWrapper isLoading={isLoading}>

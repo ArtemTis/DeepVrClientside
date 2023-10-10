@@ -25,11 +25,11 @@ const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
     const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(false);
 
     const instances = useAppSelector(selectAllInstances);
-
+    const {gameTypes, isLoading} = useGameType();
     // useEffect(() => {
     //     dispatch(gamesTypes());
     // }, [])
-    const gameTypes = useAppSelector(selectGameTypes);
+    // const gameTypes = useAppSelector(selectGameTypes);
 
     const goToBooking = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -37,9 +37,10 @@ const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
 
         if (instances.length > 1) {
             setIsInstanceModalOpen(true);
+            console.log(game);
+            console.log(gameTypes);
         } else {
             dispatch(gamesTypes());
-
 
             const gameTypeOfGame = gameTypes.find(type => type.id === game.gameTypeId);
 

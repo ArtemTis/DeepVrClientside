@@ -42,7 +42,7 @@ const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, selectedInstance, go
     const instances = useAppSelector(selectAllInstances);
 
     useEffect(() => {
-        dispatch(allInstances())
+        // dispatch(allInstances())
 
         if (instances.length === 1) {
             setSelected(instances[0]);

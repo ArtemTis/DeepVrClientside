@@ -48,6 +48,8 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
 
   const goToBooking = () => {
     // e.stopPropagation();
+    console.log(gameTypeOfGame);
+    console.log(game);
 
     navigate(`${BOOKING_PATH}/3`);
     dispatch(setTypeGame(gameTypeOfGame));
@@ -63,7 +65,7 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
 
   return (
     <StyledModal open={isModalOpen} footer={[]} onCancel={handleCancel}>
-      <InstanceSelectList setIslOpen={setIsModalOpen} selectedInstance={selectedInstance} goToBooking={goToBooking}/>
+      <InstanceSelectList setIslOpen={setIsModalOpen} selectedInstance={selectedInstance} goToBooking={goToBooking} />
     </StyledModal>
   )
 }
