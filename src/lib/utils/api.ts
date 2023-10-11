@@ -11,6 +11,7 @@ export interface ErrorResponse {
 let instanceUrl: string | undefined = '';
 let instanceStorageUrl: string | undefined = '';
 const globalUrl = process.env.REACT_APP_API_GLOBAL_URL;
+const gamesUrl = process.env.REACT_APP_API_GAMES_URL;
 
 export const Api = {
     // utils
@@ -90,6 +91,16 @@ export const Api = {
         }
         );
     },
+    // async getAllGames(token: string = 'guest_token') {
+    //     return axios.get<Array<IGame>>(
+    //         `${gamesUrl}/games/gipno`, {
+    //         timeout: 8000,
+    //         headers: {
+    //             token: token
+    //         }
+    //     }
+    //     );
+    // },
 
     async getGamesTypes(token: string = 'guest_token') {
         return axios.get<Array<IGameType>>(

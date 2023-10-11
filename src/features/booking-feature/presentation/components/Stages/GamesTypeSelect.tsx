@@ -32,11 +32,14 @@ const GamesTypeSelect = () => {
 
   useEffect(() => {
     dispatch(setTypeGame(selected)); 
+   
+    if (typeGame?.title !== selected?.title) {   
+      dispatch(setGame(undefined));
+      dispatch(setPlayersCount(undefined));
+      dispatch(setDate(undefined));
+      dispatch(setTime(undefined));
+    }
 
-    dispatch(setGame(undefined));
-    dispatch(setPlayersCount(undefined));
-    dispatch(setDate(undefined));
-    dispatch(setTime(undefined));
   }, [selected])
 
   const onCardClick = (room: IGameType) => {

@@ -13,6 +13,7 @@ import { selectGameTypes } from '../../games-feature/store/gamesType/selectors';
 import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
 import useGameType from '../../../lib/utils/hooks/useGameTypes';
 import InstanceSelectList from './InstanceSelectList';
+import { getAllGames } from '../../games-feature/store/games/asyncActions';
 
 interface IInstance {
   id: number,
@@ -48,17 +49,14 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
 
   const goToBooking = () => {
     // e.stopPropagation();
-    console.log(gameTypeOfGame);
-    console.log(game);
-
-    navigate(`${BOOKING_PATH}/3`);
     dispatch(setTypeGame(gameTypeOfGame));
     dispatch(setGame(game));
     dispatch(setPlayersCount(game.guest_min));
-
+    
     dispatch(setDate(undefined));
     dispatch(setTime(undefined));
     dispatch(setCredentials(undefined));
+    navigate(`${BOOKING_PATH}/3`);
 
     setIsModalOpen(false);
   }

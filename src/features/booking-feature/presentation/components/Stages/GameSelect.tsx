@@ -37,9 +37,10 @@ export const GameSelect: React.FC = () => {
   useEffect(() => {
     dispatch(setGame(selected));
 
-    dispatch(setPlayersCount(undefined));
-    dispatch(setDate(undefined));
-    dispatch(setTime(undefined));
+    if (selected?.id !== beforeSelectedGame?.id) {
+      dispatch(setDate(undefined));
+      dispatch(setTime(undefined));
+    }
   }, [selected])
 
 

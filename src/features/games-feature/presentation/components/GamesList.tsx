@@ -62,7 +62,6 @@ export const GamesList: React.FC = () => {
 
   useEffect(() => {
     if (city) {
-      console.log(city);
 
       // Api.setInstanceUrl(city?.instances[0].code);
 

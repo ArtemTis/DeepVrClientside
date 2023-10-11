@@ -37,7 +37,12 @@ export const DateSelect: React.FC = () => {
       selected.setMinutes(-selected.getTimezoneOffset());
       dispatch(setDate(selected.toISOString()));
 
-      dispatch(setTime(undefined));
+      if (selected.toISOString().slice(0, 10) !== selectedDate?.slice(0, 10)) {
+        console.log(selected.toISOString().slice(0, 10));
+        console.log(selectedDate?.slice(0, 10));
+        
+        dispatch(setTime(undefined));
+      }
     }
   }, [selected])
 

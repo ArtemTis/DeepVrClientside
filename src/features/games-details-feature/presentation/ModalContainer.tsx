@@ -66,6 +66,10 @@ const ModalContainer = (props: { location: Location }) => {
             navigate(`${BOOKING_PATH}/3`);
             dispatch(setTypeGame(gameTypeOfGame));
             dispatch(setGame(gameById));
+            console.log(gameById);
+            console.log(gameTypeOfGame);
+            
+            
         }
 
     }

@@ -11,6 +11,7 @@ import { gamesTypes } from "../../../../games-feature/store/gamesType/asyncActio
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();
   const game = useAppSelector(selectGame);
+  const selectedCount = useAppSelector(selectPlayersCount);
 
   const min = game?.guest_min ?? 1;
   const max = game?.guest_max ?? 1;
@@ -21,13 +22,15 @@ export const PlayersCountSelect: React.FC = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  
+
   useEffect(() => {
     dispatch(setPlayersCount(count as number));
 
-    dispatch(setDate(undefined));
-    dispatch(setTime(undefined));
-  },[count])
+    if (count !== selectedCount) {
+      dispatch(setDate(undefined));
+      dispatch(setTime(undefined));
+    }
+  }, [count])
 
   const onChange = () => {
     setCount(inputRef.current?.value);
