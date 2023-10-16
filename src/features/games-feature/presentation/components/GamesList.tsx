@@ -39,6 +39,9 @@ import { selectInstance } from "../../../profile-feature/store/selectors";
 import ModalInstance from "../../../games-details-feature/presentation/ModalInstance";
 import InstanceSelectList from "../../../games-details-feature/presentation/InstanceSelectList";
 import { allInstances } from "../../../profile-feature/store/asyncActions";
+import useGameType from "../../../../lib/utils/hooks/useGameTypes";
+import { gamesTypes } from "../../store/gamesType/asyncActions";
+import { selectGameTypes } from "../../store/gamesType/selectors";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
@@ -60,6 +63,10 @@ export const GamesList: React.FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
+  // const {gameTypes, isLoading : gameTypesIsLoading} = useGameType();
+
+  const gameTypes = useAppSelector(selectGameTypes);
+
   useEffect(() => {
     if (city) {
 
@@ -67,6 +74,7 @@ export const GamesList: React.FC = () => {
 
       dispatch(getAllGames());
       dispatch(allInstances());
+      dispatch(gamesTypes());
     }
 
   }, [city]);
@@ -256,7 +264,7 @@ export const GamesList: React.FC = () => {
             <div className="gamesRow">
               {gamesFiltered &&
                 gamesFiltered.map((game) => (
-                  <GamesCard game={game} key={game.id} />
+                  <GamesCard game={game} key={game.id} gameTypes={gameTypes}/>
                 ))}
             </div>
           </LoadWrapper>

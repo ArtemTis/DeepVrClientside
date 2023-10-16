@@ -4,7 +4,7 @@ import img from '../../../assets/Img.png';
 
 import "./cardStyles.css"
 import { BOOKING_PATH, GAMES_DETAILS_PATH } from '../../../lib/utils/routeConstants';
-import { IGame } from '../../../lib/utils/types';
+import { IGame, IGameType } from '../../../lib/utils/types';
 import { useDispatch } from 'react-redux';
 import { setCredentials, setDate, setGame, setPlayersCount, setTime, setTypeGame } from '../../booking-feature/store/slice';
 import { CitySelectHome } from '../../games-feature/presentation/components/CitySelectHome';
@@ -16,7 +16,12 @@ import useGameType from '../../../lib/utils/hooks/useGameTypes';
 import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
 import { selectGameTypes } from '../../games-feature/store/gamesType/selectors';
 
-const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
+interface IProp {
+    gameTypes: IGameType[];
+    game: IGame
+}
+
+const GamesCard: React.FC<IProp> = ({ game, gameTypes }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -25,11 +30,6 @@ const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
     const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(false);
 
     const instances = useAppSelector(selectAllInstances);
-    const {gameTypes, isLoading} = useGameType();
-    // useEffect(() => {
-    //     dispatch(gamesTypes());
-    // }, [])
-    // const gameTypes = useAppSelector(selectGameTypes);
 
     const goToBooking = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -37,12 +37,10 @@ const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
 
         if (instances.length > 1) {
             setIsInstanceModalOpen(true);
-            console.log(game);
-            console.log(gameTypes);
         } else {
-            dispatch(gamesTypes());
+            // dispatch(gamesTypes());
 
-            const gameTypeOfGame = gameTypes.find(type => type.id === game.gameTypeId);
+            const gameTypeOfGame = gameTypes.find(type => type.id === game.game_type_id);
 
             navigate(`${BOOKING_PATH}/3`);
             dispatch(setTypeGame(gameTypeOfGame));
@@ -63,6 +61,10 @@ const GamesCard: React.FC<{ game: IGame }> = ({ game }) => {
         <>
             <div className="card" onClick={openModal}>
                 <img src={game.logo} alt={game.title} />
+                {/* <span
+                    className="card-img"
+                    style={game.logo ? { backgroundImage: `url(${game.logo})` } : undefined}
+                /> */}
                 <div className="card-info">
                     <div className="card-info__text">
                         <div className="card__title">{game.title}</div>

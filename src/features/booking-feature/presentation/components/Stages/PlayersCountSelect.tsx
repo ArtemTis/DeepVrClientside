@@ -22,7 +22,6 @@ export const PlayersCountSelect: React.FC = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-
   useEffect(() => {
     dispatch(setPlayersCount(count as number));
 

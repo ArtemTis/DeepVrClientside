@@ -24,6 +24,16 @@
     width: 90vw;
 }
 
+.card-img{
+    border-radius: 12px;
+    background-size: cover;
+    background-position: 0px ;
+
+    height: 200px;
+    max-width: 100%;
+    width: 30vw;
+}
+
 .card-info__text {
     display: flex;
     flex-direction: column;

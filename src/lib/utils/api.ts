@@ -81,19 +81,9 @@ export const Api = {
     },
 
     // home
-    async getAllGames(token: string = 'guest_token') {
-        return axios.get<Array<IGame>>(
-            `${instanceUrl}/v3/games/all`, {
-            timeout: 8000,
-            headers: {
-                token: token
-            }
-        }
-        );
-    },
     // async getAllGames(token: string = 'guest_token') {
     //     return axios.get<Array<IGame>>(
-    //         `${gamesUrl}/games/gipno`, {
+    //         `${instanceUrl}/v3/games/all`, {
     //         timeout: 8000,
     //         headers: {
     //             token: token
@@ -101,6 +91,17 @@ export const Api = {
     //     }
     //     );
     // },
+
+    async getAllGames(token: string = 'guest_token') {
+        return axios.get<Array<IGame>>(
+            `${gamesUrl}/games/antientropiia`, {//antientropiia
+            timeout: 8000,
+            headers: {
+                token: token
+            }
+        }
+        );
+    },
 
     async getGamesTypes(token: string = 'guest_token') {
         return axios.get<Array<IGameType>>(

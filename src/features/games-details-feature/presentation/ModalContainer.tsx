@@ -54,7 +54,7 @@ const ModalContainer = (props: { location: Location }) => {
         dispatch(gamesTypes());
         dispatch(allInstances());
     }, [])
-    const gameTypeOfGame = gameTypes.find(type => type.id === gameById!!.gameTypeId);
+    const gameTypeOfGame = gameTypes.find(type => type.id === gameById!!.game_type_id);
 
     const goToBooking = (e: React.MouseEvent) => {
         e.stopPropagation();

@@ -130,7 +130,7 @@ export interface IGame {
   slug: string,
   time_duration: number,
   price: number,
-  gameTypeId?: number,
+  game_type_id?: number,
   is_active: number,
   deleted_at: string,
   created_at: string,

@@ -9,7 +9,7 @@ const useGameType = () => {
     const gameTypes = useAppSelector(selectGameTypes);
     const isLoading = useAppSelector((state: RootState) => state.gamesType.requestStatus === ReqStatus.pending);
 
-    if (!gameTypes) {
+    if (gameTypes.length === 0) {
         dispatch(gamesTypes());
     }
 

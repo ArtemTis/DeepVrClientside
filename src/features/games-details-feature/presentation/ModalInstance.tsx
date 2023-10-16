@@ -31,8 +31,9 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { gameTypes, isLoading } = useGameType();
-  const gameTypeOfGame = gameTypes.find(type => type.id === game.gameTypeId);
+  const gameTypes = useAppSelector(selectGameTypes);
+
+  const gameTypeOfGame = gameTypes.find(type => type.id === game.game_type_id);
 
   const [selected, setSelected] = useState<IInstance | undefined>(
     selectedInstance ?? undefined
@@ -49,6 +50,7 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
 
   const goToBooking = () => {
     // e.stopPropagation();
+    
     dispatch(setTypeGame(gameTypeOfGame));
     dispatch(setGame(game));
     dispatch(setPlayersCount(game.guest_min));

@@ -113,7 +113,7 @@ export const Booking: React.FC = () => {
     }
   }
 
-  console.log(sendBooking);
+  // console.log(sendBooking);
 
   const confirm = () => {
     dispatch(createBooking(sendBooking))
