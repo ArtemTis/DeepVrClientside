@@ -41,7 +41,10 @@ export const ConfirmBooking: React.FC = () => {
   const [isPostingForm, setIsPostingForm] = useState(false);
 
   // const instance = useAppSelector(selectBookingInstance)!!;
-  const instance = useAppSelector(selectInstance)!!;
+  const instance = useAppSelector(selectBookingInstance);
+
+  console.log(instance);
+  
 
   return (
     <>
@@ -118,14 +121,14 @@ export const ConfirmBooking: React.FC = () => {
                 className="summary-params-table-cell summary-params-table-description"
                 span={6}
               >
-                <img
+                {/* <img
                   src={timeIcon}
                   alt="Время"
                   className="summary-params-table-description-img"
-                />
+                /> */}
               </Col>
               <Col className="summary-params-table-cell" span={18}>
-                {instance.name}
+                {instance?.name}
               </Col>
 
               <FormError errorMsg={errorText} />

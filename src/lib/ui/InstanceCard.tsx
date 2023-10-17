@@ -11,8 +11,6 @@ interface Props {
 
 export const InstanceCard: React.FC<Props> = ({ instance, isSelected, onClick}) => {
   const imgUrl = instance.code;
-  console.log(instance);
-  
   
   return (
     <Col xs={12} sm={8} md={6} lg={6} xl={4} xxl={4}>

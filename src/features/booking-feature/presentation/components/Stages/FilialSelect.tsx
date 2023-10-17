@@ -13,7 +13,7 @@ const FilialSelect = () => {
     const dispatch = useAppDispatch();
 
     const selectedallInstances = useAppSelector((state: RootState) => state.profileReducer.allInstances);
-    const selectedInstance = useAppSelector((state: RootState) => state.profileReducer.instance);
+    const selectedInstance = useAppSelector((state: RootState) => state.bookingReducer.instance);
     const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
     const [selected, setSelected] = useState<IInstance | undefined>(
         selectedInstance
@@ -34,7 +34,7 @@ const FilialSelect = () => {
     };
 
     useEffect(() => {
-        dispatch(setInstance(selected));
+        dispatch(setInstance(selected));      
     }, [selected])
 
     return (

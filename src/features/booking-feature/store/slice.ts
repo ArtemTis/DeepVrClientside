@@ -3,6 +3,8 @@ import { createBooking, createEmpty } from "./asyncActions";
 import { IBookingCredentials, ICity, IGame, IGameType, IInstance } from "../../../lib/utils/types";
 import { ReqStatus } from "../../../lib/utils/enums";
 import { Api } from "../../../lib/utils/api";
+import { useAppSelector } from "../../../app/store";
+import { selectAllInstances } from "../../profile-feature/store/selectors";
 
 export interface BookingState {
     currentStep: number;
@@ -22,7 +24,7 @@ export interface BookingState {
 }
 
 const initialState: BookingState = {
-    currentStep: 1,
+    currentStep: 0,
     isFinished: false,
     reqStatus: ReqStatus.never,
 };

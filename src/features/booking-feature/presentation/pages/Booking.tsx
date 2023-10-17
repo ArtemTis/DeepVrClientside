@@ -1,5 +1,5 @@
 import { selectBookingId, selectCredentials, selectCurrentStep, selectDate, selectGame, selectIsFinished, selectPlayersCount, selectSelectedTime } from "../../store/selectors";
-import { useAppDispatch, useAppSelector } from "../../../../app/store";
+import { RootState, useAppDispatch, useAppSelector } from "../../../../app/store";
 import "./BookingStyles.css";
 import { useCallback, useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router";
@@ -23,6 +23,7 @@ import { createBooking } from "../../store/asyncActions";
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);
   const isFinished = useAppSelector(selectIsFinished);
+  const selectedallInstances = useAppSelector((state: RootState) => state.profileReducer.allInstances);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -154,14 +155,18 @@ export const Booking: React.FC = () => {
           &&
           <StyledWrapperButtons>
             {
-              +stepPath > 1
+              +stepPath > 0 && selectedallInstances.length > 1
                 ?
                 <StyledPrevButton onClick={() => navigate(`${currentStep - 1}`)}>Назад</StyledPrevButton>
                 :
-                stepPath === 'confirm'
+                +stepPath > 1
                   ?
-                  <StyledPrevButton onClick={() => navigate(`${currentStep}`)}>Назад</StyledPrevButton>
-                  : <></>
+                  <StyledPrevButton onClick={() => navigate(`${currentStep - 1}`)}>Назад</StyledPrevButton>
+                  :
+                  stepPath === 'confirm'
+                    ?
+                    <StyledPrevButton onClick={() => navigate(`${currentStep}`)}>Назад</StyledPrevButton>
+                    : <></>
             }
             {
               currentStep < Config.length - 1

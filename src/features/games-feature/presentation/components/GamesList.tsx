@@ -26,7 +26,7 @@ import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
 import { GameCard } from "../../../../lib/ui/GameCard";
 import { useLocation } from "react-router";
 import GamesCard from "../../../games-details-feature/presentation/GamesCard";
-import { setCity } from "../../../booking-feature/store/slice";
+import { setCity, setStep } from "../../../booking-feature/store/slice";
 import { CitySelectHome } from "./CitySelectHome";
 import styled from "styled-components";
 import { selectCity } from "../../../booking-feature/store/selectors";
@@ -35,7 +35,7 @@ import { Link } from "react-router-dom";
 import { ACCOUNT_PATH, PROFILE_PATH } from "../../../../lib/utils/routeConstants";
 import ErrorText from "../../../../lib/ui/ErrorText";
 import { SelectInstanceList } from "../../../../lib/ui/SelectInstanceList";
-import { selectInstance } from "../../../profile-feature/store/selectors";
+import { selectAllInstances, selectInstance } from "../../../profile-feature/store/selectors";
 import ModalInstance from "../../../games-details-feature/presentation/ModalInstance";
 import InstanceSelectList from "../../../games-details-feature/presentation/InstanceSelectList";
 import { allInstances } from "../../../profile-feature/store/asyncActions";
@@ -49,6 +49,7 @@ export const GamesList: React.FC = () => {
   const city = useAppSelector(selectSelectedCity);
   const [modalState, setModalState] = useState<IGame | undefined>();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const instances = useAppSelector(selectAllInstances);
 
   const isAuthorised = useAppSelector(selectIsAuthorised);
   const nametUser = useAppSelector(selectUser);
@@ -75,6 +76,10 @@ export const GamesList: React.FC = () => {
       dispatch(getAllGames());
       dispatch(allInstances());
       dispatch(gamesTypes());
+
+      if (instances.length === 1) {
+        dispatch(setStep(1))
+      }
     }
 
   }, [city]);

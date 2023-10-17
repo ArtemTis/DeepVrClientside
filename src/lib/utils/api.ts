@@ -94,7 +94,7 @@ export const Api = {
 
     async getAllGames(token: string = 'guest_token') {
         return axios.get<Array<IGame>>(
-            `${gamesUrl}/games/antientropiia`, {//antientropiia
+            `${gamesUrl}/games/gipno`, {//antientropiia
             timeout: 8000,
             headers: {
                 token: token
