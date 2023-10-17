@@ -6,7 +6,7 @@ import { IInstance } from '../../../lib/utils/types';
 import { Navigate, useNavigate } from 'react-router';
 import { BOOKING_PATH } from '../../../lib/utils/routeConstants';
 import { useAppDispatch, useAppSelector } from '../../../app/store';
-import { setGame, setPlayersCount, setTypeGame } from '../../booking-feature/store/slice';
+import { setGame, setBookingInstance, setPlayersCount, setTypeGame } from '../../booking-feature/store/slice';
 import { allInstances } from '../../profile-feature/store/asyncActions';
 import { selectAllInstances } from '../../profile-feature/store/selectors';
 import { setInstance } from '../../profile-feature/store/slice';
@@ -29,7 +29,8 @@ const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, selectedInstance, go
     };
 
     const confirmm = () => {
-        if (selected) {
+        if (selected) {      
+            dispatch(setBookingInstance(selected));
             dispatch(setInstance(selected));
         }
         

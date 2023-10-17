@@ -10,6 +10,7 @@ import { IGame } from "../../../../../lib/utils/types";
 import { setCredentials, setDate, setGame, setPlayersCount, setTime } from "../../../store/slice";
 import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
 import { GameCard } from "../../../../../lib/ui/GameCard";
+import ErrorText from "../../../../../lib/ui/ErrorText";
 
 
 export const GameSelect: React.FC = () => {
@@ -24,7 +25,9 @@ export const GameSelect: React.FC = () => {
     dispatch(getGameByType(selectedTypeId))
   }, [])
 
-  const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
+  const reqStatus = useAppSelector((state: RootState) => state.allGames.requestStatus);
+  const isLoading = reqStatus === ReqStatus.pending;
+  const isError = reqStatus === ReqStatus.rejected;
 
   const beforeSelectedGame = useAppSelector(selectGame);
 
@@ -44,22 +47,27 @@ export const GameSelect: React.FC = () => {
   }, [selected])
 
 
-
   return (
     <>
-      <LoadWrapper isLoading={isLoading}>
-        <Row justify="center" gutter={[20, 20]}>
-          {selectedGames &&
-            selectedGames.fullGames.map((game) => (
-              <GameCard
-                game={game}
-                isSelected={selected?.id === game.id}
-                onClick={onCardClick}
-                key={game.id}
-              />
-            ))}
-        </Row>
-      </LoadWrapper>
+      {
+        isError
+          ?
+          <ErrorText>Упс, что-то пошло не так</ErrorText>
+          :
+          <LoadWrapper isLoading={isLoading}>
+            <Row justify="center" gutter={[20, 20]}>
+              {selectedGames &&
+                selectedGames.fullGames.map((game) => (
+                  <GameCard
+                    game={game}
+                    isSelected={selected?.id === game.id}
+                    onClick={onCardClick}
+                    key={game.id}
+                  />
+                ))}
+            </Row>
+          </LoadWrapper>
+      }
     </>
   );
 };

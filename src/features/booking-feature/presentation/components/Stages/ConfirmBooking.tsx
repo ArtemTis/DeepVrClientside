@@ -43,9 +43,6 @@ export const ConfirmBooking: React.FC = () => {
   // const instance = useAppSelector(selectBookingInstance)!!;
   const instance = useAppSelector(selectBookingInstance);
 
-  console.log(instance);
-  
-
   return (
     <>
       <div className="booking-viewport">

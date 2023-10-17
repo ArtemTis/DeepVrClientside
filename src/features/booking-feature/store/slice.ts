@@ -46,7 +46,7 @@ const bookingSlice = createSlice({
             Api.setInstanceUrl(state.city?.instances[0].code);
         },
 
-        setInstance(state, action) {
+        setBookingInstance(state, action) {
             state.instance = action.payload;
         },
 
@@ -133,7 +133,7 @@ const bookingSlice = createSlice({
 export const {
     increaseStep,
     setCity,
-    setInstance,
+    setBookingInstance,
     setTypeGame,
     setDate,
     setGame,

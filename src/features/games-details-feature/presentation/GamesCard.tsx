@@ -11,10 +11,11 @@ import { CitySelectHome } from '../../games-feature/presentation/components/City
 import ModalInstance from './ModalInstance';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/store';
-import { selectAllInstances, selectInstance } from '../../profile-feature/store/selectors';
+import { selectAllInstances } from '../../profile-feature/store/selectors';
 import useGameType from '../../../lib/utils/hooks/useGameTypes';
 import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
 import { selectGameTypes } from '../../games-feature/store/gamesType/selectors';
+import { selectBookingInstance } from '../../booking-feature/store/selectors';
 
 interface IProp {
     gameTypes: IGameType[];
@@ -26,14 +27,13 @@ const GamesCard: React.FC<IProp> = ({ game, gameTypes }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const selectedInstance = useAppSelector(selectInstance);
+    const selectedInstance = useAppSelector(selectBookingInstance);
     const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(false);
 
     const instances = useAppSelector(selectAllInstances);
 
     const goToBooking = (e: React.MouseEvent) => {
         e.stopPropagation();
-        // setIsInstanceModalOpen(true);
 
         if (instances.length > 1) {
             setIsInstanceModalOpen(true);

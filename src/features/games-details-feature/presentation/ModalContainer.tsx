@@ -18,7 +18,7 @@ import { setGame, setTypeGame } from "../../booking-feature/store/slice";
 import { BOOKING_PATH } from "../../../lib/utils/routeConstants";
 import { IGame } from "../../../lib/utils/types";
 import ModalInstance from "./ModalInstance";
-import { selectGame } from "../../booking-feature/store/selectors";
+import { selectBookingInstance, selectGame } from "../../booking-feature/store/selectors";
 import { selectGameTypes } from "../../games-feature/store/gamesType/selectors";
 import { allInstances } from "../../profile-feature/store/asyncActions";
 import { selectAllInstances, selectInstance } from "../../profile-feature/store/selectors";
@@ -43,7 +43,7 @@ const ModalContainer = (props: { location: Location }) => {
         gameById = useAppSelector(selectGames).find(game => `${game.id}` === idGame);
     }
 
-    const selectedInstance = useAppSelector(selectInstance);
+    const selectedInstance = useAppSelector(selectBookingInstance);
     const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(false);
 
     const instances = useAppSelector(selectAllInstances);
@@ -66,10 +66,6 @@ const ModalContainer = (props: { location: Location }) => {
             navigate(`${BOOKING_PATH}/3`);
             dispatch(setTypeGame(gameTypeOfGame));
             dispatch(setGame(gameById));
-            console.log(gameById);
-            console.log(gameTypeOfGame);
-            
-            
         }
 
     }

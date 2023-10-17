@@ -103,9 +103,20 @@ export const Api = {
         );
     },
 
+    // async getGamesTypes(token: string = 'guest_token') {
+    //     return axios.get<Array<IGameType>>(
+    //         `${instanceUrl}/v3/game-types/all`, {
+    //         timeout: 8000,
+    //         headers: {
+    //             token: token
+    //         }
+    //     }
+    //     );
+    // },
+
     async getGamesTypes(token: string = 'guest_token') {
         return axios.get<Array<IGameType>>(
-            `${instanceUrl}/v3/game-types/all`, {
+            `${gamesUrl}/game-types`, {
             timeout: 8000,
             headers: {
                 token: token

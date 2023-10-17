@@ -6,7 +6,7 @@ import { ReqStatus } from '../../../../../lib/utils/enums'
 import { RootState, useAppDispatch, useAppSelector } from '../../../../../app/store'
 import { IInstance } from '../../../../../lib/utils/types'
 import { allInstances } from '../../../../profile-feature/store/asyncActions'
-import { setInstance } from '../../../store/slice'
+import { setBookingInstance, setDate, setGame, setPlayersCount, setTime, setTypeGame } from '../../../store/slice'
 
 const FilialSelect = () => {
 
@@ -15,6 +15,7 @@ const FilialSelect = () => {
     const selectedallInstances = useAppSelector((state: RootState) => state.profileReducer.allInstances);
     const selectedInstance = useAppSelector((state: RootState) => state.bookingReducer.instance);
     const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
+
     const [selected, setSelected] = useState<IInstance | undefined>(
         selectedInstance
     );
@@ -28,13 +29,20 @@ const FilialSelect = () => {
     }, [])
 
 
-
     const onCardClick = (instance: IInstance) => {
         setSelected(instance);
     };
 
     useEffect(() => {
-        dispatch(setInstance(selected));      
+        dispatch(setBookingInstance(selected));
+
+        if (selected?.id !== selectedInstance?.id) {
+            dispatch(setTypeGame(undefined));
+            dispatch(setGame(undefined));
+            dispatch(setPlayersCount(undefined));
+            dispatch(setDate(undefined));
+            dispatch(setTime(undefined));
+        }
     }, [selected])
 
     return (

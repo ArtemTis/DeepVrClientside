@@ -36,7 +36,6 @@ import { ACCOUNT_PATH, PROFILE_PATH } from "../../../../lib/utils/routeConstants
 import ErrorText from "../../../../lib/ui/ErrorText";
 import { SelectInstanceList } from "../../../../lib/ui/SelectInstanceList";
 import { selectAllInstances, selectInstance } from "../../../profile-feature/store/selectors";
-import ModalInstance from "../../../games-details-feature/presentation/ModalInstance";
 import InstanceSelectList from "../../../games-details-feature/presentation/InstanceSelectList";
 import { allInstances } from "../../../profile-feature/store/asyncActions";
 import useGameType from "../../../../lib/utils/hooks/useGameTypes";

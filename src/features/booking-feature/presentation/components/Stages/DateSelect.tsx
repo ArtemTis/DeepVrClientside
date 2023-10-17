@@ -23,7 +23,7 @@ export const DateSelect: React.FC = () => {
   useEffect(() => {
     dispatch(getAvalibleDateAndTime());
   }, [])
-
+  
   const preselectedDate = useAppSelector(selectAvalibleDayAndTime);
   const selectedDate = useAppSelector(selectDate);
 
@@ -38,9 +38,6 @@ export const DateSelect: React.FC = () => {
       dispatch(setDate(selected.toISOString()));
 
       if (selected.toISOString().slice(0, 10) !== selectedDate?.slice(0, 10)) {
-        console.log(selected.toISOString().slice(0, 10));
-        console.log(selectedDate?.slice(0, 10));
-        
         dispatch(setTime(undefined));
       }
     }

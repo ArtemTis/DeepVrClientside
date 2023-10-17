@@ -7,13 +7,14 @@ import { useDispatch } from 'react-redux';
 import { SelectInstanceList } from '../../../lib/ui/SelectInstanceList';
 import { useNavigate } from 'react-router';
 import { BOOKING_PATH } from '../../../lib/utils/routeConstants';
-import { setCredentials, setDate, setGame, setPlayersCount, setTime, setTypeGame } from '../../booking-feature/store/slice';
+import { setCredentials, setDate, setGame, setBookingInstance, setPlayersCount, setTime, setTypeGame } from '../../booking-feature/store/slice';
 import { IGame } from '../../../lib/utils/types';
 import { selectGameTypes } from '../../games-feature/store/gamesType/selectors';
 import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
 import useGameType from '../../../lib/utils/hooks/useGameTypes';
 import InstanceSelectList from './InstanceSelectList';
 import { getAllGames } from '../../games-feature/store/games/asyncActions';
+import { setInstance } from '../../profile-feature/store/slice';
 
 interface IInstance {
   id: number,
@@ -50,6 +51,9 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
 
   const goToBooking = () => {
     // e.stopPropagation();
+
+    dispatch(setBookingInstance(selected));
+    dispatch(setInstance(selected));
     
     dispatch(setTypeGame(gameTypeOfGame));
     dispatch(setGame(game));
