@@ -22,7 +22,9 @@ export const SelectCityList: React.FC<Props> = ({ selected, onSelect }) => {
   const loading = useAppSelector(state => state.profileReducer.reqStatus);
 
   useEffect(() => {
-    dispatch(allCities());
+    if (cityList.length === 0) {
+      dispatch(allCities());
+    }
   }, []);
 
   return (

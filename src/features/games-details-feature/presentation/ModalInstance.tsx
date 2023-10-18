@@ -14,7 +14,7 @@ import { gamesTypes } from '../../games-feature/store/gamesType/asyncActions';
 import useGameType from '../../../lib/utils/hooks/useGameTypes';
 import InstanceSelectList from './InstanceSelectList';
 import { getAllGames } from '../../games-feature/store/games/asyncActions';
-import { setInstance } from '../../profile-feature/store/slice';
+import { selectBookingInstance } from '../../booking-feature/store/selectors';
 
 interface IInstance {
   id: number,
@@ -24,36 +24,25 @@ interface IInstance {
 interface IProp {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedInstance?: IInstance;
   game: IGame;
 }
 
-const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedInstance, game }) => {
+const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, game }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const gameTypes = useAppSelector(selectGameTypes);
-
+  
   const gameTypeOfGame = gameTypes.find(type => type.id === game.game_type_id);
-
-  const [selected, setSelected] = useState<IInstance | undefined>(
-    selectedInstance ?? undefined
-  );
-
-  const onSelect = (instance: IInstance | undefined) => {
-    setSelected(instance);
-  };
 
   const handleCancel = () => {
     setIsModalOpen(false);
     navigate(`/`);
   };
 
-  const goToBooking = () => {
-    // e.stopPropagation();
+  const goToBooking = (instance?: IInstance) => {
 
-    dispatch(setBookingInstance(selected));
-    dispatch(setInstance(selected));
+    dispatch(setBookingInstance(instance));
     
     dispatch(setTypeGame(gameTypeOfGame));
     dispatch(setGame(game));
@@ -69,7 +58,7 @@ const ModalInstance: React.FC<IProp> = ({ isModalOpen, setIsModalOpen, selectedI
 
   return (
     <StyledModal open={isModalOpen} footer={[]} onCancel={handleCancel}>
-      <InstanceSelectList setIslOpen={setIsModalOpen} selectedInstance={selectedInstance} goToBooking={goToBooking} />
+      <InstanceSelectList setIslOpen={setIsModalOpen} goToBooking={goToBooking} />
     </StyledModal>
   )
 }

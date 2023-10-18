@@ -21,7 +21,7 @@ import ModalInstance from "./ModalInstance";
 import { selectBookingInstance, selectGame } from "../../booking-feature/store/selectors";
 import { selectGameTypes } from "../../games-feature/store/gamesType/selectors";
 import { allInstances } from "../../profile-feature/store/asyncActions";
-import { selectAllInstances, selectInstance } from "../../profile-feature/store/selectors";
+import { selectAllInstances } from "../../profile-feature/store/selectors";
 import useGameType from "../../../lib/utils/hooks/useGameTypes";
 import { gamesTypes } from "../../games-feature/store/gamesType/asyncActions";
 
@@ -43,7 +43,7 @@ const ModalContainer = (props: { location: Location }) => {
         gameById = useAppSelector(selectGames).find(game => `${game.id}` === idGame);
     }
 
-    const selectedInstance = useAppSelector(selectBookingInstance);
+    // const selectedInstance = useAppSelector(selectBookingInstance);   selectedInstance={selectedInstance}
     const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(false);
 
     const instances = useAppSelector(selectAllInstances);
@@ -108,7 +108,7 @@ const ModalContainer = (props: { location: Location }) => {
                 </div >
             </StyledModal>
 
-            <ModalInstance isModalOpen={isInstanceModalOpen} setIsModalOpen={setIsInstanceModalOpen} selectedInstance={selectedInstance} game={gameById!!} />
+            <ModalInstance isModalOpen={isInstanceModalOpen} setIsModalOpen={setIsInstanceModalOpen} game={gameById!!} /> 
         </>
     )
 }

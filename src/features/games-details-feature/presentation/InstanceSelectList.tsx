@@ -9,19 +9,19 @@ import { useAppDispatch, useAppSelector } from '../../../app/store';
 import { setGame, setBookingInstance, setPlayersCount, setTypeGame } from '../../booking-feature/store/slice';
 import { allInstances } from '../../profile-feature/store/asyncActions';
 import { selectAllInstances } from '../../profile-feature/store/selectors';
-import { setInstance } from '../../profile-feature/store/slice';
+import { selectBookingInstance } from '../../booking-feature/store/selectors';
 
 interface IProps {
     setIslOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    selectedInstance?: IInstance;
-    goToBooking?: () => void;
+    goToBooking?: (selected?: IInstance) => void;
 }
 
-const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, selectedInstance, goToBooking }) => {
+const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, goToBooking }) => {
     const dispatch = useAppDispatch();
 
+    const selectedInstance = useAppSelector(selectBookingInstance);
     const [selected, setSelected] = useState<IInstance | undefined>(
-        selectedInstance ?? undefined
+      selectedInstance ?? undefined
     );
 
     const onSelect = (instance: IInstance | undefined) => {
@@ -29,13 +29,12 @@ const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, selectedInstance, go
     };
 
     const confirmm = () => {
-        if (selected) {      
+        if (selected) {
             dispatch(setBookingInstance(selected));
-            dispatch(setInstance(selected));
         }
-        
+
         if (goToBooking) {
-            return goToBooking();
+            return goToBooking(selected);
         }
         setIslOpen(false);
     };
@@ -52,7 +51,7 @@ const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, selectedInstance, go
 
     return (
         <ModalWrapper>
-            <SelectInstanceList selected={selected} onSelect={onSelect} instances={instances}/>
+            <SelectInstanceList selected={selected} onSelect={onSelect} instances={instances} />
             <NextButton onClick={confirmm} isActive={!!selected}>
                 Выбрать
             </NextButton>

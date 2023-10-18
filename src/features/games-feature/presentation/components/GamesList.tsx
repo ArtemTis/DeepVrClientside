@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, MenuProps, Popover, Radio, RadioChangeEvent, Row, Space } from "antd";
+import { Button, Col, Dropdown, MenuProps, Modal, Popover, Radio, RadioChangeEvent, Row, Space } from "antd";
 import { ReactElement, useEffect, useRef, useState } from "react";
 import { GameModal } from "./GameModal";
 
@@ -29,13 +29,13 @@ import GamesCard from "../../../games-details-feature/presentation/GamesCard";
 import { setCity, setStep } from "../../../booking-feature/store/slice";
 import { CitySelectHome } from "./CitySelectHome";
 import styled from "styled-components";
-import { selectCity } from "../../../booking-feature/store/selectors";
+import { selectBookingInstance, selectCity } from "../../../booking-feature/store/selectors";
 import CitySelectList from "./CitySelectList";
 import { Link } from "react-router-dom";
 import { ACCOUNT_PATH, PROFILE_PATH } from "../../../../lib/utils/routeConstants";
 import ErrorText from "../../../../lib/ui/ErrorText";
 import { SelectInstanceList } from "../../../../lib/ui/SelectInstanceList";
-import { selectAllInstances, selectInstance } from "../../../profile-feature/store/selectors";
+import { selectAllInstances } from "../../../profile-feature/store/selectors";
 import InstanceSelectList from "../../../games-details-feature/presentation/InstanceSelectList";
 import { allInstances } from "../../../profile-feature/store/asyncActions";
 import useGameType from "../../../../lib/utils/hooks/useGameTypes";
@@ -136,7 +136,7 @@ export const GamesList: React.FC = () => {
   };
 
   const isSelectedCity = !!useAppSelector(selectCity);
-  const selectedInstance = useAppSelector(selectInstance);
+  const selectedInstance = useAppSelector(selectBookingInstance);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -149,7 +149,7 @@ export const GamesList: React.FC = () => {
         type: 'city'
       },
       {
-        element: <InstanceSelectList setIslOpen={setOpen} selectedInstance={selectedInstance} />,
+        element: <InstanceSelectList setIslOpen={setOpen} />,
         type: 'instance'
       }
     ]
@@ -178,6 +178,18 @@ export const GamesList: React.FC = () => {
 
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
+  };
+
+  /////
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -244,7 +256,7 @@ export const GamesList: React.FC = () => {
             </div>
           </div>
 
-          <StyledPopover placement="bottomRight"
+          {/* <StyledPopover placement="bottomRight"
             title={text}
             content={content}
             arrow={false}
@@ -255,7 +267,13 @@ export const GamesList: React.FC = () => {
               <img src={arrow} alt="Стрелка" />
             </Filter>
 
-          </StyledPopover>
+          </StyledPopover> */}
+
+          <Filter onClick={showModal}>Город/Филиал
+            {/* <img src={arrow} alt="Стрелка" /> */}
+          </Filter>
+
+
 
         </SearchWrapper>
       </GamesWrappwe>
@@ -268,11 +286,21 @@ export const GamesList: React.FC = () => {
             <div className="gamesRow">
               {gamesFiltered &&
                 gamesFiltered.map((game) => (
-                  <GamesCard game={game} key={game.id} gameTypes={gameTypes}/>
+                  <GamesCard game={game} key={game.id} gameTypes={gameTypes} />
                 ))}
             </div>
           </LoadWrapper>
       }
+
+
+      <StyledModal open={isModalOpen} footer={[]} closeIcon={<></>} onCancel={handleCancel}>
+        {
+          text
+        }
+        {
+          content
+        }
+      </StyledModal>
     </div>
   );
 };
@@ -309,6 +337,40 @@ const StyledProfile = styled.div`
     width: 40px;
     height: 40px;
   }
+  }
+`
+
+// const ModalWrapper = styled.div`
+//   &.ant-modal{
+//     width: 364px !important;
+//   }
+
+//   .ant-modal-wrap{
+//     .ant-modal{
+//     width: 364px !important;
+//   }
+//   }
+// `
+
+const StyledModal = styled(Modal) <{ open: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* background: ${({ open }) => (open ? '#55C1E7' : '')} !important; */
+  color: ${({ open }) => (open ? 'white' : '')} !important;
+
+  &.ant-modal{
+    width: 400px !important;
+  }
+  
+  img{
+    width: 20px;
+    transform: ${({ open }) => (open ? '' : 'rotateX(180deg) rotateY(180deg)')};
+  }
+
+  @media screen and (max-width: 530px) {
+    justify-content: space-between;
+    width: 90vw;
   }
 `
 

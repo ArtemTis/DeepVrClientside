@@ -20,7 +20,6 @@ import { ReqStatus } from "../../../../../lib/utils/enums";
 import { LoadIcon } from "../../../../../lib/ui/LoadIcon";
 import { curencyFormat } from "../../../../../lib/utils/format";
 import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
-import { selectInstance } from "../../../../profile-feature/store/selectors";
 
 export const ConfirmBooking: React.FC = () => {
   const dispatch = useAppDispatch();

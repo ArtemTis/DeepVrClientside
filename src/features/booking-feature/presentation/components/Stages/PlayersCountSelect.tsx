@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/store";
 import "../../pages/BookingStyles.css";
 import vrGlasses from "../../../../../assets/Очки 3.png";
-import { selectGame, selectPlayersCount, selectTypeGame } from "../../../store/selectors";
+import { selectBookingInstance, selectGame, selectPlayersCount, selectTypeGame } from "../../../store/selectors";
 import { setCredentials, setDate, setPlayersCount, setTime, setTypeGame } from "../../../store/slice";
 import { selectGameTypes } from "../../../../games-feature/store/gamesType/selectors";
 import { gamesTypes } from "../../../../games-feature/store/gamesType/asyncActions";

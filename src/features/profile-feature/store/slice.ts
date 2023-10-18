@@ -82,7 +82,7 @@ const profileSlice = createSlice({
 
 export const {
     setCity,
-    setInstance,
+    // setInstance,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

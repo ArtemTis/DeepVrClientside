@@ -27,7 +27,7 @@ const GamesCard: React.FC<IProp> = ({ game, gameTypes }) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const selectedInstance = useAppSelector(selectBookingInstance);
+    // const selectedInstance = useAppSelector(selectBookingInstance); selectedInstance={selectedInstance}
     const [isInstanceModalOpen, setIsInstanceModalOpen] = useState<boolean>(false);
 
     const instances = useAppSelector(selectAllInstances);
@@ -86,7 +86,7 @@ const GamesCard: React.FC<IProp> = ({ game, gameTypes }) => {
                     <button className="card-button" onClick={e => goToBooking(e)}>{game.price} ₽</button>
                 </div>
             </div>
-            <ModalInstance isModalOpen={isInstanceModalOpen} setIsModalOpen={setIsInstanceModalOpen} selectedInstance={selectedInstance} game={game} />
+            <ModalInstance isModalOpen={isInstanceModalOpen} setIsModalOpen={setIsInstanceModalOpen} game={game} />
         </>
     )
 }
