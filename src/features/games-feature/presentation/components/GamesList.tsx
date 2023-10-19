@@ -127,29 +127,39 @@ export const GamesList: React.FC = () => {
     searchRef.current?.focus();
   };
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const resetCity = () => {
-    dispatch(setSelectedCity(undefined));
-    dispatch(setCity(undefined));
-    setIsOpen(true);
-  };
+  // const resetCity = () => {
+  //   dispatch(setSelectedCity(undefined));
+  //   dispatch(setCity(undefined));
+  //   setIsOpen(true);
+  // };
 
-  const isSelectedCity = !!useAppSelector(selectCity);
-  const selectedInstance = useAppSelector(selectBookingInstance);
+  const selectedCity = useAppSelector(selectCity);
+  // const selectedInstance = useAppSelector(selectBookingInstance);
 
   const [open, setOpen] = useState<boolean>(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const contentItems: {
     element: JSX.Element;
     type: string;
   }[] = [
       {
-        element: <CitySelectList setIslOpen={setOpen} isSelectedCity={isSelectedCity} />,
+        element: <CitySelectList setIslOpen={setOpen} selectedCity={selectedCity} setIsOpenModal={setIsModalOpen}/>,
         type: 'city'
       },
       {
-        element: <InstanceSelectList setIslOpen={setOpen} />,
+        element: <InstanceSelectList setIslOpen={setOpen} setIsOpenModal={setIsModalOpen}/>,
         type: 'instance'
       }
     ]
@@ -164,7 +174,7 @@ export const GamesList: React.FC = () => {
     }
   };
 
-  const text =
+  const radioSelect =
     <StyledGroup defaultValue="city" buttonStyle="solid" onChange={onChange}>
       <StyledRadio value="city">
         Город
@@ -178,18 +188,6 @@ export const GamesList: React.FC = () => {
 
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
-  };
-
-  /////
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -295,7 +293,7 @@ export const GamesList: React.FC = () => {
 
       <StyledModal open={isModalOpen} footer={[]} closeIcon={<></>} onCancel={handleCancel}>
         {
-          text
+          radioSelect
         }
         {
           content

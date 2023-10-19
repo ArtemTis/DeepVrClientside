@@ -8,7 +8,7 @@ import "./GamesStyles.css";
 import styled from "styled-components";
 import { selectSelectedCity, selectToken } from "../../../auth-feature/store/selectors";
 import { ICity } from "../../../../lib/utils/types";
-import { selectCity } from "../../../booking-feature/store/selectors";
+import { selectBookingInstance, selectCity } from "../../../booking-feature/store/selectors";
 import { setSelectedCity } from "../../../auth-feature/store/slice";
 import { setCity } from "../../../booking-feature/store/slice";
 import { SelectCityList } from "../../../../lib/ui/SelectCityList";
@@ -16,12 +16,12 @@ import { NextButton } from "../../../../lib/ui/NextButton";
 import CitySelectList from "./CitySelectList";
 
 export const CitySelectHome: React.FC = () => {
-  const isSelectedCity = !!useAppSelector(selectCity);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(isSelectedCity ? false : true);
+  const selectedCity = useAppSelector(selectCity);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(!!selectedCity ? false : true);
 
   return (
     <StyledModal open={isModalOpen} footer={[]} closeIcon={<></>}>
-      <CitySelectList setIslOpen={setIsModalOpen} isSelectedCity={isSelectedCity}/>
+      <CitySelectList setIslOpen={setIsModalOpen} selectedCity={selectedCity}/>
     </StyledModal>
   );
 };

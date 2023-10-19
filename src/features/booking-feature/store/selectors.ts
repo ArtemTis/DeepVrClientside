@@ -5,6 +5,10 @@ export const selectCurrentStep = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.currentStep],
     (currentStep) => currentStep
 )
+export const selectSafetyStep = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.safetyStep],
+    (safetyStep) => safetyStep
+)
 export const selectCity = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.city],
     (city) => city

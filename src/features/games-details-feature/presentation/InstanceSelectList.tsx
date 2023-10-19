@@ -14,9 +14,10 @@ import { selectBookingInstance } from '../../booking-feature/store/selectors';
 interface IProps {
     setIslOpen: React.Dispatch<React.SetStateAction<boolean>>;
     goToBooking?: (selected?: IInstance) => void;
+    setIsOpenModal?: (value: boolean) => void;
 }
 
-const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, goToBooking }) => {
+const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, goToBooking, setIsOpenModal }) => {
     const dispatch = useAppDispatch();
 
     const selectedInstance = useAppSelector(selectBookingInstance);
@@ -31,6 +32,9 @@ const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, goToBooking }) => {
     const confirmm = () => {
         if (selected) {
             dispatch(setBookingInstance(selected));
+            if (setIsOpenModal) {
+                setIsOpenModal(false);
+            }
         }
 
         if (goToBooking) {

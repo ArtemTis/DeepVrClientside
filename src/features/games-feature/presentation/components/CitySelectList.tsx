@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import { SelectCityList } from '../../../../lib/ui/SelectCityList';
 import { NextButton } from '../../../../lib/ui/NextButton';
-import { ICity } from '../../../../lib/utils/types';
+import { ICity, IInstance } from '../../../../lib/utils/types';
 import { useAppDispatch, useAppSelector } from '../../../../app/store';
 import { selectCity } from '../../../booking-feature/store/selectors';
 import { selectSelectedCity, selectToken } from '../../../auth-feature/store/selectors';
@@ -12,15 +12,15 @@ import { setCity } from '../../../booking-feature/store/slice';
 
 interface IProps {
     setIslOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    isSelectedCity: boolean;
+    selectedCity: ICity | undefined
+    setIsOpenModal?: (value: boolean) => void;
 }
 
-const CitySelectList:React.FC<IProps> = ({setIslOpen, isSelectedCity}) => {
+const CitySelectList:React.FC<IProps> = ({setIslOpen, selectedCity, setIsOpenModal}) => {
     const selectedCityProfile = useAppSelector(selectSelectedCity) as ICity;
 
-
     const [selected, setSelected] = useState<ICity | undefined>(
-        selectedCityProfile ?? isSelectedCity ?? undefined
+        selectedCityProfile ?? selectedCity ?? undefined
     );
     const dispatch = useAppDispatch();
     const token = useAppSelector(selectToken);
@@ -42,6 +42,10 @@ const CitySelectList:React.FC<IProps> = ({setIslOpen, isSelectedCity}) => {
             // if (selected.instances.length === 1) {
             //     dispatch(setInstance(selected.instances[0]));
             // }
+
+            if (setIsOpenModal) {
+                setIsOpenModal(false);
+            }
         }
         setIslOpen(false);
     };

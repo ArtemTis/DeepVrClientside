@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
 import { RootState, useAppDispatch, useAppSelector } from '../../../../app/store';
-import { selectCurrentStep } from '../../store/selectors';
+import { selectCurrentStep, selectSafetyStep } from '../../store/selectors';
 import { setStep } from '../../store/slice';
 import { BOOKING_PATH } from '../../../../lib/utils/routeConstants';
 import { Config } from './Stages/Config';

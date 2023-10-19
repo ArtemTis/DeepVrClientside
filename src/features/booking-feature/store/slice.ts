@@ -8,6 +8,7 @@ import { selectAllInstances } from "../../profile-feature/store/selectors";
 
 export interface BookingState {
     currentStep: number;
+    safetyStep: number;
     city?: ICity;
     instance?: IInstance;
     typeGame?: IGameType;
@@ -25,6 +26,7 @@ export interface BookingState {
 
 const initialState: BookingState = {
     currentStep: 0,
+    safetyStep: 0,
     isFinished: false,
     reqStatus: ReqStatus.never,
 };
@@ -39,6 +41,10 @@ const bookingSlice = createSlice({
 
         setStep(state, action : PayloadAction<number>) {
             state.currentStep = action.payload;
+        },
+
+        setSafetyStep(state, action : PayloadAction<number>) {
+            state.safetyStep = action.payload;
         },
 
         setCity(state, action) {
@@ -79,6 +85,7 @@ const bookingSlice = createSlice({
         clearState(state) {
             return {
                 currentStep: state.currentStep,
+                safetyStep: state.safetyStep,
                 isFinished: false,
                 credentials: {
                     name: state.credentials?.name ?? '',
@@ -143,6 +150,7 @@ export const {
     clearState,
     decreaseStep,
     setStep,
+    setSafetyStep,
     setIsFinished
 } = bookingSlice.actions;
 export default bookingSlice.reducer;

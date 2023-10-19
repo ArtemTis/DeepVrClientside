@@ -78,12 +78,12 @@ export default GamesTypeSelect
 
 const TypeGameWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 20px;
 
    @media screen and (max-width: 1200px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 
     .room-card-wrapper{
       width: 100%;
@@ -91,13 +91,18 @@ const TypeGameWrapper = styled.div`
   } 
 
   @media screen and (max-width: 750px) {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 
     .room-card-wrapper{
       width: 100%;
     }
     
   } 
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(1, 1fr);
+  } 
+
   @media screen and (max-width: 400px) {
     align-items: center;
 

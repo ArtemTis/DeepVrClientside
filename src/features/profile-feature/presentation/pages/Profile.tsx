@@ -202,7 +202,7 @@ export const Profile: React.FC = () => {
                   <div
                     className="profile-divide-btn-full"
                     onClick={() =>
-                      addPopup(<CitySelectPopup onBackClick={removeLastPopup} />)
+                      addPopup(<CitySelectPopup onBackClick={removeLastPopup} preselected={citySelected}/>)
                     }
                   >
                     <span>Выбрать город</span>
