@@ -26,8 +26,8 @@ import { OrderInfoRow } from "../components/OrderInfoRow";
 import Ticket from "../components/Ticket";
 import { HorizontalScrollArea } from "../../../../lib/ui/HorizontalScrollArea";
 import { LoadIcon } from "../../../../lib/ui/LoadIcon";
-import { getBonusesInfo, getHistory } from "../../store/asyncActions";
-import { selectBonuses, selectOrdersHistory } from "../../store/selectors";
+import { getBonusesInfo, getHistory, getUserCity } from "../../store/asyncActions";
+import { selectBonuses, selectOrdersHistory, selectUserCity } from "../../store/selectors";
 import { ReqStatus } from "../../../../lib/utils/enums";
 
 let tempPopups: Array<React.ReactElement> = [];
@@ -40,6 +40,12 @@ export const Profile: React.FC = () => {
   const token = useAppSelector(selectToken);
   const user = useAppSelector(selectUser);
 
+  console.log(citySelected);
+  
+  const userCity = useAppSelector(selectUserCity);
+  console.log(token);
+  
+
   const [popupWindows, setPopupWindows] = useState<Array<React.ReactElement>>(
     []
   );
@@ -51,6 +57,7 @@ export const Profile: React.FC = () => {
   useEffect(() => {
     dispatch(getBonusesInfo());
     dispatch(getHistory(user?.id!!));
+    dispatch(getUserCity());
   },[])
 
   const bonusesRefs = {

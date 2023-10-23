@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/store';
 import { setGame, setBookingInstance, setPlayersCount, setTypeGame } from '../../booking-feature/store/slice';
 import { allInstances } from '../../profile-feature/store/asyncActions';
 import { selectAllInstances } from '../../profile-feature/store/selectors';
-import { selectBookingInstance } from '../../booking-feature/store/selectors';
+import { selectBookingInstance, selectCity } from '../../booking-feature/store/selectors';
 
 interface IProps {
     setIslOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,7 +51,7 @@ const InstanceSelectList: React.FC<IProps> = ({ setIslOpen, goToBooking, setIsOp
         if (instances.length === 1) {
             setSelected(instances[0]);
         }
-    }, [])
+    }, [selected])
 
     return (
         <ModalWrapper>

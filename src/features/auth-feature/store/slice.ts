@@ -29,7 +29,7 @@ const authSlice = createSlice({
             state.client = action.payload;
         },
         setSelectedCity: (state, action: { payload: ICity | undefined }) => {
-            state.selectedCity = action.payload;
+            state.selectedCity = action.payload;   
         },
         setErrorText: (state, action) => {
             state.textError = action.payload;

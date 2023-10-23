@@ -6,6 +6,7 @@ import { selectSelectedCity } from "../../features/auth-feature/store/selectors"
 import { ReqStatus } from "../utils/enums";
 import { LoadWrapper } from "./LoadWrapper";
 import styled from "styled-components";
+import { selectCity } from "../../features/booking-feature/store/selectors";
 
 
 interface Props {
@@ -16,13 +17,15 @@ interface Props {
 export const SelectCityList: React.FC<Props> = ({ selected, onSelect }) => {
   const dispatch = useAppDispatch();
 
-  const selectedCity = useAppSelector(selectSelectedCity);
+  // const selectedCity = useAppSelector(selectSelectedCity);
+  const selectedCity = useAppSelector(selectCity);
+  
   const cityList = useAppSelector(state => state.profileReducer.allCities);
   const isLoading = useAppSelector(state => state.profileReducer.reqStatus === ReqStatus.pending);
   const loading = useAppSelector(state => state.profileReducer.reqStatus);
 
   useEffect(() => {
-    if (cityList.length === 0) {
+    if (cityList.length === 0 && !selectedCity) {
       dispatch(allCities());
     }
   }, []);

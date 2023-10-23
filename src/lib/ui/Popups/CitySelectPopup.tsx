@@ -9,6 +9,7 @@ import { selectToken } from "../../../features/auth-feature/store/selectors";
 import { setSelectedCity } from "../../../features/auth-feature/store/slice";
 import { SelectCityList } from "../SelectCityList";
 import { NextButton } from "../NextButton";
+import { setUserCity } from "../../../features/profile-feature/store/asyncActions";
 
 interface Props {
   onBackClick: () => void;
@@ -27,9 +28,10 @@ export const CitySelectPopup: React.FC<Props> = ({
   const onSubmit = () => {
     if (!!selected) {
       dispatch(setSelectedCity(selected));
-      Api.setUserCity({ token, city: selected.name }).catch((err) =>
-        console.log(err)
-      );
+      // Api.setUserCity({ token, city: selected.name }).catch((err) =>
+      //   console.log(err)
+      // );
+      dispatch(setUserCity(selected))
       onBackClick();
     }
   };

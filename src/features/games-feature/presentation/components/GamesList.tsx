@@ -45,7 +45,7 @@ import { selectGameTypes } from "../../store/gamesType/selectors";
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
   const [gamesFiltered, setGamesFiltered] = useState<Array<IGame>>();
-  const city = useAppSelector(selectSelectedCity);
+  const city = useAppSelector(selectCity);
   const [modalState, setModalState] = useState<IGame | undefined>();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const instances = useAppSelector(selectAllInstances);
@@ -71,6 +71,7 @@ export const GamesList: React.FC = () => {
     if (city) {
 
       // Api.setInstanceUrl(city?.instances[0].code);
+      Api.setInstanceUrl();
 
       dispatch(getAllGames());
       dispatch(allInstances());

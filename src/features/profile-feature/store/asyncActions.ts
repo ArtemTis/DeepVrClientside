@@ -3,7 +3,7 @@ import { Api } from "../../../lib/utils/api";
 import axios from "axios";
 import { RootState } from "../../../app/store";
 import { selectInstancePrefix } from "./selectors";
-import { ITokenDTO } from "../../../lib/utils/types";
+import { ICity, ITokenDTO } from "../../../lib/utils/types";
 import { selectCity, selectGameId } from "../../booking-feature/store/selectors";
 import { selectToken } from "../../auth-feature/store/selectors";
 
@@ -81,10 +81,31 @@ export const getHistory = createAsyncThunk(
 
 export const getUserCity = createAsyncThunk(
     'profileSlice/getUserCity',
-    async function (value: string, { rejectWithValue }) {
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
         try {            
-            const res = await Api.getUserCity(value);
+            const res = await Api.getUserCity(token);
 
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
+            }
+            return rejectWithValue('Неизвестная ошибка');
+        }
+    }
+)
+
+export const setUserCity = createAsyncThunk(
+    'profileSlice/setUserCity',
+    async function (value: ICity, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
+        try {            
+            const res = await Api.setUserCity(token, value);
+            console.log(res);
+            
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {

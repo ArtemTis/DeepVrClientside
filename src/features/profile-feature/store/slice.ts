@@ -2,7 +2,7 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { ICity, IGetBonusesInfoResponse, IInstance, IOrderHistoryItem } from "../../../lib/utils/types";
 import { ReqStatus } from "../../../lib/utils/enums";
 import { Api } from "../../../lib/utils/api";
-import { allCities, allInstances, getBonusesInfo, getHistory } from "./asyncActions";
+import { allCities, allInstances, getBonusesInfo, getHistory, setUserCity } from "./asyncActions";
 
 interface ProfileState {
     city?: ICity;
@@ -61,9 +61,20 @@ const profileSlice = createSlice({
                 state.reqStatus = ReqStatus.fulfield;
             }
         )
+        builder.addCase(setUserCity.fulfilled,
+            (state, action) => {
+                state.city = action.payload;
+                state.reqStatus = ReqStatus.fulfield;
+            }
+        )
+        builder.addCase(setUserCity.rejected,
+            (state, action) => {
+                state.reqStatus = ReqStatus.fulfield;
+            }
+        )
 
         builder.addMatcher(
-            isAnyOf(allCities.pending, allInstances.pending, getBonusesInfo.pending, getHistory.pending),
+            isAnyOf(allCities.pending, allInstances.pending, getBonusesInfo.pending, getHistory.pending, setUserCity.pending),
             (state, action) => {
                 state.reqStatus = ReqStatus.pending;
             }

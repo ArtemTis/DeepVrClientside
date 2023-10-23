@@ -46,7 +46,7 @@ export const Api = {
         const pref = 'srt2'
         const url = `https://${pref}.${Api.globalUrl?.replace("https://", "")}`
         instanceUrl = url;
-        
+
         // instanceUrl = 'http://192.168.1.118:5274/api';
         if (url) instanceStorageUrl = url.replace('/api', '/storage');
         else instanceStorageUrl = undefined;
@@ -341,13 +341,13 @@ export const Api = {
         )
     },
 
-    async setUserCity(data: {token: string, city: string }) {
+    async setUserCity(token: string, city: ICity ) {
         return axios.post<any>(
             `${globalUrl}/profile/set-city`,
-            data, {
+            city, {
             headers: {
                 timeout: 8000,
-                token: data.token
+                token: token
             }
         }
         )

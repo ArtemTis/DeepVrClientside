@@ -13,6 +13,7 @@ export interface IUser {
   category_loyalty_id: number | null;
   created_at: string;
   email: string;
+  city: ICity;
   email_verified_at: string | null;
   id: number;
   name: string;
@@ -28,7 +29,7 @@ export interface IUser {
 export interface ICity {
   id: number,
   name: string,
-  instances: [
+  instances?: [
     {
       id: number,
       name: string,
@@ -41,6 +42,21 @@ export interface ICity {
       users: []
     }
   ]
+}
+
+export interface IInstance {
+  id: number,
+  name: string,
+  city?: {
+    id: number,
+    name: string,
+    instances: [
+      string
+    ]
+  },
+  cityId?: number,
+  code?: string,
+  ownerId?: number,
 }
 
 // export interface ICity {
@@ -149,21 +165,6 @@ export interface IGame {
     game_id: number
   }
   rooms?: Array<IRoom>,
-}
-
-export interface IInstance {
-  id: number,
-  name: string,
-  city?: {
-    id: number,
-    name: string,
-    instances: [
-      string
-    ]
-  },
-  cityId?: number,
-  code?: string,
-  ownerId?: number,
 }
 
 export interface IGetGamesResponse {

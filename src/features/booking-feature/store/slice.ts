@@ -49,7 +49,7 @@ const bookingSlice = createSlice({
 
         setCity(state, action) {
             state.city = action.payload;
-            Api.setInstanceUrl(state.city?.instances[0].code);
+            // Api.setInstanceUrl(state.city?.instances[0].code);
         },
 
         setBookingInstance(state, action) {
