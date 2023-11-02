@@ -9,10 +9,9 @@ import { OrderInfoRowEmpty } from "../../../features/profile-feature/presentatio
 
 interface Props {
   history?: Array<IOrderHistoryItem>;
-  onBackClick: () => void;
 }
 
-export const OrdersAllPopup: React.FC<Props> = ({ history, onBackClick }) => {
+export const OrdersAllPopup: React.FC<Props> = ({ history }) => {
   const [isOrderedDesc, setIsOrdered] = useState(false);
   const [historySorted, setHistorySorted] = useState<
     Array<IOrderHistoryItem> | undefined
@@ -30,7 +29,7 @@ export const OrdersAllPopup: React.FC<Props> = ({ history, onBackClick }) => {
   };
 
   return (
-    <PopupLayout title="Заказы" onBackClick={onBackClick}>
+    <PopupLayout title="Заказы" >
       <div className="popup-order-table-header">
         Заказы
         <img

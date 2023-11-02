@@ -12,6 +12,15 @@ export const SINGIN_TEL_PATH = 'tel'
 export const SINGIN_EMAIL_PATH = 'email'
 export const SINGIN_CODE_PATH = 'code'
 
+
+export const PROFILE_MAIN_PATH = 'profile-page'
+export const PROFILE_ORDERS_PATH = 'orders'
+export const PROFILE_SETTINGS_PATH = 'settings'
+export const PROFILE_CITY_PATH = 'cities'
+export const PROFILE_ABOUT_PATH = 'about'
+export const PROFILE_FEEDBACK_PATH = 'feedback'
+
+
 //booking routing
 export const BOOKING_ADDRESS_PATH = 'address'
 export const BOOKING_TYPEGAME_PATH = 'type-game'

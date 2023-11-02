@@ -16,11 +16,8 @@ import { NextButton } from "../NextButton";
 import { LoadWrapper } from "../LoadWrapper";
 import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
 
-interface Props {
-  onBackClick: () => void;
-}
 
-export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
+export const ProfileSettingsPopup: React.FC = () => {
   const user = useAppSelector(selectUser);
 
   const {
@@ -71,7 +68,7 @@ export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
             if (!res.data.error) {
               console.log(res.data);
               dispatch(setUser(res.data));
-              onBackClick();
+              // onBackClick();
             } else {
               setErrorEdit(res.data.error_text);
             }
@@ -93,7 +90,7 @@ export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
           if (!!res.data.eror) {
             setErrorPass(res.data.error_message);
           } else {
-            onBackClick();
+            // onBackClick();
           }
         })
         .catch((err) => console.log(err));
@@ -109,7 +106,7 @@ export const ProfileSettingsPopup: React.FC<Props> = ({ onBackClick }) => {
   const [isLoadingChangePass, setIsLoadingChangePass] = useState(false);
 
   return (
-    <PopupLayout title="Настройки профиля" onBackClick={onBackClick}>
+    <PopupLayout title="Настройки профиля">
       <div className="profile-settings-forms-wrapper">
         <form className="login-form">
           <FormField

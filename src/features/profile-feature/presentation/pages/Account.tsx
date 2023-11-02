@@ -6,6 +6,7 @@ import { Navigate, Outlet} from "react-router";
 
 import "./AccountStyles.css";
 import { selectIsAuthorised } from "../../../auth-feature/store/selectors";
+import ProfileLayout from "./ProfileLayout";
 
 export const Account: React.FC = () => {
   const isAuthorised = useAppSelector(selectIsAuthorised);
@@ -14,7 +15,8 @@ export const Account: React.FC = () => {
     <DefaultLayout>
       {
         isAuthorised
-          ? <Profile />
+          // ? <Profile />
+          ? <ProfileLayout />
           : <Outlet/>
       }
     </DefaultLayout>

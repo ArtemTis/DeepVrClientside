@@ -12,12 +12,12 @@ interface Props {
 
 export const SettingsPopup: React.FC<Props> = ({ onBackClick, addPopup }) => {
   return (
-    <PopupLayout title="Настройки" onBackClick={onBackClick}>
+    <PopupLayout title="Настройки">
       <div className="profile-divide popup-settings-divide">
         <div
           className="popup-settings-row"
           onClick={() =>
-            addPopup(<ProfileSettingsPopup onBackClick={onBackClick} />)
+            addPopup(<ProfileSettingsPopup/>)
           }
         >
           Настройки профиля

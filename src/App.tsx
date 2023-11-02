@@ -13,7 +13,13 @@ import {
   GAMES_DETAILS_PATH,
   HOME_PATH,
   LOGIN_PATH,
+  PROFILE_ABOUT_PATH,
+  PROFILE_CITY_PATH,
+  PROFILE_FEEDBACK_PATH,
+  PROFILE_MAIN_PATH,
+  PROFILE_ORDERS_PATH,
   PROFILE_PATH,
+  PROFILE_SETTINGS_PATH,
   REGISTER_PATH,
   SINGIN_CODE_PATH,
   SINGIN_EMAIL_PATH,
@@ -39,6 +45,11 @@ import Story from "./features/stories-feature/presentation/Story";
 import ModalContainer from "./features/games-details-feature/presentation/ModalContainer";
 import { selectCurrentStep } from "./features/booking-feature/store/selectors";
 import StepGuard from "./features/booking-feature/utils/StepGuard";
+import { OrdersAllPopup } from "./lib/ui/Popups/OrdersAllPopup";
+import { CitySelectPopup } from "./lib/ui/Popups/CitySelectPopup";
+import { SettingsPopup } from "./lib/ui/Popups/SettingsPopup";
+import { ProfileSettingsPopup } from "./lib/ui/Popups/ProfileSettingsPopup";
+import ProfileLayout from "./features/profile-feature/presentation/pages/ProfileLayout";
 
 export const App = () => {
   const location = useLocation();
@@ -58,7 +69,7 @@ export const App = () => {
           {/* <Route index element={<StepGuard element={<Navigate to={`${BOOKING_PATH}/:step`} replace />} />} /> */}
           {
             currentStep > 1 &&
-              <Route index element={<Navigate to={`${BOOKING_PATH}/${currentStep}`} />} />
+            <Route index element={<Navigate to={`${BOOKING_PATH}/${currentStep}`} />} />
           }
           <Route index element={<BookingStep />} />
           {/* <Route path={`${BOOKING_PATH}/:step`} element={<StepGuard element={<BookingStep />}/> } /> */}
@@ -70,15 +81,29 @@ export const App = () => {
         <Route path={ACHIVEMENTS_PATH} element={<AchievementsTemporarily />} />
 
         <Route path={ACCOUNT_PATH} element={<Account />}>
-          <Route index element={<AuthGuard element={<Navigate to={PROFILE_PATH} replace />} />} />
+          <Route index element={<AuthGuard element={<Navigate to={PROFILE_MAIN_PATH} replace />} />} />
+
           <Route path={LOGIN_PATH} element={<Login />} >
             <Route index element={<Navigate to={SINGIN_TEL_PATH} />} />
             <Route path={SINGIN_TEL_PATH} element={<LoginTel />} />
             <Route path={SINGIN_EMAIL_PATH} element={<LoginEmail />} />
             <Route path={SINGIN_CODE_PATH} element={<LoginCode />} />
           </Route>
-          <Route path={PROFILE_PATH} element={<AuthGuard element={<Profile />} />} />
+
           <Route path={REGISTER_PATH} element={<Register />} />
+
+          <Route path={PROFILE_PATH} element={<AuthGuard element={<ProfileLayout />} />} >
+            <Route index element={<Navigate to={PROFILE_MAIN_PATH} replace />} />
+            <Route path={PROFILE_MAIN_PATH} element={<Profile />} />
+
+            <Route path={PROFILE_ORDERS_PATH} element={<AuthGuard element={<OrdersAllPopup />} />} />
+            <Route path={PROFILE_SETTINGS_PATH} element={<AuthGuard element={<ProfileSettingsPopup />} />} />
+            <Route path={PROFILE_CITY_PATH} element={<AuthGuard element={<CitySelectPopup />} />} />
+            <Route path={PROFILE_ABOUT_PATH} element={<AuthGuard element={<Profile />} />} />
+            <Route path={PROFILE_FEEDBACK_PATH} element={<AuthGuard element={<Profile />} />} />
+
+          </Route>
+
         </Route>
 
         <Route path="*" element={<NotFound />} />
@@ -87,13 +112,13 @@ export const App = () => {
 
       {previousLocation && (
         <Routes>
-          <Route path={`${GAMES_DETAILS_PATH}/:id`} element={<ModalContainer location={previousLocation}/>} />
-          <Route path={`${STORIES_PATH}/:id`} element={<Story location={previousLocation}/>} />
+          <Route path={`${GAMES_DETAILS_PATH}/:id`} element={<ModalContainer location={previousLocation} />} />
+          <Route path={`${STORIES_PATH}/:id`} element={<Story location={previousLocation} />} />
         </Routes>
       )}
 
       <CitySelectHome />
-    
+
     </div>
   );
 }

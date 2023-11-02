@@ -7,7 +7,7 @@ interface Props {
 
 export const FeebackPopup: React.FC<Props> = ({ onBackClick }) => {
   return (
-    <PopupLayout title="Форма обратной связи" onBackClick={onBackClick}>
+    <PopupLayout title="Форма обратной связи">
       не звоните сюда
     </PopupLayout>
   );

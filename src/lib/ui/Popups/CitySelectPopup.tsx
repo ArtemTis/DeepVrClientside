@@ -12,12 +12,10 @@ import { NextButton } from "../NextButton";
 import { setUserCity } from "../../../features/profile-feature/store/asyncActions";
 
 interface Props {
-  onBackClick: () => void;
   preselected?: ICity;
 }
 
 export const CitySelectPopup: React.FC<Props> = ({
-  onBackClick,
   preselected,
 }) => {
   const [selected, setSelected] = useState<ICity | undefined>(preselected);
@@ -32,11 +30,11 @@ export const CitySelectPopup: React.FC<Props> = ({
       //   console.log(err)
       // );
       dispatch(setUserCity(selected))
-      onBackClick();
+      // onBackClick();
     }
   };
   return (
-    <PopupLayout title="Выбрать город" onBackClick={onBackClick}>
+    <PopupLayout title="Выбрать город">
       <div className="select-city-popup-wrapper">
         <SelectCityList onSelect={setSelected} selected={selected} />
         <NextButton isActive={!!selected} onClick={onSubmit}>

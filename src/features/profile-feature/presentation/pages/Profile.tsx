@@ -1,414 +1,198 @@
 import { Button, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
-import { RootState, useAppDispatch, useAppSelector } from "../../../../app/store";
-import { Api } from "../../../../lib/utils/api";
-import { BonusCard } from "../components/BonusCrad";
-import { OrdersAllPopup } from "../../../../lib/ui/Popups/OrdersAllPopup";
-import { SettingsPopup } from "../../../../lib/ui/Popups/SettingsPopup";
-import { CitySelectPopup } from "../../../../lib/ui/Popups/CitySelectPopup";
-
 import "./AccountStyles.css";
-
 import gearIcon from "../../../../assets/gearIcon.svg";
-import arrowRight from "../../../../assets/arrow-right.svg";
-import logoutIcon from "../../../../assets/logoutIcon.svg";
-import logoBonus1 from "../../../../assets/logo-bonus1-light.svg";
-import logoBonus2 from "../../../../assets/logo-bonus2-light.svg";
-import logoBonus3 from "../../../../assets/logo-bonus3-light.svg";
 import styled from "styled-components";
-import close from "../../../../assets/close-cross.svg"
-import warning from "../../../../assets/warning.svg"
-import { IGetBonusesInfoResponse, IOrderHistoryItem } from "../../../../lib/utils/types";
-import { selectSelectedCity, selectToken, selectUser } from "../../../auth-feature/store/selectors";
-import { setSelectedCity, setToken, setUser } from "../../../auth-feature/store/slice";
-import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
-import { OrderInfoRow } from "../components/OrderInfoRow";
-import Ticket from "../components/Ticket";
-import { HorizontalScrollArea } from "../../../../lib/ui/HorizontalScrollArea";
-import { LoadIcon } from "../../../../lib/ui/LoadIcon";
-import { getBonusesInfo, getHistory, getUserCity } from "../../store/asyncActions";
-import { selectBonuses, selectOrdersHistory, selectUserCity } from "../../store/selectors";
-import { ReqStatus } from "../../../../lib/utils/enums";
+import LeftSideProfile from "../components/LeftSideProfile";
+import RightSideProfile from "../components/RightSideProfile";
+import { PROFILE_SETTINGS_PATH } from "../../../../lib/utils/routeConstants";
+import { useNavigate } from "react-router";
 
 let tempPopups: Array<React.ReactElement> = [];
 
 export const Profile: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const citySelected = useAppSelector(selectSelectedCity);
+  // const [popupWindows, setPopupWindows] = useState<Array<React.ReactElement>>(
+  //   []
+  // );
 
-  const token = useAppSelector(selectToken);
-  const user = useAppSelector(selectUser);
+  // const lastPopup = popupWindows[(popupWindows.length ?? 0) - 1] ?? undefined;
+  // tempPopups = popupWindows;
 
-  console.log(citySelected);
-  
-  const userCity = useAppSelector(selectUserCity);
-  console.log(token);
-  
+  // const addPopup = (elem: React.ReactElement) => {
+  //   const popups = [...tempPopups];
+  //   popups.push(elem);
+  //   setPopupWindows(popups);
+  // };
 
-  const [popupWindows, setPopupWindows] = useState<Array<React.ReactElement>>(
-    []
-  );
+  // const removeLastPopup = () => {
+  //   let popups = [...tempPopups];
+  //   const newLength = tempPopups.length - 1;
+  //   popups = popups.slice(0, newLength >= 0 ? newLength : 0);
+  //   setPopupWindows(popups);
+  // };
 
-  const history = useAppSelector(selectOrdersHistory);
-  const bonuses = useAppSelector(selectBonuses);
-  const isLoading = useAppSelector((state: RootState) => state.profileReducer.reqStatus === ReqStatus.pending);
-
-  useEffect(() => {
-    dispatch(getBonusesInfo());
-    dispatch(getHistory(user?.id!!));
-    dispatch(getUserCity());
-  },[])
-
-  const bonusesRefs = {
-    "1": useRef<HTMLDivElement>(),
-    "2": useRef<HTMLDivElement>(),
-    "3": useRef<HTMLDivElement>(),
-  };
-
-  const logOut = () => {
-    dispatch(setUser(undefined));
-    dispatch(setToken(undefined));
-    Api.logout({ token }).then((res) => {
-      if (Api.checkStatus(res)) {
-      }
-    });
-  };
-
-  const lastPopup = popupWindows[(popupWindows.length ?? 0) - 1] ?? undefined;
-  tempPopups = popupWindows;
-
-  const addPopup = (elem: React.ReactElement) => {
-    const popups = [...tempPopups];
-    popups.push(elem);
-    setPopupWindows(popups);
-  };
-
-  const removeLastPopup = () => {
-    let popups = [...tempPopups];
-    const newLength = tempPopups.length - 1;
-    popups = popups.slice(0, newLength >= 0 ? newLength : 0);
-    setPopupWindows(popups);
-  };
+  const goToSettings = () => {
+    console.log(1);
+    
+    navigate(`../${PROFILE_SETTINGS_PATH}`)
+  }
 
   return (
     <Row justify="center">
+
       <div className="profile-wrapper">
-        {!!lastPopup ? (
-          <>{lastPopup}</>
-        ) : (
-          <>
-            <StyledHeader>
-              <StyledBackBtn>
-              </StyledBackBtn>
-              <StyledTitle>
-                Профиль
-              </StyledTitle>
-              <StyledSettingsBtn
-                onClick={() =>
-                  addPopup(
-                    <SettingsPopup
-                      addPopup={addPopup}
-                      onBackClick={removeLastPopup}
-                    />
-                  )
-                }>
-                <span>
-                  Настройки
-                </span>
-                <img
-                  src={gearIcon}
-                  alt="Открыть настройки профиля"
-                />
-              </StyledSettingsBtn>
-            </StyledHeader>
+        <StyledHeader>
+          <StyledBackBtn>
+          </StyledBackBtn>
+          <StyledTitle>
+            Профиль
+          </StyledTitle>
+          <StyledSettingsBtn
+            onClick={goToSettings}
+          // onClick={() =>
+          //   addPopup(
+          //     <SettingsPopup
+          //       addPopup={addPopup}
+          //       onBackClick={removeLastPopup}
+          //     />
+          //   )
+          // }
+          >
+            <span>
+              Настройки
+            </span>
+            <img
+              src={gearIcon}
+              alt="Открыть настройки профиля"
+            />
+          </StyledSettingsBtn>
+        </StyledHeader>
 
-            <ProfileBody>
-              <ProfileLeft>
-                <div className="profile-divide">
-                  <div className="profile-divide-header">
-                    <span>Заказы</span>
-                    <span
-                      className="profile-order-info-more"
-                      onClick={() => {
-                        addPopup(
-                          <OrdersAllPopup
-                            history={history}
-                            onBackClick={removeLastPopup}
-                          />
-                        );
-                      }}
-                    >
-                      Смотреть все
-                    </span>
-                  </div>
-                  <LoadWrapper isLoading={isLoading} height={1}>
-                    {history &&
-                      history.slice(0, 3).map((order) => {
-                        return <OrderInfoRow order={order} key={order.id} />;
-                      })}
-                  </LoadWrapper>
-                </div>
+        <ProfileBody>
 
-                <TicketList className="profile-divide">
-                  <Ticket />
-                </TicketList>
+          <LeftSideProfile />
 
-                <Warning>
-                  <img src={warning} alt="warning icon" />
-                  <h3>Ваши бонусы скоро сгорят. Успейте воспользоваться до 10.04.2022</h3>
-                  <img src={close} alt="close cross" />
-                </Warning>
-              </ProfileLeft>
+          <RightSideProfile />
 
+        </ProfileBody>
 
-              <ProfileRight>
-                <div
-                  className="profile-divide"
-                  onResize={() => console.log("resize")}
-                >
-                  <div className="profile-divide-header">Баланс</div>
-                  <LoadWrapper isLoading={isLoading} height={1}>
-                    <HorizontalScrollArea
-                      firstElemRef={bonusesRefs["1"]}
-                      lastElemRef={bonusesRefs["3"]}
-                      viewportClassName="bonus-card-wrapper"
-                      wrapperClassName="bonus-card-scroll-root"
-                    >
-                      <BonusCard
-                        id="1"
-                        cardRef={bonusesRefs["1"]}
-                        header="Доступно"
-                        value={bonuses?.quantity_all ?? 0}
-                        image={logoBonus1}
-                      />
-                      <BonusCard
-                        id="2"
-                        cardRef={bonusesRefs["2"]}
-                        header="Активно"
-                        value={bonuses?.quantity_real ?? 0}
-                        image={logoBonus2}
-                      />
-                      <BonusCard
-                        id="3"
-                        cardRef={bonusesRefs["3"]}
-                        header="Временные"
-                        value={bonuses?.quantity_expired ?? 0}
-                        description={
-                          bonuses?.next_expired_date
-                            ? `Бонусы истекают ${bonuses?.next_expired_date}`
-                            : undefined
-                        }
-                        image={logoBonus3}
-                      />
-                    </HorizontalScrollArea>
-                  </LoadWrapper>
-                </div>
-
-                <div className="profile-divide">
-                  <div
-                    className="profile-divide-btn-full"
-                    onClick={() =>
-                      addPopup(<CitySelectPopup onBackClick={removeLastPopup} preselected={citySelected}/>)
-                    }
-                  >
-                    <span>Выбрать город</span>
-                    <span className="profile-divide-header-option">
-                      {isLoading ? (
-                        <LoadIcon />
-                      ) : (
-                        <>{citySelected ? citySelected.name : "Не выбрано"}</>
-                      )}
-                      <img
-                        src={arrowRight}
-                        alt="Выбрать город"
-                        className="profile-divide-header-img"
-                      />
-                    </span>
-                  </div>
-                  <div className="divide-line" />
-                  <div className="profile-divide-btn-full" onClick={logOut}>
-                    Выйти из аккаунта
-                    <img
-                      src={logoutIcon}
-                      alt="Выйти из аккаунта"
-                      className="profile-divide-header-img"
-                    />
-                  </div>
-                </div>
-
-                <div className="profile-divide">
-                  <div
-                    className="profile-divide-btn-full"
-                    onClick={() =>
-                      addPopup(<CitySelectPopup onBackClick={removeLastPopup} />)
-                    }
-                  >
-                    <span>О приложении</span>
-                  </div>
-                  <div className="divide-line" />
-                  <div className="profile-divide-btn-full">
-                    Форма обратной связи
-                  </div>
-                </div>
-              </ProfileRight>
-            </ProfileBody>
-
-          </>
-        )}
       </div>
     </Row>
   );
 };
 
+const Wrapper = styled.div`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      `
+
 
 const StyledSettingsBtn = styled.div`
-  cursor: pointer;
-  border-radius: 24px;
-  background: #FFF;
-  padding: 10px 18px;
-  color: #24313F;
-  font-family: 'SF Pro Display';
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
+      cursor: pointer;
+      border-radius: 24px;
+      background: #FFF;
+      padding: 10px 18px;
+      color: #24313F;
+      font-family: 'SF Pro Display';
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
 
 
-  display: inline-flex;
-  align-items: center;
-  box-sizing: inherit;
+      display: inline-flex;
+      align-items: center;
+      box-sizing: inherit;
 
 
-  /* position: absolute; */
-	top: 24px;
-	left: 300px;
+      /* position: absolute; */
+      top: 24px;
+      left: 300px;
 
-  img{
-    width: 20px;
-    height: 20px;
-    margin-left: 8px;
+      img{
+        width: 20px;
+      height: 20px;
+      margin-left: 8px;
   }
 
-  @media screen and (max-width: 560px) {
-    background: none;
-    span{
-      display: none;
+      @media screen and (max-width: 560px) {
+        background: none;
+      span{
+        display: none;
     }
-    img{
-      margin: 0;
+      img{
+        margin: 0;
       filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(104deg) brightness(110%) contrast(101%);
       width: 24px;
       height: 24px;
     }
   }
-`
+      `
 
 const StyledTitle = styled.h1`
-  margin: 0;
-  color: var(--white, #FFF);
-  text-align: center;
-  font-family: 'SF Pro Display';
-  font-size: 46px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 180%; /* 82.8px */
-  letter-spacing: 1px;
+      margin: 0;
+      color: var(--white, #FFF);
+      text-align: center;
+      font-family: 'SF Pro Display';
+      font-size: 46px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 180%; /* 82.8px */
+      letter-spacing: 1px;
 
-  grid-area: A;
+      grid-area: A;
 
-  @media screen and (max-width: 560px) {
-    font-size: 30px;
+      @media screen and (max-width: 560px) {
+        font-size: 30px;
   }
-`
+      `
 
 const StyledHeader = styled.div`
-  /* position: relative; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 40px;
+      /* position: relative; */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 40px;
 
-  width: 1220px;
+      width: 1220px;
 
-  @media screen and (max-width: 1250px) {
-    max-width: 80vw;
+      @media screen and (max-width: 1250px) {
+        max-width: 80vw;
   }
-  @media screen and (max-width: 900px) {
-    max-width: 90vw;
+      @media screen and (max-width: 900px) {
+        max-width: 90vw;
   }
-`
+      `
 
 const StyledBackBtn = styled.div`
-  width: 102px;
-`
+      width: 102px;
+      min-height: 10px;
+      `
 
 const ProfileBody = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 600px);
-  grid-auto-flow: column;
-  gap: 20px;
-  
-  max-width: 1720px;
+      display: grid;
+      grid-template-columns: repeat(2, 600px);
+      grid-auto-flow: column;
+      gap: 20px;
 
-  @media screen and (max-width: 1250px) {
-    max-width: 1000px;
-    grid-template-columns: repeat(2, 1fr);
+      /* justify-content: center; */
+      max-width: 1720px;
+
+      @media screen and (max-width: 1250px) {
+        /* max-width: 1000px; */
+        grid-template-columns: repeat(2, 40vw);
   }
 
-  @media screen and (max-width: 900px) {
-    grid-template-columns: repeat(1, 90vw);
-    grid-auto-flow: row;
+      @media screen and (max-width: 900px) {
+        grid-template-columns: repeat(1, 90vw);
+      grid-auto-flow: row;
   }
-`
+      `
 
-const ProfileLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 
-  @media screen and (max-width: 1250px) {
-    max-width: 40vw;
-  }
-  @media screen and (max-width: 900px) {
-    max-width: 90vw;
-  }
-`
 
-const ProfileRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 
-  @media screen and (max-width: 1250px) {
-    max-width: 40vw;
-  }
-  @media screen and (max-width: 900px) {
-    max-width: 100vw;
-  }
-`
 
-const TicketList = styled.div`
-  display: flex;
-  gap: 20px;
-`
-
-const Warning = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 30px;
-  border-radius: 16px;
-  background: var(--f-9-d-450, #F9D450);
-
-  h3{
-    color: var(--050411, #050411);
-    font-family: Gilroy;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px; 
-    margin: 0;
-  }
-  img:last-child{
-    cursor: pointer;
-  }
-`

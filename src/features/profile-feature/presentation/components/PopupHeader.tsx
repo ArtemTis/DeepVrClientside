@@ -2,19 +2,28 @@ import "../pages/AccountStyles.css";
 import styled from "styled-components";
 import back from "../../../../assets/back.svg"
 import gearIcon from "../../../../assets/gearIcon.svg";
+import { useNavigate } from "react-router";
+import { PROFILE_SETTINGS_PATH } from "../../../../lib/utils/routeConstants";
 
 export interface PopupHeaderProps {
   title: string;
-  onBackClick: () => void;
 }
 
 export const PopupHeader: React.FC<PopupHeaderProps> = ({
-  onBackClick,
   title,
 }) => {
+
+  const navigate = useNavigate();
+
+  const goToSettings = () => {
+    console.log(1);
+    
+    navigate(`../${PROFILE_SETTINGS_PATH}`)
+  }
+
   return (
     <StyledHeader className="profile-header popup-header">
-      <StyledBackBtn onClick={onBackClick}>
+      <StyledBackBtn onClick={() => navigate(-1)}>
         <img src={back} alt="Назад" />
         <h3>Назад</h3>
       </StyledBackBtn>
@@ -22,6 +31,7 @@ export const PopupHeader: React.FC<PopupHeaderProps> = ({
         {title}
       </StyledTitle>
       <StyledSettingsBtn
+      onClick={goToSettings}
       // onClick={() =>
       //   addPopup(
       //     <SettingsPopup

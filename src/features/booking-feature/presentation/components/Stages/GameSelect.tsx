@@ -30,8 +30,11 @@ export const GameSelect: React.FC = () => {
   const isError = reqStatus === ReqStatus.rejected;
 
   const beforeSelectedGame = useAppSelector(selectGame);
-
+  
   const [selected, setSelected] = useState<IGame | undefined>(beforeSelectedGame);
+  console.log(selectedGames);
+  
+  console.log(selected);
 
   const onCardClick = (game: IGame) => {
     setSelected(game);
