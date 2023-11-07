@@ -80,8 +80,8 @@ export const App = () => {
         {/* <Route path={ACHIVEMENTS_PATH} element={<Achievements />} /> */}
         <Route path={ACHIVEMENTS_PATH} element={<AchievementsTemporarily />} />
 
-        <Route path={ACCOUNT_PATH} element={<Account />}>
-          <Route index element={<AuthGuard element={<Navigate to={PROFILE_MAIN_PATH} replace />} />} />
+        <Route path={ACCOUNT_PATH} element={<Account/>}>
+          {/* <Route index element={<Navigate to={PROFILE_PATH} replace />} /> */}
 
           <Route path={LOGIN_PATH} element={<Login />} >
             <Route index element={<Navigate to={SINGIN_TEL_PATH} />} />
@@ -92,15 +92,15 @@ export const App = () => {
 
           <Route path={REGISTER_PATH} element={<Register />} />
 
-          <Route path={PROFILE_PATH} element={<AuthGuard element={<ProfileLayout />} />} >
+          <Route path={PROFILE_PATH} element={<ProfileLayout />} >
             <Route index element={<Navigate to={PROFILE_MAIN_PATH} replace />} />
             <Route path={PROFILE_MAIN_PATH} element={<Profile />} />
 
-            <Route path={PROFILE_ORDERS_PATH} element={<AuthGuard element={<OrdersAllPopup />} />} />
-            <Route path={PROFILE_SETTINGS_PATH} element={<AuthGuard element={<ProfileSettingsPopup />} />} />
-            <Route path={PROFILE_CITY_PATH} element={<AuthGuard element={<CitySelectPopup />} />} />
-            <Route path={PROFILE_ABOUT_PATH} element={<AuthGuard element={<Profile />} />} />
-            <Route path={PROFILE_FEEDBACK_PATH} element={<AuthGuard element={<Profile />} />} />
+            <Route path={PROFILE_ORDERS_PATH} element={<OrdersAllPopup />}  />
+            <Route path={PROFILE_SETTINGS_PATH} element={<ProfileSettingsPopup />}  />
+            <Route path={PROFILE_CITY_PATH} element={<CitySelectPopup />}  />
+            <Route path={PROFILE_ABOUT_PATH} element={<Profile />}  />
+            <Route path={PROFILE_FEEDBACK_PATH} element={<Profile />} />
 
           </Route>
 

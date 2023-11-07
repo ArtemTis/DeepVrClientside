@@ -114,7 +114,7 @@ const RightSideProfile: React.FC = () => {
                         {isLoading ? (
                             <LoadIcon />
                         ) : (
-                            <>{(citySelected?.name || user?.city.name) ?? "Не выбрано"}</>
+                            <>{(citySelected?.name ?? user?.city?.name) ?? "Не выбрано"}</>
                         )}
                         <img
                             src={arrowRight}

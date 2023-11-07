@@ -10,7 +10,7 @@ export const allGamesAdapter = createEntityAdapter<IGame>({
 const allGames = createSlice({
     name: 'allGames',
     initialState: allGamesAdapter.getInitialState
-        <{ gameByType?: IGetGamesResponse, requestStatus: ReqStatus }>
+        <{ gameByType?: IGetGamesResponse, requestStatus: ReqStatus, gamesByType?: IGame[] }>
         ({ requestStatus: ReqStatus.never }),
     reducers: {
 

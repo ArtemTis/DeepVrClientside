@@ -13,6 +13,8 @@ import { LoadWrapper } from '../../../../../lib/ui/LoadWrapper'
 import TypeGameCard from '../TypeGameCard'
 import { selectTypeGame } from '../../../store/selectors'
 import ErrorText from '../../../../../lib/ui/ErrorText'
+import { selectGamesByType } from '../../../../games-feature/store/games/selectors'
+import { getAllGames } from '../../../../games-feature/store/games/asyncActions'
 
 const GamesTypeSelect = () => {
 
@@ -45,7 +47,6 @@ const GamesTypeSelect = () => {
   const onCardClick = (room: IGameType) => {
     setSelected(room);
   };
-
 
   return (
     <>

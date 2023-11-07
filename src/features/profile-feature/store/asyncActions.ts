@@ -104,7 +104,6 @@ export const setUserCity = createAsyncThunk(
         const token = selectToken(state);
         try {            
             const res = await Api.setUserCity(token, value);
-            console.log(res);
             
             return res.data;
         } catch (error) {

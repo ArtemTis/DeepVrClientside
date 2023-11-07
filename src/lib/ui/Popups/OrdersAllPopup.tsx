@@ -6,13 +6,13 @@ import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
 import { IOrderHistoryItem } from "../../utils/types";
 import { OrderInfoRow } from "../../../features/profile-feature/presentation/components/OrderInfoRow";
 import { OrderInfoRowEmpty } from "../../../features/profile-feature/presentation/components/OrderInfoRowEmpty";
+import { useAppSelector } from "../../../app/store";
+import { selectOrdersHistory } from "../../../features/profile-feature/store/selectors";
 
-interface Props {
-  history?: Array<IOrderHistoryItem>;
-}
 
-export const OrdersAllPopup: React.FC<Props> = ({ history }) => {
+export const OrdersAllPopup: React.FC = () => {
   const [isOrderedDesc, setIsOrdered] = useState(false);
+  const history = useAppSelector(selectOrdersHistory);
   const [historySorted, setHistorySorted] = useState<
     Array<IOrderHistoryItem> | undefined
   >(history);

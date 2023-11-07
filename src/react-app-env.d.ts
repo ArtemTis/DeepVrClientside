@@ -5,6 +5,7 @@ declare namespace NodeJS {
         NODE_ENV: 'development' | 'production' | 'test'; 
         REACT_APP_API_URL: string; 
         REACT_APP_API_GLOBAL_URL: string; 
-        REACT_APP_ADMIN_URL: string 
+        REACT_APP_ADMIN_URL: string;
+        REACT_APP_API_GAMES_URL: string;
     } 
 }

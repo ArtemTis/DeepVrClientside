@@ -5,21 +5,20 @@ import { useAppDispatch, useAppSelector } from "../../../app/store";
 import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
 import { Api } from "../../utils/api";
 import { ICity } from "../../utils/types";
-import { selectToken } from "../../../features/auth-feature/store/selectors";
+import { selectSelectedCity, selectToken } from "../../../features/auth-feature/store/selectors";
 import { setSelectedCity } from "../../../features/auth-feature/store/slice";
 import { SelectCityList } from "../SelectCityList";
 import { NextButton } from "../NextButton";
 import { setUserCity } from "../../../features/profile-feature/store/asyncActions";
+import { selectUserCity } from "../../../features/profile-feature/store/selectors";
+import { useNavigate } from "react-router";
 
-interface Props {
-  preselected?: ICity;
-}
 
-export const CitySelectPopup: React.FC<Props> = ({
-  preselected,
-}) => {
-  const [selected, setSelected] = useState<ICity | undefined>(preselected);
+export const CitySelectPopup: React.FC = () => {
+  const preselectedCity = useAppSelector(selectSelectedCity)
+  const [selected, setSelected] = useState<ICity | undefined>(preselectedCity);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const token = useAppSelector(selectToken);
 
@@ -29,8 +28,9 @@ export const CitySelectPopup: React.FC<Props> = ({
       // Api.setUserCity({ token, city: selected.name }).catch((err) =>
       //   console.log(err)
       // );
-      dispatch(setUserCity(selected))
+      dispatch(setUserCity(selected));
       // onBackClick();
+      navigate(-1);
     }
   };
   return (

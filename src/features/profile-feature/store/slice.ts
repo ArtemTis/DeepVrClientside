@@ -1,10 +1,11 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { ICity, IGetBonusesInfoResponse, IInstance, IOrderHistoryItem } from "../../../lib/utils/types";
+import { ICity, IGetBonusesInfoResponse, IInstance, IOrderHistoryItem, IUser } from "../../../lib/utils/types";
 import { ReqStatus } from "../../../lib/utils/enums";
 import { Api } from "../../../lib/utils/api";
 import { allCities, allInstances, getBonusesInfo, getHistory, setUserCity } from "./asyncActions";
 
 interface ProfileState {
+    user?: IUser;
     city?: ICity;
     allCities: ICity[];
     allInstances: IInstance[];

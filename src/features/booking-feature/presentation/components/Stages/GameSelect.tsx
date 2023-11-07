@@ -19,11 +19,7 @@ export const GameSelect: React.FC = () => {
 
   const selectedTypeId = useAppSelector((state: RootState) => state.bookingReducer.typeGame)?.id;
   const selectedGames = useAppSelector((state: RootState) => state.allGames.gameByType);
-  const selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
-
-  useEffect(() => {
-    dispatch(getGameByType(selectedTypeId))
-  }, [])
+  const selectedGamesByType = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
 
   const reqStatus = useAppSelector((state: RootState) => state.allGames.requestStatus);
   const isLoading = reqStatus === ReqStatus.pending;
@@ -32,9 +28,6 @@ export const GameSelect: React.FC = () => {
   const beforeSelectedGame = useAppSelector(selectGame);
   
   const [selected, setSelected] = useState<IGame | undefined>(beforeSelectedGame);
-  console.log(selectedGames);
-  
-  console.log(selected);
 
   const onCardClick = (game: IGame) => {
     setSelected(game);
@@ -59,8 +52,8 @@ export const GameSelect: React.FC = () => {
           :
           <LoadWrapper isLoading={isLoading}>
             <Row justify="center" gutter={[20, 20]}>
-              {selectedGames &&
-                selectedGames.fullGames.map((game) => (
+              {selectedGamesByType &&
+                selectedGamesByType.map((game) => (
                   <GameCard
                     game={game}
                     isSelected={selected?.id === game.id}
