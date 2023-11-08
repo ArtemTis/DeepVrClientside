@@ -48,7 +48,7 @@ export const selectIsFinished = createDraftSafeSelector(
 )
 export const selectGameId = createDraftSafeSelector(
     [selectGame],
-    (game) => game?.id ?? -1
+    (game) => game?.id ?? ''
 )
 export const selectReqStatus = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.reqStatus],

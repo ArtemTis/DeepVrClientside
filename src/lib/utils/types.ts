@@ -141,7 +141,7 @@ export interface IAvalibleTime {
 // }
 
 export interface IGame {
-  id: number,
+  id: string,
   title: string,
   slug: string,
   time_duration: number,
@@ -236,7 +236,7 @@ export interface IGetSummaryRequestData {
   },
   bookings: [
     {
-      gameId: number,
+      gameId: string,
       time: string,
       guestCount: number,
       id: number | null

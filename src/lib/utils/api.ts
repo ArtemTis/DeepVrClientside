@@ -71,7 +71,7 @@ export const Api = {
         );
     },
 
-    async getGameInfo(instancePrefix: string, id: number) {
+    async getGameInfo(instancePrefix: string, id: string) {
         const url = globalUrl?.replace('https://', '');
         return axios.get<IGame>(
             `https://${instancePrefix}${instancePrefix ? '.' : ''}${url}/game/${id}`, {
@@ -169,7 +169,7 @@ export const Api = {
         )
     },
 
-    async getAvalibleDateAndTime(gameId: number, playersCount: number, token: string = 'guest_token') {
+    async getAvalibleDateAndTime(gameId: string, playersCount: number, token: string = 'guest_token') {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
             timeout: 8000,
@@ -207,7 +207,8 @@ export const Api = {
     ///////////////////////////////////////////
     async createBooking(data: IGetSummaryRequestData, token: string = 'guest_token') {
         return axios.post(
-            `${instanceUrl}/v3/order/create`,
+            // `${instanceUrl}/v3/order/create`,
+            `http://192.168.1.118:5274/api/v3/order/create`,
             data, {
             headers: {
                 timeout: 8000,

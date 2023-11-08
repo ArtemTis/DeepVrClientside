@@ -101,7 +101,7 @@ export const Booking: React.FC = () => {
     },
     bookings: [
       {
-        gameId: +(booking.game?.id ?? -1),
+        gameId: booking.game?.id ?? '',
         time: timeISO ?? '',
         guestCount: booking.playersCount ?? -1,
         id: null
