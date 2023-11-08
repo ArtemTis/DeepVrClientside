@@ -20,6 +20,7 @@ import logoBonus2 from "../../../../assets/logo-bonus2-light.svg";
 import logoBonus3 from "../../../../assets/logo-bonus3-light.svg";
 import { useNavigate } from 'react-router'
 import { PROFILE_CITY_PATH } from '../../../../lib/utils/routeConstants'
+import { IUser } from '../../../../lib/utils/types'
 
 const RightSideProfile: React.FC = () => {
     const dispatch = useAppDispatch();

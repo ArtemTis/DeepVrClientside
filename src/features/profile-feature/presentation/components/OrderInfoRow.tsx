@@ -26,7 +26,7 @@ export const OrderInfoRow: React.FC<Props> = ({ order }) => {
       {
         order.bookings.map((booking) => (
 
-          <BookingHistory booking={booking} key={booking.id}/>
+          <BookingHistory booking={booking} key={booking.id} />
         ))
       }
 
@@ -40,7 +40,7 @@ interface BookingHistoryProps {
 
 const BookingHistory: React.FC<BookingHistoryProps> = ({ booking }) => {
   const countLastDigit = booking.guestCount % 10;
-
+  
   const ending =
     countLastDigit === 1
       ? "а"
@@ -48,8 +48,9 @@ const BookingHistory: React.FC<BookingHistoryProps> = ({ booking }) => {
         ? "ы"
         : "";
 
-  const {gameTypes, isLoading} = useGameType();
-  
+  const gameTypes = useAppSelector(selectGameTypes);
+
+
   const gameTypesName = gameTypes.find(type => type.id === booking.game.gameTypeId)
 
   return (

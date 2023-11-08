@@ -182,7 +182,8 @@ export const Api = {
 
     async getSummary(data: IGetSummaryRequestData, token: string = 'guest_token') {
         return axios.post<ISummaryResponse>(
-            `${instanceUrl}/v3/orders/precalculate`,
+            // `${instanceUrl}/v3/orders/precalculate`,
+            `http://192.168.1.118:5274/api/v3/orders/precalculate`,
             data, {
             headers: {
                 timeout: 8000,
@@ -234,17 +235,17 @@ export const Api = {
         );
     },
 
-    async precalculate(token: string ='guest_token') {
-        return axios.post(
-            `${instanceUrl}/v3/orders/precalculate`,
-            {},
-            {
-                headers: {
-                    token: token
-                }
-            }
-        )
-    },
+    // async precalculate(token: string ='guest_token') {
+    //     return axios.post(
+    //         `${instanceUrl}/v3/orders/precalculate`,
+    //         {},
+    //         {
+    //             headers: {
+    //                 token: token
+    //             }
+    //         }
+    //     )
+    // },
 
     async createEmpty(token: string ='guest_token') {
         return axios.post(

@@ -36,6 +36,9 @@ const authSlice = createSlice({
         },
         setReqStatus: (state, action) => {
             state.reqStatus = action.payload;
+        },
+        setCity: (state, action: { payload: ICity }) => {
+            state.client ? state.client.city = action.payload : undefined;
         }
     },
     extraReducers: (builder) => {
@@ -72,5 +75,5 @@ const authSlice = createSlice({
     }
 });
 
-export const { setToken, setUser, setSelectedCity, setErrorText, setReqStatus } = authSlice.actions;
+export const { setToken, setUser, setSelectedCity, setErrorText, setReqStatus, setCity } = authSlice.actions;
 export default authSlice.reducer;

@@ -29,7 +29,7 @@ const profileSlice = createSlice({
     initialState,
     reducers: {
 
-        setCity(state, action) {
+        setCityProfile(state, action) {
             state.city = action.payload;
             // Api.setInstanceUrl(state.city?.instances[0].code);
         },
@@ -93,7 +93,7 @@ const profileSlice = createSlice({
 
 
 export const {
-    setCity,
+    setCityProfile,
     // setInstance,
 } = profileSlice.actions;
 

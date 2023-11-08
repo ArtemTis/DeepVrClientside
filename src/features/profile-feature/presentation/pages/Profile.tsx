@@ -7,35 +7,24 @@ import LeftSideProfile from "../components/LeftSideProfile";
 import RightSideProfile from "../components/RightSideProfile";
 import { PROFILE_SETTINGS_PATH } from "../../../../lib/utils/routeConstants";
 import { useNavigate } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../../../app/store";
+import { gamesTypes } from "../../../games-feature/store/gamesType/asyncActions";
+import { selectGameTypes } from "../../../games-feature/store/gamesType/selectors";
 
 let tempPopups: Array<React.ReactElement> = [];
 
 export const Profile: React.FC = () => {
   const navigate = useNavigate();
 
-  // const [popupWindows, setPopupWindows] = useState<Array<React.ReactElement>>(
-  //   []
-  // );
-
-  // const lastPopup = popupWindows[(popupWindows.length ?? 0) - 1] ?? undefined;
-  // tempPopups = popupWindows;
-
-  // const addPopup = (elem: React.ReactElement) => {
-  //   const popups = [...tempPopups];
-  //   popups.push(elem);
-  //   setPopupWindows(popups);
-  // };
-
-  // const removeLastPopup = () => {
-  //   let popups = [...tempPopups];
-  //   const newLength = tempPopups.length - 1;
-  //   popups = popups.slice(0, newLength >= 0 ? newLength : 0);
-  //   setPopupWindows(popups);
-  // };
+  const dispatch = useAppDispatch();
+  const gameTypes = useAppSelector(selectGameTypes);
+  if (gameTypes.length === 0) {
+    dispatch(gamesTypes());
+  }
 
   const goToSettings = () => {
     console.log(1);
-    
+
     navigate(`../${PROFILE_SETTINGS_PATH}`)
   }
 

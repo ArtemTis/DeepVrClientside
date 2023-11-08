@@ -6,7 +6,7 @@ import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
 import { Api } from "../../utils/api";
 import { ICity } from "../../utils/types";
 import { selectSelectedCity, selectToken } from "../../../features/auth-feature/store/selectors";
-import { setSelectedCity } from "../../../features/auth-feature/store/slice";
+import { setCity, setSelectedCity } from "../../../features/auth-feature/store/slice";
 import { SelectCityList } from "../SelectCityList";
 import { NextButton } from "../NextButton";
 import { setUserCity } from "../../../features/profile-feature/store/asyncActions";
@@ -15,8 +15,9 @@ import { useNavigate } from "react-router";
 
 
 export const CitySelectPopup: React.FC = () => {
-  const preselectedCity = useAppSelector(selectSelectedCity)
-  const [selected, setSelected] = useState<ICity | undefined>(preselectedCity);
+  const preselectedCity = useAppSelector(selectSelectedCity);
+  const citySelected = useAppSelector(selectUserCity);
+  const [selected, setSelected] = useState<ICity | undefined>(citySelected);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ export const CitySelectPopup: React.FC = () => {
   const onSubmit = () => {
     if (!!selected) {
       dispatch(setSelectedCity(selected));
+      dispatch(setCity(selected));
       // Api.setUserCity({ token, city: selected.name }).catch((err) =>
       //   console.log(err)
       // );

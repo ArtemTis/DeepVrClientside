@@ -16,6 +16,7 @@ const LeftSideProfile:React.FC = () => {
 
     const history = useAppSelector(selectOrdersHistory);
     const isLoading = useAppSelector((state: RootState) => state.profileReducer.reqStatus === ReqStatus.pending);
+
   return (
     <ProfileLeft>
     <div className="profile-divide">
@@ -23,14 +24,6 @@ const LeftSideProfile:React.FC = () => {
         <span>Заказы</span>
         <Link to={`../${PROFILE_ORDERS_PATH}`}
           className="profile-order-info-more"
-        //   onClick={() => {
-        //     addPopup(
-        //       <OrdersAllPopup
-        //         history={history}
-               
-        //       />
-        //     );
-        //   }}
         >
           Смотреть все
         </Link>
