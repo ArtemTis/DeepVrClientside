@@ -182,8 +182,7 @@ export const Api = {
 
     async getSummary(data: IGetSummaryRequestData, token: string = 'guest_token') {
         return axios.post<ISummaryResponse>(
-            // `${instanceUrl}/v3/orders/precalculate`,
-            `http://192.168.1.118:5274/api/v3/orders/precalculate`,
+            `${instanceUrl}/v3/orders/precalculate`,
             data, {
             headers: {
                 timeout: 8000,
@@ -207,8 +206,7 @@ export const Api = {
     ///////////////////////////////////////////
     async createBooking(data: IGetSummaryRequestData, token: string = 'guest_token') {
         return axios.post(
-            // `${instanceUrl}/v3/order/create`,
-            `http://192.168.1.118:5274/api/v3/order/create`,
+            `${instanceUrl}/v3/order/create`,
             data, {
             headers: {
                 timeout: 8000,
