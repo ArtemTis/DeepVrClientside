@@ -12,6 +12,7 @@ let instanceUrl: string | undefined = '';
 let instanceStorageUrl: string | undefined = '';
 const globalUrl = process.env.REACT_APP_API_GLOBAL_URL;
 const gamesUrl = process.env.REACT_APP_API_GAMES_URL;
+const tokenEnv = process.env.REACT_APP_API_TOKEN;
 
 export const Api = {
     // utils
@@ -21,7 +22,7 @@ export const Api = {
     get instanceUrl() {
         return instanceUrl;
     },
-    async getAllCities(token: string = 'guest_token') {
+    async getAllCities(token: string = tokenEnv) {
         return axios.get<Array<ICity>>(
             `${globalUrl}/cities/all`, {
             timeout: 8000,
@@ -31,7 +32,7 @@ export const Api = {
         }
         );
     },
-    async getAllInstances(token: string = 'guest_token', cityId: number) {
+    async getAllInstances(token: string = tokenEnv, cityId: number) {
         return axios.get<Array<IInstance>>(
             `${globalUrl}/instances/${cityId}`, {
             timeout: 8000,
@@ -81,7 +82,7 @@ export const Api = {
     },
 
     // home
-    // async getAllGames(token: string = 'guest_token') {
+    // async getAllGames(token: string = tokenEnv) {
     //     return axios.get<Array<IGame>>(
     //         `${instanceUrl}/v3/games/all`, {
     //         timeout: 8000,
@@ -92,7 +93,7 @@ export const Api = {
     //     );
     // },
 
-    async getAllGames(token: string = 'guest_token') {
+    async getAllGames(token: string = tokenEnv) {
         return axios.get<Array<IGame>>(
             `${gamesUrl}/games/gipno`, {//antientropiia
             timeout: 8000,
@@ -103,7 +104,7 @@ export const Api = {
         );
     },
 
-    // async getGamesTypes(token: string = 'guest_token') {
+    // async getGamesTypes(token: string = tokenEnv) {
     //     return axios.get<Array<IGameType>>(
     //         `${instanceUrl}/v3/game-types/all`, {
     //         timeout: 8000,
@@ -114,7 +115,7 @@ export const Api = {
     //     );
     // },
 
-    async getGamesTypes(token: string = 'guest_token') {
+    async getGamesTypes(token: string = tokenEnv) {
         return axios.get<Array<IGameType>>(
             `${gamesUrl}/game-types`, {
             timeout: 8000,
@@ -125,7 +126,7 @@ export const Api = {
         );
     },
 
-    async getGameByType(id: number | undefined, token: string = 'guest_token') {
+    async getGameByType(id: number | undefined, token: string = tokenEnv) {
         return axios.get<IGetGamesResponse>(
             `${instanceUrl}/v3/game-types/${id}/games`, {
             timeout: 8000,
@@ -169,7 +170,7 @@ export const Api = {
         )
     },
 
-    async getAvalibleDateAndTime(gameId: string, playersCount: number, token: string = 'guest_token') {
+    async getAvalibleDateAndTime(gameId: string, playersCount: number, token: string = tokenEnv) {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
             timeout: 8000,
@@ -180,7 +181,7 @@ export const Api = {
         );
     },
 
-    async getSummary(data: IGetSummaryRequestData, token: string = 'guest_token') {
+    async getSummary(data: IGetSummaryRequestData, token: string = tokenEnv) {
         return axios.post<ISummaryResponse>(
             `${instanceUrl}/v3/orders/precalculate`,
             data, {
@@ -192,7 +193,7 @@ export const Api = {
         );
     },
 
-    async validatePromo(data: IValidatePromoRequestData, token: string = 'guest_token') {
+    async validatePromo(data: IValidatePromoRequestData, token: string = tokenEnv) {
         return axios.post<IValidatePromo>(
             `${instanceUrl}/v3/promo/accept-discount`,
             data, {
@@ -204,7 +205,7 @@ export const Api = {
         );
     },
     ///////////////////////////////////////////
-    async createBooking(data: IGetSummaryRequestData, token: string = 'guest_token') {
+    async createBooking(data: IGetSummaryRequestData, token: string = tokenEnv) {
         return axios.post(
             `${instanceUrl}/v3/order/create`,
             data, {
@@ -221,7 +222,7 @@ export const Api = {
         time: string,
         guestCount: number,
     },
-        token: string = 'guest_token'
+        token: string = tokenEnv
     ) {
         return axios.put(
             `${instanceUrl}/v3/orders/${id}/bookings`,
@@ -234,7 +235,7 @@ export const Api = {
         );
     },
 
-    // async precalculate(token: string ='guest_token') {
+    // async precalculate(token: string =tokenEnv) {
     //     return axios.post(
     //         `${instanceUrl}/v3/orders/precalculate`,
     //         {},
@@ -246,7 +247,7 @@ export const Api = {
     //     )
     // },
 
-    async createEmpty(token: string ='guest_token') {
+    async createEmpty(token: string =tokenEnv) {
         return axios.post(
             `${instanceUrl}/v3/orders/create-empty`,
             {},
@@ -376,7 +377,7 @@ export const Api = {
     },
 
 
-    async getAllThumbnails(token: string ='guest_token') {
+    async getAllThumbnails(token: string =tokenEnv) {
         return axios.get<Array<IThumbnailDto>>(
             `${instanceUrl}/v3/stories/groups/active`, {
             timeout: 8000,
@@ -387,7 +388,7 @@ export const Api = {
         );
     },
 
-    async getGroupStoriesById(id: number, token: string ='guest_token') {
+    async getGroupStoriesById(id: number, token: string =tokenEnv) {
         return axios.get<Array<IStoriesRequest>>(
             `${instanceUrl}/v3/stories/groups/${id}/active`, {
             timeout: 8000,

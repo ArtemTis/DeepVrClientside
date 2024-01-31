@@ -7,5 +7,6 @@ declare namespace NodeJS {
         REACT_APP_API_GLOBAL_URL: string; 
         REACT_APP_ADMIN_URL: string;
         REACT_APP_API_GAMES_URL: string;
+        REACT_APP_API_TOKEN: string;
     } 
 }
