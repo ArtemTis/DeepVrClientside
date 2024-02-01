@@ -2,6 +2,7 @@ import { Col } from "antd";
 import "./CommonStyles.css";
 import { SelectedMark } from "../../features/booking-feature/presentation/components/SelectedMark";
 import { IInstance } from "../utils/types";
+import filialImg from "../../assets/filialImg.png"
 
 interface Props {
   instance: IInstance;
@@ -10,7 +11,8 @@ interface Props {
 }
 
 export const InstanceCard: React.FC<Props> = ({ instance, isSelected, onClick}) => {
-  const imgUrl = instance.code;
+  // const imgUrl = instance.code;
+  const imgUrl = filialImg;
   
   return (
     <Col xs={12} sm={8} md={6} lg={6} xl={4} xxl={4}>

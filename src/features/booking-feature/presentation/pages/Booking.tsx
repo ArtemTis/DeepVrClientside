@@ -48,7 +48,6 @@ export const Booking: React.FC = () => {
     return Config[currentStep].isFinished(booking)
   }, [booking])
 
-
   const Label = () => {
     return (
       <div>
@@ -109,12 +108,13 @@ export const Booking: React.FC = () => {
     ],
     paymentInfo: {
       bonus: null,
-      promoCode: null,
+      promoCode: booking.promo ?? null,
       certificates: null
     }
   }
 
-  // console.log(sendBooking);
+  console.log(sendBooking);
+  
 
   const confirm = () => {
     dispatch(createBooking(sendBooking))

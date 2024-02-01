@@ -149,7 +149,6 @@ export const Api = {
     async getGamesOfRoom(roomId: number) {
         return axios.get<IGetGamesResponse>(
             `${instanceUrl}/room/${roomId}`, {
-            timeout: 8000
         }
         );
     },
@@ -157,7 +156,6 @@ export const Api = {
     async getTimesOfDay(date: Date) {
         return axios.get<IGetWorktimeResponse>(
             `${instanceUrl}/v3/worktime?date=${date.toISOString().substring(0, 10)}`, {
-            timeout: 8000
         }
         );
     },
@@ -165,7 +163,6 @@ export const Api = {
     async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?game_id=${gameId}`, {
-            timeout: 8000
         }
         )
     },
@@ -173,7 +170,6 @@ export const Api = {
     async getAvalibleDateAndTime(gameId: string, playersCount: number, token: string = tokenEnv) {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
-            timeout: 8000,
             headers: {
                 token: token
             }
@@ -186,7 +182,6 @@ export const Api = {
             `${instanceUrl}/v3/orders/precalculate`,
             data, {
             headers: {
-                timeout: 8000,
                 token: token
             }
         }
@@ -198,7 +193,6 @@ export const Api = {
             `${instanceUrl}/v3/promo/accept-discount`,
             data, {
             headers: {
-                timeout: 8000,
                 token: token
             }
         }
@@ -210,7 +204,6 @@ export const Api = {
             `${instanceUrl}/v3/order/create`,
             data, {
             headers: {
-                timeout: 8000,
                 token: token
             }
         }

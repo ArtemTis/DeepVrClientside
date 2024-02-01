@@ -11,6 +11,7 @@ import { FormError } from "../../../../lib/ui/FormFields/FormError";
 import { TextInputNonForm } from "../../../../lib/ui/FormFields/TextInputNonForm";
 import { LoadIcon } from "../../../../lib/ui/LoadIcon";
 import closeIcon from "../../../../assets/closeIcon.svg"
+import { setPromo } from "../../store/slice";
 
 interface Props {
   isOpen: boolean;
@@ -34,7 +35,8 @@ export const PromoModal: React.FC<Props> = ({
   const count = useAppSelector(selectPlayersCount);
 
   const summary = useAppSelector(state => state.summaryReducer.summary);
-  const validatePromo = useAppSelector(state => state.summaryReducer.promo);
+  // const validatePromo = useAppSelector(state => state.summaryReducer.promo);
+  const validatePromo = true;
 
   const reqStatus = useAppSelector(state => state.summaryReducer.reqStatus === ReqStatus.pending);
   const textError = useAppSelector(state => state.summaryReducer.textError);
@@ -63,7 +65,8 @@ export const PromoModal: React.FC<Props> = ({
 
   };
 
-  const submit = () => {
+  const submit = () => {    
+    dispatch(setPromo(inputRef.current?.value));
     onSubmit(inputRef.current?.value ?? "");
   };
 

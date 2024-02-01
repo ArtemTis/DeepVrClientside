@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { createBooking, createEmpty } from "./asyncActions";
-import { IBookingCredentials, ICity, IGame, IGameType, IInstance } from "../../../lib/utils/types";
+import { IBookingCredentials, ICity, IGame, IGameType, IInstance, IValidatePromo } from "../../../lib/utils/types";
 import { ReqStatus } from "../../../lib/utils/enums";
 import { Api } from "../../../lib/utils/api";
 import { useAppSelector } from "../../../app/store";
@@ -18,10 +18,11 @@ export interface BookingState {
     selectedTime?: string;
     avalibleTime?: string[];
     credentials?: IBookingCredentials;
+    promo?: string;
     isFinished: boolean;
     textError?: string;
     reqStatus?: ReqStatus;
-    bookingId?: {id: string, clientId: string}
+    bookingId?: { id: string, clientId: string }
 }
 
 const initialState: BookingState = {
@@ -39,11 +40,11 @@ const bookingSlice = createSlice({
             state.currentStep++;
         },
 
-        setStep(state, action : PayloadAction<number>) {
+        setStep(state, action: PayloadAction<number>) {
             state.currentStep = action.payload;
         },
 
-        setSafetyStep(state, action : PayloadAction<number>) {
+        setSafetyStep(state, action: PayloadAction<number>) {
             state.safetyStep = action.payload;
         },
 
@@ -75,6 +76,9 @@ const bookingSlice = createSlice({
 
         setCredentials(state, action) {
             state.credentials = action.payload;
+        },
+        setPromo(state, action) {
+            state.promo = action.payload;
         },
 
         decreaseStep(state) {
@@ -151,7 +155,8 @@ export const {
     decreaseStep,
     setStep,
     setSafetyStep,
-    setIsFinished
+    setIsFinished,
+    setPromo
 } = bookingSlice.actions;
 export default bookingSlice.reducer;
 

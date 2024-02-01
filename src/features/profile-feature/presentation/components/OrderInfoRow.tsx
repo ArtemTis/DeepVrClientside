@@ -50,13 +50,17 @@ const BookingHistory: React.FC<BookingHistoryProps> = ({ booking }) => {
 
   const gameTypes = useAppSelector(selectGameTypes);
 
+  console.log(gameTypes);
+  console.log(booking);
+  
 
-  const gameTypesName = gameTypes.find(type => type.id === booking.game.gameTypeId)
+  // const gameTypesName = gameTypes.find(type => type.id === booking.game.gameTypeId);
 
   return (
     <div className="profile-order-info-row">
       <span className="profile-order-info-span">{`${booking.guestCount
-        } персон${ending} | ${booking.game.titleOverride} | ${gameTypesName?.title}`}</span>
+        // } персон${ending} | ${booking.game.titleOverride} | ${gameTypesName?.title}`}</span>
+        } персон${ending} | ${booking.game.titleOverride} | `}</span>
       <span className="profile-order-info-row-date">
         {`от ${dateFormatDayMonth.format(new Date(booking.bookingDate))}`}
       </span>
