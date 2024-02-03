@@ -24,20 +24,21 @@ export const Api = {
     },
     async getAllCities(token: string = tokenEnv) {
         return axios.get<Array<ICity>>(
-            `${globalUrl}/cities/all`, {
+            `${globalUrl}/client/cities/all`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
     },
     async getAllInstances(token: string = tokenEnv, cityId: number) {
         return axios.get<Array<IInstance>>(
-            `${globalUrl}/instances/${cityId}`, {
+            // `${globalUrl}/client/instances/${cityId}`, {
+            `${globalUrl}/client/cities/${cityId}`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -98,7 +99,7 @@ export const Api = {
             `${gamesUrl}/games/gipno`, {//antientropiia
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -120,7 +121,7 @@ export const Api = {
             `${gamesUrl}/game-types`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -131,7 +132,7 @@ export const Api = {
             `${instanceUrl}/v3/game-types/${id}/games`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -171,7 +172,7 @@ export const Api = {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -182,7 +183,7 @@ export const Api = {
             `${instanceUrl}/v3/orders/precalculate`,
             data, {
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -193,7 +194,7 @@ export const Api = {
             `${instanceUrl}/v3/promo/accept-discount`,
             data, {
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -204,7 +205,7 @@ export const Api = {
             `${instanceUrl}/v3/order/create`,
             data, {
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -222,7 +223,7 @@ export const Api = {
             data, {
             headers: {
                 timeout: 8000,
-                token: token
+                Token: token
             }
         }
         );
@@ -246,7 +247,7 @@ export const Api = {
             {},
             {
                 headers: {
-                    token: token
+                    Token: token
                 }
             }
         );
@@ -307,7 +308,7 @@ export const Api = {
             `${globalUrl}/orders/history/${userId}`,
             {
                 headers: {
-                    token
+                    Token: token
                 }
             }
         );
@@ -329,7 +330,7 @@ export const Api = {
             `${globalUrl}/profile/get-city`,
             {
                 headers: {
-                    token
+                    Token: token
                 }
             }
         )
@@ -341,7 +342,7 @@ export const Api = {
             city, {
             headers: {
                 timeout: 8000,
-                token: token
+                Token: token
             }
         }
         )
@@ -375,7 +376,7 @@ export const Api = {
             `${instanceUrl}/v3/stories/groups/active`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -386,7 +387,7 @@ export const Api = {
             `${instanceUrl}/v3/stories/groups/${id}/active`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );

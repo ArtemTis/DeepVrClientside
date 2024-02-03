@@ -148,6 +148,7 @@ export interface IGame {
   price: number,
   externalId: string,
   game_type_id?: number,
+  game_type_title?: string,
   is_active: number,
   deleted_at: string,
   created_at: string,
@@ -369,7 +370,7 @@ export interface IChangePassForm {
 export interface IBookingHistory {
   id: number,
   bookingDate: string,
-  gameId: number,
+  gameId: string,
   roomId: number,
   guestCount: number,
   orderId: string,

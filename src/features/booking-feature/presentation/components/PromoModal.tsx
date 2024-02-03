@@ -36,8 +36,11 @@ export const PromoModal: React.FC<Props> = ({
 
   const summary = useAppSelector(state => state.summaryReducer.summary);
   // const validatePromo = useAppSelector(state => state.summaryReducer.promo);
-  const validatePromo = true;
-
+  
+  const [promoValue, setPromoValue] = useState<string>('');
+  
+  const validatePromo = inputRef.current?.value.length === 21;
+  
   const reqStatus = useAppSelector(state => state.summaryReducer.reqStatus === ReqStatus.pending);
   const textError = useAppSelector(state => state.summaryReducer.textError);
 
@@ -51,11 +54,12 @@ export const PromoModal: React.FC<Props> = ({
     //   user_id: user?.id,
     // }))
 
-    onChange();
+    // onChange();
   }, [game, count, user]);
 
-  const onChange = () => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
+    setPromoValue(e.target.value)
     // dispatch(postValidatePromo({
     //   game: game?.id ?? -1,
     //   price: summary?.price ?? 0,
@@ -107,7 +111,7 @@ export const PromoModal: React.FC<Props> = ({
                     ? "modal-promo-success-input"
                     : ""
               }
-              onChange={onChange}
+              onChange={(e) => onChange(e)}
             />
             <div className="modal-promo-description">
               Место для информации о том как и где можно получить промокод.
