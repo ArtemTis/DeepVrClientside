@@ -1,10 +1,12 @@
 import { PhoneInput } from '../../../../lib/ui/FormFields/PhoneField'
 import { PassField } from '../../../../lib/ui/FormFields/PassField'
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../../../app/store';
+import { useAppDispatch, useAppSelector } from '../../../../app/store';
 import { singIn } from '../../../../features/auth-feature/store/asyncActions';
 import { ILoginForm } from '../../../../lib/utils/types';
 import { NextButton } from '../../../../lib/ui/NextButton';
+import { useCookies } from 'react-cookie';
+import { selectUser } from '../../store/selectors';
 
 const LoginTel = () => {
 
@@ -17,6 +19,11 @@ const LoginTel = () => {
     });
 
     const dispatch = useAppDispatch();
+
+    const login = () => {
+        dispatch(singIn(getValues()))
+    }
+    
 
     return (
         <>
@@ -34,7 +41,7 @@ const LoginTel = () => {
                 autocomplete="current-password"
                 unregister
             />
-            <NextButton isActive={isValid} onClick={() => dispatch(singIn(getValues()))}>
+            <NextButton isActive={isValid} onClick={() => login()}>
                 Войти
             </NextButton>
         </>

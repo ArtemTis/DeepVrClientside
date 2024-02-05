@@ -21,6 +21,7 @@ import logoBonus3 from "../../../../assets/logo-bonus3-light.svg";
 import { useNavigate } from 'react-router'
 import { PROFILE_CITY_PATH } from '../../../../lib/utils/routeConstants'
 import { IUser } from '../../../../lib/utils/types'
+import { useCookies } from 'react-cookie'
 
 const RightSideProfile: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -31,10 +32,11 @@ const RightSideProfile: React.FC = () => {
     console.log(user);
     console.log(citySelected);
     console.log(token);
-    
+
 
     const bonuses = useAppSelector(selectBonuses);
     const isLoading = useAppSelector((state: RootState) => state.profileReducer.reqStatus === ReqStatus.pending);
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
     useEffect(() => {
         dispatch(getBonusesInfo());
@@ -54,7 +56,9 @@ const RightSideProfile: React.FC = () => {
         Api.logout({ token }).then((res) => {
             if (Api.checkStatus(res)) {
             }
+
         });
+        removeCookie('user');
     };
 
 
@@ -105,10 +109,10 @@ const RightSideProfile: React.FC = () => {
             <div className="profile-divide">
                 <div
                     className="profile-divide-btn-full"
-                    onClick={()=> navigate(`../${PROFILE_CITY_PATH}`)}
-                    // onClick={() =>
-                    //     addPopup(<CitySelectPopup  preselected={citySelected} />)
-                    // }
+                    onClick={() => navigate(`../${PROFILE_CITY_PATH}`)}
+                // onClick={() =>
+                //     addPopup(<CitySelectPopup  preselected={citySelected} />)
+                // }
                 >
                     <span>Выбрать город</span>
                     <span className="profile-divide-header-option">
@@ -138,9 +142,9 @@ const RightSideProfile: React.FC = () => {
             <div className="profile-divide">
                 <div
                     className="profile-divide-btn-full"
-                    // onClick={() =>
-                    //     addPopup(<CitySelectPopup />)
-                    // }
+                // onClick={() =>
+                //     addPopup(<CitySelectPopup />)
+                // }
                 >
                     <span>О приложении</span>
                 </div>

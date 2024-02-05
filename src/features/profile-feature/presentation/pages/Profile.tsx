@@ -10,6 +10,8 @@ import { useNavigate } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../../../app/store";
 import { gamesTypes } from "../../../games-feature/store/gamesType/asyncActions";
 import { selectGameTypes } from "../../../games-feature/store/gamesType/selectors";
+import { useCookies } from "react-cookie";
+import { selectUser } from "../../../auth-feature/store/selectors";
 
 let tempPopups: Array<React.ReactElement> = [];
 
@@ -18,15 +20,22 @@ export const Profile: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const gameTypes = useAppSelector(selectGameTypes);
+
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+  
+  const user = useAppSelector(selectUser) || cookies.user;
+
   if (gameTypes.length === 0) {
     dispatch(gamesTypes());
   }
 
   const goToSettings = () => {
-    console.log(1);
-
     navigate(`../${PROFILE_SETTINGS_PATH}`)
   }
+
+  useEffect(()=>{
+    setCookie('user', user);
+  },[user])
 
   return (
     <Row justify="center">
