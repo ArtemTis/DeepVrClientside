@@ -11,7 +11,8 @@ import { useAppDispatch, useAppSelector } from "../../../../app/store";
 import { gamesTypes } from "../../../games-feature/store/gamesType/asyncActions";
 import { selectGameTypes } from "../../../games-feature/store/gamesType/selectors";
 import { useCookies } from "react-cookie";
-import { selectUser } from "../../../auth-feature/store/selectors";
+import { selectToken, selectUser } from "../../../auth-feature/store/selectors";
+import { IUser } from "../../../../lib/utils/types";
 
 let tempPopups: Array<React.ReactElement> = [];
 
@@ -22,8 +23,15 @@ export const Profile: React.FC = () => {
   const gameTypes = useAppSelector(selectGameTypes);
 
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
-  
-  const user = useAppSelector(selectUser) || cookies.user;
+
+  let token: string | undefined;
+
+  if (cookies.user) {
+    token = cookies.user;
+  } else {
+    token = useAppSelector(selectToken);
+    setCookie('user', token);
+  }
 
   if (gameTypes.length === 0) {
     dispatch(gamesTypes());
@@ -32,10 +40,6 @@ export const Profile: React.FC = () => {
   const goToSettings = () => {
     navigate(`../${PROFILE_SETTINGS_PATH}`)
   }
-
-  useEffect(()=>{
-    setCookie('user', user);
-  },[user])
 
   return (
     <Row justify="center">

@@ -17,7 +17,15 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({element}) => {
 
     console.log(cookies.user);
 
-    const isAuthorised = useAppSelector(selectIsAuthorised) || !!cookies.user;
+    let isAuthorised: boolean;
+
+    if (cookies.user) {
+        isAuthorised = !!cookies.user;
+    } else {
+        isAuthorised = useAppSelector(selectIsAuthorised);
+    }
+
+    // const isAuthorised = useAppSelector(selectIsAuthorised) || !!cookies.user;
     const location = useLocation();
 
     const dispatch = useDispatch();
