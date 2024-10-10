@@ -13,13 +13,13 @@ export const selectIsAuthorised = createDraftSafeSelector(
 )
 
 export const selectUser = createDraftSafeSelector(
-    [(state: RootState) => state.authReducer.user],
-    (user) => user
+    [(state: RootState) => state.authReducer.client],
+    (client) => client
 )
 
 export const selectSelectedCity = createDraftSafeSelector(
-    [(state: RootState) => state.authReducer.selectedCity],
-    (selectedCity) => selectedCity
+    [(state: RootState) => state.authReducer.client],
+    (client) => client?.city
 )
 
 export const selectReqStatus = createDraftSafeSelector(

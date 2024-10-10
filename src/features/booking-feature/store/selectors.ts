@@ -5,9 +5,17 @@ export const selectCurrentStep = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.currentStep],
     (currentStep) => currentStep
 )
+export const selectSafetyStep = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.safetyStep],
+    (safetyStep) => safetyStep
+)
 export const selectCity = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.city],
     (city) => city
+)
+export const selectBookingInstance = createDraftSafeSelector(
+    [(state: RootState) => state.bookingReducer.instance],
+    (instance) => instance
 )
 export const selectDate = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.date],
@@ -40,7 +48,7 @@ export const selectIsFinished = createDraftSafeSelector(
 )
 export const selectGameId = createDraftSafeSelector(
     [selectGame],
-    (game) => game?.id ?? -1
+    (game) => game?.id ?? ''
 )
 export const selectReqStatus = createDraftSafeSelector(
     [(state: RootState) => state.bookingReducer.reqStatus],

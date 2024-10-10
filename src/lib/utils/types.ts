@@ -13,6 +13,7 @@ export interface IUser {
   category_loyalty_id: number | null;
   created_at: string;
   email: string;
+  city: ICity;
   email_verified_at: string | null;
   id: number;
   name: string;
@@ -28,16 +29,49 @@ export interface IUser {
 export interface ICity {
   id: number,
   name: string,
-  city: string,
-  owner_id: number,
-  created_at: string,
-  updated_at: string,
-  code: string,
-  pivot: {
-    user_id: number,
-    instance_id: number
-  }
+  instances?: [
+    {
+      id: number,
+      name: string,
+      city: null,
+      cityId: number,
+      code: string,
+      ownerId: number,
+      createdAt: string,
+      updatedAt: string,
+      users: []
+    }
+  ]
 }
+
+export interface IInstance {
+  id: number,
+  name: string,
+  city?: {
+    id: number,
+    name: string,
+    instances: [
+      string
+    ]
+  },
+  cityId?: number,
+  code?: string,
+  ownerId?: number,
+}
+
+// export interface ICity {
+//   id: number,
+//   name: string,
+//   city: string,
+//   owner_id: number,
+//   created_at: string,
+//   updated_at: string,
+//   code: string,
+//   pivot: {
+//     user_id: number,
+//     instance_id: number
+//   }
+// }
 
 export interface IRoom {
   id: number,
@@ -48,7 +82,6 @@ export interface IRoom {
     room_id: number,
   }
 }
-
 export interface IGameType {
   id: number,
   title: string,
@@ -63,13 +96,59 @@ export interface IAvalibleTime {
   times: []
 }
 
+// export interface IGame {
+//   id: number,
+//   title: string,
+//   games: [
+//     {
+//       id: number,
+//       externalId: string,
+//       titleOverride: string,
+//       priceOverride: number,
+//       logoOverride: string,
+//       timeDuration: number,
+//       descriptionOverride: string,
+//       gameTypeId: number
+//     }
+//   ],
+//   fullGames: [
+//     {
+//       id: string,
+//       owner_id: number,
+//       name: string,
+//       use_key: number,
+//       created_at: string,
+//       updated_at: string,
+//       title: string,
+//       slug: string,
+//       time_duration: string,
+//       price: number,
+//       is_active: number,
+//       logo: string,
+//       guest_min: string,
+//       guest_max: string,
+//       description: string,
+//       age_limit: string,
+//       images: [
+//         string
+//       ],
+//       video: string,
+//       genre: string,
+//       actual_build: string,
+//       gameTypeId: number
+//     }
+//   ]
+// }
+
 export interface IGame {
-  id: number,
+  id: string,
   title: string,
   slug: string,
   time_duration: number,
   price: number,
-  game_type_id: number,
+  externalId: string,
+  game_type_id?: number,
+  game_type_title?: string,
   is_active: number,
   deleted_at: string,
   created_at: string,
@@ -90,13 +169,6 @@ export interface IGame {
   rooms?: Array<IRoom>,
 }
 
-export interface IInstance {
-  id: number,
-  title: string,
-  city: string,
-  logo: string,
-}
-
 export interface IGetGamesResponse {
   id: number,
   title: string,
@@ -105,16 +177,16 @@ export interface IGetGamesResponse {
 }
 
 export interface IGameOnType {
-    id: 0,
-    externalId: string,
-    titleOverride: string,
-    priceOverride: 0,
-    logoOverride: string,
-    timeDuration: 0,
-    descriptionOverride: string,
-    gameTypeId: 0,
-    gameType: string
-  }
+  id: 0,
+  externalId: string,
+  titleOverride: string,
+  priceOverride: 0,
+  logoOverride: string,
+  timeDuration: 0,
+  descriptionOverride: string,
+  gameTypeId: 0,
+  gameType: string
+}
 
 export interface IBookingCredentials {
   name: string,
@@ -165,7 +237,7 @@ export interface IGetSummaryRequestData {
   },
   bookings: [
     {
-      gameId: number,
+      gameId: string,
       time: string,
       guestCount: number,
       id: number | null
@@ -214,7 +286,7 @@ export interface ILoginResponse {
   error: number | string;
   error_text: string;
   token: string;
-  user: IUser;
+  client: IUser;
 }
 
 export interface IValidatePromoRequestData {
@@ -223,6 +295,8 @@ export interface IValidatePromoRequestData {
   price: number,
   game: number
 }
+
+
 
 export interface IBookingFields {
   certificates?: Array<string>,
@@ -252,7 +326,7 @@ export interface IRegisterResponse {
   error: number,
   error_text: string,
   token: string,
-  user: IUser
+  client: IUser
 };
 
 export interface ILoginByCodeResponse {
@@ -293,20 +367,52 @@ export interface IChangePassForm {
   newPassword: string,
 }
 
-export interface IOrderHistoryItem {
+export interface IBookingHistory {
   id: number,
-  user_id: number,
-  booking_date: string,
-  location_id: string,
-  location?: ICity,
-  games_id: string,
-  games?: Array<IGame>
-  price: number,
-  guest_quantity: number,
-  external_id: number,
-  is_manual: number,
-  created_at: string,
-  updated_at: string
+  bookingDate: string,
+  gameId: string,
+  roomId: number,
+  guestCount: number,
+  orderId: string,
+  status: string,
+  createdAt: string,
+  updatedAt: string,
+  gameTypeId: number,
+  game: {
+    id: number,
+    externalId: string,
+    titleOverride: string,
+    priceOverride: number,
+    logoOverride: string,
+    timeDuration: number,
+    descriptionOverride: string,
+    gameTypeId: number
+  }
+}
+
+export interface IOrderHistoryItem {
+  id: string,
+  client: {
+    id: number,
+    name: string,
+    phone: string
+  },
+  bookings: [
+    IBookingHistory
+  ],
+  priceInfo: {
+    paymentInfo: {
+      bonus: number,
+      promocode: string,
+      certificates: string[],
+    },
+    price: number,
+    promo: number,
+    bonus: number,
+    certificates: number,
+    total: number,
+    discount: number
+  }
 }
 
 export interface IGetUserCityResponse {

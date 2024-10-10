@@ -1,8 +1,8 @@
 import { selectBookingId, selectCredentials, selectCurrentStep, selectDate, selectGame, selectIsFinished, selectPlayersCount, selectSelectedTime } from "../../store/selectors";
-import { useAppDispatch, useAppSelector } from "../../../../app/store";
+import { RootState, useAppDispatch, useAppSelector } from "../../../../app/store";
 import "./BookingStyles.css";
 import { useCallback, useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router";
+import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router";
 import TypeGameSelect from "../components/Stages/GamesTypeSelect";
 import { Button, Modal } from "antd";
 import { Config } from "../components/Stages/Config";
@@ -15,7 +15,7 @@ import close from '../../../../assets/close-cross.svg'
 import { selectToken, selectUser } from "../../../auth-feature/store/selectors";
 import { clearState, setStep } from "../../store/slice";
 import { NextButton } from "../../../../lib/ui/NextButton";
-import { BOOKING_CONFIRM_PATH } from "../../../../lib/utils/routeConstants";
+import { BOOKING_CONFIRM_PATH, BOOKING_PATH } from "../../../../lib/utils/routeConstants";
 import { getSummary } from "../../store/summary/asyncActions";
 import { IBookingCredentials, IGetSummaryRequestData } from "../../../../lib/utils/types";
 import { createBooking } from "../../store/asyncActions";
@@ -23,13 +23,13 @@ import { createBooking } from "../../store/asyncActions";
 export const Booking: React.FC = () => {
   const currentStep = useAppSelector(selectCurrentStep);
   const isFinished = useAppSelector(selectIsFinished);
+  const selectedallInstances = useAppSelector((state: RootState) => state.profileReducer.allInstances);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const location = useLocation().pathname;
   const { step } = useParams();
-
 
   useEffect(() => {
     return function checkState() {
@@ -47,7 +47,6 @@ export const Booking: React.FC = () => {
 
     return Config[currentStep].isFinished(booking)
   }, [booking])
-
 
   const Label = () => {
     return (
@@ -101,7 +100,7 @@ export const Booking: React.FC = () => {
     },
     bookings: [
       {
-        gameId: +(booking.game?.id ?? -1),
+        gameId: booking.game?.id ?? '',
         time: timeISO ?? '',
         guestCount: booking.playersCount ?? -1,
         id: null
@@ -109,12 +108,13 @@ export const Booking: React.FC = () => {
     ],
     paymentInfo: {
       bonus: null,
-      promoCode: null,
+      promoCode: booking.promo ?? null,
       certificates: null
     }
   }
 
   console.log(sendBooking);
+  
 
   const confirm = () => {
     dispatch(createBooking(sendBooking))
@@ -147,22 +147,26 @@ export const Booking: React.FC = () => {
 
 
 
-
         <Outlet />
+
 
         {
           stepPath !== 'done'
           &&
           <StyledWrapperButtons>
             {
-              +stepPath > 1
+              +stepPath > 0 && selectedallInstances.length > 1
                 ?
                 <StyledPrevButton onClick={() => navigate(`${currentStep - 1}`)}>Назад</StyledPrevButton>
                 :
-                stepPath === 'confirm'
+                +stepPath > 1
                   ?
-                  <StyledPrevButton onClick={() => navigate(`${currentStep}`)}>Назад</StyledPrevButton>
-                  : <></>
+                  <StyledPrevButton onClick={() => navigate(`${currentStep - 1}`)}>Назад</StyledPrevButton>
+                  :
+                  stepPath === 'confirm'
+                    ?
+                    <StyledPrevButton onClick={() => navigate(`${currentStep}`)}>Назад</StyledPrevButton>
+                    : <></>
             }
             {
               currentStep < Config.length - 1

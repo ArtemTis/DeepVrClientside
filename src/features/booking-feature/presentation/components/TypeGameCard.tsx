@@ -20,7 +20,7 @@ const TypeGameCard: React.FC<Props> = ({ gameType, isSelected, onClick }) => {
     >
       <div className="selectable-card-bg room-card-bg">
         <h2 className="room-card-title"> {gameType.title} </h2>
-        <div className="room-card-description">
+        {/* <div className="room-card-description">
           <div className="room-card-description-item">
             <img src={playersIcon} alt="Число игроков" />
             1-{gameType.guest_max}
@@ -35,7 +35,7 @@ const TypeGameCard: React.FC<Props> = ({ gameType, isSelected, onClick }) => {
             <img src={ageIcon} alt="Число игроков" />
             12+
           </div>
-        </div>
+        </div> */}
         <SelectedMark isSelected={!!isSelected} />
       </div>
     </div>

@@ -78,16 +78,6 @@ export const CredentialsForm: React.FC = () => {
     setIsPromoModalOpen(false);
   };
 
-  // const onNextClick = () => {
-  //   if (isValid) {
-  //     dispatch(setCredentials(values));
-  //     dispatch(increaseStep());
-  //   }
-  // };
-  // const onBackClick = () => {
-  //   dispatch(decreaseStep());
-  // };
-
   return (
     <>
 

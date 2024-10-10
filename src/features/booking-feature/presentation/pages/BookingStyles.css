@@ -250,8 +250,10 @@ textarea {
 }
 
 .room-card-wrapper {
-    height: 180px;
-    width: 28vw;
+    /* height: 180px; */
+    /* width: 28vw; */
+    height: 120px;
+    width: 20vw;
     padding: 2px;
 }
 
@@ -259,9 +261,11 @@ textarea {
     background-color: #191A29;
     padding: 30px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 .room-card-title {

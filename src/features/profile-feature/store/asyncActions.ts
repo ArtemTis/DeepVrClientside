@@ -3,8 +3,9 @@ import { Api } from "../../../lib/utils/api";
 import axios from "axios";
 import { RootState } from "../../../app/store";
 import { selectInstancePrefix } from "./selectors";
-import { ITokenDTO } from "../../../lib/utils/types";
-import { selectGameId } from "../../booking-feature/store/selectors";
+import { ICity, ITokenDTO } from "../../../lib/utils/types";
+import { selectCity, selectGameId } from "../../booking-feature/store/selectors";
+import { selectToken } from "../../auth-feature/store/selectors";
 
 export const allCities = createAsyncThunk(
     'profileSlice/allCities',
@@ -22,12 +23,33 @@ export const allCities = createAsyncThunk(
     }
 )
 
+export const allInstances = createAsyncThunk(
+    'profileSlice/allInstances',
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state) || undefined;
+        const cityId = selectCity(state)?.id!!;
+        try {            
+            const res = await Api.getAllInstances(token, cityId);
+
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
+            }
+            return rejectWithValue('Неизвестная ошибка');
+        }
+    }
+)
+
 
 export const getBonusesInfo = createAsyncThunk(
     'profileSlice/getBonusesInfo',
-    async function (value: ITokenDTO, { rejectWithValue }) {
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
         try {            
-            const res = await Api.getBonusesInfo(value);
+            const res = await Api.getBonusesInfo({token});
 
             return res.data;
         } catch (error) {
@@ -41,9 +63,11 @@ export const getBonusesInfo = createAsyncThunk(
 
 export const getHistory = createAsyncThunk(
     'profileSlice/getHistory',
-    async function (value: number, { rejectWithValue }) {
+    async function (value: number, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
         try {            
-            const res = await Api.getHistory(value);
+            const res = await Api.getHistory(value, token);
 
             return res.data;
         } catch (error) {
@@ -57,10 +81,30 @@ export const getHistory = createAsyncThunk(
 
 export const getUserCity = createAsyncThunk(
     'profileSlice/getUserCity',
-    async function (value: string, { rejectWithValue }) {
+    async function (_, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
         try {            
-            const res = await Api.getUserCity(value);
+            const res = await Api.getUserCity(token);
 
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                return rejectWithValue(error.response?.data.error_text ?? "Ошибка результата");
+            }
+            return rejectWithValue('Неизвестная ошибка');
+        }
+    }
+)
+
+export const setUserCity = createAsyncThunk(
+    'profileSlice/setUserCity',
+    async function (value: ICity, { rejectWithValue, getState }) {
+        const state = getState() as RootState;
+        const token = selectToken(state);
+        try {            
+            const res = await Api.setUserCity(token, value);
+            
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {

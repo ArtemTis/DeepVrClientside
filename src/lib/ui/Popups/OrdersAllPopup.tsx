@@ -6,14 +6,13 @@ import "../../../features/profile-feature/presentation/pages/AccountStyles.css"
 import { IOrderHistoryItem } from "../../utils/types";
 import { OrderInfoRow } from "../../../features/profile-feature/presentation/components/OrderInfoRow";
 import { OrderInfoRowEmpty } from "../../../features/profile-feature/presentation/components/OrderInfoRowEmpty";
+import { useAppSelector } from "../../../app/store";
+import { selectOrdersHistory } from "../../../features/profile-feature/store/selectors";
 
-interface Props {
-  history?: Array<IOrderHistoryItem>;
-  onBackClick: () => void;
-}
 
-export const OrdersAllPopup: React.FC<Props> = ({ history, onBackClick }) => {
+export const OrdersAllPopup: React.FC = () => {
   const [isOrderedDesc, setIsOrdered] = useState(false);
+  const history = useAppSelector(selectOrdersHistory);
   const [historySorted, setHistorySorted] = useState<
     Array<IOrderHistoryItem> | undefined
   >(history);
@@ -30,7 +29,7 @@ export const OrdersAllPopup: React.FC<Props> = ({ history, onBackClick }) => {
   };
 
   return (
-    <PopupLayout title="Заказы" onBackClick={onBackClick}>
+    <PopupLayout title="Заказы" >
       <div className="popup-order-table-header">
         Заказы
         <img

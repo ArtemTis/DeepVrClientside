@@ -7,13 +7,12 @@ export interface PopupProps extends PopupHeaderProps {
 }
 
 export const PopupLayout: React.FC<PopupProps> = ({
-  onBackClick,
   title,
   children,
 }) => {
   return (
     <div className="popup-wrapper">
-      <PopupHeader onBackClick={onBackClick} title={title} />
+      <PopupHeader title={title} />
       {children}
     </div>
   );

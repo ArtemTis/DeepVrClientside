@@ -14,7 +14,7 @@ import timeIcon from "../../../../../assets/time.svg";
 import { getSummary } from "../../../store/summary/asyncActions";
 import styled from "styled-components";
 import { selectToken, selectUser } from "../../../../auth-feature/store/selectors";
-import { selectCredentials, selectDate, selectGame, selectPlayersCount, selectSelectedTime } from "../../../store/selectors";
+import { selectBookingInstance, selectCredentials, selectDate, selectGame, selectPlayersCount, selectSelectedTime } from "../../../store/selectors";
 import { IBookingCredentials } from "../../../../../lib/utils/types";
 import { ReqStatus } from "../../../../../lib/utils/enums";
 import { LoadIcon } from "../../../../../lib/ui/LoadIcon";
@@ -35,11 +35,12 @@ export const ConfirmBooking: React.FC = () => {
   const loadingStatus = useAppSelector(state => state.bookingReducer.reqStatus === ReqStatus.pending);
   const errorText = useAppSelector(state => state.bookingReducer.textError);
   const summary = useAppSelector(state => state.summaryReducer.summary);
-
-  console.log(summary);
+  const loadingSummary = useAppSelector(state => state.summaryReducer.reqStatus === ReqStatus.pending);
 
   const [isPostingForm, setIsPostingForm] = useState(false);
 
+  // const instance = useAppSelector(selectBookingInstance)!!;
+  const instance = useAppSelector(selectBookingInstance);
 
   return (
     <>
@@ -112,6 +113,20 @@ export const ConfirmBooking: React.FC = () => {
                 {time}
               </Col>
 
+              <Col
+                className="summary-params-table-cell summary-params-table-description"
+                span={6}
+              >
+                {/* <img
+                  src={timeIcon}
+                  alt="Время"
+                  className="summary-params-table-description-img"
+                /> */}
+              </Col>
+              <Col className="summary-params-table-cell" span={18}>
+                {instance?.name}
+              </Col>
+
               <FormError errorMsg={errorText} />
             </Row>
             <Col span={24} className="summary-bg">
@@ -156,7 +171,7 @@ export const ConfirmBooking: React.FC = () => {
                   {loadingStatus ? (
                     <LoadIcon />
                   ) : (
-                    <>{summary && curencyFormat.format(summary.total)}</>
+                    <LoadWrapper isLoading={loadingSummary} height={1}>{summary && curencyFormat.format(summary.total)}</LoadWrapper>
                   )}
                 </span>
               </div>

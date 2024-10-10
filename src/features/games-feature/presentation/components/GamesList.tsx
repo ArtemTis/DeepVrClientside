@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, MenuProps, Popover, Radio, RadioChangeEvent, Row, Space } from "antd";
+import { Button, Col, Dropdown, MenuProps, Modal, Popover, Radio, RadioChangeEvent, Row, Space } from "antd";
 import { ReactElement, useEffect, useRef, useState } from "react";
 import { GameModal } from "./GameModal";
 
@@ -26,21 +26,29 @@ import { LoadWrapper } from "../../../../lib/ui/LoadWrapper";
 import { GameCard } from "../../../../lib/ui/GameCard";
 import { useLocation } from "react-router";
 import GamesCard from "../../../games-details-feature/presentation/GamesCard";
-import { setCity } from "../../../booking-feature/store/slice";
+import { setCity, setStep } from "../../../booking-feature/store/slice";
 import { CitySelectHome } from "./CitySelectHome";
 import styled from "styled-components";
-import { selectCity } from "../../../booking-feature/store/selectors";
+import { selectBookingInstance, selectCity } from "../../../booking-feature/store/selectors";
 import CitySelectList from "./CitySelectList";
 import { Link } from "react-router-dom";
 import { ACCOUNT_PATH, PROFILE_PATH } from "../../../../lib/utils/routeConstants";
 import ErrorText from "../../../../lib/ui/ErrorText";
+import { SelectInstanceList } from "../../../../lib/ui/SelectInstanceList";
+import { selectAllInstances } from "../../../profile-feature/store/selectors";
+import InstanceSelectList from "../../../games-details-feature/presentation/InstanceSelectList";
+import { allInstances } from "../../../profile-feature/store/asyncActions";
+import useGameType from "../../../../lib/utils/hooks/useGameTypes";
+import { gamesTypes } from "../../store/gamesType/asyncActions";
+import { selectGameTypes } from "../../store/gamesType/selectors";
 
 export const GamesList: React.FC = () => {
   // const [games, setGames] = useState<Array<IGameResponse>>();
   const [gamesFiltered, setGamesFiltered] = useState<Array<IGame>>();
-  const city = useAppSelector(selectSelectedCity);
+  const city = useAppSelector(selectCity);
   const [modalState, setModalState] = useState<IGame | undefined>();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const instances = useAppSelector(selectAllInstances);
 
   const isAuthorised = useAppSelector(selectIsAuthorised);
   const nametUser = useAppSelector(selectUser);
@@ -55,11 +63,23 @@ export const GamesList: React.FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 
+  // const {gameTypes, isLoading : gameTypesIsLoading} = useGameType();
+
+  const gameTypes = useAppSelector(selectGameTypes);
+
   useEffect(() => {
     if (city) {
-      Api.setInstanceUrl(city?.code);
+
+      // Api.setInstanceUrl(city?.instances[0].code);
+      Api.setInstanceUrl();
 
       dispatch(getAllGames());
+      dispatch(allInstances());
+      dispatch(gamesTypes());
+
+      if (instances.length === 1) {
+        dispatch(setStep(1))
+      }
     }
 
   }, [city]);
@@ -108,28 +128,39 @@ export const GamesList: React.FC = () => {
     searchRef.current?.focus();
   };
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const resetCity = () => {
-    dispatch(setSelectedCity(undefined));
-    dispatch(setCity(undefined));
-    setIsOpen(true);
-  };
+  // const resetCity = () => {
+  //   dispatch(setSelectedCity(undefined));
+  //   dispatch(setCity(undefined));
+  //   setIsOpen(true);
+  // };
 
-  const isSelectedCity = !!useAppSelector(selectCity);
+  const selectedCity = useAppSelector(selectCity);
+  // const selectedInstance = useAppSelector(selectBookingInstance);
 
   const [open, setOpen] = useState<boolean>(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const contentItems: {
     element: JSX.Element;
     type: string;
   }[] = [
       {
-        element: <CitySelectList setIslOpen={setOpen} isSelectedCity={isSelectedCity} />,
+        element: <CitySelectList setIslOpen={setOpen} selectedCity={selectedCity} setIsOpenModal={setIsModalOpen}/>,
         type: 'city'
       },
       {
-        element: <></>,
+        element: <InstanceSelectList setIslOpen={setOpen} setIsOpenModal={setIsModalOpen}/>,
         type: 'instance'
       }
     ]
@@ -144,7 +175,7 @@ export const GamesList: React.FC = () => {
     }
   };
 
-  const text =
+  const radioSelect =
     <StyledGroup defaultValue="city" buttonStyle="solid" onChange={onChange}>
       <StyledRadio value="city">
         Город
@@ -161,128 +192,115 @@ export const GamesList: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="home-wrapper">
-        {/* <GameModal game={modalState} isOpen={!!modalState} onClose={closeModal} /> */}
-        {/* <Row justify="center" className="header-sticky">
-          <ColLg className="home-header-wrapper">
-            <div className="home-header">
-              <div className="home-subtitle">Игры</div>
+    <div className="home-wrapper">
+      <StyledHeader>
 
-            </div>
-            <div className="home-subheader">
-              <div>
-                Выбрано: <span className="home-subheader-city">{city?.name}</span>
-              </div>
-              <div className="home-subheader-change-city" onClick={resetCity}>
-                Выбрать другой город
-                <img src={arrowRight} className="" alt="" />
-              </div>
-            </div>
-          </ColLg>
-        </Row> */}
+        <h1 className="title_games">Новости</h1>
 
-        <StyledHeader>
-
-          <h1 className="title_games">Новости</h1>
-
-          {
-            isAuthorised &&
-            <StyledProfile>
-              <Link to={ACCOUNT_PATH}>
-                <img src={avatar} alt="иконка профиля" />
-                <h2>{nametUser?.name}</h2>
-              </Link>
-              <img src={notification} alt="уведомления" />
-            </StyledProfile>
-          }
-        </StyledHeader>
-        <ThumbnailsContainer />
-
-        <h1 className="title_games">Игры</h1>
-        <GamesWrappwe>
-          <Filters>
-            <Filter>
-              Всё
-            </Filter>
-            <Filter>
-              Квест
-            </Filter>
-            <Filter>
-              Шутер
-            </Filter>
-            <Filter>
-              Бродилки
-            </Filter>
-          </Filters>
-
-          <SearchWrapper>
-            <div>
-              {/* {isSearchOpen ? ( */}
-              <div className="home-search-bg" onClick={onSearchBgClick}>
-                <input
-                  className="home-search-input"
-                  placeholder="Поиск"
-                  onInput={onSearch}
-                  onBlur={onBlur}
-                  ref={searchRef}
-                />
-                {searchString && (
-                  <img
-                    className="home-search-cross"
-                    src={crossWhite}
-                    alt="Очистить поиск"
-                    onClick={clearSearch}
-                  />
-                )}
-                <img
-                  src={searchIcon}
-                  alt="Поиск"
-                  className="home-title-img home-title-img-search"
-                  onClick={openSearch}
-                />
-              </div>
-              {/* ) : (
-                 <div className="home-search-placeholder" onClick={openSearch} />
-              )} */}
-
-            </div>
-
-            <StyledPopover placement="bottomRight"
-              title={text}
-              content={content}
-              arrow={false}
-              trigger="click"
-              open={open}
-              onOpenChange={handleOpenChange}>
-              <Filter>Город/Филиал
-                <img src={arrow} alt="Стрелка" />
-              </Filter>
-
-            </StyledPopover>
-
-          </SearchWrapper>
-        </GamesWrappwe>
         {
-          isError
-            ?
-            <ErrorText>Упс, что-то пошло не так</ErrorText>
-            :
-            <LoadWrapper isLoading={isLoading}>
-              <div className="gamesRow">
-                {gamesFiltered &&
-                  gamesFiltered.map((game) => (
-                    <GamesCard game={game} key={game.id} />
-                  ))}
-              </div>
-            </LoadWrapper>
+          isAuthorised &&
+          <StyledProfile>
+            <Link to={ACCOUNT_PATH}>
+              <img src={avatar} alt="иконка профиля" />
+              <h2>{nametUser?.name}</h2>
+            </Link>
+            <img src={notification} alt="уведомления" />
+          </StyledProfile>
         }
-      </div>
-      {/* {
-        isOpen &&
-        <CitySelectHome />
-      } */}
-    </>
+      </StyledHeader>
+      <ThumbnailsContainer />
+
+      <h1 className="title_games">Игры</h1>
+      <GamesWrappwe>
+        <Filters>
+          <Filter>
+            Всё
+          </Filter>
+          <Filter>
+            Квест
+          </Filter>
+          <Filter>
+            Шутер
+          </Filter>
+          <Filter>
+            Бродилки
+          </Filter>
+        </Filters>
+
+        <SearchWrapper>
+          <div>
+            {/* {isSearchOpen ? ( */}
+            <div className="home-search-bg" onClick={onSearchBgClick}>
+              <input
+                className="home-search-input"
+                placeholder="Поиск"
+                onInput={onSearch}
+                onBlur={onBlur}
+                ref={searchRef}
+              />
+              {searchString && (
+                <img
+                  className="home-search-cross"
+                  src={crossWhite}
+                  alt="Очистить поиск"
+                  onClick={clearSearch}
+                />
+              )}
+              <img
+                src={searchIcon}
+                alt="Поиск"
+                className="home-title-img home-title-img-search"
+                onClick={openSearch}
+              />
+            </div>
+          </div>
+
+          {/* <StyledPopover placement="bottomRight"
+            title={text}
+            content={content}
+            arrow={false}
+            trigger="click"
+            open={open}
+            onOpenChange={handleOpenChange}>
+            <Filter>Город/Филиал
+              <img src={arrow} alt="Стрелка" />
+            </Filter>
+
+          </StyledPopover> */}
+
+          <Filter onClick={showModal}>Город/Филиал
+            {/* <img src={arrow} alt="Стрелка" /> */}
+          </Filter>
+
+
+
+        </SearchWrapper>
+      </GamesWrappwe>
+      {
+        isError
+          ?
+          <ErrorText>Упс, что-то пошло не так</ErrorText>
+          :
+          <LoadWrapper isLoading={isLoading}>
+            <div className="gamesRow">
+              {gamesFiltered &&
+                gamesFiltered.map((game) => (
+                  <GamesCard game={game} key={game.id} gameTypes={gameTypes} />
+                ))}
+            </div>
+          </LoadWrapper>
+      }
+
+
+      <StyledModal open={isModalOpen} footer={[]} closeIcon={<></>} onCancel={handleCancel}>
+        {
+          radioSelect
+        }
+        {
+          content
+        }
+      </StyledModal>
+    </div>
   );
 };
 
@@ -318,6 +336,40 @@ const StyledProfile = styled.div`
     width: 40px;
     height: 40px;
   }
+  }
+`
+
+// const ModalWrapper = styled.div`
+//   &.ant-modal{
+//     width: 364px !important;
+//   }
+
+//   .ant-modal-wrap{
+//     .ant-modal{
+//     width: 364px !important;
+//   }
+//   }
+// `
+
+const StyledModal = styled(Modal) <{ open: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* background: ${({ open }) => (open ? '#55C1E7' : '')} !important; */
+  color: ${({ open }) => (open ? 'white' : '')} !important;
+
+  &.ant-modal{
+    width: 400px !important;
+  }
+  
+  img{
+    width: 20px;
+    transform: ${({ open }) => (open ? '' : 'rotateX(180deg) rotateY(180deg)')};
+  }
+
+  @media screen and (max-width: 530px) {
+    justify-content: space-between;
+    width: 90vw;
   }
 `
 

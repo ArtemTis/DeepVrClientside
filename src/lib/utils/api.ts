@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate, IAvalibleTime } from "./types"
+import { IBookingFields, IChangePassForm, ICity, IEditProfileReq, IGame, IGetBonusesInfoResponse, IGetGamesResponse, IGetSummaryRequestData, IGetUserCityResponse, IGetWorktimeResponse, ILoginByCodeResponse, ILoginForm, ILoginResponse, IOrderHistoryItem, IRegisterForm, IRegisterResponse, IRoom, ISummaryResponse, ITokenDTO, IGameType, IUser, IValidatePromo, IValidatePromoRequestData, IDate, IAvalibleTime, IInstance } from "./types"
 import { IStoriesRequest, IThumbnailDto } from "../../features/stories-feature/data/storiesDto";
 
 
@@ -11,6 +11,8 @@ export interface ErrorResponse {
 let instanceUrl: string | undefined = '';
 let instanceStorageUrl: string | undefined = '';
 const globalUrl = process.env.REACT_APP_API_GLOBAL_URL;
+const gamesUrl = process.env.REACT_APP_API_GAMES_URL;
+const tokenEnv = process.env.REACT_APP_API_TOKEN;
 
 export const Api = {
     // utils
@@ -20,21 +22,34 @@ export const Api = {
     get instanceUrl() {
         return instanceUrl;
     },
-    async getAllCities(token: string = 'guest_token') {
+    async getAllCities(token: string = tokenEnv) {
         return axios.get<Array<ICity>>(
-            `${globalUrl}/instances/all`, {
+            `${globalUrl}/client/cities/all`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
+            }
+        }
+        );
+    },
+    async getAllInstances(token: string = tokenEnv, cityId: number) {
+        return axios.get<Array<IInstance>>(
+            // `${globalUrl}/client/instances/${cityId}`, {
+            `${globalUrl}/client/cities/${cityId}`, {
+            timeout: 8000,
+            headers: {
+                Token: token
             }
         }
         );
     },
 
-    setInstanceUrl(prefix: string | undefined) {
-        const url = `https://${prefix}.${Api.globalUrl?.replace("https://", "")}`
+    setInstanceUrl(prefix: string | undefined = 'srt2' ) {
+        const pref = 'srt2'
+        const url = `https://${pref}.${Api.globalUrl?.replace("https://", "")}`
         instanceUrl = url;
-        // instanceUrl = 'http://192.168.1.117:5274/api';
+
+        // instanceUrl = 'http://192.168.1.118:5274/api';
         if (url) instanceStorageUrl = url.replace('/api', '/storage');
         else instanceStorageUrl = undefined;
     },
@@ -58,7 +73,7 @@ export const Api = {
         );
     },
 
-    async getGameInfo(instancePrefix: string, id: number) {
+    async getGameInfo(instancePrefix: string, id: string) {
         const url = globalUrl?.replace('https://', '');
         return axios.get<IGame>(
             `https://${instancePrefix}${instancePrefix ? '.' : ''}${url}/game/${id}`, {
@@ -68,34 +83,56 @@ export const Api = {
     },
 
     // home
-    async getAllGames(token: string = 'guest_token') {
+    // async getAllGames(token: string = tokenEnv) {
+    //     return axios.get<Array<IGame>>(
+    //         `${instanceUrl}/v3/games/all`, {
+    //         timeout: 8000,
+    //         headers: {
+    //             token: token
+    //         }
+    //     }
+    //     );
+    // },
+
+    async getAllGames(token: string = tokenEnv) {
         return axios.get<Array<IGame>>(
-            `${instanceUrl}/v3/games/all`, {
+            `${gamesUrl}/games/gipno`, {//antientropiia
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
     },
 
-    async getGamesTypes(token: string = 'guest_token') {
+    // async getGamesTypes(token: string = tokenEnv) {
+    //     return axios.get<Array<IGameType>>(
+    //         `${instanceUrl}/v3/game-types/all`, {
+    //         timeout: 8000,
+    //         headers: {
+    //             token: token
+    //         }
+    //     }
+    //     );
+    // },
+
+    async getGamesTypes(token: string = tokenEnv) {
         return axios.get<Array<IGameType>>(
-            `${instanceUrl}/v3/game-types/all`, {
+            `${gamesUrl}/game-types`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
     },
 
-    async getGameByType(id: number | undefined, token: string = 'guest_token') {
+    async getGameByType(id: number | undefined, token: string = tokenEnv) {
         return axios.get<IGetGamesResponse>(
             `${instanceUrl}/v3/game-types/${id}/games`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
@@ -113,7 +150,6 @@ export const Api = {
     async getGamesOfRoom(roomId: number) {
         return axios.get<IGetGamesResponse>(
             `${instanceUrl}/room/${roomId}`, {
-            timeout: 8000
         }
         );
     },
@@ -121,7 +157,6 @@ export const Api = {
     async getTimesOfDay(date: Date) {
         return axios.get<IGetWorktimeResponse>(
             `${instanceUrl}/v3/worktime?date=${date.toISOString().substring(0, 10)}`, {
-            timeout: 8000
         }
         );
     },
@@ -129,53 +164,48 @@ export const Api = {
     async getAvalibleTime(gameId: number, playersCount: number, token: string, date: string) {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?game_id=${gameId}`, {
-            timeout: 8000
         }
         )
     },
 
-    async getAvalibleDateAndTime(gameId: number, playersCount: number, token: string = 'guest_token') {
+    async getAvalibleDateAndTime(gameId: string, playersCount: number, token: string = tokenEnv) {
         return axios.get<IAvalibleTime[]>(
             `${instanceUrl}/v3/booking/available?gameId=${gameId}&guestCount=${playersCount}`, {
-            timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
     },
 
-    async getSummary(data: IGetSummaryRequestData, token: string = 'guest_token') {
+    async getSummary(data: IGetSummaryRequestData, token: string = tokenEnv) {
         return axios.post<ISummaryResponse>(
             `${instanceUrl}/v3/orders/precalculate`,
             data, {
             headers: {
-                timeout: 8000,
-                token: token
+                Token: token
             }
         }
         );
     },
 
-    async validatePromo(data: IValidatePromoRequestData, token: string = 'guest_token') {
+    async validatePromo(data: IValidatePromoRequestData, token: string = tokenEnv) {
         return axios.post<IValidatePromo>(
             `${instanceUrl}/v3/promo/accept-discount`,
             data, {
             headers: {
-                timeout: 8000,
-                token: token
+                Token: token
             }
         }
         );
     },
     ///////////////////////////////////////////
-    async createBooking(data: IGetSummaryRequestData, token: string = 'guest_token') {
+    async createBooking(data: IGetSummaryRequestData, token: string = tokenEnv) {
         return axios.post(
             `${instanceUrl}/v3/order/create`,
             data, {
             headers: {
-                timeout: 8000,
-                token: token
+                Token: token
             }
         }
         );
@@ -186,38 +216,38 @@ export const Api = {
         time: string,
         guestCount: number,
     },
-        token: string = 'guest_token'
+        token: string = tokenEnv
     ) {
         return axios.put(
             `${instanceUrl}/v3/orders/${id}/bookings`,
             data, {
             headers: {
                 timeout: 8000,
-                token: token
+                Token: token
             }
         }
         );
     },
 
-    async precalculate(token: string ='guest_token') {
-        return axios.post(
-            `${instanceUrl}/v3/orders/precalculate`,
-            {},
-            {
-                headers: {
-                    token: token
-                }
-            }
-        )
-    },
+    // async precalculate(token: string =tokenEnv) {
+    //     return axios.post(
+    //         `${instanceUrl}/v3/orders/precalculate`,
+    //         {},
+    //         {
+    //             headers: {
+    //                 token: token
+    //             }
+    //         }
+    //     )
+    // },
 
-    async createEmpty(token: string ='guest_token') {
+    async createEmpty(token: string =tokenEnv) {
         return axios.post(
             `${instanceUrl}/v3/orders/create-empty`,
             {},
             {
                 headers: {
-                    token: token
+                    Token: token
                 }
             }
         );
@@ -273,9 +303,14 @@ export const Api = {
         );
     },
 
-    async getHistory(userId: number) {
+    async getHistory(userId: number, token: string) {
         return axios.get<Array<IOrderHistoryItem>>(
-            `${globalUrl}/orders/history/${userId}`
+            `${globalUrl}/orders/history/${userId}`,
+            {
+                headers: {
+                    Token: token
+                }
+            }
         );
     },
 
@@ -295,18 +330,19 @@ export const Api = {
             `${globalUrl}/profile/get-city`,
             {
                 headers: {
-                    token
+                    Token: token
                 }
             }
         )
     },
 
-    async setUserCity(data: { token: string, city: string }) {
+    async setUserCity(token: string, city: ICity ) {
         return axios.post<any>(
             `${globalUrl}/profile/set-city`,
-            data, {
+            city, {
             headers: {
-                timeout: 8000
+                timeout: 8000,
+                Token: token
             }
         }
         )
@@ -335,23 +371,23 @@ export const Api = {
     },
 
 
-    async getAllThumbnails(token: string ='guest_token') {
+    async getAllThumbnails(token: string =tokenEnv) {
         return axios.get<Array<IThumbnailDto>>(
             `${instanceUrl}/v3/stories/groups/active`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );
     },
 
-    async getGroupStoriesById(id: number, token: string ='guest_token') {
+    async getGroupStoriesById(id: number, token: string =tokenEnv) {
         return axios.get<Array<IStoriesRequest>>(
             `${instanceUrl}/v3/stories/groups/${id}/active`, {
             timeout: 8000,
             headers: {
-                token: token
+                Token: token
             }
         }
         );

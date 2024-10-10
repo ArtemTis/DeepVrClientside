@@ -10,3 +10,28 @@ export const selectInstancePrefix = createDraftSafeSelector(
     [(state: RootState) => state.profileReducer.instancePrefix],
     (instancePrefix) => instancePrefix
 )
+
+export const selectAllInstances = createDraftSafeSelector(
+    [(state: RootState) => state.profileReducer.allInstances],
+    (allInstances) => allInstances
+)
+
+export const selectUserCity = createDraftSafeSelector(
+    [(state: RootState) => state.profileReducer.city],
+    (city) => city
+)
+
+// export const selectInstance = createDraftSafeSelector(
+//     [(state: RootState) => state.profileReducer.instance],
+//     (instance) => instance
+// )
+
+export const selectOrdersHistory = createDraftSafeSelector(
+    [(state: RootState) => state.profileReducer.history],
+    (history) => history
+)
+
+export const selectBonuses = createDraftSafeSelector(
+    [(state: RootState) => state.profileReducer.bonuses],
+    (bonuses) => bonuses
+)

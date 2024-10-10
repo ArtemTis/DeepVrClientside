@@ -123,6 +123,8 @@
   padding-bottom: 140px;
   min-height: calc(100vh - var(--footer-height));
   height: auto;
+
+ 
 }
 
 @media screen and (max-width: 400px) {

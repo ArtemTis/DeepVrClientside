@@ -37,7 +37,9 @@ export const StyledButton = styled.button`
     align-items: center;
     gap: 10px;
 
-    width: 20vw;
+    /* width: 20vw; */
+    width: 100%;
+    max-width: 20vw;
     min-width: 240px;
     min-height: 60px;
     height: 60px;

@@ -7,9 +7,10 @@ import { getGameByType } from "../../../../games-feature/store/games/asyncAction
 import { ReqStatus } from "../../../../../lib/utils/enums";
 import { selectGame } from "../../../store/selectors";
 import { IGame } from "../../../../../lib/utils/types";
-import { setGame } from "../../../store/slice";
+import { setCredentials, setDate, setGame, setPlayersCount, setTime } from "../../../store/slice";
 import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
 import { GameCard } from "../../../../../lib/ui/GameCard";
+import ErrorText from "../../../../../lib/ui/ErrorText";
 
 
 export const GameSelect: React.FC = () => {
@@ -18,17 +19,14 @@ export const GameSelect: React.FC = () => {
 
   const selectedTypeId = useAppSelector((state: RootState) => state.bookingReducer.typeGame)?.id;
   const selectedGames = useAppSelector((state: RootState) => state.allGames.gameByType);
-  const selectedGame = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
-  
+  const selectedGamesByType = useAppSelector((state: RootState) => selectGamesByType(state, selectedTypeId));
 
-  useEffect(() => {
-    dispatch(getGameByType(selectedTypeId))
-  }, [])
-
-  const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
+  const reqStatus = useAppSelector((state: RootState) => state.allGames.requestStatus);
+  const isLoading = reqStatus === ReqStatus.pending;
+  const isError = reqStatus === ReqStatus.rejected;
 
   const beforeSelectedGame = useAppSelector(selectGame);
-
+  
   const [selected, setSelected] = useState<IGame | undefined>(beforeSelectedGame);
 
   const onCardClick = (game: IGame) => {
@@ -37,25 +35,35 @@ export const GameSelect: React.FC = () => {
 
   useEffect(() => {
     dispatch(setGame(selected));
-  }, [selected])
 
+    if (selected?.id !== beforeSelectedGame?.id) {
+      dispatch(setDate(undefined));
+      dispatch(setTime(undefined));
+    }
+  }, [selected])
 
 
   return (
     <>
-      <LoadWrapper isLoading={isLoading}>
-        <Row justify="center" gutter={[20, 20]}>
-          {selectedGames &&
-            selectedGames.fullGames.map((game) => (
-              <GameCard
-                game={game}
-                isSelected={selected?.id === game.id}
-                onClick={onCardClick}
-                key={game.id}
-              />
-            ))}
-        </Row>
-      </LoadWrapper>
+      {
+        isError
+          ?
+          <ErrorText>Упс, что-то пошло не так</ErrorText>
+          :
+          <LoadWrapper isLoading={isLoading}>
+            <Row justify="center" gutter={[20, 20]}>
+              {selectedGamesByType &&
+                selectedGamesByType.map((game) => (
+                  <GameCard
+                    game={game}
+                    isSelected={selected?.id === game.id}
+                    onClick={onCardClick}
+                    key={game.id}
+                  />
+                ))}
+            </Row>
+          </LoadWrapper>
+      }
     </>
   );
 };

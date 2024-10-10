@@ -3,12 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../app/store";
 import "../../pages/BookingStyles.css";
 import vrGlasses from "../../../../../assets/Очки 3.png";
-import { selectGame, selectPlayersCount } from "../../../store/selectors";
-import { setPlayersCount } from "../../../store/slice";
+import { selectBookingInstance, selectGame, selectPlayersCount, selectTypeGame } from "../../../store/selectors";
+import { setCredentials, setDate, setPlayersCount, setTime, setTypeGame } from "../../../store/slice";
+import { selectGameTypes } from "../../../../games-feature/store/gamesType/selectors";
+import { gamesTypes } from "../../../../games-feature/store/gamesType/asyncActions";
 
 export const PlayersCountSelect: React.FC = () => {
   const dispatch = useAppDispatch();
   const game = useAppSelector(selectGame);
+  const selectedCount = useAppSelector(selectPlayersCount);
 
   const min = game?.guest_min ?? 1;
   const max = game?.guest_max ?? 1;
@@ -19,10 +22,14 @@ export const PlayersCountSelect: React.FC = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  
   useEffect(() => {
     dispatch(setPlayersCount(count as number));
-  },[count])
+
+    if (count !== selectedCount) {
+      dispatch(setDate(undefined));
+      dispatch(setTime(undefined));
+    }
+  }, [count])
 
   const onChange = () => {
     setCount(inputRef.current?.value);

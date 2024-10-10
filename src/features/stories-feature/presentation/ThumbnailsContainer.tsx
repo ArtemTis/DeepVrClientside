@@ -14,6 +14,7 @@ import { LoadWrapper } from "../../../lib/ui/LoadWrapper";
 import { STORIES_PATH } from "../../../lib/utils/routeConstants";
 import { selectGames } from "../../games-feature/store/games/selectors";
 import { selectSelectedCity } from "../../auth-feature/store/selectors";
+import { selectCity } from "../../booking-feature/store/selectors";
 
 const ThumbnailsContainer = () => {
 
@@ -22,7 +23,7 @@ const ThumbnailsContainer = () => {
     const thumbnails = useAppSelector(selectThumbnails);
     const thumbnailLoadingStatus = useAppSelector(selectThumbnailLoadingStatus);
     const location = useLocation();
-    const city = useAppSelector(selectSelectedCity);
+    const city = useAppSelector(selectCity);
 
     useEffect(() => {
         if (thumbnails.length == 0 && city) dispatch(getAllThumbnails());

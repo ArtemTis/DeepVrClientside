@@ -5,63 +5,51 @@ import { InstanceCard } from '../../../../../lib/ui/InstanceCard'
 import { ReqStatus } from '../../../../../lib/utils/enums'
 import { RootState, useAppDispatch, useAppSelector } from '../../../../../app/store'
 import { IInstance } from '../../../../../lib/utils/types'
+import { allInstances } from '../../../../profile-feature/store/asyncActions'
+import { setBookingInstance, setDate, setGame, setPlayersCount, setTime, setTypeGame } from '../../../store/slice'
 
 const FilialSelect = () => {
 
     const dispatch = useAppDispatch();
 
-    // const selectedInstance = useAppSelector((state: RootState) => state.allGames.instance);
+    const selectedallInstances = useAppSelector((state: RootState) => state.profileReducer.allInstances);
+    const selectedInstance = useAppSelector((state: RootState) => state.bookingReducer.instance);
     const isLoading = useAppSelector((state: RootState) => state.allGames.requestStatus === ReqStatus.pending);
-    // const beforeSelectedGame = useAppSelector(selectInstance);
-    const beforeSelectedGame = undefined;
+
     const [selected, setSelected] = useState<IInstance | undefined>(
-        // beforeSelectedGame
-        );
+        selectedInstance
+    );
 
     useEffect(() => {
-        // dispatch(getInstances())
+        dispatch(allInstances());
+
+        if (selectedallInstances.length === 1) {
+            setSelected(selectedallInstances[0]);
+        }
     }, [])
 
-    const selectedInstance = [
-        {
-            id: 1,
-            title: 'Все филиалы',
-            logo: '',
-            city: ''
-        },
-        {
-            id: 2,
-            title: 'Ул. Мясницкая',
-            logo: '',
-            city: ''
-        },
-        {
-            id: 3,
-            title: 'Ул. Кутякова',
-            logo: '',
-            city: ''
-        },
-        {
-            id: 4,
-            title: 'Ул. Чапаева',
-            logo: '',
-            city: ''
-        },
-    ];
 
     const onCardClick = (instance: IInstance) => {
         setSelected(instance);
     };
 
     useEffect(() => {
-        // dispatch(setInstance(selected));
-      }, [selected])
+        dispatch(setBookingInstance(selected));
+
+        if (selected?.id !== selectedInstance?.id) {
+            dispatch(setTypeGame(undefined));
+            dispatch(setGame(undefined));
+            dispatch(setPlayersCount(undefined));
+            dispatch(setDate(undefined));
+            dispatch(setTime(undefined));
+        }
+    }, [selected])
 
     return (
         <LoadWrapper isLoading={isLoading}>
             <Row justify="center" gutter={[20, 20]}>
-                {selectedInstance &&
-                    selectedInstance.map((instance) => (
+                {selectedallInstances &&
+                    selectedallInstances.map((instance) => (
                         <InstanceCard
                             instance={instance}
                             isSelected={selected?.id === instance.id}

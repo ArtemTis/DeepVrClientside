@@ -1,16 +1,19 @@
 import { Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
-import { useAppDispatch, useAppSelector } from "../../../../../app/store";
+import { RootState, useAppDispatch, useAppSelector } from "../../../../../app/store";
 import ru from "date-fns/locale/ru";
 
 import "../../pages/BookingStyles.css";
-import { selectAvalibleDayAndTime } from "../../../store/avalibleTime/selectors";
+import { selectAvalibleDayAndTime, selectReqStatus } from "../../../store/avalibleTime/selectors";
 import { getAvalibleDateAndTime } from "../../../store/avalibleTime/asyncActions";
 import styled from "styled-components";
 import { selectDate } from "../../../store/selectors";
-import { setDate } from "../../../store/slice";
+import { setCredentials, setDate, setTime } from "../../../store/slice";
 import { IAvalibleTime } from "../../../../../lib/utils/types";
+import ErrorText from "../../../../../lib/ui/ErrorText";
+import { ReqStatus } from "../../../../../lib/utils/enums";
+import { LoadWrapper } from "../../../../../lib/ui/LoadWrapper";
 
 export const DateSelect: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,23 +25,37 @@ export const DateSelect: React.FC = () => {
 
   useEffect(() => {
     dispatch(getAvalibleDateAndTime());
-  },[])
+  }, [])
 
   const preselectedDate = useAppSelector(selectAvalibleDayAndTime);
   const selectedDate = useAppSelector(selectDate);
-  
+
+  // const reqStatus = useAppSelector(selectReqStatus);
+  const reqStatus = useAppSelector((state: RootState) => state.timeReducer.reqStatus);
+
+  // const reqStatus = useAppSelector((state: RootState) => state.allGames.requestStatus);
+  const isLoading = reqStatus === ReqStatus.pending;
+  const isError = reqStatus === ReqStatus.rejected;
+
   const [selected, setSelected] = useState<Date | undefined>(
     selectedDate ? new Date(selectedDate) : undefined
   );
-  
+
+  console.log(selectedDate);
+  console.log(preselectedDate);
+
 
   useEffect(() => {
     if (!!selected) {
       selected.setMinutes(-selected.getTimezoneOffset());
       dispatch(setDate(selected.toISOString()));
+
+      if (selected.toISOString().slice(0, 10) !== selectedDate?.slice(0, 10)) {
+        dispatch(setTime(undefined));
+      }
     }
   }, [selected])
-  
+
 
   const onChangeDate = (d: Date) => {
     setSelected(d);
@@ -49,26 +66,33 @@ export const DateSelect: React.FC = () => {
     <>
       <Row justify="center">
         <Col xs={22} sm={20} md={14} lg={12} xl={10} xxl={8}>
-          <ReactDatePicker
-            minDate={minDate}
-            maxDate={maxDate}
-            onChange={onChangeDate}
-            selected={selected}
-            calendarClassName="datepicker-window"
-            renderDayContents={(dayOfMonth, date) => (
-              <CustomDay
-                dayOfMonth={dayOfMonth}
-                date={date as Date}
-                maxDate={maxDate}
-                minDate={minDate}
-                selectedDate={selected}
-                preselectedDate={preselectedDate}
-              />
-            )}
-            inline
-            calendarStartDay={1}
-            locale={"ru"}
-          />
+          {
+            isError ?
+              <ErrorText>Упс, что-то пошло не так</ErrorText>
+              :
+              <LoadWrapper isLoading={isLoading}>
+                <ReactDatePicker
+                  minDate={minDate}
+                  maxDate={maxDate}
+                  onChange={onChangeDate}
+                  selected={selected}
+                  calendarClassName="datepicker-window"
+                  renderDayContents={(dayOfMonth, date) => (
+                    <CustomDay
+                      dayOfMonth={dayOfMonth}
+                      date={date as Date}
+                      maxDate={maxDate}
+                      minDate={minDate}
+                      selectedDate={selected}
+                      preselectedDate={preselectedDate}
+                    />
+                  )}
+                  inline
+                  calendarStartDay={1}
+                  locale={"ru"}
+                />
+              </LoadWrapper>
+          }
         </Col>
       </Row>
     </>
@@ -81,7 +105,7 @@ interface CustomDayProps {
   minDate: Date;
   maxDate: Date;
   selectedDate: Date | undefined;
-  preselectedDate:  IAvalibleTime[];
+  preselectedDate: IAvalibleTime[];
 }
 const CustomDay: React.FC<CustomDayProps> = ({
   dayOfMonth,
@@ -92,8 +116,8 @@ const CustomDay: React.FC<CustomDayProps> = ({
   preselectedDate
 }) => {
 
-  let emptyDay : string = `${new Date(`${preselectedDate.find(day => day.times.length === 0)?.date}`)}`;
-  let unselectDate : string = `${date}`;
+  let emptyDay: string = `${new Date(`${preselectedDate.find(day => day.times.length === 0)?.date}`)}`;
+  let unselectDate: string = `${date}`;
 
   const isSelected =
     selectedDate &&
@@ -107,16 +131,16 @@ const CustomDay: React.FC<CustomDayProps> = ({
 
   useEffect(() => {
     dispatch(setDate(`${selectedDate}`.slice(0, 15)));
-  },[selectedDate])
-  
-  
+  }, [selectedDate])
+
+
   return (
     <StyledDay
       className={`datepicker-customDay${isUnselectable
-          ? " datepicker-customDay-unselectable"
-          : isSelected
-            ? " datepicker-customDay-selected"
-            : ""
+        ? " datepicker-customDay-unselectable"
+        : isSelected
+          ? " datepicker-customDay-selected"
+          : ""
         }`}
     >
       <div className="datepicker-customDay-day">{dayOfMonth}</div>

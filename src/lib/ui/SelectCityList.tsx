@@ -6,6 +6,7 @@ import { selectSelectedCity } from "../../features/auth-feature/store/selectors"
 import { ReqStatus } from "../utils/enums";
 import { LoadWrapper } from "./LoadWrapper";
 import styled from "styled-components";
+import { selectCity } from "../../features/booking-feature/store/selectors";
 
 
 interface Props {
@@ -16,24 +17,29 @@ interface Props {
 export const SelectCityList: React.FC<Props> = ({ selected, onSelect }) => {
   const dispatch = useAppDispatch();
 
-  const selectedCity = useAppSelector(selectSelectedCity);
+  // const selectedCity = useAppSelector(selectSelectedCity);
+  const selectedCity = useAppSelector(selectCity);
+  
   const cityList = useAppSelector(state => state.profileReducer.allCities);
-  const loadingStatus = useAppSelector(state => state.profileReducer.reqStatus === ReqStatus.pending);
+  const isLoading = useAppSelector(state => state.profileReducer.reqStatus === ReqStatus.pending);
+  const loading = useAppSelector(state => state.profileReducer.reqStatus);
 
   useEffect(() => {
-    dispatch(allCities());
+    if (cityList.length === 0 && !selectedCity) {
+      dispatch(allCities());
+    }
   }, []);
 
   return (
-    <LoadWrapper isLoading={loadingStatus} height={1}>
+    <LoadWrapper isLoading={isLoading} height={1}>
       <CitiesList>
         {!!cityList ? (
           cityList.map((c) => {
             return (
               <StyledCity
-                className={`city-select-row${c.id === selected?.id || selectedCity?.id ? " city-select-row-selected" : ""
+                className={`city-select-row${c.id === (selected?.id || selectedCity?.id) ? " city-select-row-selected" : ""
                   }`}
-                key={c.code}
+                key={c.id}
                 onClick={() => onSelect(c)}
               >
                 {c.name}
@@ -53,7 +59,7 @@ const CitiesList = styled.div`
   flex-direction: column;
   gap: 14px;
   margin-bottom: 14px;
-
+  margin-top: 5px;
 `
 
 const StyledCity = styled.div`
@@ -67,7 +73,8 @@ const StyledCity = styled.div`
 
 
   &.city-select-row{
-    width: 20vw;
+    /* width: 20vw; */
+    width: 280px;
     padding: 14px 0px;
   }
   

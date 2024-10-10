@@ -43,7 +43,7 @@ export const PhoneInput: React.FC<Props> = ({
     <FormField
       name="phone"
       placeholder="Введите телефон"
-      pattern={pattern}
+      pattern={pattern.value}
       type="tel"
       control={control}
       error={error}
